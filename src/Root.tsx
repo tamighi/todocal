@@ -1,15 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainScreen } from "./screens";
-
-const Stack = createNativeStackNavigator();
+import Navs from "./Navs";
 
 const Root = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="home" component={MainScreen} />
-      </Stack.Navigator>
+      <Navs />
     </NavigationContainer>
   );
 };
