@@ -14,7 +14,7 @@ const Main = () => {
         drawerType: "back",
         swipeEdgeWidth: 200,
       }}
-      drawerContent={Sidebar}
+      drawerContent={(props) => <Sidebar {...props} />}
     >
       <Drawer.Screen
         name="Main"

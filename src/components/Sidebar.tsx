@@ -1,6 +1,7 @@
+import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { View } from "react-native";
 
-const Sidebar = () => {
+const Sidebar: React.FC<DrawerContentComponentProps> = () => {
   return <View></View>;
 };
 
