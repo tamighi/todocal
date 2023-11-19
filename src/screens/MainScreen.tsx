@@ -1,10 +1,10 @@
-import { Box, Text } from "../atoms";
+import { Container, Text } from "../atoms";
 
 const MainScreen = () => {
   return (
-    <Box flex={1} justifyContent="center" alignItems="center">
+    <Container justifyContent="center" alignItems="center">
       <Text>Hello world!</Text>
-    </Box>
+    </Container>
   );
 };
 

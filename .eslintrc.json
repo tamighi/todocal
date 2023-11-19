@@ -1,5 +1,5 @@
 {
-  "root" : true,
+  "root": true,
   "env": {
     "es2024": true
   },
@@ -17,5 +17,8 @@
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "rules": {
+    "react/prop-types": "off"
+  }
 }
