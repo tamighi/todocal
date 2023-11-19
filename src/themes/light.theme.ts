@@ -17,13 +17,19 @@ const palette = {
 const theme = createTheme({
   colors: {
     mainBackground: palette.white,
-    cardPrimaryBackground: palette.purplePrimary,
+    cardPrimaryBackground: palette.purpleLight,
+
+    $background: palette.white,
     $foreground: palette.black,
+
+    $sidebarBackground: palette.greenLight,
+    $sidebarForeground: palette.greenDark,
+    $sidebarSeparator: palette.greenLight,
   },
   spacing: {
     s: 8,
     m: 16,
-    l: 24,
+    lg: 24,
     xl: 40,
   },
   breakpoints: {
@@ -44,8 +50,9 @@ const theme = createTheme({
       lineHeight: 24,
     },
     sidebar: {
+      color: "$sidebarForeground",
       fontWeight: "bold",
-      fontSize: 34,
+      fontSize: 12,
     },
   },
 });

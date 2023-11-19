@@ -1,8 +1,17 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { View } from "react-native";
+import { Box, Text } from "../atoms";
+import { SafeAreaView } from "react-native";
 
 const Sidebar: React.FC<DrawerContentComponentProps> = () => {
-  return <View></View>;
+  return (
+    <Box flex={1} bg="$sidebarBackground">
+      <SafeAreaView>
+        <Text variant="sidebar" m="lg">
+          Hello App
+        </Text>
+      </SafeAreaView>
+    </Box>
+  );
 };
 
 export default Sidebar;
