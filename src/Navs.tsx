@@ -1,10 +1,22 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MainScreen } from "./screens";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigatorScreenParams } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Sidebar } from "./components";
+import { MainScreen } from "./screens";
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+export type HomeDrawerParamList = {
+  Main: object;
+};
+
+export type RootStackParamList = {
+  Home: NavigatorScreenParams<HomeDrawerParamList>;
+  Detail: {
+    day: string;
+  };
+};
+
+const Stack = createNativeStackNavigator<HomeDrawerParamList>();
+const Drawer = createDrawerNavigator<HomeDrawerParamList>();
 
 const Main = () => {
   return (
@@ -31,7 +43,7 @@ const Navs = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Main"
         component={Main}
         options={{ headerShown: false }}
       />
