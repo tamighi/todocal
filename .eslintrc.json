@@ -1,0 +1,21 @@
+{
+  "env": {
+    "es2024": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "rules": {
+    "semi": "error"
+  }
+}
