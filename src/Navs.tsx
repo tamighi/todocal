@@ -15,8 +15,8 @@ export type RootStackParamList = {
   };
 };
 
-const Stack = createNativeStackNavigator<HomeDrawerParamList>();
 const Drawer = createDrawerNavigator<HomeDrawerParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Main = () => {
   return (
@@ -43,7 +43,7 @@ const Navs = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Main"
+        name="Home"
         component={Main}
         options={{ headerShown: false }}
       />
