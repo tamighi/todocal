@@ -1,1 +1,1 @@
-export { default as notes } from "./notes";
+export { default as NOTES_FIXTURES } from "./notes";
