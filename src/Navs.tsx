@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MainScreen } from "./screens";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Sidebar } from "./components";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -13,6 +14,7 @@ const Main = () => {
         drawerType: "back",
         swipeEdgeWidth: 200,
       }}
+      drawerContent={Sidebar}
     >
       <Drawer.Screen
         name="Main"
