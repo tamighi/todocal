@@ -15,7 +15,6 @@
     "@shopify/restyle": "^2.4.2",
     "expo": "~49.0.15",
     "expo-status-bar": "~1.6.0",
-    "lorem-ipsum": "^2.0.8",
     "react": "18.2.0",
     "react-native": "0.72.6",
     "react-native-reanimated": "~3.3.0"
@@ -28,6 +27,7 @@
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.54.0",
     "eslint-plugin-react": "^7.33.2",
+    "lorem-ipsum": "^2.0.8",
     "prettier": "^3.1.0",
     "react-dom": "18.2.0",
     "react-native-web": "~0.19.6",
