@@ -14,7 +14,7 @@ const lorem = new LoremIpsum({
   },
 });
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
   NOTES_FIXTURES.push({
     id: i.toString(),
     title: lorem.generateWords(Math.round(Math.random() * 10) + 2),
