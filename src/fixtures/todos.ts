@@ -1,5 +1,5 @@
 import { LoremIpsum } from "lorem-ipsum";
-import { Todos } from "../models";
+import { Todos } from "@/models";
 
 const NOTES_FIXTURES: Array<Todos> = [];
 

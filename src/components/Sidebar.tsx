@@ -1,5 +1,5 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { Box } from "../atoms";
+import { Box } from "@/atoms";
 import { SafeAreaView } from "react-native";
 import { Link } from "@react-navigation/native";
 

@@ -1,4 +1,4 @@
-import { Container, Text } from "../atoms";
+import { Container, Text } from "@/atoms";
 
 const MainScreen = () => {
   return (

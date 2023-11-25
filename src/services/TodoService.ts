@@ -1,7 +1,9 @@
-import { TODO_FIXTURES } from "../fixtures";
+import { TODO_FIXTURES } from "@/fixtures";
 
-export const TodoService = {
+const TodoService = {
   getList: async () => {
     return TODO_FIXTURES;
   },
 };
+
+export default TodoService;
