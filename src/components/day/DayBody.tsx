@@ -1,10 +1,12 @@
 import React from "react";
 
-import { Box, Text } from "@/atoms";
-import { Todos } from "@/models";
+import { Box } from "@/atoms";
+import { Todo } from "@/models";
+
+import DayTodo from "./DayTodo";
 
 interface Props {
-  todos?: Todos[];
+  todos?: Todo[];
 }
 
 const DayBody: React.FC<Props> = (props) => {
@@ -12,8 +14,8 @@ const DayBody: React.FC<Props> = (props) => {
 
   return (
     <Box margin="s" gap="s">
-      {todos.map((note) => (
-        <Text key={note.id}>{note.title}</Text>
+      {todos.map((todo) => (
+        <DayTodo key={todo.id} todo={todo} />
       ))}
     </Box>
   );

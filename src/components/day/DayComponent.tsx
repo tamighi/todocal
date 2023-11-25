@@ -12,6 +12,7 @@ interface Props {
 
 const DayComponent: React.FC<Props> = (props) => {
   const { day = new Date().toLocaleDateString() } = props;
+
   const { todos } = useTodos();
 
   return (

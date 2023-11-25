@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Todos } from "@/models";
+import { Todo } from "@/models";
 import { TodoService } from "@/services";
 
 const useTodos = () => {
-  const [todos, setTodos] = React.useState<Todos[]>();
+  const [todos, setTodos] = React.useState<Todo[]>();
 
   React.useEffect(() => {
     const fetchTodos = async () => {

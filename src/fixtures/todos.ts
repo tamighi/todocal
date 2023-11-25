@@ -1,7 +1,7 @@
 import { LoremIpsum } from "lorem-ipsum";
-import { Todos } from "@/models";
+import { Todo } from "@/models";
 
-const NOTES_FIXTURES: Array<Todos> = [];
+const NOTES_FIXTURES: Array<Todo> = [];
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
