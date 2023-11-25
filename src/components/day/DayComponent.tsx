@@ -1,8 +1,11 @@
 import React from "react";
 
-import { Box, Container, Text } from "@/atoms";
+import { Container } from "@/atoms";
 import { Todos } from "@/models";
 import { TodoService } from "@/services";
+
+import DayBody from "./DayBody";
+import DayHeader from "./DayHeader";
 
 interface Props {
   day?: string;
@@ -23,12 +26,8 @@ const DayComponent: React.FC<Props> = (props) => {
 
   return (
     <Container>
-      <Box margin="s">
-        <Text>{day}</Text>
-      </Box>
-      <Box margin="s" gap="s">
-        {todos?.map((note) => <Text key={note.id}>{note.title}</Text>)}
-      </Box>
+      <DayHeader day={day} />
+      <DayBody todos={todos} />
     </Container>
   );
 };
