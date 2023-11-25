@@ -3,7 +3,7 @@ import { DayComponent } from "@/components";
 
 const DayScreen = () => {
   return (
-    <Container margin="xl" flexDirection="row">
+    <Container margin="xl">
       <DayComponent />
     </Container>
   );
