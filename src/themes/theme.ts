@@ -15,6 +15,7 @@ const palette = {
 };
 
 const theme = createTheme({
+  // Define what component has what colors
   colors: {
     mainBackground: palette.white,
     cardPrimaryBackground: palette.purpleLight,
@@ -26,16 +27,19 @@ const theme = createTheme({
     $sidebarForeground: palette.greenDark,
     $sidebarSeparator: palette.greenLight,
   },
+  // Set default spacings
   spacing: {
     s: 8,
     m: 16,
     lg: 24,
     xl: 40,
   },
+  // Set default breakpoints
   breakpoints: {
     phone: 0,
     tablet: 768,
   },
+  // Set default borderRadii
   borderRadii: {
     xs: 4,
     sm: 16,
@@ -43,6 +47,7 @@ const theme = createTheme({
     lg: 64,
     hg: 128,
   },
+  // Set textVariants
   textVariants: {
     defaults: {
       color: "$foreground",
@@ -53,6 +58,12 @@ const theme = createTheme({
       color: "$sidebarForeground",
       fontWeight: "bold",
       fontSize: 12,
+    },
+  },
+  // Set cardVariants
+  cardVariants: {
+    primary: {
+      backgroundColor: "$cardPrimaryBackground",
     },
   },
 });

@@ -1,2 +1,2 @@
-export { default as theme } from "./light.theme";
-export type { Theme } from "./light.theme";
+export { default as theme } from "./theme";
+export type { Theme } from "./theme";

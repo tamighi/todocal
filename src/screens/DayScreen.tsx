@@ -1,21 +1,38 @@
-import { Container, Text } from "../atoms";
-import { NOTES_FIXTURES } from "../fixtures";
+import React from "react";
+import { Box, Container, Text } from "../atoms";
+import { TodoService } from "../services/TodoService";
+import { Todos } from "../models";
 
-const DayScreen = () => {
+interface Props {
+  day?: string;
+}
+
+const DayScreen: React.FC<Props> = (props) => {
+  const { day = new Date().toLocaleDateString() } = props;
+  const [todos, setTodos] = React.useState<Todos[]>();
+
+  React.useEffect(() => {
+    const fetchTodos = async () => {
+      const todos = await TodoService.getList();
+      setTodos(todos);
+    };
+
+    fetchTodos();
+  });
+
   return (
-    <Container>
-      <Container
-        margin="xl"
-        padding="s"
-        gap="s"
-        borderStyle="solid"
-        borderColor="$foreground"
-        borderWidth={2}
-      >
-        {NOTES_FIXTURES.map((note) => (
-          <Text key={note.id}>{note.title}</Text>
-        ))}
-      </Container>
+    <Container
+      margin="xl"
+      borderStyle="solid"
+      borderColor="$foreground"
+      borderWidth={2}
+    >
+      <Box margin="s">
+        <Text>{day}</Text>
+      </Box>
+      <Box margin="s" gap="s">
+        {todos?.map((note) => <Text key={note.id}>{note.title}</Text>)}
+      </Box>
     </Container>
   );
 };

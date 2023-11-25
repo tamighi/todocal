@@ -1,7 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
-import Navs from "./Navs";
 import { theme } from "./themes";
+
+import Navs from "./Navs";
 
 const Root = () => {
   return (

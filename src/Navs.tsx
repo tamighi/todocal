@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Main = () => {
   return (
     <Drawer.Navigator
-      initialRouteName="Main"
+      initialRouteName="Day"
       screenOptions={{
         drawerType: "back",
         swipeEdgeWidth: 200,
