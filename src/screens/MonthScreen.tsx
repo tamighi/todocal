@@ -1,6 +1,6 @@
 import { Container, Text } from "@/atoms";
 
-const MainScreen = () => {
+const MonthScreen = () => {
   return (
     <Container justifyContent="center" alignItems="center">
       <Text>Hello world!</Text>
@@ -8,4 +8,4 @@ const MainScreen = () => {
   );
 };
 
-export default MainScreen;
+export default MonthScreen;

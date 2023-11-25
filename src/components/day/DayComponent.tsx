@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useTodos } from "@/hooks";
-import { Container } from "@/atoms";
+import { Card } from "@/atoms";
 
 import DayBody from "./DayBody";
 import DayHeader from "./DayHeader";
@@ -16,10 +16,10 @@ const DayComponent: React.FC<Props> = (props) => {
   const { todos } = useTodos();
 
   return (
-    <Container>
+    <Card variant="primary">
       <DayHeader day={day} />
       <DayBody todos={todos} />
-    </Container>
+    </Card>
   );
 };
 

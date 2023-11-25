@@ -1,4 +1,4 @@
-import { Box, BoxProps } from "@/atoms";
+import Box, { BoxProps } from "./Box";
 
 const Container: React.FC<BoxProps> = (props) => (
   <Box {...props} flex={1} backgroundColor="$background" />
