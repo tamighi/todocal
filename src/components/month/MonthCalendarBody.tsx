@@ -1,16 +1,14 @@
-import { Box, Text } from "@/atoms";
+import { Box } from "@/atoms";
 import { StyleSheet } from "react-native";
+import { DayComponent } from "../day";
 
-const getDayArray = () => {
+const getCalendarTable = () => {
   const currentDate = new Date();
 
-  const getDaysInMonth = (month: number, year: number) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
-
-  const getFirstDayOfMonth = (month: number, year: number) => {
-    return new Date(year, month, 1).getDay();
-  };
+  const getDaysInMonth = (month: number, year: number) =>
+    new Date(year, month + 1, 0).getDate();
+  const getFirstDayOfMonth = (month: number, year: number) =>
+    new Date(year, month, 1).getDay();
 
   const daysInMonth = getDaysInMonth(
     currentDate.getMonth(),
@@ -21,22 +19,45 @@ const getDayArray = () => {
     currentDate.getFullYear(),
   );
 
-  // Create an array to represent each day in the month
-  const monthDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  const monthDays = Array.from(
+    { length: daysInMonth + firstDayOfMonth },
+    (_, i) => {
+      const day = i + 1 - firstDayOfMonth;
+      return day > 0
+        ? new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+        : null;
+    },
+  );
 
-  // Create an array to represent the blank cells before the first day of the month
-  const blanksBefore = Array.from({ length: firstDayOfMonth }, () => null);
+  const calendarTable: (Date | null)[][] = [];
 
-  return [...blanksBefore, ...monthDays];
+  let rowIndex = -1;
+
+  monthDays.forEach((day, index) => {
+    if (index % 7 === 0) {
+      rowIndex++;
+      calendarTable[rowIndex] = [];
+    }
+    calendarTable[rowIndex].push(day);
+  });
+
+  while (calendarTable[rowIndex].length < 7) calendarTable[rowIndex].push(null);
+
+  return calendarTable;
 };
 
 const MonthCalendarBody = () => {
-  const dayArray = getDayArray();
+  const calendarTable = getCalendarTable();
+
   return (
     <Box style={styles.daysContainer}>
-      {dayArray.map((day, index) => (
-        <Box key={index} style={styles.dayCell}>
-          <Text style={styles.dayText}>{day}</Text>
+      {calendarTable.map((array, index) => (
+        <Box key={index} style={styles.daysRow}>
+          {array.map((day, index) => (
+            <Box key={index} style={styles.dayCell}>
+              {day && <DayComponent day={day} />}
+            </Box>
+          ))}
         </Box>
       ))}
     </Box>
@@ -44,32 +65,17 @@ const MonthCalendarBody = () => {
 };
 
 const styles = StyleSheet.create({
-  calendar: {
-    marginTop: 20,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 10,
-  },
-  dayHeader: {
-    fontWeight: "bold",
-  },
   daysContainer: {
+    flexDirection: "column",
+    height: "100%",
+  },
+  daysRow: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    flex: 1,
   },
   dayCell: {
-    width: "14.28%", // 7 days in a week
-    aspectRatio: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    borderBottomWidth: 1,
-    borderRightWidth: 1,
-    borderColor: "#ccc",
-  },
-  dayText: {
-    textAlign: "center",
+    flex: 1,
+    margin: 3,
   },
 });
 

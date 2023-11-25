@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Text } from "@/atoms";
 
 interface Props {
-  day: string;
+  day: Date;
 }
 
 const DayHeader: React.FC<Props> = (props) => {
@@ -10,7 +10,7 @@ const DayHeader: React.FC<Props> = (props) => {
 
   return (
     <Box margin="s">
-      <Text>{day}</Text>
+      <Text>{day.toLocaleDateString()}</Text>
     </Box>
   );
 };

@@ -7,16 +7,16 @@ import DayBody from "./DayBody";
 import DayHeader from "./DayHeader";
 
 interface Props {
-  day?: string;
+  day?: Date;
 }
 
 const DayComponent: React.FC<Props> = (props) => {
-  const { day = new Date().toLocaleDateString() } = props;
+  const { day = new Date() } = props;
 
   const { todos } = useTodos();
 
   return (
-    <Card variant="primary">
+    <Card variant="primary" height="100%" overflow="hidden">
       <DayHeader day={day} />
       <DayBody todos={todos} />
     </Card>

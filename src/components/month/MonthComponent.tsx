@@ -4,7 +4,7 @@ import MonthCalendar from "./MonthCalendar";
 
 const MonthComponent = () => {
   return (
-    <Container>
+    <Container width="100%">
       <MonthCalendar />
     </Container>
   );
