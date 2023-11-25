@@ -1,8 +1,7 @@
 import React from "react";
 
+import { useTodos } from "@/hooks";
 import { Container } from "@/atoms";
-import { Todos } from "@/models";
-import { TodoService } from "@/services";
 
 import DayBody from "./DayBody";
 import DayHeader from "./DayHeader";
@@ -13,16 +12,7 @@ interface Props {
 
 const DayComponent: React.FC<Props> = (props) => {
   const { day = new Date().toLocaleDateString() } = props;
-  const [todos, setTodos] = React.useState<Todos[]>();
-
-  React.useEffect(() => {
-    const fetchTodos = async () => {
-      const todos = await TodoService.getList();
-      setTodos(todos);
-    };
-
-    fetchTodos();
-  });
+  const { todos } = useTodos();
 
   return (
     <Container>
