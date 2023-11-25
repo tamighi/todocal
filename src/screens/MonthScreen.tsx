@@ -1,9 +1,10 @@
-import { Container, Text } from "@/atoms";
+import { Container } from "@/atoms";
+import { MonthComponent } from "@/components";
 
 const MonthScreen = () => {
   return (
     <Container justifyContent="center" alignItems="center">
-      <Text>Hello world!</Text>
+      <MonthComponent />
     </Container>
   );
 };

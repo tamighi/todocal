@@ -7,7 +7,7 @@ const Sidebar: React.FC<DrawerContentComponentProps> = () => {
   return (
     <Box flex={1} bg="$sidebarBackground">
       <SafeAreaView>
-        <Link to={{ screen: "Main" }}>Main</Link>
+        <Link to={{ screen: "Month" }}>Main</Link>
         <Link to={{ screen: "Day" }}>Day</Link>
       </SafeAreaView>
     </Box>
