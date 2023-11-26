@@ -1,61 +1,35 @@
+import { Pressable } from "react-native";
+
 import { Box } from "@/atoms";
-import { StyleSheet } from "react-native";
-import { DayComponent } from "../day";
+import { DayComponent } from "@/components";
+import { Day } from "@/models";
+import { createCalendarGrid } from "@/utils";
+import { useNavigation } from "@/hooks";
 
-const getCalendarTable = () => {
-  const currentDate = new Date();
+interface Props {
+  days: (Day | null)[];
+}
 
-  const getDaysInMonth = (month: number, year: number) =>
-    new Date(year, month + 1, 0).getDate();
-  const getFirstDayOfMonth = (month: number, year: number) =>
-    new Date(year, month, 1).getDay();
+const MonthCalendarBody: React.FC<Props> = (props) => {
+  const { days } = props;
 
-  const daysInMonth = getDaysInMonth(
-    currentDate.getMonth(),
-    currentDate.getFullYear(),
-  );
-  const firstDayOfMonth = getFirstDayOfMonth(
-    currentDate.getMonth(),
-    currentDate.getFullYear(),
-  );
+  const navigation = useNavigation();
 
-  const monthDays = Array.from(
-    { length: daysInMonth + firstDayOfMonth },
-    (_, i) => {
-      const day = i + 1 - firstDayOfMonth;
-      return day > 0
-        ? new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
-        : null;
-    },
-  );
-
-  const calendarTable: (Date | null)[][] = [];
-
-  let rowIndex = -1;
-
-  monthDays.forEach((day, index) => {
-    if (index % 7 === 0) {
-      rowIndex++;
-      calendarTable[rowIndex] = [];
-    }
-    calendarTable[rowIndex].push(day);
-  });
-
-  while (calendarTable[rowIndex].length < 7) calendarTable[rowIndex].push(null);
-
-  return calendarTable;
-};
-
-const MonthCalendarBody = () => {
-  const calendarTable = getCalendarTable();
+  const calendarTable = createCalendarGrid(days);
 
   return (
-    <Box style={styles.daysContainer}>
+    <Box flexDirection="column" height="90%">
       {calendarTable.map((array, index) => (
-        <Box key={index} style={styles.daysRow}>
+        <Box key={index} flexDirection="row" flex={1}>
           {array.map((day, index) => (
-            <Box key={index} style={styles.dayCell}>
-              {day && <DayComponent day={day} />}
+            <Box key={index} flex={1} margin="s">
+              {day && (
+                <Pressable
+                  onPress={() => navigation.navigate("Day", { dayId: day.id })}
+                >
+                  <DayComponent day={day} />
+                </Pressable>
+              )}
             </Box>
           ))}
         </Box>
@@ -63,20 +37,5 @@ const MonthCalendarBody = () => {
     </Box>
   );
 };
-
-const styles = StyleSheet.create({
-  daysContainer: {
-    flexDirection: "column",
-    height: "100%",
-  },
-  daysRow: {
-    flexDirection: "row",
-    flex: 1,
-  },
-  dayCell: {
-    flex: 1,
-    margin: 3,
-  },
-});
 
 export default MonthCalendarBody;

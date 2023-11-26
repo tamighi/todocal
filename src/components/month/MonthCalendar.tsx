@@ -1,12 +1,25 @@
 import { Container } from "@/atoms";
-import MonthCalendarHeader from "./CalendarHeader";
+import { Month } from "@/models";
+import { padDaysBeforeMonth, populateDaysInMonth } from "@/utils";
+
+import MonthCalendarHeader from "./MonthCalendarHeader";
 import MonthCalendarBody from "./MonthCalendarBody";
 
-const MonthCalendar = () => {
+interface Props {
+  month: Month;
+}
+
+const MonthCalendar: React.FC<Props> = (props) => {
+  const { month } = props;
+
+  const populatedMonth = populateDaysInMonth(month);
+
+  const daysWithPadding = padDaysBeforeMonth(populatedMonth);
+
   return (
     <Container>
       <MonthCalendarHeader />
-      <MonthCalendarBody />
+      <MonthCalendarBody days={daysWithPadding} />
     </Container>
   );
 };

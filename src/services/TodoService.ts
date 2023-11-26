@@ -1,8 +1,9 @@
-import { TODO_FIXTURES } from "@/fixtures";
+import { todoApi } from "@/mockApi";
+import { Todo } from "@/models";
 
 const TodoService = {
-  getList: async () => {
-    return TODO_FIXTURES;
+  getList: async (filter: Partial<Todo> = {}) => {
+    return todoApi.getList(filter);
   },
 };
 

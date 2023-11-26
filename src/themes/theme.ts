@@ -64,7 +64,6 @@ const theme = createTheme({
   cardVariants: {
     primary: {
       backgroundColor: "cardPrimaryBackground",
-      borderRadius: "sm",
     },
   },
 });

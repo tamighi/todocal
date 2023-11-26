@@ -13,7 +13,7 @@ const DayBody: React.FC<Props> = (props) => {
   const { todos = [] } = props;
 
   return (
-    <Box margin="s" gap="s">
+    <Box margin="s" gap="s" flex={1}>
       {todos.map((todo) => (
         <DayTodo key={todo.id} todo={todo} />
       ))}

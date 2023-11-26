@@ -1,10 +1,20 @@
-import { Container } from "@/atoms";
-import { MonthComponent } from "@/components";
+import { Container, Text } from "@/atoms";
+import { MonthCalendar } from "@/components";
+import { useMonth } from "@/hooks";
+import { getDefaultMonthId } from "@/utils";
 
-const MonthScreen = () => {
+export interface MonthScreenProps {
+  monthId?: string;
+}
+
+const MonthScreen: React.FC<MonthScreenProps> = (props) => {
+  const { monthId = getDefaultMonthId() } = props;
+
+  const { month } = useMonth(monthId);
+
   return (
     <Container justifyContent="center" alignItems="center">
-      <MonthComponent />
+      {month ? <MonthCalendar month={month} /> : <Text>Loading ...</Text>}
     </Container>
   );
 };

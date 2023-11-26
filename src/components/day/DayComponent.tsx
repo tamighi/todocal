@@ -1,23 +1,26 @@
 import React from "react";
 
-import { useTodos } from "@/hooks";
 import { Card } from "@/atoms";
+import { dayIdToDate } from "@/utils";
+import { Day } from "@/models";
 
 import DayBody from "./DayBody";
 import DayHeader from "./DayHeader";
 
 interface Props {
-  day?: Date;
+  day: Day;
 }
 
 const DayComponent: React.FC<Props> = (props) => {
-  const { day = new Date() } = props;
+  const { day } = props;
 
-  const { todos } = useTodos();
+  const todos = day.todos;
+
+  const date = dayIdToDate(day.id);
 
   return (
     <Card variant="primary" height="100%" overflow="hidden">
-      <DayHeader day={day} />
+      <DayHeader day={date} />
       <DayBody todos={todos} />
     </Card>
   );

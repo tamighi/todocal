@@ -1,1 +1,1 @@
-export { default as MonthComponent } from "./MonthComponent";
+export { default as MonthCalendar } from "./MonthCalendar";
