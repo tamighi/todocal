@@ -29,6 +29,7 @@ const theme = createTheme({
   },
   // Set default spacings
   spacing: {
+    xxs: 2,
     s: 8,
     m: 16,
     lg: 24,

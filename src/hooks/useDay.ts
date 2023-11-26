@@ -13,7 +13,7 @@ const useDay = (dayId: string) => {
     };
 
     fetchDay();
-  }, []);
+  }, [dayId]);
 
   return { day };
 };

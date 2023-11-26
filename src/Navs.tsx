@@ -5,7 +5,7 @@ import { DayScreen, MonthScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
 
 export type RootStackParamList = {
-  Month: {
+  Month?: {
     monthId?: string;
   };
   Day: {

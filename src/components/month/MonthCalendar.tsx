@@ -17,7 +17,7 @@ const MonthCalendar: React.FC<Props> = (props) => {
   const daysWithPadding = padDaysBeforeMonth(populatedMonth);
 
   return (
-    <Container>
+    <Container width="100%">
       <MonthCalendarHeader />
       <MonthCalendarBody days={daysWithPadding} />
     </Container>
