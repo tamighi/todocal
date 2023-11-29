@@ -1,8 +1,6 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
-
-import { Sidebar } from "@/components";
 import { DayScreen, MonthScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   Month?: {
@@ -13,35 +11,28 @@ export type RootStackParamList = {
   };
 };
 
-const Drawer = createDrawerNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Navs = () => {
   return (
-    <Drawer.Navigator
-      initialRouteName="Month"
-      screenOptions={{
-        drawerType: "back",
-        swipeEdgeWidth: 200,
-      }}
-      drawerContent={(props) => <Sidebar {...props} />}
-    >
-      <Drawer.Screen
+    <Stack.Navigator initialRouteName="Month">
+      <Stack.Screen
         name="Month"
         component={MonthScreen}
         options={{
           headerShown: false,
         }}
       />
-      <Drawer.Screen
+      <Stack.Screen
         name="Day"
         component={DayScreen}
         options={{
           headerShown: false,
         }}
       />
-    </Drawer.Navigator>
+    </Stack.Navigator>
   );
 };
 
