@@ -26,6 +26,8 @@ const theme = createTheme({
     $sidebarBackground: palette.greenLight,
     $sidebarForeground: palette.greenDark,
     $sidebarSeparator: palette.greenLight,
+
+    $greenChip: palette.greenPrimary,
   },
   // Set default spacings
   spacing: {
@@ -65,6 +67,11 @@ const theme = createTheme({
   cardVariants: {
     primary: {
       backgroundColor: "cardPrimaryBackground",
+    },
+  },
+  chipVariants: {
+    green: {
+      backgroundColor: "$greenChip",
     },
   },
 });
