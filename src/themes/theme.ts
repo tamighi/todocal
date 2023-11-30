@@ -32,6 +32,7 @@ const theme = createTheme({
   // Set default spacings
   spacing: {
     xxs: 2,
+    xs: 4,
     s: 8,
     m: 16,
     lg: 24,
@@ -72,6 +73,8 @@ const theme = createTheme({
   chipVariants: {
     green: {
       backgroundColor: "$greenChip",
+      borderRadius: "md",
+      padding: "xs",
     },
   },
 });

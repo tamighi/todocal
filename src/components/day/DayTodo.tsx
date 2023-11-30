@@ -1,5 +1,5 @@
 import { Todo } from "@/models";
-import { Text } from "@/atoms";
+import { Chip, Text } from "@/atoms";
 
 interface Props {
   todo: Todo;
@@ -8,7 +8,12 @@ interface Props {
 const DayTodo: React.FC<Props> = (props) => {
   const { todo } = props;
 
-  return <Text>{todo.content}</Text>;
+  return (
+    <Chip variant="green" flexDirection="row" justifyContent="space-between">
+      <Text>{todo.content}</Text>
+      <Text>{todo.done ? "Done" : "Not done"}</Text>
+    </Chip>
+  );
 };
 
 export default DayTodo;
