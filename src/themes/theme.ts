@@ -2,32 +2,22 @@ import { createTheme } from "@shopify/restyle";
 
 // Palette
 const palette = {
-  purpleLight: "#8C6FF7",
-  purplePrimary: "#5A31F4",
-  purpleDark: "#3F22AB",
-
-  greenLight: "#56DCBA",
-  greenPrimary: "#0ECD9D",
-  greenDark: "#0A906E",
-
   black: "#0B0B0B",
   white: "#F0F2F3",
+
+  purpleLight: "#8C6FF7",
+  greenLight: "#56DCBA",
 };
 
 const theme = createTheme({
   // Define what component has what colors
   colors: {
     mainBackground: palette.white,
+    mainForeground: palette.black,
+
     cardPrimaryBackground: palette.purpleLight,
 
-    $background: palette.white,
-    $foreground: palette.black,
-
-    $sidebarBackground: palette.greenLight,
-    $sidebarForeground: palette.greenDark,
-    $sidebarSeparator: palette.greenLight,
-
-    $greenChip: palette.greenPrimary,
+    chipGreenBackground: palette.greenLight,
   },
   // Set default spacings
   spacing: {
@@ -55,17 +45,12 @@ const theme = createTheme({
   // Set textVariants
   textVariants: {
     defaults: {
-      color: "$foreground",
+      color: "mainForeground",
       fontSize: 16,
       lineHeight: 24,
     },
-    small: {
+    smallChip: {
       fontSize: 8,
-    },
-    sidebar: {
-      color: "$sidebarForeground",
-      fontWeight: "bold",
-      fontSize: 12,
     },
   },
   // Set cardVariants
@@ -74,6 +59,7 @@ const theme = createTheme({
       backgroundColor: "cardPrimaryBackground",
     },
   },
+  // Set chipVariants
   chipVariants: {
     defaults: {
       borderRadius: "md",

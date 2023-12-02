@@ -18,15 +18,15 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
   const calendarTable = createCalendarGrid(days);
 
   return (
-    <Box flexDirection="column" height="100%">
+    <Box flexDirection="column" height="100%" gap="xxs">
       {calendarTable.map((array, index) => (
         <Box key={index} flexDirection="row" flex={1} gap="xxs">
           {array.map((day, index) => (
-            <Box key={index} flexDirection="column" flex={1} gap="xxs">
+            <Box key={index} flex={1}>
               {day && (
                 <Pressable
                   onPress={() => navigation.navigate("Day", { dayId: day.id })}
-                  style={{ height: "90%" }}
+                  style={{ flex: 1 }}
                 >
                   <DayComponent day={day} small />
                 </Pressable>
