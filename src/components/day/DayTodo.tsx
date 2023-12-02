@@ -5,13 +5,14 @@ import { Chip, ChipProps, Text, TextProps } from "@/atoms";
 
 import { Checkbox } from "../Checkbox";
 
-interface Props {
+type Props = {
   todo: Todo;
   minimal?: boolean;
-}
+} & ChipProps;
 
 const DayTodo: React.FC<Props> = (props) => {
-  const { todo, minimal = false } = props;
+  const { todo, minimal = false, ...rest } = props;
+
   const [checked, setChecked] = React.useState(todo.done);
 
   const conditionalChipProps: ChipProps = minimal
@@ -22,8 +23,8 @@ const DayTodo: React.FC<Props> = (props) => {
     ? ({ variant: "smallChip", numberOfLines: 1 } as const)
     : {};
 
-  const handleCheck = (newState: boolean) => {
-    setChecked(newState);
+  const handleCheck = (checked: boolean) => {
+    setChecked(checked);
   };
 
   return (
@@ -33,6 +34,7 @@ const DayTodo: React.FC<Props> = (props) => {
       justifyContent="space-between"
       gap="xs"
       {...conditionalChipProps}
+      {...rest}
     >
       <Text {...conditionalTextProps}>{todo.content}</Text>
       {!minimal && (

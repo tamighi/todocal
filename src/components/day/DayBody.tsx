@@ -1,6 +1,11 @@
 import React from "react";
 
-import { Box, BoxProps } from "@/atoms";
+import DraggableFlatList, {
+  RenderItemParams,
+  ScaleDecorator,
+} from "react-native-draggable-flatlist";
+import { Pressable, StyleProp, ViewStyle } from "react-native";
+
 import { Todo } from "@/models";
 
 import DayTodo from "./DayTodo";
@@ -13,16 +18,29 @@ interface Props {
 const DayBody: React.FC<Props> = (props) => {
   const { todos = [], small = false } = props;
 
-  const containerProps: BoxProps = small
-    ? { gap: "xxs", marginHorizontal: "xxs" }
-    : { margin: "s", gap: "s" };
+  const [todoList, setTodolist] = React.useState(todos);
+
+  const renderItem = ({ item, drag, isActive }: RenderItemParams<Todo>) => {
+    return (
+      <ScaleDecorator>
+        <Pressable onPressIn={!small ? drag : undefined} disabled={isActive}>
+          <DayTodo
+            todo={item}
+            minimal={small}
+            marginBottom={small ? "xxs" : "m"}
+          />
+        </Pressable>
+      </ScaleDecorator>
+    );
+  };
 
   return (
-    <Box {...containerProps} flex={1}>
-      {todos.map((todo) => (
-        <DayTodo key={todo.id} todo={todo} minimal={small} />
-      ))}
-    </Box>
+    <DraggableFlatList
+      data={todoList}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      onDragEnd={({ data }) => setTodolist(data)}
+    />
   );
 };
 
