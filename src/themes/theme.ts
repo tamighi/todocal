@@ -62,11 +62,12 @@ const theme = createTheme({
   // Set chipVariants
   chipVariants: {
     defaults: {
-      borderRadius: "md",
       padding: "xs",
+      borderRadius: "sm",
     },
     small: {
-      padding: "none",
+      paddingVertical: "none",
+      paddingHorizontal: "xs",
       borderRadius: "xs",
     },
   },
