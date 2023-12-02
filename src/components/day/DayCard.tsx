@@ -4,8 +4,8 @@ import { Card } from "@/atoms";
 import { dayIdToDate } from "@/utils";
 import { Day } from "@/models";
 
-import DayBody from "./DayBody";
-import DayHeader from "./DayHeader";
+import DayCardBody from "./DayCardBody";
+import DayCardHeader from "./DayCardHeader";
 
 interface Props {
   day: Day;
@@ -21,8 +21,8 @@ const DayCard: React.FC<Props> = (props) => {
 
   return (
     <Card variant="primary" height="100%" overflow="hidden">
-      <DayHeader dayOnly={small} day={date} />
-      <DayBody small={small} todos={todos} />
+      <DayCardHeader dayOnly={small} day={date} />
+      <DayCardBody small={small} todos={todos} />
     </Card>
   );
 };

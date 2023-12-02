@@ -4,7 +4,7 @@ import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
-import { Pressable, StyleProp, ViewStyle } from "react-native";
+import { Pressable } from "react-native";
 
 import { Todo } from "@/models";
 
@@ -15,7 +15,7 @@ interface Props {
   small?: boolean;
 }
 
-const DayBody: React.FC<Props> = (props) => {
+const DayCardBody: React.FC<Props> = (props) => {
   const { todos = [], small = false } = props;
 
   const [todoList, setTodolist] = React.useState(todos);
@@ -44,4 +44,4 @@ const DayBody: React.FC<Props> = (props) => {
   );
 };
 
-export default DayBody;
+export default DayCardBody;

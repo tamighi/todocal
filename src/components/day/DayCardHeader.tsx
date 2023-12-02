@@ -7,7 +7,7 @@ interface Props {
   dayOnly?: boolean;
 }
 
-const DayHeader: React.FC<Props> = (props) => {
+const DayCardHeader: React.FC<Props> = (props) => {
   const { day, dayOnly = false } = props;
 
   return (
@@ -17,4 +17,4 @@ const DayHeader: React.FC<Props> = (props) => {
   );
 };
 
-export default DayHeader;
+export default DayCardHeader;
