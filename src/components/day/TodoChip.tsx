@@ -36,7 +36,9 @@ const TodoChip: React.FC<Props> = (props) => {
       {...conditionalChipProps}
       {...rest}
     >
-      <Text {...conditionalTextProps}>{todo.content}</Text>
+      <Text style={{ flex: 1 }} {...conditionalTextProps}>
+        {todo.content}
+      </Text>
       {!minimal && (
         <Checkbox margin="xs" onPress={handleCheck} checked={checked} />
       )}
