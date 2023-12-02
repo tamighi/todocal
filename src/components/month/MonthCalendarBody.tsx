@@ -28,7 +28,7 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                   onPress={() => navigation.navigate("Day", { dayId: day.id })}
                   style={{ height: "90%" }}
                 >
-                  <DayComponent day={day} />
+                  <DayComponent day={day} small />
                 </Pressable>
               )}
             </Box>

@@ -1,6 +1,6 @@
 import { Box, Text } from "@/atoms";
 
-const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const MonthCalendarHeader = () => {
   return (

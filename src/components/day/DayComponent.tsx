@@ -9,10 +9,11 @@ import DayHeader from "./DayHeader";
 
 interface Props {
   day: Day;
+  small?: boolean;
 }
 
 const DayComponent: React.FC<Props> = (props) => {
-  const { day } = props;
+  const { day, small = false } = props;
 
   const todos = day.todos;
 
@@ -20,7 +21,7 @@ const DayComponent: React.FC<Props> = (props) => {
 
   return (
     <Card variant="primary" height="100%" overflow="hidden">
-      <DayHeader day={date} />
+      <DayHeader dayOnly={small} day={date} />
       <DayBody todos={todos} />
     </Card>
   );
