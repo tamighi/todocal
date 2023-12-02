@@ -23,7 +23,7 @@ const DayCardBody: React.FC<Props> = (props) => {
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Todo>) => {
     return (
       <ScaleDecorator>
-        <Pressable onPressIn={!small ? drag : undefined} disabled={isActive}>
+        <Pressable onPressIn={drag} disabled={isActive}>
           <TodoChip
             todo={item}
             minimal={small}
