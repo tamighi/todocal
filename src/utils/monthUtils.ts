@@ -1,11 +1,11 @@
 import { Day, Month } from "@/models";
 
 const getDaysInMonth = (year: number, month: number) => {
-  return new Date(year, month + 1, 0).getDate();
+  return new Date(year, month, 0).getDate();
 };
 
 const getFirstDayOfMonth = (year: number, month: number) => {
-  return new Date(year, month, 1).getDay();
+  return new Date(year, month - 1, 1).getDay();
 };
 
 /**
@@ -21,7 +21,7 @@ export const padDaysBeforeMonth = (month: Month): (Day | null)[] => {
   const dayArray: (Day | null)[] = days;
 
   // fill null till first day in the month
-  Array.from(Array(firstDayOfMonth).keys()).forEach(() =>
+  Array.from(Array(firstDayOfMonth - 1).keys()).forEach(() =>
     dayArray.unshift(null),
   );
 
@@ -42,7 +42,7 @@ export const populateDaysInMonth = (month: Month): Month => {
 
   // Fill the rest of the array based on existing days in the month.days array
   for (let i = 1; i <= daysInMonth; i++) {
-    const isoDate = new Date(currentYear, currentMonth - 1, i)
+    const isoDate = new Date(Date.UTC(currentYear, currentMonth - 1, i))
       .toISOString()
       .split("T")[0];
 

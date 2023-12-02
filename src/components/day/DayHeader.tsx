@@ -4,14 +4,15 @@ import { Box, Text } from "@/atoms";
 
 interface Props {
   day: Date;
+  dayOnly?: boolean;
 }
 
 const DayHeader: React.FC<Props> = (props) => {
-  const { day } = props;
+  const { day, dayOnly = false } = props;
 
   return (
     <Box margin="s">
-      <Text>{day.toLocaleDateString()}</Text>
+      <Text>{dayOnly ? day.getDate() : day.toLocaleDateString()}</Text>
     </Box>
   );
 };
