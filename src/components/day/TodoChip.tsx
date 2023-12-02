@@ -10,7 +10,7 @@ type Props = {
   minimal?: boolean;
 } & ChipProps;
 
-const DayTodo: React.FC<Props> = (props) => {
+const TodoChip: React.FC<Props> = (props) => {
   const { todo, minimal = false, ...rest } = props;
 
   const [checked, setChecked] = React.useState(todo.done);
@@ -44,4 +44,4 @@ const DayTodo: React.FC<Props> = (props) => {
   );
 };
 
-export default DayTodo;
+export default TodoChip;

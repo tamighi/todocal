@@ -8,7 +8,7 @@ import { Pressable } from "react-native";
 
 import { Todo } from "@/models";
 
-import DayTodo from "./DayTodo";
+import TodoChip from "./TodoChip";
 
 interface Props {
   todos?: Todo[];
@@ -24,7 +24,7 @@ const DayCardBody: React.FC<Props> = (props) => {
     return (
       <ScaleDecorator>
         <Pressable onPressIn={!small ? drag : undefined} disabled={isActive}>
-          <DayTodo
+          <TodoChip
             todo={item}
             minimal={small}
             marginBottom={small ? "xxs" : "m"}
