@@ -31,6 +31,7 @@ const theme = createTheme({
   },
   // Set default spacings
   spacing: {
+    none: 0,
     xxs: 2,
     xs: 4,
     s: 8,
@@ -58,6 +59,9 @@ const theme = createTheme({
       fontSize: 16,
       lineHeight: 24,
     },
+    small: {
+      fontSize: 8,
+    },
     sidebar: {
       color: "$sidebarForeground",
       fontWeight: "bold",
@@ -71,10 +75,13 @@ const theme = createTheme({
     },
   },
   chipVariants: {
-    green: {
-      backgroundColor: "$greenChip",
+    defaults: {
       borderRadius: "md",
       padding: "xs",
+    },
+    small: {
+      padding: "none",
+      borderRadius: "xs",
     },
   },
 });

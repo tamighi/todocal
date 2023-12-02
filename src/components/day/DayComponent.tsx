@@ -22,7 +22,7 @@ const DayComponent: React.FC<Props> = (props) => {
   return (
     <Card variant="primary" height="100%" overflow="hidden">
       <DayHeader dayOnly={small} day={date} />
-      <DayBody todos={todos} />
+      <DayBody small={small} todos={todos} />
     </Card>
   );
 };

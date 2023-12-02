@@ -11,7 +11,7 @@ const DayHeader: React.FC<Props> = (props) => {
   const { day, dayOnly = false } = props;
 
   return (
-    <Box margin="s">
+    <Box margin="s" alignItems="center">
       <Text>{dayOnly ? day.getDate() : day.toLocaleDateString()}</Text>
     </Box>
   );
