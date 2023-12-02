@@ -28,6 +28,7 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                 <Pressable
                   onPress={() => navigation.navigate("Day", { dayId: day.id })}
                   style={{ flex: 1 }}
+                  onStartShouldSetResponderCapture={() => true}
                 >
                   <DayCard day={day} small />
                 </Pressable>

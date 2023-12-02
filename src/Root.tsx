@@ -1,15 +1,18 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
 import { theme } from "./themes";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Navs from "./Navs";
 
 const Root = () => {
   return (
     <NavigationContainer>
-      <ThemeProvider theme={theme}>
-        <Navs />
-      </ThemeProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ThemeProvider theme={theme}>
+          <Navs />
+        </ThemeProvider>
+      </GestureHandlerRootView>
     </NavigationContainer>
   );
 };
