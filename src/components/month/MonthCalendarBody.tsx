@@ -1,10 +1,11 @@
 import { Pressable } from "react-native";
 
 import { Box } from "@/atoms";
-import { DayComponent } from "../day";
 import { Day } from "@/models";
 import { createCalendarGrid } from "@/utils";
 import { useNavigation } from "@/hooks";
+
+import { DayCard } from "../day";
 
 interface Props {
   days: (Day | null)[];
@@ -28,7 +29,7 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                   onPress={() => navigation.navigate("Day", { dayId: day.id })}
                   style={{ flex: 1 }}
                 >
-                  <DayComponent day={day} small />
+                  <DayCard day={day} small />
                 </Pressable>
               )}
             </Box>

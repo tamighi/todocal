@@ -4,17 +4,14 @@ import { Box, BoxProps, Text } from "@/atoms";
 import { Pressable } from "react-native";
 
 type Props = BoxProps & {
-  initialState: boolean;
+  checked: boolean;
   onPress?: (check: boolean) => void;
 };
 
 export const Checkbox: React.FC<Props> = (props) => {
-  const { initialState, onPress, ...rest } = props;
-
-  const [checked, setChecked] = React.useState(initialState);
+  const { checked, onPress, ...rest } = props;
 
   const handlePress = () => {
-    setChecked(!checked);
     onPress?.(!checked);
   };
 

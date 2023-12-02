@@ -1,1 +1,1 @@
-export { default as DayComponent } from "./DayComponent";
+export { default as DayCard } from "./DayCard";

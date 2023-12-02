@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
 import { Container, Text } from "@/atoms";
-import { DayComponent } from "@/components";
+import { DayCard } from "@/components";
 import { useDay, useNavigation } from "@/hooks";
 import { getDefaultDayId } from "@/utils";
 
@@ -21,7 +21,7 @@ const DayScreen: React.FC<Props> = ({ route }) => {
       <Pressable onPress={() => navigation.navigate("Month")}>
         <Text>Go back</Text>
       </Pressable>
-      {day ? <DayComponent day={day} /> : <Text>Loading ...</Text>}
+      {day ? <DayCard day={day} /> : <Text>Loading ...</Text>}
     </Container>
   );
 };

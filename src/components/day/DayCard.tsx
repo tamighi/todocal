@@ -12,7 +12,7 @@ interface Props {
   small?: boolean;
 }
 
-const DayComponent: React.FC<Props> = (props) => {
+const DayCard: React.FC<Props> = (props) => {
   const { day, small = false } = props;
 
   const todos = day.todos;
@@ -27,4 +27,4 @@ const DayComponent: React.FC<Props> = (props) => {
   );
 };
 
-export default DayComponent;
+export default DayCard;
