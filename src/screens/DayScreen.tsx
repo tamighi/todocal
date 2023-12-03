@@ -5,12 +5,12 @@ import { RootStackParamList } from "@/Navs";
 import { Container, Text } from "@/atoms";
 import { DayCard } from "@/components";
 import { useDay, useNavigation } from "@/hooks";
-import { getDefaultDayId } from "@/utils";
+import { getMonthIdFromDayId } from "@/utils";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 
 const DayScreen: React.FC<Props> = ({ route }) => {
-  const { dayId = getDefaultDayId() } = route.params;
+  const { dayId } = route.params;
 
   const { day } = useDay(dayId);
 
@@ -18,7 +18,11 @@ const DayScreen: React.FC<Props> = ({ route }) => {
 
   return (
     <Container margin="xl">
-      <Pressable onPress={() => navigation.navigate("Month")}>
+      <Pressable
+        onPress={() =>
+          navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) })
+        }
+      >
         <Text>Go back</Text>
       </Pressable>
       {day ? <DayCard day={day} /> : <Text>Loading ...</Text>}

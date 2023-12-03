@@ -5,7 +5,9 @@ const getDaysInMonth = (year: number, month: number) => {
 };
 
 const getFirstDayOfMonth = (year: number, month: number) => {
-  return new Date(year, month - 1, 1).getDay();
+  const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
+
+  return firstDayOfMonth === 0 ? 7 : firstDayOfMonth;
 };
 
 /**
@@ -83,4 +85,33 @@ export const createCalendarGrid = (days: (Day | null)[]): (Day | null)[][] => {
   while (calendarTable[rowIndex].length < 7) calendarTable[rowIndex].push(null);
 
   return calendarTable;
+};
+
+/**
+ * @param monthId Id of the month in format yyyy-mm
+ * @returns the next month in same format.
+ */
+export const getNextMonth = (monthId: string) => {
+  const [year, month] = monthId.split("-").map(Number);
+  const nextMonth = month === 12 ? 1 : month + 1;
+  const nextYear = month === 12 ? year + 1 : year;
+
+  return `${nextYear}-${nextMonth.toString().padStart(2, "0")}`;
+};
+
+/**
+ * @param monthId Id of the month in format yyyy-mm
+ * @returns the previous month in same format.
+ */
+export const getPrevMonth = (monthId: string) => {
+  const [year, month] = monthId.split("-").map(Number);
+  const prevMonth = month === 1 ? 12 : month - 1;
+  const prevYear = month === 1 ? year - 1 : year;
+
+  return `${prevYear}-${prevMonth.toString().padStart(2, "0")}`;
+};
+
+export const getMonthIdFromDayId = (dayId: string) => {
+  const [year, month] = dayId.split("-");
+  return [year, month].join("-");
 };

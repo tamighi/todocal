@@ -1,13 +1,14 @@
 import { DayScreen, MonthScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { getDefaultDayId, getDefaultMonthId } from "./utils";
 
 export type RootStackParamList = {
-  Month?: {
-    monthId?: string;
+  Month: {
+    monthId: string;
   };
   Day: {
-    dayId?: string;
+    dayId: string;
   };
 };
 
@@ -24,6 +25,7 @@ const Navs = () => {
         options={{
           headerShown: false,
         }}
+        initialParams={{ monthId: getDefaultMonthId() }}
       />
       <Stack.Screen
         name="Day"
@@ -31,6 +33,7 @@ const Navs = () => {
         options={{
           headerShown: false,
         }}
+        initialParams={{ dayId: getDefaultDayId() }}
       />
     </Stack.Navigator>
   );

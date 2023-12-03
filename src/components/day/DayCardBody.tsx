@@ -20,6 +20,10 @@ const DayCardBody: React.FC<Props> = (props) => {
 
   const [todoList, setTodolist] = React.useState(todos);
 
+  React.useEffect(() => {
+    setTodolist(todos);
+  }, [todos]);
+
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Todo>) => {
     return (
       <ScaleDecorator>

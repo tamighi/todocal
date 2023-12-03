@@ -13,7 +13,7 @@ const useMonth = (monthId: string) => {
     };
 
     fetchMonth();
-  }, []);
+  }, [monthId]);
 
   return { month };
 };

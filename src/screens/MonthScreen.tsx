@@ -1,20 +1,27 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+import { RootStackParamList } from "@/Navs";
 import { Container, Text } from "@/atoms";
-import { MonthCalendar } from "@/components";
+import { MonthCalendar, MonthHeader } from "@/components";
 import { useMonth } from "@/hooks";
-import { getDefaultMonthId } from "@/utils";
 
-export interface MonthScreenProps {
-  monthId?: string;
-}
+type Props = NativeStackScreenProps<RootStackParamList, "Month">;
 
-const MonthScreen: React.FC<MonthScreenProps> = (props) => {
-  const { monthId = getDefaultMonthId() } = props;
+const MonthScreen: React.FC<Props> = ({ route }) => {
+  const { monthId } = route.params;
 
   const { month } = useMonth(monthId);
 
   return (
     <Container justifyContent="center" alignItems="center">
-      {month ? <MonthCalendar month={month} /> : <Text>Loading ...</Text>}
+      {month ? (
+        <>
+          <MonthHeader month={month} />
+          <MonthCalendar month={month} />
+        </>
+      ) : (
+        <Text>Loading ...</Text>
+      )}
     </Container>
   );
 };
