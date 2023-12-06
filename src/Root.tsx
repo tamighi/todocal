@@ -1,10 +1,10 @@
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
-import { theme } from "./themes";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-import Navs from "./Navs";
 import { SafeAreaView } from "react-native";
+
+import { theme } from "./themes";
+import Navs from "./Navs";
 
 const Root = () => {
   return (
