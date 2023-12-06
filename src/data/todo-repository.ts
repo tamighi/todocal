@@ -1,45 +1,47 @@
-import { source } from "./local/database";
+import { FindManyOptions, Repository } from "typeorm";
+import { Database } from "./local/database";
 import { TodoEntity } from "./local/todo-entity";
 
 export class TodosRepository {
-  async getTodos(): Promise<TodoEntity[]> {
-    if (!source.isInitialized) await source.initialize();
+  private repository: Repository<TodoEntity>;
 
-    const todos = await TodoEntity.find();
+  constructor() {
+    this.repository = Database.AppDataSource.getRepository(TodoEntity);
+  }
+
+  async getList(options?: FindManyOptions): Promise<TodoEntity[]> {
+    const todos = await this.repository.find(options);
 
     return todos;
   }
 
-  async getTodo(todoId: TodoEntity["id"]): Promise<TodoEntity> {
-    if (!source.isInitialized) await source.initialize();
+  async getOne(todoId: TodoEntity["id"]): Promise<TodoEntity> {
+    const todo = await this.repository.findOneByOrFail({ id: todoId });
 
-    const todo = await TodoEntity.findOneByOrFail({ id: todoId });
     return todo;
   }
 
-  async createTodo(payload: Pick<TodoEntity, "content">) {
-    if (!source.isInitialized) await source.initialize();
-
+  async create(payload: Pick<TodoEntity, "content">) {
     const todo = new TodoEntity();
+
     todo.content = payload.content;
+
     await todo.save();
   }
 
-  async updateTodo(
+  async update(
     todoId: TodoEntity["id"],
     payload: Partial<Pick<TodoEntity, "content" | "done">>,
   ) {
-    if (!source.isInitialized) await source.initialize();
+    const todo = await this.repository.findOneByOrFail({ id: todoId });
 
-    const todo = await TodoEntity.findOneByOrFail({ id: todoId });
     todo.content = payload.content ?? todo.content;
     todo.done = payload.done ?? todo.done;
-    await todo.save();
+
+    await this.repository.save(todo);
   }
 
-  async deleteTodo(todoId: TodoEntity["id"]) {
-    if (!source.isInitialized) await source.initialize();
-
-    await TodoEntity.delete(todoId);
+  async deleteOne(todoId: TodoEntity["id"]) {
+    await this.repository.delete(todoId);
   }
 }
