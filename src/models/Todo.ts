@@ -1,5 +1,5 @@
 export default interface Todo {
-  id: string;
+  id: number;
   content: string;
   done: boolean;
   dayId: string;

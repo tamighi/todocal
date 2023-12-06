@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   BaseEntity,
   UpdateDateColumn,
+  ManyToOne,
 } from "typeorm";
+import { DayEntity } from "./day-entity";
 
 @Entity("todo")
 export class TodoEntity extends BaseEntity {
@@ -17,6 +19,9 @@ export class TodoEntity extends BaseEntity {
 
   @Column("boolean", { default: false })
   done: boolean;
+
+  @ManyToOne(() => DayEntity, (day) => day.todos)
+  day: string;
 
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;
