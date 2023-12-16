@@ -3,16 +3,15 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  BaseEntity,
   UpdateDateColumn,
   ManyToOne,
 } from "typeorm";
-import { DayEntity } from "./day-entity";
+import { DayEntity } from "./day.entity";
 
 @Entity("todo")
-export class TodoEntity extends BaseEntity {
+export class TodoEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column("text")
   content: string;
@@ -21,7 +20,7 @@ export class TodoEntity extends BaseEntity {
   done: boolean;
 
   @ManyToOne(() => DayEntity, (day) => day.todos)
-  day: string;
+  day?: DayEntity;
 
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;

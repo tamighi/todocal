@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Card, CardProps } from "@/atoms";
-import { dayIdToDate } from "@/utils";
 import { Day } from "@/models";
 
 import DayCardBody from "./DayCardBody";
@@ -17,7 +16,7 @@ const DayCard: React.FC<Props> = (props) => {
 
   const todos = day.todos;
 
-  const date = dayIdToDate(day.id);
+  const date = new Date(day.id);
 
   return (
     <Card variant="primary" height="100%" overflow="hidden" {...rest}>

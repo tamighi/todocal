@@ -1,6 +1,8 @@
+import Day from "./Day";
+
 export default interface Todo {
-  id: number;
+  id: string;
   content: string;
   done: boolean;
-  dayId: string;
+  day?: Day;
 }

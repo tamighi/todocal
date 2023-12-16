@@ -1,18 +1,24 @@
-import { monthApi } from "@/mockApi";
+import { MonthRepository } from "@/data/repositories";
 import { Month } from "@/models";
+import { MonthEntity } from "@/data/local";
 
-const MonthService = {
-  getOne: async (id: string): Promise<Month> => {
-    let month = monthApi.getOne(id);
-    if (!month) {
-      month = {
-        id,
-        days: [],
-      };
-    }
+import AbstractService from "./AbstractService";
+import DayService from "./DayService";
 
-    return month;
-  },
-};
+// Repository to use in constructor
+const monthRepository = new MonthRepository();
 
-export default MonthService;
+class MonthService extends AbstractService<MonthEntity, Month> {
+  constructor() {
+    super(monthRepository);
+  }
+
+  public entityToType(entity: MonthEntity): Month {
+    return {
+      id: entity.id,
+      days: entity.days?.map((day) => DayService.entityToType(day)),
+    };
+  }
+}
+
+export default new MonthService();

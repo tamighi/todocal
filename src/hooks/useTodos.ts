@@ -3,12 +3,14 @@ import React from "react";
 import { Todo } from "@/models";
 import { TodoService } from "@/services";
 
-const useTodos = (dayId?: string) => {
+const useTodos = (dayId: string) => {
   const [todos, setTodos] = React.useState<Todo[]>();
 
   React.useEffect(() => {
     const fetchTodos = async () => {
-      const todos = await TodoService.getList({ dayId });
+      const todos = await TodoService.getList({
+        where: { day: { id: dayId } },
+      });
       setTodos(todos);
     };
 
