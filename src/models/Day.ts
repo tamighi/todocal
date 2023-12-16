@@ -1,5 +1,5 @@
-import Month from "./Month";
-import Todo from "./Todo";
+import type Month from "./Month";
+import type Todo from "./Todo";
 
 export default interface Day {
   id: string;

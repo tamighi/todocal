@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
 } from "typeorm";
-import { DayEntity } from "./day.entity";
+import type { Day } from "@/models";
 
 @Entity("todo")
 export class TodoEntity {
@@ -19,8 +19,8 @@ export class TodoEntity {
   @Column("boolean", { default: false })
   done: boolean;
 
-  @ManyToOne(() => DayEntity, (day) => day.todos)
-  day?: DayEntity;
+  @ManyToOne("day", "todos")
+  day?: Day;
 
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;

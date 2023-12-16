@@ -21,5 +21,9 @@ export default abstract class AbstractService<
     return this.entityToType(entity);
   }
 
+  public async create(payload: Entity) {
+    return this.repository.create(payload);
+  }
+
   public abstract entityToType(entity: Entity): T;
 }

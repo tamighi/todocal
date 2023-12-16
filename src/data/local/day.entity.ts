@@ -1,15 +1,14 @@
 import { Entity, PrimaryColumn, OneToMany, ManyToOne } from "typeorm";
-import { TodoEntity } from "./todo.entity";
-import { MonthEntity } from "./month.entity";
+import { Month, Todo } from "@/models";
 
 @Entity("day")
 export class DayEntity {
   @PrimaryColumn()
   id: string;
 
-  @OneToMany(() => TodoEntity, (todo) => todo.day)
-  todos?: TodoEntity[];
+  @OneToMany("todo", "day")
+  todos?: Todo[];
 
-  @ManyToOne(() => MonthEntity, (month) => month.days)
-  month?: MonthEntity;
+  @ManyToOne("month", "days")
+  month?: Month;
 }

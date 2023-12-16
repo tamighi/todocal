@@ -13,11 +13,13 @@ const source = new DataSource({
 
 export class Database {
   public static AppDataSource: DataSource;
+  private static initialized = false;
 
-  static init() {
+  static async init() {
+    if (this.initialized) return;
+
     Database.AppDataSource = source;
-    Database.AppDataSource.initialize().then(() => {
-      console.log("TYPEORM initialized");
-    });
+    await Database.AppDataSource.initialize();
+    this.initialized = true;
   }
 }

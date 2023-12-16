@@ -12,14 +12,19 @@ type Options<T> = {
 };
 
 export abstract class AbstractRepository<Entity extends { id: string }> {
-  protected repository: Repository<Entity>;
+  protected repository!: Repository<Entity>;
   protected relations: FindOptionsRelations<Entity>;
+  private entity: EntityTarget<Entity>;
 
   constructor(entity: EntityTarget<Entity>, options: Options<Entity> = {}) {
     const { relations = {} } = options;
 
-    this.repository = Database.AppDataSource.getRepository(entity);
+    this.entity = entity;
     this.relations = relations;
+  }
+
+  public init() {
+    this.repository = Database.AppDataSource.getRepository(this.entity);
   }
 
   public async getList(options?: FindManyOptions<Entity>): Promise<Entity[]> {
@@ -38,7 +43,7 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
   }
 
   public async create(payload: Entity) {
-    await this.repository.save(payload);
+    return this.repository.save(payload);
   }
 
   public async update(id: Entity["id"], payload: Entity) {

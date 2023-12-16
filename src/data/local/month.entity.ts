@@ -1,11 +1,11 @@
 import { Entity, PrimaryColumn, OneToMany } from "typeorm";
-import { DayEntity } from "./day.entity";
+import { Day } from "@/models";
 
 @Entity("month")
 export class MonthEntity {
   @PrimaryColumn()
   id: string;
 
-  @OneToMany(() => DayEntity, (day) => day.month)
-  days?: DayEntity[];
+  @OneToMany("day", "month")
+  days?: Day[];
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { Pressable } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
@@ -6,10 +7,12 @@ import { Container, Text } from "@/atoms";
 import { DayCard } from "@/components";
 import { useDay, useNavigation } from "@/hooks";
 import { getMonthIdFromDayId } from "@/utils";
+import { CreateTodoDialog } from "@/components/day/CreateTodoDialog";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 
 const DayScreen: React.FC<Props> = ({ route }) => {
+  const [open, setOpen] = React.useState(false);
   const { dayId } = route.params;
 
   const { day } = useDay(dayId);
@@ -25,7 +28,11 @@ const DayScreen: React.FC<Props> = ({ route }) => {
       >
         <Text>Go back</Text>
       </Pressable>
+      <Pressable onPress={() => setOpen(true)}>
+        <Text>Create</Text>
+      </Pressable>
       {day ? <DayCard day={day} /> : <Text>Loading ...</Text>}
+      <CreateTodoDialog open={open} />
     </Container>
   );
 };
