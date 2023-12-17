@@ -1,17 +1,17 @@
 import React from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
-
 import { Pressable, TextInput } from "react-native";
-import { Card, Text } from "@/atoms";
-import { useCreateTodo } from "@/hooks/useCreateTodo";
 
-const CreateTodo = (props: { dayId: string }) => {
+import { Card, Text } from "@/atoms";
+import { useMutate } from "@/hooks";
+
+const MutateTodo = (props: { dayId: string }) => {
   const [value, setValue] = React.useState("");
 
-  const { mutate } = useCreateTodo();
+  const { mutate } = useMutate("todo");
 
   const create = async () => {
-    await mutate(props.dayId, { content: value });
+    mutate({ day: { id: props.dayId }, content: value });
   };
 
   return (
@@ -29,7 +29,7 @@ const CreateTodo = (props: { dayId: string }) => {
   );
 };
 
-export const CreateTodoBottomSheet = (props: {
+export const MutateTodoBottomSheet = (props: {
   open: boolean;
   dayId: string;
 }) => {
@@ -49,7 +49,7 @@ export const CreateTodoBottomSheet = (props: {
       detached={true}
       bottomInset={-46}
     >
-      <CreateTodo dayId={dayId} />
+      <MutateTodo dayId={dayId} />
     </BottomSheet>
   );
 };

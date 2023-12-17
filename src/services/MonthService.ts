@@ -12,12 +12,12 @@ class MonthService extends AbstractService<MonthEntity, Month> {
     super(monthRepository);
   }
 
-  public async getOneOrCreate(monthId: string) {
+  public override async getOne(monthId: string) {
     try {
-      const entity = await this.getOne(monthId);
+      const entity = await super.getOne(monthId);
       return entity;
     } catch (_) {
-      return this.create({ id: monthId });
+      return await this.create({ id: monthId });
     }
   }
 
