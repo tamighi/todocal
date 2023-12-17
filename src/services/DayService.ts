@@ -15,15 +15,15 @@ class DayService extends AbstractService<DayEntity, Day> {
     super(dayRepository);
   }
 
-  public async getOneOrCreate(dayId: string) {
+  public override async getOne(dayId: string) {
     try {
-      const entity = await this.getOne(dayId);
+      const entity = await super.getOne(dayId);
       return entity;
     } catch (_) {
       const monthId = getMonthIdFromDayId(dayId);
-      const month = await this.monthService.getOneOrCreate(monthId);
+      const month = await this.monthService.getOne(monthId);
 
-      return this.create({ id: dayId, month });
+      return await this.create({ id: dayId, month });
     }
   }
 

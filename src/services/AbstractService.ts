@@ -22,7 +22,8 @@ export default abstract class AbstractService<
   }
 
   public async create(payload: DeepPartial<Entity>) {
-    return this.repository.create(payload);
+    const entity = await this.repository.create(payload);
+    return this.entityToType(entity);
   }
 
   public abstract entityToType(entity: Entity): T;
