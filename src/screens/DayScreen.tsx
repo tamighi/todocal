@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
 import { Container, Text } from "@/atoms";
-import { CreateTodoBottomSheet, DayCard } from "@/components";
+import { MutateTodoBottomSheet, DayCard } from "@/components";
 import { useGetOne, useNavigation } from "@/hooks";
 import { getMonthIdFromDayId } from "@/utils";
 
@@ -32,7 +32,7 @@ const DayScreen: React.FC<Props> = ({ route }) => {
         <Text>Create</Text>
       </Pressable>
       {day ? <DayCard day={day} /> : <Text>Loading ...</Text>}
-      <CreateTodoBottomSheet dayId={dayId} open={open} />
+      <MutateTodoBottomSheet dayId={dayId} open={open} />
     </Container>
   );
 };
