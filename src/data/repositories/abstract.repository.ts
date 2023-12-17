@@ -6,7 +6,7 @@ import {
   FindOptionsWhere,
   Repository,
 } from "typeorm";
-import { Database } from "../local/database";
+import { Database } from "../database";
 
 type Options<T> = {
   relations?: FindOptionsRelations<T>;

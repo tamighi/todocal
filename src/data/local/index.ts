@@ -1,4 +1,4 @@
-export * from "./database";
+export * from "../database";
 export * from "./day.entity";
 export * from "./month.entity";
 export * from "./todo.entity";

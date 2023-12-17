@@ -1,7 +1,6 @@
 import { DataSource } from "typeorm";
-import { TodoEntity } from "./todo.entity";
-import { DayEntity } from "./day.entity";
-import { MonthEntity } from "./month.entity";
+import { DayEntity, MonthEntity, TodoEntity } from "./local";
+import { dayRepository, monthRepository, todoRepository } from "./repositories";
 
 const source = new DataSource({
   database: "tasks.db",
@@ -11,6 +10,8 @@ const source = new DataSource({
   synchronize: true,
 });
 
+const repositories = [dayRepository, monthRepository, todoRepository];
+
 export class Database {
   public static AppDataSource: DataSource;
 
@@ -19,5 +20,6 @@ export class Database {
 
     Database.AppDataSource = source;
     await Database.AppDataSource.initialize();
+    repositories.forEach((repository) => repository.init());
   }
 }
