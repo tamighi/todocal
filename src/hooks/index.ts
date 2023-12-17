@@ -1,3 +1,3 @@
 export * from "./useGetOne";
-export * from "./useCreate";
+export * from "./useMutate";
 export { default as useNavigation } from "./useNavigation";

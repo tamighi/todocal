@@ -3,12 +3,12 @@ import BottomSheet from "@gorhom/bottom-sheet";
 
 import { Pressable, TextInput } from "react-native";
 import { Card, Text } from "@/atoms";
-import { useCreate } from "@/hooks";
+import { useMutate } from "@/hooks";
 
 const CreateTodo = (props: { dayId: string }) => {
   const [value, setValue] = React.useState("");
 
-  const { mutate } = useCreate("todo");
+  const { mutate } = useMutate("todo");
 
   const create = async () => {
     mutate({ day: { id: props.dayId }, content: value });

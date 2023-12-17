@@ -44,11 +44,10 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
   }
 
   public async create(payload: DeepPartial<Entity>) {
-    const entity = await this.repository.save(payload);
-    return entity;
+    return this.repository.save(payload);
   }
 
-  public async update(id: Entity["id"], payload: Entity) {
+  public async update(id: Entity["id"], payload: DeepPartial<Entity>) {
     const entity = await this.repository.findOneByOrFail({
       id,
     } as FindOptionsWhere<Entity>);
@@ -58,7 +57,7 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
       ...payload,
     };
 
-    await this.repository.save(updatedEntity);
+    return this.repository.save(updatedEntity);
   }
 
   public async deleteOne(id: Entity["id"]) {
