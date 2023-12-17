@@ -5,7 +5,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/Navs";
 import { Container, Text } from "@/atoms";
 import { CreateTodoBottomSheet, DayCard } from "@/components";
-import { useDay, useNavigation } from "@/hooks";
+import { useGetOne, useNavigation } from "@/hooks";
 import { getMonthIdFromDayId } from "@/utils";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
@@ -15,7 +15,7 @@ const DayScreen: React.FC<Props> = ({ route }) => {
 
   const [open, setOpen] = React.useState(false);
 
-  const { day } = useDay(dayId);
+  const { data: day } = useGetOne("day", dayId);
 
   const navigation = useNavigation();
 
