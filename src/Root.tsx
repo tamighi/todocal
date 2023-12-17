@@ -1,10 +1,11 @@
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
-import { theme } from "./themes";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-
-import Navs from "./Navs";
 import { SafeAreaView } from "react-native";
+
+import { DatabaseLoader } from "./data/DatabaseLoader";
+import { theme } from "./themes";
+import Navs from "./Navs";
 
 const Root = () => {
   return (
@@ -12,7 +13,9 @@ const Root = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ThemeProvider theme={theme}>
           <SafeAreaView style={{ flex: 1 }}>
-            <Navs />
+            <DatabaseLoader>
+              <Navs />
+            </DatabaseLoader>
           </SafeAreaView>
         </ThemeProvider>
       </GestureHandlerRootView>

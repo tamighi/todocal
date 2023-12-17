@@ -1,6 +1,10 @@
+import type Day from "./Day";
+
 export default interface Todo {
   id: string;
   content: string;
   done: boolean;
-  dayId: string;
+  day?: Day;
+  createdAt: Date;
+  updatedAt: Date;
 }

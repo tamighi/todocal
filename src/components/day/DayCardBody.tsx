@@ -22,7 +22,7 @@ const DayCardBody: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     setTodolist(todos);
-  }, [todos]);
+  }, []);
 
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Todo>) => {
     return (

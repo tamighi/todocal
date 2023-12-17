@@ -14,7 +14,7 @@ const getFirstDayOfMonth = (year: number, month: number) => {
  * Add padding days in the array
  */
 export const padDaysBeforeMonth = (month: Month): (Day | null)[] => {
-  const { id, days } = month;
+  const { id, days = [] } = month;
 
   const [currentYear, currentMonth] = id.split("-").map(Number);
 
@@ -34,7 +34,7 @@ export const padDaysBeforeMonth = (month: Month): (Day | null)[] => {
  * Add day objects in the array
  */
 export const populateDaysInMonth = (month: Month): Month => {
-  const { id, days } = month;
+  const { id, days = [] } = month;
 
   const [currentYear, currentMonth] = id.split("-").map(Number);
 
@@ -91,7 +91,7 @@ export const createCalendarGrid = (days: (Day | null)[]): (Day | null)[][] => {
  * @param monthId Id of the month in format yyyy-mm
  * @returns the next month in same format.
  */
-export const getNextMonth = (monthId: string) => {
+export const getNextMonthId = (monthId: string) => {
   const [year, month] = monthId.split("-").map(Number);
   const nextMonth = month === 12 ? 1 : month + 1;
   const nextYear = month === 12 ? year + 1 : year;
@@ -103,7 +103,7 @@ export const getNextMonth = (monthId: string) => {
  * @param monthId Id of the month in format yyyy-mm
  * @returns the previous month in same format.
  */
-export const getPrevMonth = (monthId: string) => {
+export const getPrevMonthId = (monthId: string) => {
   const [year, month] = monthId.split("-").map(Number);
   const prevMonth = month === 1 ? 12 : month - 1;
   const prevYear = month === 1 ? year - 1 : year;

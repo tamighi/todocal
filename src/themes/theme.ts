@@ -55,6 +55,9 @@ const theme = createTheme({
   },
   // Set cardVariants
   cardVariants: {
+    defaults: {
+      backgroundColor: "mainBackground",
+    },
     primary: {
       backgroundColor: "cardPrimaryBackground",
     },

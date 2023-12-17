@@ -1,7 +1,7 @@
 import { Box, Text } from "@/atoms";
 import { useNavigation } from "@/hooks";
 import { Month } from "@/models";
-import { getNextMonth, getPrevMonth } from "@/utils";
+import { getNextMonthId, getPrevMonthId } from "@/utils";
 
 import { Pressable } from "react-native";
 
@@ -17,13 +17,13 @@ export const MonthHeader: React.FC<Props> = (props) => {
   return (
     <Box flexDirection="row" width="100%" justifyContent="space-between">
       <Pressable
-        onPress={() => navigate("Month", { monthId: getPrevMonth(month.id) })}
+        onPress={() => navigate("Month", { monthId: getPrevMonthId(month.id) })}
       >
         <Text>Prev</Text>
       </Pressable>
       <Text>{month.id}</Text>
       <Pressable
-        onPress={() => navigate("Month", { monthId: getNextMonth(month.id) })}
+        onPress={() => navigate("Month", { monthId: getNextMonthId(month.id) })}
       >
         <Text>Next</Text>
       </Pressable>
