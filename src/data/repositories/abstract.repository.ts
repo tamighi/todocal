@@ -1,4 +1,5 @@
 import {
+  DeepPartial,
   EntityTarget,
   FindManyOptions,
   FindOptionsRelations,
@@ -42,7 +43,7 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
     return entity;
   }
 
-  public async create(payload: Entity) {
+  public async create(payload: DeepPartial<Entity>) {
     return this.repository.save(payload);
   }
 

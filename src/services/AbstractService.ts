@@ -1,5 +1,5 @@
 import { AbstractRepository } from "@/data/repositories/abstract.repository";
-import { FindManyOptions } from "typeorm";
+import { DeepPartial, FindManyOptions } from "typeorm";
 
 export default abstract class AbstractService<
   Entity extends { id: string },
@@ -21,7 +21,7 @@ export default abstract class AbstractService<
     return this.entityToType(entity);
   }
 
-  public async create(payload: Entity) {
+  public async create(payload: DeepPartial<Entity>) {
     return this.repository.create(payload);
   }
 

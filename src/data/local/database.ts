@@ -13,13 +13,11 @@ const source = new DataSource({
 
 export class Database {
   public static AppDataSource: DataSource;
-  private static initialized = false;
 
   static async init() {
-    if (this.initialized) return;
+    if (this.AppDataSource?.isInitialized) return;
 
     Database.AppDataSource = source;
     await Database.AppDataSource.initialize();
-    this.initialized = true;
   }
 }

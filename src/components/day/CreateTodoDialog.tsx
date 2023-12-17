@@ -1,17 +1,27 @@
 import React from "react";
+import BottomSheet from "@gorhom/bottom-sheet";
+
 import { Pressable, TextInput } from "react-native";
-import { Text } from "@/atoms";
+import { Card, Text } from "@/atoms";
+import { useCreateTodo } from "@/hooks/useCreateTodo";
 
-import { Card, Container } from "@/atoms";
+const CreateTodo = (props: { dayId: string }) => {
+  const [value, setValue] = React.useState("");
 
-const CreateTodo = () => {
-  const [value, setValue] = React.useState("Hello world");
+  const { mutate } = useCreateTodo();
 
-  const create = async () => {};
+  const create = async () => {
+    await mutate(props.dayId, { content: value });
+  };
 
   return (
     <Card width="100%" height="100%">
-      <TextInput value={value} onChangeText={setValue} />
+      <TextInput
+        style={{ padding: 12, borderWidth: 1 }}
+        value={value}
+        onChangeText={setValue}
+        placeholder="Todo"
+      />
       <Pressable onPress={create}>
         <Text>Create</Text>
       </Pressable>
@@ -19,19 +29,27 @@ const CreateTodo = () => {
   );
 };
 
-export const CreateTodoDialog = (props: { open: boolean }) => {
-  const { open } = props;
+export const CreateTodoBottomSheet = (props: {
+  open: boolean;
+  dayId: string;
+}) => {
+  const { open, dayId } = props;
+  // ref
+  const bottomSheetRef = React.useRef<BottomSheet>(null);
+
+  // variables
+  const snapPoints = React.useMemo(() => ["50%"], []);
 
   return (
-    <Container
-      style={{
-        position: "absolute",
-        height: "100%",
-        width: "100%",
-        display: open ? "flex" : "none",
-      }}
+    <BottomSheet
+      ref={bottomSheetRef}
+      index={open ? 0 : -1}
+      snapPoints={snapPoints}
+      enablePanDownToClose={true}
+      detached={true}
+      bottomInset={-46}
     >
-      <CreateTodo />
-    </Container>
+      <CreateTodo dayId={dayId} />
+    </BottomSheet>
   );
 };

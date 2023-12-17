@@ -1,6 +1,7 @@
 import { dayRepository } from "@/data/repositories";
 import { DayEntity } from "@/data/local";
 import { Day } from "@/models";
+import { getMonthIdFromDayId } from "@/utils";
 
 import AbstractService from "./AbstractService";
 import MonthService from "./MonthService";
@@ -19,7 +20,10 @@ class DayService extends AbstractService<DayEntity, Day> {
       const entity = await this.getOne(dayId);
       return entity;
     } catch (_) {
-      return this.create({ id: dayId });
+      const monthId = getMonthIdFromDayId(dayId);
+      const month = await this.monthService.getOneOrCreate(monthId);
+
+      return this.create({ id: dayId, month });
     }
   }
 
