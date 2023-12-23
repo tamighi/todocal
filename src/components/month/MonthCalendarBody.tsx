@@ -1,22 +1,28 @@
 import { Pressable } from "react-native";
 
 import { Box } from "@/atoms";
-import { Day } from "@/models";
-import { createCalendarGrid } from "@/utils";
+import { Month } from "@/models";
+import {
+  createCalendarGrid,
+  padDaysBeforeMonth,
+  populateDaysInMonth,
+} from "@/utils";
 import { useNavigation } from "@/hooks";
 
 import { DayCard } from "../day";
 
 interface Props {
-  days: (Day | null)[];
+  month: Month;
 }
 
 const MonthCalendarBody: React.FC<Props> = (props) => {
-  const { days } = props;
+  const { month } = props;
 
   const navigation = useNavigation();
 
-  const calendarTable = createCalendarGrid(days);
+  const populatedMonth = populateDaysInMonth(month);
+  const daysWithPadding = padDaysBeforeMonth(populatedMonth);
+  const calendarTable = createCalendarGrid(daysWithPadding);
 
   return (
     <Box flexDirection="column" height="100%" gap="xxs">
