@@ -4,6 +4,7 @@ import { createTheme } from "@shopify/restyle";
 const palette = {
   black: "#0B0B0B",
   white: "#F0F2F3",
+  lightGrey: "#d3d3d3",
 
   purpleLight: "#8C6FF7",
   greenLight: "#56DCBA",
@@ -18,6 +19,7 @@ const theme = createTheme({
     cardPrimaryBackground: palette.purpleLight,
 
     chipGreenBackground: palette.greenLight,
+    chipDoneBackground: palette.lightGrey,
   },
   // Set default spacings
   spacing: {

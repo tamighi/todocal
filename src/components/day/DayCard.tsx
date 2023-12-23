@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Card, CardProps } from "@/atoms";
-import { Day } from "@/models";
+import { Day, Todo } from "@/models";
 
 import DayCardBody from "./DayCardBody";
 import DayCardHeader from "./DayCardHeader";
@@ -9,10 +9,11 @@ import DayCardHeader from "./DayCardHeader";
 type Props = {
   day: Day;
   small?: boolean;
+  onTodoPress?: (todo: Todo) => void;
 } & CardProps;
 
 const DayCard: React.FC<Props> = (props) => {
-  const { day, small = false, ...rest } = props;
+  const { day, small = false, onTodoPress, ...rest } = props;
 
   const todos = day.todos;
 
@@ -21,7 +22,12 @@ const DayCard: React.FC<Props> = (props) => {
   return (
     <Card variant="primary" height="100%" overflow="hidden" {...rest}>
       <DayCardHeader dayOnly={small} day={date} />
-      <DayCardBody small={small} todos={todos} />
+      <DayCardBody
+        dayId={day.id}
+        small={small}
+        todos={todos}
+        onTodoPress={onTodoPress}
+      />
     </Card>
   );
 };
