@@ -53,7 +53,6 @@ const DayScreen: React.FC<Props> = ({ route }) => {
         open={open}
         onClose={() => {
           setOpen(false);
-          console.log("close");
         }}
         todo={todo}
       />

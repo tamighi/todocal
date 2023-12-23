@@ -4,9 +4,7 @@ import { Todo } from "@/models";
 import { Chip, ChipProps, Text, TextProps } from "@/atoms";
 
 import { Checkbox } from "../Checkbox";
-import { useMutate } from "@/hooks";
-import { useQueryClient } from "@tanstack/react-query";
-import { getMonthIdFromDayId } from "@/utils";
+import { useMutateTodo } from "./hooks/useMutateTodo";
 
 type Props = {
   todo: Todo;
@@ -27,16 +25,7 @@ const TodoChip: React.FC<Props> = (props) => {
     ? ({ variant: "smallChip", numberOfLines: 1 } as const)
     : {};
 
-  const queryClient = useQueryClient();
-
-  const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day", dayId] });
-    queryClient.invalidateQueries({
-      queryKey: ["month", getMonthIdFromDayId(dayId)],
-    });
-  };
-
-  const { mutate } = useMutate("todo", { onSuccess });
+  const { mutate } = useMutateTodo(dayId);
 
   const handleCheck = (checked: boolean) => {
     mutate({ id: todo.id, done: checked });
