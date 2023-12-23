@@ -3,10 +3,8 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { Keyboard, Pressable, TextInput } from "react-native";
 
 import { Card, Text } from "@/atoms";
-import { useDeleteOne, useMutate } from "@/hooks";
-import { useQueryClient } from "@tanstack/react-query";
-import { getMonthIdFromDayId } from "@/utils";
 import { Todo } from "@/models";
+import { useMutateTodo } from "./hooks/useMutateTodo";
 
 const MutateTodo = (props: {
   dayId: string;
@@ -21,18 +19,12 @@ const MutateTodo = (props: {
     setValue(todo ? todo.content : "");
   }, [todo]);
 
-  const queryClient = useQueryClient();
-
   const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day", dayId] });
-    queryClient.invalidateQueries({
-      queryKey: ["month", getMonthIdFromDayId(dayId)],
-    });
     onMutate();
     setValue("");
   };
 
-  const { mutate } = useMutate("todo", { onSuccess });
+  const { mutate, deleteMutate } = useMutateTodo(dayId, { onSuccess });
 
   const handleSubmit = async () => {
     mutate({
@@ -42,8 +34,6 @@ const MutateTodo = (props: {
     });
     Keyboard.dismiss();
   };
-
-  const { mutate: deleteMutate } = useDeleteOne("todo", { onSuccess });
 
   const handleDelete = async () => {
     deleteMutate(todo!.id);

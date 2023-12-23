@@ -51,7 +51,10 @@ const DayScreen: React.FC<Props> = ({ route }) => {
       <MutateTodoBottomSheet
         dayId={dayId}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          console.log("close");
+        }}
         todo={todo}
       />
     </Container>
