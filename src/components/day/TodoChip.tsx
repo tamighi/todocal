@@ -2,9 +2,9 @@ import React from "react";
 
 import { Todo } from "@/models";
 import { Chip, ChipProps, Text, TextProps } from "@/atoms";
+import { useMutateTodo } from "@/hooks";
 
 import { Checkbox } from "../Checkbox";
-import { useMutateTodo } from "./hooks/useMutateTodo";
 
 type Props = {
   todo: Todo;

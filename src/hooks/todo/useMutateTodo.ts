@@ -1,4 +1,5 @@
-import { useDeleteOne, useMutate } from "@/hooks";
+import { useMutate } from "@/hooks/useMutate";
+import { useDeleteOne } from "@/hooks/useDeleteOne";
 import { getMonthIdFromDayId } from "@/utils";
 import { useQueryClient } from "@tanstack/react-query";
 

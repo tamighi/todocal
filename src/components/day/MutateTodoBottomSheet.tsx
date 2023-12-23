@@ -4,7 +4,7 @@ import { Keyboard, Pressable, TextInput } from "react-native";
 
 import { Card, Text } from "@/atoms";
 import { Todo } from "@/models";
-import { useMutateTodo } from "./hooks/useMutateTodo";
+import { useMutateTodo } from "@/hooks";
 
 const MutateTodo = (props: {
   dayId: string;
