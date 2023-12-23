@@ -37,5 +37,9 @@ export default abstract class AbstractService<
     return this.entityToType(entity);
   }
 
+  public async delete(id: string) {
+    return this.repository.deleteOne(id);
+  }
+
   public abstract entityToType(entity: Entity): T;
 }
