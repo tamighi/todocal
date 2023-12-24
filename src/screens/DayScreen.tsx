@@ -1,13 +1,13 @@
 import React from "react";
-import { Pressable } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
-import { Container, Text } from "@/atoms";
-import { MutateTodoBottomSheet, DayCard } from "@/components";
-import { useGetOne, useNavigation } from "@/hooks";
-import { getMonthIdFromDayId } from "@/utils";
+import { Text } from "@/atoms";
+import { MutateTodoBottomSheet, DayCard, DayHeader } from "@/components";
+import { useGetOne } from "@/hooks";
 import { Todo } from "@/models";
+
+import { BaseScreen } from "./BaseScreen";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 
@@ -19,30 +19,19 @@ const DayScreen: React.FC<Props> = ({ route }) => {
 
   const { data: day } = useGetOne("day", dayId);
 
-  const navigation = useNavigation();
-
   const handleTodoPress = React.useCallback((todo: Todo) => {
     setOpen(true);
     setTodo(todo);
   }, []);
 
+  const handleCreatePress = () => {
+    setOpen(true);
+    setTodo(null);
+  };
+
   return (
-    <Container margin="xl">
-      <Pressable
-        onPress={() =>
-          navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) })
-        }
-      >
-        <Text>Go back</Text>
-      </Pressable>
-      <Pressable
-        onPress={() => {
-          setOpen(true);
-          setTodo(null);
-        }}
-      >
-        <Text>Create</Text>
-      </Pressable>
+    <BaseScreen marginHorizontal="xl">
+      <DayHeader onCreatePress={handleCreatePress} dayId={dayId} />
       {day ? (
         <DayCard day={day} onTodoPress={handleTodoPress} />
       ) : (
@@ -56,7 +45,7 @@ const DayScreen: React.FC<Props> = ({ route }) => {
         }}
         todo={todo}
       />
-    </Container>
+    </BaseScreen>
   );
 };
 
