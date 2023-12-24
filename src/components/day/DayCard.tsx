@@ -15,7 +15,7 @@ type Props = {
 const DayCard: React.FC<Props> = (props) => {
   const { day, small = false, onTodoPress, ...rest } = props;
 
-  const todos = day.todos;
+  const todos = React.useMemo(() => day.todos, [day]);
 
   const date = new Date(day.id);
 

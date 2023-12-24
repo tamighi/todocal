@@ -19,6 +19,9 @@ export class TodoEntity {
   @Column("boolean", { default: false })
   done: boolean;
 
+  @Column("float")
+  order: number;
+
   @ManyToOne("day", "todos")
   day?: Day;
 
