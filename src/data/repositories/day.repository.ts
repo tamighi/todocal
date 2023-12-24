@@ -3,7 +3,10 @@ import { AbstractRepository } from "./abstract.repository";
 
 class DayRepository extends AbstractRepository<DayEntity> {
   constructor() {
-    super(DayEntity, { relations: { todos: true, month: true } });
+    super(DayEntity, {
+      relations: { todos: true, month: true },
+      order: { todos: { order: "ASC" } },
+    });
   }
 }
 
