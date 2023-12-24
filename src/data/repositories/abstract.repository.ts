@@ -44,7 +44,7 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
   }
 
   public async create(payload: DeepPartial<Entity>) {
-    return this.repository.save(payload);
+    return await this.repository.save(payload);
   }
 
   public async update(id: Entity["id"], payload: DeepPartial<Entity>) {

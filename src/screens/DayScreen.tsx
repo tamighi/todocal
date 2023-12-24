@@ -21,10 +21,10 @@ const DayScreen: React.FC<Props> = ({ route }) => {
 
   const navigation = useNavigation();
 
-  const handleTodoPress = (todo: Todo) => {
+  const handleTodoPress = React.useCallback((todo: Todo) => {
     setOpen(true);
     setTodo(todo);
-  };
+  }, []);
 
   return (
     <Container margin="xl">
