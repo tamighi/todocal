@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Box, Text, Container, ContainerProps } from "@/atoms";
-import { SettingModal } from "@/components";
+import { SettingsModal } from "@/components";
 import { Pressable, SafeAreaView } from "react-native";
 
 type Props = ContainerProps;
@@ -17,7 +17,7 @@ export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
         </Pressable>
       </Box>
       <Container {...rest}>{children}</Container>
-      <SettingModal
+      <SettingsModal
         open={openSettings}
         onClose={() => setOpenSettings(false)}
       />

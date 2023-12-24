@@ -6,12 +6,12 @@ type Props = {
   onClose: () => void;
 };
 
-export const SettingModal: React.FC<Props> = (props) => {
+export const SettingsModal: React.FC<Props> = (props) => {
   const { open, onClose } = props;
 
   return (
     <Modal animationType="slide" visible={open}>
-      <Container>
+      <Container backgroundColor="mainBackground">
         <SafeAreaView>
           <Text>Hello world</Text>
           <Pressable onPress={onClose}>
