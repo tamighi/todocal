@@ -1,4 +1,5 @@
 import type Day from "./Day";
+import type Tag from "./Tag";
 
 export default interface Todo {
   id: string;
@@ -6,6 +7,7 @@ export default interface Todo {
   done: boolean;
   order: number;
   day?: Day;
+  tags?: Tag[];
   createdAt: Date;
   updatedAt: Date;
 }

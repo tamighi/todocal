@@ -5,8 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  ManyToMany,
 } from "typeorm";
-import type { Day } from "@/models";
+import type { DayEntity } from "./day.entity";
+import type { TagEntity } from "./tag.entity";
 
 @Entity("todo")
 export class TodoEntity {
@@ -23,7 +25,10 @@ export class TodoEntity {
   order: number;
 
   @ManyToOne("day", "todos")
-  day?: Day;
+  day?: DayEntity;
+
+  @ManyToMany("tag", "todos")
+  tags?: TagEntity[];
 
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;
