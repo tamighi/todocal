@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   ManyToMany,
+  JoinTable,
 } from "typeorm";
 import type { DayEntity } from "./day.entity";
 import type { TagEntity } from "./tag.entity";
@@ -28,6 +29,7 @@ export class TodoEntity {
   day?: DayEntity;
 
   @ManyToMany("tag", "todos")
+  @JoinTable()
   tags?: TagEntity[];
 
   @CreateDateColumn() createdAt: Date;
