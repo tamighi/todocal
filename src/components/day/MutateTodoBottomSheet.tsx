@@ -1,15 +1,18 @@
 import React from "react";
-import BottomSheet from "@gorhom/bottom-sheet";
-import { Keyboard, Pressable, TextInput } from "react-native";
+import BottomSheet, {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+} from "@gorhom/bottom-sheet";
 
+import { Keyboard, Pressable, TextInput } from "react-native";
 import { Card, Text } from "@/atoms";
 import { Todo } from "@/models";
 import { useMutateTodo } from "@/hooks";
 
 const MutateTodo = (props: {
   dayId: string;
-  onMutate: () => void;
-  todo: Todo | null;
+  onMutate?: () => void;
+  todo?: Todo;
 }) => {
   const { dayId, onMutate, todo } = props;
 
@@ -20,7 +23,7 @@ const MutateTodo = (props: {
   }, [todo]);
 
   const onSuccess = () => {
-    onMutate();
+    onMutate?.();
     setValue("");
   };
 
@@ -68,34 +71,38 @@ const MutateTodo = (props: {
 export const MutateTodoBottomSheet = (props: {
   open: boolean;
   dayId: string;
-  onClose: () => void;
-  todo: Todo | null;
+  onClose?: () => void;
+  todo?: Todo;
 }) => {
   const { open, dayId, onClose, todo } = props;
   // ref
-  const bottomSheetRef = React.useRef<BottomSheet>(null);
+  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
 
   // variables
   const snapPoints = React.useMemo(() => ["50%"], []);
 
   React.useEffect(() => {
-    if (!open) {
-      bottomSheetRef.current?.close();
+    if (open) {
+      bottomSheetRef.current?.present();
     } else {
-      bottomSheetRef.current?.snapToIndex(0);
+      bottomSheetRef.current?.close();
     }
   }, [open]);
 
+  const handleModalChange = (index: number) => {
+    if (index === -1) onClose?.();
+  };
+
   return (
-    <BottomSheet
-      ref={bottomSheetRef}
-      index={-1}
-      snapPoints={snapPoints}
-      enablePanDownToClose={true}
-      detached={true}
-      bottomInset={-46}
-    >
-      <MutateTodo dayId={dayId} onMutate={onClose} todo={todo} />
-    </BottomSheet>
+    <BottomSheetModalProvider>
+      <BottomSheetModal
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        onChange={handleModalChange}
+      >
+        <MutateTodo dayId={dayId} onMutate={onClose} todo={todo} />
+      </BottomSheetModal>
+    </BottomSheetModalProvider>
   );
 };

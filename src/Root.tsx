@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { DatabaseLoader } from "./data/DatabaseLoader";
 import { theme } from "./themes";
+import { TodoModalProvider } from "./contexts";
+
 import Navs from "./Navs";
 
 const queryClient = new QueryClient();
@@ -13,13 +15,15 @@ const Root = () => {
   return (
     <NavigationContainer>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <ThemeProvider theme={theme}>
-          <QueryClientProvider client={queryClient}>
-            <DatabaseLoader>
-              <Navs />
-            </DatabaseLoader>
-          </QueryClientProvider>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <TodoModalProvider>
+              <DatabaseLoader>
+                <Navs />
+              </DatabaseLoader>
+            </TodoModalProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </NavigationContainer>
   );
