@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import type { TodoEntity } from "./todo.entity";
 
 @Entity("tag")
@@ -12,6 +12,6 @@ export class TagEntity {
   @Column("text")
   color: string;
 
-  @ManyToMany("todo", "tags")
+  @OneToMany("todo", "tag")
   todos?: TodoEntity[];
 }

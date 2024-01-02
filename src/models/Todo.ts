@@ -7,7 +7,7 @@ export default interface Todo {
   done: boolean;
   order: number;
   day?: Day;
-  tags?: Tag[];
+  tag?: Tag;
   createdAt: Date;
   updatedAt: Date;
 }
