@@ -25,6 +25,8 @@ class TodoService extends AbstractService<TodoEntity, Todo> {
       done: entity.done,
       content: entity.content,
       order: entity.order,
+      urgent: entity.urgent,
+      important: entity.important,
       day: entity.day ? this.dayService.entityToType(entity.day) : undefined,
       tag: entity.tag ? this.tagService.entityToType(entity.tag) : undefined,
       createdAt: entity.createdAt,

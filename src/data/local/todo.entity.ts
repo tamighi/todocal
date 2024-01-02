@@ -20,8 +20,14 @@ export class TodoEntity {
   @Column("boolean", { default: false })
   done: boolean;
 
-  @Column("float")
+  @Column("float", { unique: true })
   order: number;
+
+  @Column("boolean", { default: false })
+  urgent: boolean;
+
+  @Column("boolean", { default: false })
+  important: boolean;
 
   @ManyToOne("day", "todos")
   day?: DayEntity;

@@ -6,6 +6,8 @@ export default interface Todo {
   content: string;
   done: boolean;
   order: number;
+  urgent: boolean;
+  important: boolean;
   day?: Day;
   tag?: Tag;
   createdAt: Date;
