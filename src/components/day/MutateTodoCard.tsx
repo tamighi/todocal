@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Card, Text } from "@/atoms";
+import { Card, Text, TextInput } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Todo } from "@/models";
-import { Keyboard, Pressable, TextInput } from "react-native";
+import { Keyboard, Pressable } from "react-native";
 
 export const MutateTodoCard = (props: {
   dayId: string;
@@ -12,15 +12,25 @@ export const MutateTodoCard = (props: {
 }) => {
   const { dayId, onMutate, todo } = props;
 
-  const [value, setValue] = React.useState("");
+  const [formValue, setFormValue] = React.useState<Partial<Todo>>({
+    content: "",
+    urgent: false,
+    important: false,
+  });
+
+  const handleInputChange = (name: string, value: string) => {
+    setFormValue((prev) => ({ ...prev, [name]: value }));
+  };
 
   React.useEffect(() => {
-    setValue(todo ? todo.content : "");
+    setFormValue(todo || {});
   }, [todo]);
+
+  // Mutate logic
 
   const onSuccess = () => {
     onMutate?.();
-    setValue("");
+    setFormValue({});
   };
 
   const { mutate, deleteMutate } = useMutateTodo(dayId, { onSuccess });
@@ -28,8 +38,8 @@ export const MutateTodoCard = (props: {
   const handleSubmit = async () => {
     mutate({
       day: { id: dayId },
-      content: value,
       id: todo ? todo.id : undefined,
+      ...formValue,
     });
     Keyboard.dismiss();
   };
@@ -42,8 +52,9 @@ export const MutateTodoCard = (props: {
     <Card width="100%" height="100%">
       <TextInput
         style={{ padding: 12, borderWidth: 1 }}
-        value={value}
-        onChangeText={setValue}
+        name="content"
+        value={formValue.content}
+        onChangeText={handleInputChange}
         placeholder="Todo"
       />
       {todo ? (
