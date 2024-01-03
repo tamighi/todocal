@@ -42,7 +42,7 @@ const TodoChip: React.FC<Props> = (props) => {
       {...rest}
     >
       <Text style={{ flex: 1 }} {...conditionalTextProps}>
-        {todo.content}
+        {todo.content} {todo.urgent ? "U" : ""} {todo.important ? "I" : ""}
       </Text>
       {!minimal && (
         <Checkbox margin="xs" onPress={handleCheck} checked={checked} />

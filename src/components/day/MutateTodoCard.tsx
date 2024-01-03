@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Card, Text, TextInput } from "@/atoms";
+import { Box, Card, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Todo } from "@/models";
-import { Keyboard, Pressable } from "react-native";
+import { Keyboard, Pressable, TextInput } from "react-native";
+import { Checkbox } from "../Checkbox";
 
 export const MutateTodoCard = (props: {
   dayId: string;
@@ -12,19 +13,17 @@ export const MutateTodoCard = (props: {
 }) => {
   const { dayId, onMutate, todo } = props;
 
-  const [formValue, setFormValue] = React.useState<Partial<Todo>>({
-    content: "",
-    urgent: false,
-    important: false,
-  });
-
-  const handleInputChange = (name: string, value: string) => {
-    setFormValue((prev) => ({ ...prev, [name]: value }));
-  };
-
   React.useEffect(() => {
     setFormValue(todo || {});
   }, [todo]);
+
+  // Form logic
+
+  const [formValue, setFormValue] = React.useState<Partial<Todo>>({});
+
+  const handleInputChange = <T extends keyof Todo>(name: T, value: Todo[T]) => {
+    setFormValue((prev) => ({ ...prev, [name]: value }));
+  };
 
   // Mutate logic
 
@@ -52,11 +51,27 @@ export const MutateTodoCard = (props: {
     <Card width="100%" height="100%">
       <TextInput
         style={{ padding: 12, borderWidth: 1 }}
-        name="content"
         value={formValue.content}
-        onChangeText={handleInputChange}
+        onChangeText={(value) => handleInputChange("content", value)}
         placeholder="Todo"
       />
+      <Box flexDirection="row" justifyContent="space-around">
+        <Box>
+          <Text>Urgent</Text>
+          <Checkbox
+            onPress={(value) => handleInputChange("urgent", value)}
+            checked={formValue.urgent || false}
+          />
+        </Box>
+        <Box>
+          <Text>Important</Text>
+          <Checkbox
+            onPress={(value) => handleInputChange("important", value)}
+            checked={formValue.important || false}
+          />
+        </Box>
+      </Box>
+
       {todo ? (
         <>
           <Pressable onPress={handleSubmit}>
