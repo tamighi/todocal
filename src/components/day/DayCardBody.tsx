@@ -8,33 +8,40 @@ import DraggableFlatList, {
 import { Pressable } from "react-native";
 
 import { Todo } from "@/models";
+import { useMutateTodo } from "@/hooks";
 
 import TodoChip from "./TodoChip";
-import { useMutateTodo } from "@/hooks";
+import { useTodoModal } from "@/contexts";
 
 interface Props {
   todos?: Todo[];
   small?: boolean;
   dayId: string;
-  onTodoPress?: (todo: Todo) => void;
 }
 
 const DayCardBody: React.FC<Props> = React.memo((props) => {
-  const { todos = [], small = false, dayId, onTodoPress } = props;
+  const { todos = [], small = false, dayId } = props;
 
   const [todoList, setTodolist] = React.useState(todos);
+  const { setTodoModalProps } = useTodoModal();
 
   React.useEffect(() => {
     setTodolist(todos);
   }, [todos]);
 
+  const handleTodoPress = (todo: Todo) => {
+    if (small) return;
+
+    setTodoModalProps({ todo, open: true, dayId });
+  };
+
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Todo>) => {
     return (
       <ScaleDecorator>
         <Pressable
-          onPressIn={drag}
-          delayLongPress={50}
-          onPress={() => onTodoPress?.(item)}
+          delayLongPress={200}
+          onLongPress={drag}
+          onPress={() => handleTodoPress(item)}
           disabled={isActive}
         >
           <TodoChip

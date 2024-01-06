@@ -1,16 +1,18 @@
 import DayService from "./DayService";
 import MonthService from "./MonthService";
+import TagService from "./TagService";
 import TodoService from "./TodoService";
 
 const todoService = new TodoService();
 const dayService = new DayService();
 const monthService = new MonthService();
+const tagService = new TagService();
 
-todoService.initialize(dayService);
+todoService.initialize(dayService, tagService);
 dayService.initialize(monthService, todoService);
 monthService.initialize(dayService);
 
-export { todoService, dayService, monthService };
+export { todoService, dayService, monthService, tagService };
 
 export const serviceMap = {
   todo: todoService,

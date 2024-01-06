@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, OneToMany } from "typeorm";
-import { Day } from "@/models";
+import type { DayEntity } from "./day.entity";
 
 @Entity("month")
 export class MonthEntity {
@@ -7,5 +7,5 @@ export class MonthEntity {
   id: string;
 
   @OneToMany("day", "month")
-  days?: Day[];
+  days?: DayEntity[];
 }
