@@ -36,7 +36,6 @@ export const MutateTodoCard = (props: {
   const { mutate, deleteMutate } = useMutateTodo(dayId, { onSuccess });
 
   const handleSubmit = async () => {
-    console.log("SUBMIT", formValue);
     mutate({
       day: { id: dayId },
       id: todo ? todo.id : undefined,
@@ -50,7 +49,6 @@ export const MutateTodoCard = (props: {
   };
 
   const handleTagChange = React.useCallback((tag: Tag | null) => {
-    console.log("HANDLE CHANGE TAG", tag);
     return handleInputChange("tag", tag);
   }, []);
 
@@ -63,7 +61,10 @@ export const MutateTodoCard = (props: {
           onChangeText={(value) => handleInputChange("content", value)}
           placeholder="Todo"
         />
-        <TagSelect value={formValue.tag} onChange={handleTagChange} />
+        <TagSelect
+          value={formValue.tag || undefined}
+          onChange={handleTagChange}
+        />
       </Box>
       <Box flexDirection="row" justifyContent="space-around">
         <Box>

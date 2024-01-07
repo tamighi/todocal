@@ -33,7 +33,7 @@ export class TodoEntity {
   day?: DayEntity;
 
   @ManyToOne("tag", "todos", { nullable: true })
-  tag?: TagEntity;
+  tag?: TagEntity | null;
 
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;

@@ -6,7 +6,7 @@ import { Box, Text } from "@/atoms";
 import { Autocomplete } from "../core";
 
 type Props = {
-  value?: Tag | null;
+  value?: Tag;
   onChange?: (tag: Tag | null) => void;
 };
 
@@ -52,12 +52,13 @@ export const TagSelect = React.memo((props: Props) => {
         <Box
           justifyContent="space-between"
           flexDirection="row"
+          padding="s"
           style={{
             backgroundColor: tag.color,
             borderBottomWidth: index === data.length - 1 ? 0 : 1,
           }}
         >
-          <Text>{tag.name}</Text>
+          <Text style={{ flex: 1 }}>{tag.name}</Text>
           {tag.id ? (
             <Box
               style={{

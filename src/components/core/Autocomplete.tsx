@@ -118,6 +118,7 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
         position="absolute"
         visible={selectOpen}
         borderWidth={1}
+        margin="xxs"
       >
         {filteredValues?.map((v, k) => {
           return (
