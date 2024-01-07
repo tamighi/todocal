@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Card, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
-import { Todo } from "@/models";
+import { Tag, Todo } from "@/models";
 import { Keyboard, Pressable, TextInput } from "react-native";
 import { Checkbox } from "../Checkbox";
 import { TagSelect } from "./TagSelect";
@@ -48,6 +48,10 @@ export const MutateTodoCard = (props: {
     deleteMutate(todo!.id);
   };
 
+  const handleTagChange = React.useCallback((tag: Tag) => {
+    return handleInputChange("tag", tag);
+  }, []);
+
   return (
     <Card width="100%" height="100%">
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
@@ -57,10 +61,7 @@ export const MutateTodoCard = (props: {
           onChangeText={(value) => handleInputChange("content", value)}
           placeholder="Todo"
         />
-        <TagSelect
-          value={formValue.tag}
-          onChange={(tag) => handleInputChange("tag", tag)}
-        />
+        <TagSelect value={formValue.tag} onChange={handleTagChange} />
       </Box>
       <Box flexDirection="row" justifyContent="space-around">
         <Box>

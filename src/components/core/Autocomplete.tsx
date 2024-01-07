@@ -26,7 +26,7 @@ type Props<T extends object | string> = {
   labelField?: T extends object ? FieldType<T> : never;
 };
 
-export const Autocomplete = <T extends object | string>(props: Props<T>) => {
+const Autocomplete = <T extends object | string>(props: Props<T>) => {
   const {
     value,
     onChange,
@@ -64,13 +64,39 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     setSelectOpen(true);
   };
 
+  // Filter values
+
+  const contains = (filter: string, values: T[]) => {
+    return values.filter((value) =>
+      filter
+        .toLowerCase()
+        .split("")
+        .every((letter) =>
+          (labelField ? (value[labelField] as string) : (value as string))
+            .toLowerCase()
+            .includes(letter),
+        ),
+    );
+  };
+
+  const [filteredValues, setFilteredValues] = React.useState(data);
+
+  React.useEffect(() => {
+    setFilteredValues(data);
+  }, [data]);
+
+  const handleChangeText = (value: string) => {
+    setFilteredValues(contains(value, data));
+    onInputChange?.(value);
+  };
+
   return (
     <Box position="relative" style={containerStyle}>
       <TextInput
         onPressIn={handleInputPress}
         style={{ borderWidth: 1, ...inputStyle }}
         placeholder={placeholder}
-        onChangeText={onInputChange}
+        onChangeText={handleChangeText}
         value={value ? getLabel(value) : undefined}
       />
       <Card
@@ -83,7 +109,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         visible={selectOpen}
         borderWidth={1}
       >
-        {data?.map((v, k) => {
+        {filteredValues?.map((v, k) => {
           return (
             <Pressable key={k} onPress={() => handleValuePress(v)}>
               <Box borderBottomWidth={data.length === k + 1 ? 0 : 1}>
@@ -96,3 +122,5 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     </Box>
   );
 };
+
+export default React.memo(Autocomplete) as typeof Autocomplete;

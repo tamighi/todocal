@@ -43,10 +43,10 @@ export const TagSelect = React.memo((props: Props) => {
     <Autocomplete
       inputStyle={{ padding: 12, margin: 2 }}
       containerStyle={{ flex: 1 }}
+      data={tagList}
       value={value}
       onChange={handleChange}
       onInputChange={handleTextChange}
-      data={tagList}
       labelField="name"
       placeholder="TAGS"
     />
