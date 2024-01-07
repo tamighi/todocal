@@ -36,7 +36,7 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
   public async getList(
     options: FindManyOptions<Entity> = {},
   ): Promise<Entity[]> {
-    const todos = await this.repository.find({
+    const data = await this.repository.find({
       ...options,
       relations: {
         ...this.relations,
@@ -48,7 +48,7 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
       },
     });
 
-    return todos;
+    return data;
   }
 
   public async getOne(id: Entity["id"]): Promise<Entity> {

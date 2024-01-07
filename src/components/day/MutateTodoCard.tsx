@@ -57,7 +57,10 @@ export const MutateTodoCard = (props: {
           onChangeText={(value) => handleInputChange("content", value)}
           placeholder="Todo"
         />
-        <TagSelect />
+        <TagSelect
+          value={formValue.tag}
+          onChange={(tag) => handleInputChange("tag", tag)}
+        />
       </Box>
       <Box flexDirection="row" justifyContent="space-around">
         <Box>

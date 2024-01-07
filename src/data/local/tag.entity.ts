@@ -9,8 +9,8 @@ export class TagEntity {
   @Column("text")
   name: string;
 
-  @Column("text")
-  color: string;
+  @Column("text", { nullable: true })
+  color?: string;
 
   @OneToMany("todo", "tag")
   todos?: TodoEntity[];

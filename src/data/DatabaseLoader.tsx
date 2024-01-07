@@ -2,9 +2,19 @@ import React from "react";
 
 import { Text } from "@/atoms";
 import { Database } from "./database";
-import { dayRepository, monthRepository, todoRepository } from "./repositories";
+import {
+  dayRepository,
+  monthRepository,
+  tagRepository,
+  todoRepository,
+} from "./repositories";
 
-const repositories = [dayRepository, monthRepository, todoRepository];
+const repositories = [
+  dayRepository,
+  monthRepository,
+  todoRepository,
+  tagRepository,
+];
 
 export const DatabaseLoader = ({ children }: { children: React.ReactNode }) => {
   const [loaded, setLoaded] = React.useState(false);

@@ -5,14 +5,14 @@ type ServiceMutateFns = {
   [K in keyof typeof serviceMap]: (typeof serviceMap)[K]["mutate"];
 };
 
-interface CreateOptions {
-  onSuccess?: () => void;
+interface CreateOptions<R extends Resource> {
+  onSuccess?: (data: Awaited<ReturnType<ServiceMutateFns[R]>>) => void;
   onError?: (error: unknown) => void;
 }
 
 export const useMutate = <R extends Resource>(
   resource: R,
-  options: CreateOptions = {},
+  options: CreateOptions<R> = {},
 ) => {
   const { onSuccess, onError } = options;
 

@@ -12,7 +12,7 @@ import { Box, Card, Text } from "@/atoms";
 import { useClickOutside } from "@/hooks";
 
 type FieldType<T> = {
-  [K in keyof T]: T[K] extends string ? K : never;
+  [K in keyof T]: T[K] extends string | undefined ? K : never;
 }[keyof T];
 
 type Props<T extends object | string> = {
@@ -20,6 +20,7 @@ type Props<T extends object | string> = {
   containerStyle?: ViewStyle;
   value?: T;
   onChange?: (newValue: T) => void;
+  onInputChange?: (value: string) => void;
   placeholder?: string;
   data?: T[];
   labelField?: T extends object ? FieldType<T> : never;
@@ -29,6 +30,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   const {
     value,
     onChange,
+    onInputChange,
     containerStyle = {},
     inputStyle = {},
     placeholder,
@@ -51,6 +53,11 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     Keyboard.dismiss();
   };
 
+  const handleValuePress = (newVal: T) => {
+    setSelectOpen(false);
+    onChange?.(newVal);
+  };
+
   const ref = useClickOutside(handleClickOutside);
 
   const handleInputPress = () => {
@@ -63,6 +70,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         onPressIn={handleInputPress}
         style={{ borderWidth: 1, ...inputStyle }}
         placeholder={placeholder}
+        onChangeText={onInputChange}
         value={value ? getLabel(value) : undefined}
       />
       <Card
@@ -70,16 +78,17 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         top="100%"
         left={0}
         right={0}
-        margin="xs"
         zIndex={100}
-        variant="primary"
         position="absolute"
         visible={selectOpen}
+        borderWidth={1}
       >
         {data?.map((v, k) => {
           return (
-            <Pressable key={k} onPress={() => onChange?.(v)}>
-              <Text>{getLabel(v)}</Text>
+            <Pressable key={k} onPress={() => handleValuePress(v)}>
+              <Box borderBottomWidth={data.length === k + 1 ? 0 : 1}>
+                <Text>{getLabel(v)}</Text>
+              </Box>
             </Pressable>
           );
         })}
