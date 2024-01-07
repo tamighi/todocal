@@ -39,7 +39,7 @@ const DayCardBody: React.FC<Props> = React.memo((props) => {
     return (
       <ScaleDecorator>
         <Pressable
-          delayLongPress={200}
+          delayLongPress={100}
           onLongPress={drag}
           onPress={() => handleTodoPress(item)}
           disabled={isActive}

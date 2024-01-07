@@ -1,4 +1,5 @@
 import React from "react";
+
 import { MutateTodoBottomSheet } from "@/components/day/MutateTodoBottomSheet";
 import { Todo } from "@/models";
 
@@ -35,10 +36,10 @@ export const TodoModalProvider = (props: ProviderProps) => {
 
   const { dayId, todo, open } = modalProps;
 
-  const onClose = () => {
+  const onClose = React.useCallback(() => {
     setModalProps({ ...modalProps, open: false });
     modalProps.onClose?.();
-  };
+  }, []);
 
   return (
     <TodoModalContext.Provider value={setModalProps}>
