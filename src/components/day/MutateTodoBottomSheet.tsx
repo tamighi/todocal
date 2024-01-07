@@ -1,8 +1,8 @@
 import React from "react";
 
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 
 import { Todo } from "@/models";
@@ -16,33 +16,39 @@ export const MutateTodoBottomSheet = (props: {
 }) => {
   const { open, dayId, onClose, todo } = props;
   // ref
-  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
+  const bottomSheetRef = React.useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = React.useMemo(() => ["50%"], []);
+  const snapPoints = React.useMemo(() => ["70%"], []);
 
   React.useEffect(() => {
     if (open) {
-      bottomSheetRef.current?.present();
-    } else {
-      bottomSheetRef.current?.close();
+      bottomSheetRef.current?.snapToIndex(0);
     }
   }, [open]);
 
-  const handleModalChange = (index: number) => {
-    if (index === -1) onClose?.();
-  };
+  const renderBackdrop = React.useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+      />
+    ),
+    [],
+  );
 
   return (
-    <BottomSheetModalProvider>
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        index={0}
-        snapPoints={snapPoints}
-        onChange={handleModalChange}
-      >
-        <MutateTodoCard dayId={dayId} onMutate={onClose} todo={todo} />
-      </BottomSheetModal>
-    </BottomSheetModalProvider>
+    <BottomSheet
+      ref={bottomSheetRef}
+      index={0}
+      enablePanDownToClose={true}
+      snapPoints={snapPoints}
+      detached={true}
+      backdropComponent={renderBackdrop}
+      onClose={onClose}
+    >
+      <MutateTodoCard dayId={dayId} onMutate={onClose} todo={todo} />
+    </BottomSheet>
   );
 };

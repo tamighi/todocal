@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { DatabaseLoader } from "./data/DatabaseLoader";
 import { theme } from "./themes";
-import { TodoModalProvider } from "./contexts";
+import { ClickOutsideProvider, TodoModalProvider } from "./contexts";
 
 import Navs from "./Navs";
 
@@ -17,11 +17,13 @@ const Root = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider theme={theme}>
-            <TodoModalProvider>
-              <DatabaseLoader>
-                <Navs />
-              </DatabaseLoader>
-            </TodoModalProvider>
+            <ClickOutsideProvider>
+              <TodoModalProvider>
+                <DatabaseLoader>
+                  <Navs />
+                </DatabaseLoader>
+              </TodoModalProvider>
+            </ClickOutsideProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </GestureHandlerRootView>

@@ -18,6 +18,7 @@ export const serviceMap = {
   todo: todoService,
   day: dayService,
   month: monthService,
+  tag: tagService,
 } as const;
 
 export type Resource = keyof typeof serviceMap;
