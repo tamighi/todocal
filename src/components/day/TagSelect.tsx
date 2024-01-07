@@ -6,14 +6,14 @@ import { Box, Text } from "@/atoms";
 import { Autocomplete } from "../core";
 
 type Props = {
-  value?: Tag;
-  onChange?: (tag: Tag) => void;
+  value?: Tag | { id: null };
+  onChange?: (tag: Tag | null) => void;
 };
 
 export const TagSelect = React.memo((props: Props) => {
   const { value, onChange } = props;
 
-  const { data: tags = [] } = useGetList("tag");
+  const { data: tags } = useGetList("tag");
 
   const { mutate } = useMutate("tag", {
     onSuccess: (tag) => {
@@ -21,10 +21,10 @@ export const TagSelect = React.memo((props: Props) => {
     },
   });
 
-  const [tagList, setTagList] = React.useState<Partial<Tag>[]>(tags);
+  const [tagList, setTagList] = React.useState<Partial<Tag>[]>(tags || []);
 
   React.useEffect(() => {
-    setTagList(tags);
+    setTagList(tags || []);
   }, [tags]);
 
   const handleTextChange = (value: string) => {
@@ -35,11 +35,11 @@ export const TagSelect = React.memo((props: Props) => {
     else setTagList([{ name: value }, ...tags]);
   };
 
-  const handleChange = (tag: Partial<Tag>) => {
-    if (!tag.id) {
+  const handleChange = (tag: Partial<Tag> | null) => {
+    if (tag && !tag.id) {
       mutate(tag);
     } else {
-      onChange?.(tag as Tag);
+      onChange?.(tag as Tag | null);
     }
   };
 

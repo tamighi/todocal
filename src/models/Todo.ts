@@ -13,3 +13,7 @@ export default interface Todo {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type TodoMutate = Omit<Partial<Todo>, "tag"> & {
+  tag?: Tag | { id: null };
+};

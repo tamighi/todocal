@@ -19,7 +19,7 @@ type Props<T extends object | string> = {
   inputStyle?: TextStyle;
   containerStyle?: ViewStyle;
   value?: T;
-  onChange?: (newValue: T) => void;
+  onChange?: (newValue: T | null) => void;
   onInputChange?: (value: string) => void;
   placeholder?: string;
   data?: T[];
@@ -41,6 +41,7 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
   } = props;
 
   const getLabel = (value: T): string => {
+    if (!value || (labelField && !value[labelField])) return "";
     return labelField ? (value[labelField] as string) : (value as string);
   };
 
@@ -50,6 +51,7 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
   const handleClickOutside = () => {
     setSelectOpen(false);
     Keyboard.dismiss();
+    if (currentInput === "") onChange?.(null);
   };
 
   const handleValuePress = (newVal: T) => {
@@ -64,7 +66,13 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   // Filter values
-  const [currentInput, setCurrentInput] = React.useState("");
+  const [currentInput, setCurrentInput] = React.useState(
+    value ? getLabel(value) : "",
+  );
+
+  React.useEffect(() => {
+    setCurrentInput(value ? getLabel(value) : "");
+  }, [value]);
 
   const contains = (searchTerm: string, values: T[]) => {
     return values.filter((value) => {
@@ -99,7 +107,7 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
         style={{ borderWidth: 1, ...inputStyle }}
         placeholder={placeholder}
         onChangeText={handleChangeText}
-        value={value ? getLabel(value) : undefined}
+        value={currentInput}
       />
       <Card
         ref={ref}

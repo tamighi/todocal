@@ -6,6 +6,7 @@ import { Tag, Todo } from "@/models";
 import { Keyboard, Pressable, TextInput } from "react-native";
 import { Checkbox } from "../Checkbox";
 import { TagSelect } from "./TagSelect";
+import { TodoMutate } from "@/models/Todo";
 
 export const MutateTodoCard = (props: {
   dayId: string;
@@ -20,9 +21,12 @@ export const MutateTodoCard = (props: {
 
   // Form logic
 
-  const [formValue, setFormValue] = React.useState<Partial<Todo>>({});
+  const [formValue, setFormValue] = React.useState<TodoMutate>({});
 
-  const handleInputChange = <T extends keyof Todo>(name: T, value: Todo[T]) => {
+  const handleInputChange = <T extends keyof TodoMutate>(
+    name: T,
+    value: TodoMutate[T],
+  ) => {
     setFormValue((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -48,8 +52,8 @@ export const MutateTodoCard = (props: {
     deleteMutate(todo!.id);
   };
 
-  const handleTagChange = React.useCallback((tag: Tag) => {
-    return handleInputChange("tag", tag);
+  const handleTagChange = React.useCallback((tag: Tag | null) => {
+    return handleInputChange("tag", tag ? tag : { id: null });
   }, []);
 
   return (
