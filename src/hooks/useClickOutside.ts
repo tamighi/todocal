@@ -7,12 +7,10 @@ import {
 import { View } from "react-native";
 
 const useClickOutside = <T = View>(callback: () => void) => {
-  const callbackRef = React.useRef(callback);
   const ref = React.useRef<T>(null);
-  const callbackRegisterWrapper = () => callbackRef.current();
 
   React.useEffect(() => {
-    addClickOutsideListener(ref, callbackRegisterWrapper);
+    addClickOutsideListener(ref, callback);
     return () => {
       removeClickOutsideListener(ref);
     };

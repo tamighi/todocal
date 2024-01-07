@@ -48,14 +48,18 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
 
+  const [currentInput, setCurrentInput] = React.useState(
+    value ? getLabel(value) : "",
+  );
+
   const handleClickOutside = () => {
     setSelectOpen(false);
     Keyboard.dismiss();
-    if (currentInput === "") onChange?.(null);
   };
 
   const handleValuePress = (newVal: T) => {
     setSelectOpen(false);
+    setCurrentInput(getLabel(newVal));
     onChange?.(newVal);
   };
 
@@ -66,12 +70,8 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   // Filter values
-  const [currentInput, setCurrentInput] = React.useState(
-    value ? getLabel(value) : "",
-  );
-
   React.useEffect(() => {
-    setCurrentInput(value ? getLabel(value) : "");
+    if (value) setCurrentInput(getLabel(value));
   }, [value]);
 
   const contains = (searchTerm: string, values: T[]) => {

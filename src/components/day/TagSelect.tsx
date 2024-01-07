@@ -6,7 +6,7 @@ import { Box, Text } from "@/atoms";
 import { Autocomplete } from "../core";
 
 type Props = {
-  value?: Tag | { id: null };
+  value?: Tag | null;
   onChange?: (tag: Tag | null) => void;
 };
 
@@ -29,7 +29,10 @@ export const TagSelect = React.memo((props: Props) => {
 
   const handleTextChange = (value: string) => {
     if (!tags) return;
-    if (value.trim() === "") setTagList(tags);
+    if (value.trim() === "") {
+      setTagList(tags);
+      onChange?.(null);
+    }
     // If value already in tags do not add the value in list.
     else if (tags.find((tag) => tag.name === value.trim())) setTagList(tags);
     else setTagList([{ name: value }, ...tags]);

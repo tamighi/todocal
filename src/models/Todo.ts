@@ -9,11 +9,7 @@ export default interface Todo {
   urgent: boolean;
   important: boolean;
   day?: Day;
-  tag?: Tag;
+  tag?: Tag | null;
   createdAt: Date;
   updatedAt: Date;
 }
-
-export type TodoMutate = Omit<Partial<Todo>, "tag"> & {
-  tag?: Tag | { id: null };
-};
