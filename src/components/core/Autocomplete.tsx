@@ -38,12 +38,9 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
     labelField,
   } = props;
 
-  const getLabel = React.useCallback(
-    (value: T): string => {
-      return labelField ? (value[labelField] as string) : (value as string);
-    },
-    [labelField],
-  );
+  const getLabel = (value: T): string => {
+    return labelField ? (value[labelField] as string) : (value as string);
+  };
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
@@ -65,28 +62,31 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   // Filter values
+  const [currentInput, setCurrentInput] = React.useState("");
 
-  const contains = (filter: string, values: T[]) => {
-    return values.filter((value) =>
-      filter
-        .toLowerCase()
-        .split("")
-        .every((letter) =>
-          (labelField ? (value[labelField] as string) : (value as string))
-            .toLowerCase()
-            .includes(letter),
-        ),
-    );
+  const contains = (searchTerm: string, values: T[]) => {
+    return values.filter((value) => {
+      const searchTermArr = searchTerm.toLowerCase().trim().split("");
+      let valueIndex = 0;
+      const valueLabel = getLabel(value).toLowerCase();
+
+      for (const letter of searchTermArr) {
+        valueIndex = valueLabel.indexOf(letter.toLowerCase(), valueIndex);
+        if (valueIndex === -1) return false;
+        valueIndex += 1;
+      }
+      return true;
+    });
   };
 
   const [filteredValues, setFilteredValues] = React.useState(data);
 
   React.useEffect(() => {
-    setFilteredValues(data);
-  }, [data]);
+    setFilteredValues(contains(currentInput, data));
+  }, [data, currentInput]);
 
   const handleChangeText = (value: string) => {
-    setFilteredValues(contains(value, data));
+    setCurrentInput(value);
     onInputChange?.(value);
   };
 
@@ -112,7 +112,7 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
         {filteredValues?.map((v, k) => {
           return (
             <Pressable key={k} onPress={() => handleValuePress(v)}>
-              <Box borderBottomWidth={data.length === k + 1 ? 0 : 1}>
+              <Box borderBottomWidth={filteredValues.length === k + 1 ? 0 : 1}>
                 <Text>{getLabel(v)}</Text>
               </Box>
             </Pressable>

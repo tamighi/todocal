@@ -27,8 +27,11 @@ export const TagSelect = React.memo((props: Props) => {
   }, [tags]);
 
   const handleTextChange = (value: string) => {
-    if (value === "" || !tags) return;
-    setTagList([{ name: value }, ...tags]);
+    if (!tags) return;
+    if (value.trim() === "") setTagList(tags);
+    // If value already in tags do not add the value in list.
+    else if (tags.find((tag) => tag.name === value.trim())) setTagList(tags);
+    else setTagList([{ name: value }, ...tags]);
   };
 
   const handleChange = (tag: Partial<Tag>) => {
