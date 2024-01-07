@@ -2,6 +2,7 @@ import React from "react";
 
 import { Tag } from "@/models";
 import { useGetList, useMutate } from "@/hooks";
+import { Box, Text } from "@/atoms";
 import { Autocomplete } from "../core";
 
 type Props = {
@@ -42,6 +43,38 @@ export const TagSelect = React.memo((props: Props) => {
     }
   };
 
+  const renderItem = React.useCallback(
+    (tag: Partial<Tag>, index: number, data: Partial<Tag>[]) => {
+      return (
+        <Box
+          justifyContent="space-between"
+          flexDirection="row"
+          style={{
+            backgroundColor: tag.color,
+            borderBottomWidth: index === data.length - 1 ? 0 : 1,
+          }}
+        >
+          <Text>{tag.name}</Text>
+          {tag.id ? (
+            <Box
+              style={{
+                margin: 4,
+                width: 15,
+                height: 15,
+                backgroundColor: tag.color ? tag.color : "grey",
+              }}
+            />
+          ) : (
+            <Text marginHorizontal="s" style={{ color: "green" }}>
+              +
+            </Text>
+          )}
+        </Box>
+      );
+    },
+    [],
+  );
+
   return (
     <Autocomplete
       inputStyle={{ padding: 12, margin: 2 }}
@@ -52,6 +85,7 @@ export const TagSelect = React.memo((props: Props) => {
       onInputChange={handleTextChange}
       labelField="name"
       placeholder="TAGS"
+      renderItem={renderItem}
     />
   );
 });

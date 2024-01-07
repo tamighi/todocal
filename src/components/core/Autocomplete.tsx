@@ -24,6 +24,7 @@ type Props<T extends object | string> = {
   placeholder?: string;
   data?: T[];
   labelField?: T extends object ? FieldType<T> : never;
+  renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
 const Autocomplete = <T extends object | string>(props: Props<T>) => {
@@ -36,6 +37,7 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
     placeholder,
     data = [],
     labelField,
+    renderItem,
   } = props;
 
   const getLabel = (value: T): string => {
@@ -112,9 +114,15 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
         {filteredValues?.map((v, k) => {
           return (
             <Pressable key={k} onPress={() => handleValuePress(v)}>
-              <Box borderBottomWidth={filteredValues.length === k + 1 ? 0 : 1}>
-                <Text>{getLabel(v)}</Text>
-              </Box>
+              {renderItem ? (
+                renderItem(v, k, filteredValues)
+              ) : (
+                <Box
+                  borderBottomWidth={filteredValues.length === k + 1 ? 0 : 1}
+                >
+                  <Text>{getLabel(v)}</Text>
+                </Box>
+              )}
             </Pressable>
           );
         })}
