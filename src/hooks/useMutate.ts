@@ -17,6 +17,7 @@ export const useMutate = <R extends Resource>(
   const { onSuccess, onError } = options;
 
   const mutation = useMutation({
+    //@ts-expect-error Idk how to fix, maybe use mutationFn type from react query
     mutationFn: (p: Parameters<ServiceMutateFns[R]>[0]) =>
       serviceMap[resource].mutate(p),
     onSuccess,
