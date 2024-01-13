@@ -1,7 +1,7 @@
 import React from "react";
 import { Keyboard, Pressable, TextInput } from "react-native";
 
-import { Box, Text } from "@/atoms";
+import { Box, Button, Text } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/tag";
 import { TagColorPicker } from "./TagColorPicker";
@@ -53,20 +53,22 @@ export const MutateTagCard = (props: Props) => {
         color={tag?.color}
         onChange={(value) => handleInputChange("color", value)}
       />
-      {tag ? (
-        <>
-          <Pressable onPress={handleSubmit}>
-            <Text>Update</Text>
-          </Pressable>
-          <Pressable onPress={handleDelete}>
-            <Text>Delete</Text>
-          </Pressable>
-        </>
-      ) : (
-        <Pressable onPress={handleSubmit}>
-          <Text>Create</Text>
-        </Pressable>
-      )}
+      <Box alignItems="flex-end" gap="s">
+        {tag ? (
+          <>
+            <Button onPress={handleSubmit}>
+              <Text>Update</Text>
+            </Button>
+            <Button onPress={handleDelete}>
+              <Text>Delete</Text>
+            </Button>
+          </>
+        ) : (
+          <Button onPress={handleSubmit}>
+            <Text>Create</Text>
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 };

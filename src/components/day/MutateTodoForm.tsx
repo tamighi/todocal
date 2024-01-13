@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Text } from "@/atoms";
+import { Box, Button, Container, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import { Keyboard, Pressable, TextInput } from "react-native";
@@ -52,7 +52,7 @@ export const MutateTodoCard = (props: {
   }, []);
 
   return (
-    <>
+    <Container>
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
         <TextInput
           style={{ padding: 12, margin: 2, borderWidth: 1, flex: 1 }}
@@ -65,6 +65,7 @@ export const MutateTodoCard = (props: {
           onChange={handleTagChange}
         />
       </Box>
+
       <Box flexDirection="row" justifyContent="space-around">
         <Box>
           <Text>Urgent</Text>
@@ -82,20 +83,22 @@ export const MutateTodoCard = (props: {
         </Box>
       </Box>
 
-      {todo ? (
-        <>
-          <Pressable onPress={handleSubmit}>
-            <Text>Update</Text>
-          </Pressable>
-          <Pressable onPress={handleDelete}>
-            <Text>Delete</Text>
-          </Pressable>
-        </>
-      ) : (
-        <Pressable onPress={handleSubmit}>
-          <Text>Create</Text>
-        </Pressable>
-      )}
-    </>
+      <Box alignItems="flex-end" gap="s">
+        {todo ? (
+          <>
+            <Button onPress={handleSubmit}>
+              <Text>Update</Text>
+            </Button>
+            <Button onPress={handleDelete}>
+              <Text>Delete</Text>
+            </Button>
+          </>
+        ) : (
+          <Button onPress={handleSubmit}>
+            <Text>Create</Text>
+          </Button>
+        )}
+      </Box>
+    </Container>
   );
 };

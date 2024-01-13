@@ -4,10 +4,12 @@ import { createTheme } from "@shopify/restyle";
 const palette = {
   black: "#0B0B0B",
   white: "#F0F2F3",
-  lightGrey: "#d3d3d3",
 
+  greyLight: "#d3d3d3",
   purpleLight: "#8C6FF7",
   greenLight: "#56DCBA",
+
+  blue: "#4361EE",
 };
 
 const theme = createTheme({
@@ -16,10 +18,10 @@ const theme = createTheme({
     mainBackground: palette.white,
     mainForeground: palette.black,
 
-    cardPrimaryBackground: palette.purpleLight,
+    primary: palette.purpleLight,
 
     chipDefaultBackground: palette.greenLight,
-    chipDoneBackground: palette.lightGrey,
+    chipDoneBackground: palette.greyLight,
   },
   // Set default spacings
   spacing: {
@@ -39,6 +41,7 @@ const theme = createTheme({
   // Set default borderRadii
   borderRadii: {
     xs: 4,
+    s: 8,
     sm: 16,
     md: 24,
     lg: 64,
@@ -64,16 +67,22 @@ const theme = createTheme({
       lineHeight: 20,
     },
   },
-  // Set cardVariants
+  buttonVariants: {
+    defaults: {
+      backgroundColor: "primary",
+      paddingHorizontal: "xs",
+      paddingVertical: "xxs",
+      borderRadius: "s",
+    },
+  },
   cardVariants: {
     defaults: {
       backgroundColor: "mainBackground",
     },
     primary: {
-      backgroundColor: "cardPrimaryBackground",
+      backgroundColor: "primary",
     },
   },
-  // Set chipVariants
   chipVariants: {
     defaults: {
       padding: "xs",

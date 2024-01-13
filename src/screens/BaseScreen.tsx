@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Box, Text, Container, ContainerProps } from "@/atoms";
+import { Box, Text, Container, ContainerProps, Button } from "@/atoms";
 import { SettingsModal } from "@/components";
-import { Pressable, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 
 type Props = ContainerProps;
 
@@ -12,9 +12,9 @@ export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Box alignSelf="flex-end">
-        <Pressable onPress={() => setOpenSettings(true)}>
+        <Button style={{ margin: 4 }} onPress={() => setOpenSettings(true)}>
           <Text>Settings</Text>
-        </Pressable>
+        </Button>
       </Box>
       <Container {...rest}>{children}</Container>
       <SettingsModal

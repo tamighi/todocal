@@ -1,7 +1,5 @@
-import { Pressable } from "react-native";
-
 import { useNavigation } from "@/hooks";
-import { Box, Text } from "@/atoms";
+import { Box, Button, Text } from "@/atoms";
 import { getMonthIdFromDayId } from "@/utils";
 import { useTodoModal } from "@/contexts";
 
@@ -20,17 +18,17 @@ export const DayHeader: React.FC<Props> = (props) => {
   };
 
   return (
-    <Box>
-      <Pressable
+    <Box alignItems="flex-start" gap="xs" marginBottom="s">
+      <Button
         onPress={() =>
           navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) })
         }
       >
         <Text>Go back</Text>
-      </Pressable>
-      <Pressable onPress={handleCreatePress}>
+      </Button>
+      <Button onPress={handleCreatePress}>
         <Text>Create</Text>
-      </Pressable>
+      </Button>
     </Box>
   );
 };

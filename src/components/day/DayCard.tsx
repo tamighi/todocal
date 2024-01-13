@@ -19,7 +19,14 @@ const DayCard: React.FC<Props> = (props) => {
   const date = new Date(day.id);
 
   return (
-    <Card variant="primary" height="100%" overflow="hidden" {...rest}>
+    <Card
+      borderRadius="s"
+      variant="primary"
+      flex={1}
+      overflow="hidden"
+      padding={!small ? "xs" : "none"}
+      {...rest}
+    >
       <DayCardHeader dayOnly={small} day={date} />
       <DayCardBody dayId={day.id} small={small} todos={todos} />
     </Card>

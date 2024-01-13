@@ -12,3 +12,6 @@ export * from "./Card";
 
 export { default as Chip } from "./Chip";
 export * from "./Chip";
+
+export { default as Button } from "./Button";
+export * from "./Button";

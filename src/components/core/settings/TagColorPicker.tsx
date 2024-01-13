@@ -26,8 +26,8 @@ export const TagColorPicker = (props: Props) => {
       value={color || theme.colors.chipDefaultBackground}
     >
       <Box gap="s" flexDirection="row" padding="s">
-        <HueSlider style={{ flex: 2 }} />
-        <Preview style={{ flex: 1 }} hideInitialColor={true} />
+        <HueSlider style={{ flex: 3 }} />
+        <Preview hideText={true} style={{ flex: 1 }} />
       </Box>
     </ColorPicker>
   );

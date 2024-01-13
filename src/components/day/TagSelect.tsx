@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Tag } from "@/models";
-import { useGetList, useMutate } from "@/hooks";
+import { useGetList, useMutate, useTheme } from "@/hooks";
 import { Box, Text } from "@/atoms";
 import Autocomplete from "../core/Autocomplete";
 
@@ -46,6 +46,7 @@ export const TagSelect = React.memo((props: Props) => {
     }
   };
 
+  const theme = useTheme();
   const renderItem = React.useCallback(
     (tag: Partial<Tag>, index: number, data: Partial<Tag>[]) => {
       return (
@@ -64,7 +65,8 @@ export const TagSelect = React.memo((props: Props) => {
                 margin: 4,
                 width: 15,
                 height: 15,
-                backgroundColor: tag.color ? tag.color : "grey",
+                backgroundColor:
+                  tag.color || theme.colors.chipDefaultBackground,
               }}
             />
           ) : (
