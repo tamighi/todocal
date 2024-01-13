@@ -4,6 +4,7 @@ import { Keyboard, Pressable, TextInput } from "react-native";
 import { Box, Text } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/tag";
+import { TagColorPicker } from "./TagColorPicker";
 
 type Props = {
   tag?: Tag;
@@ -47,6 +48,10 @@ export const MutateTagCard = (props: Props) => {
         value={formValue.name}
         onChangeText={(value) => handleInputChange("name", value)}
         placeholder="name"
+      />
+      <TagColorPicker
+        color={tag?.color}
+        onChange={(value) => handleInputChange("color", value)}
       />
       {tag ? (
         <>
