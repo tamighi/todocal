@@ -1,9 +1,18 @@
 import { Box, Chip, Text } from "@/atoms";
 import { useGetList, useTheme } from "@/hooks";
+import { Tag } from "@/models";
+import { Pressable } from "react-native";
+import { useTagModal } from "@/contexts";
 
 export const SettingsTagList = () => {
   const { data: tags } = useGetList("tag");
+  const { setTagModalProps } = useTagModal();
+
   const theme = useTheme();
+
+  const handleTagPress = (tag: Tag) => {
+    setTagModalProps({ open: true, tag: tag });
+  };
 
   return (
     <Box>
@@ -11,15 +20,16 @@ export const SettingsTagList = () => {
         <Box gap="xs">
           {tags.map((tag) => {
             return (
-              <Chip
-                key={tag.id}
-                style={{
-                  backgroundColor:
-                    tag.color || theme.colors.chipDefaultBackground,
-                }}
-              >
-                <Text>{tag.name}</Text>
-              </Chip>
+              <Pressable onPress={() => handleTagPress(tag)} key={tag.id}>
+                <Chip
+                  style={{
+                    backgroundColor:
+                      tag.color || theme.colors.chipDefaultBackground,
+                  }}
+                >
+                  <Text>{tag.name}</Text>
+                </Chip>
+              </Pressable>
             );
           })}
         </Box>

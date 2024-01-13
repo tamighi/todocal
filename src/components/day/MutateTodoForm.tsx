@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Card, Text } from "@/atoms";
+import { Box, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import { Keyboard, Pressable, TextInput } from "react-native";
@@ -38,7 +38,6 @@ export const MutateTodoCard = (props: {
   const handleSubmit = async () => {
     mutate({
       day: { id: dayId },
-      id: todo ? todo.id : undefined,
       ...formValue,
     });
     Keyboard.dismiss();
@@ -53,7 +52,7 @@ export const MutateTodoCard = (props: {
   }, []);
 
   return (
-    <Card width="100%" height="100%">
+    <>
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
         <TextInput
           style={{ padding: 12, margin: 2, borderWidth: 1, flex: 1 }}
@@ -97,6 +96,6 @@ export const MutateTodoCard = (props: {
           <Text>Create</Text>
         </Pressable>
       )}
-    </Card>
+    </>
   );
 };

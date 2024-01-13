@@ -5,16 +5,15 @@ import BottomSheet, {
   BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 
-import { Todo } from "@/models";
-import { MutateTodoCard } from "./MutateTodoForm";
+import { Tag } from "@/models";
+import { MutateTagCard } from "./MutateTagForm";
 
-export const MutateTodoBottomSheet = (props: {
+export const MutateTagBottomSheet = (props: {
   open: boolean;
-  dayId: string;
+  tag?: Tag;
   onClose?: () => void;
-  todo?: Todo;
 }) => {
-  const { open, dayId, onClose, todo } = props;
+  const { open, onClose, tag } = props;
   // ref
   const bottomSheetRef = React.useRef<BottomSheet>(null);
 
@@ -24,6 +23,8 @@ export const MutateTodoBottomSheet = (props: {
   React.useEffect(() => {
     if (open) {
       bottomSheetRef.current?.snapToIndex(0);
+    } else {
+      bottomSheetRef.current?.close();
     }
   }, [open]);
 
@@ -41,14 +42,14 @@ export const MutateTodoBottomSheet = (props: {
   return (
     <BottomSheet
       ref={bottomSheetRef}
-      index={0}
+      index={-1}
       enablePanDownToClose={true}
       snapPoints={snapPoints}
       detached={true}
       backdropComponent={renderBackdrop}
       onClose={onClose}
     >
-      <MutateTodoCard dayId={dayId} onMutate={onClose} todo={todo} />
+      <MutateTagCard onMutate={onClose} tag={tag} />
     </BottomSheet>
   );
 };
