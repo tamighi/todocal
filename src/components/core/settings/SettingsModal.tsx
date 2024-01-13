@@ -28,7 +28,7 @@ export const SettingsModal: React.FC<Props> = (props) => {
                 <Feather name="chevrons-down" size={32} />
               </Pressable>
             </Box>
-            <SettingsSection title="Tags">
+            <SettingsSection title="Tags" defaultOpen={true}>
               <SettingsTagList />
             </SettingsSection>
           </SafeAreaView>

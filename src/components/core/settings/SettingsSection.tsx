@@ -7,12 +7,13 @@ import { Pressable } from "react-native";
 type Props = {
   title: string;
   children?: React.ReactNode;
+  defaultOpen?: boolean;
 };
 
 export const SettingsSection = (props: Props) => {
-  const { title, children } = props;
+  const { title, children, defaultOpen = false } = props;
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(defaultOpen);
 
   return (
     <Box>
