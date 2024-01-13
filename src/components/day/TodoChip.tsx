@@ -54,7 +54,7 @@ const TodoChip: React.FC<Props> = (props) => {
           todo={todo}
           containerStyle={
             minimal
-              ? { position: "absolute", top: -2, right: 0, gap: 0 }
+              ? { position: "absolute", top: -3, right: 0, gap: 0 }
               : { alignSelf: "flex-end" }
           }
           iconSize={minimal ? 10 : 16}

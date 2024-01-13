@@ -49,9 +49,15 @@ const theme = createTheme({
     defaults: {
       color: "mainForeground",
       fontSize: 16,
+      lineHeight: 24,
+    },
+    title: {
+      fontSize: 32,
+      lineHeight: 32,
     },
     smallChip: {
       fontSize: 8,
+      lineHeight: 20,
     },
   },
   // Set cardVariants

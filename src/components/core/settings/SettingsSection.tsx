@@ -23,8 +23,8 @@ export const SettingsSection = (props: Props) => {
           borderWidth={1}
           flexDirection="row"
         >
-          <Text fontSize={32}>{title}</Text>
-          <Feather name={open ? "chevron-down" : "chevron-up"} size={24} />
+          <Text variant="title">{title}</Text>
+          <Feather name={open ? "chevron-up" : "chevron-down"} size={24} />
         </Box>
       </Pressable>
       <Box visible={open} padding="m">
