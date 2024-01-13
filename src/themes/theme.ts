@@ -18,7 +18,7 @@ const theme = createTheme({
 
     cardPrimaryBackground: palette.purpleLight,
 
-    chipGreenBackground: palette.greenLight,
+    chipDefaultBackground: palette.greenLight,
     chipDoneBackground: palette.lightGrey,
   },
   // Set default spacings
@@ -68,11 +68,6 @@ const theme = createTheme({
   chipVariants: {
     defaults: {
       padding: "xs",
-      borderRadius: "sm",
-    },
-    small: {
-      paddingVertical: "none",
-      paddingHorizontal: "xs",
       borderRadius: "xs",
     },
   },
