@@ -1,4 +1,4 @@
-import { Container } from "@/atoms";
+import { Box, Container, Text } from "@/atoms";
 import { Modal, Pressable, SafeAreaView } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { SettingsSection } from "./SettingsSection";
@@ -16,16 +16,16 @@ export const SettingsModal: React.FC<Props> = (props) => {
     <Modal animationType="slide" visible={open}>
       <Container paddingHorizontal="s" backgroundColor="mainBackground">
         <SafeAreaView style={{ flex: 1 }}>
-          <Pressable
-            style={{ alignSelf: "flex-end", marginBottom: 12 }}
-            onPress={onClose}
+          <Box
+            flexDirection="row"
+            justifyContent="space-between"
+            marginBottom="s"
           >
-            <Feather
-              name="chevrons-down"
-              size={32}
-              style={{ marginRight: 6 }}
-            />
-          </Pressable>
+            <Text variant="title">Settings</Text>
+            <Pressable style={{ marginBottom: 12 }} onPress={onClose}>
+              <Feather name="chevrons-down" size={32} />
+            </Pressable>
+          </Box>
           <SettingsSection title="Tags">
             <SettingsTagList />
           </SettingsSection>
