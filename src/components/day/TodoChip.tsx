@@ -1,10 +1,12 @@
 import React from "react";
 
 import { Todo } from "@/models";
-import { Chip, ChipProps, Text, TextProps } from "@/atoms";
+import { Box, Chip, ChipProps, Text, TextProps } from "@/atoms";
 import { useMutateTodo, useTheme } from "@/hooks";
 
 import { Checkbox } from "../Checkbox";
+import { TodoChipInfos } from "./TodoChipInfos";
+import { View } from "react-native";
 
 type Props = {
   todo: Todo;
@@ -34,6 +36,8 @@ const TodoChip: React.FC<Props> = (props) => {
       flexDirection="row"
       justifyContent="space-between"
       gap="xs"
+      paddingVertical="none"
+      paddingHorizontal="none"
       style={{
         backgroundColor: todo.done
           ? theme.colors.chipDoneBackground
@@ -46,9 +50,25 @@ const TodoChip: React.FC<Props> = (props) => {
       <Text style={{ flex: 1 }} {...conditionalTextProps}>
         {todo.content}
       </Text>
-      {!minimal && (
-        <Checkbox margin="xs" onPress={handleCheck} checked={checked} />
-      )}
+      <Box position="relative">
+        <TodoChipInfos
+          todo={todo}
+          containerStyle={
+            minimal
+              ? { position: "absolute", top: -2, right: 0, gap: 0 }
+              : { alignSelf: "flex-end" }
+          }
+          iconSize={minimal ? 10 : 16}
+        />
+        {!minimal && (
+          <Checkbox
+            margin="xs"
+            alignSelf="flex-end"
+            onPress={handleCheck}
+            checked={checked}
+          />
+        )}
+      </Box>
     </Chip>
   );
 };

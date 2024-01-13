@@ -47,7 +47,7 @@ const DayCardBody: React.FC<Props> = React.memo((props) => {
           <TodoChip
             todo={item}
             minimal={small}
-            marginBottom={small ? "xxs" : "m"}
+            marginBottom={small ? "xs" : "m"}
             dayId={dayId}
           />
         </Pressable>
