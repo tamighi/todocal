@@ -54,7 +54,6 @@ export const TagSelect = React.memo((props: Props) => {
           flexDirection="row"
           padding="s"
           style={{
-            backgroundColor: tag.color,
             borderBottomWidth: index === data.length - 1 ? 0 : 1,
           }}
         >
