@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Box, BoxProps, Text } from "@/atoms";
+import { Box, BoxProps } from "@/atoms";
 import { Pressable } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 type Props = BoxProps & {
   checked: boolean;
@@ -24,7 +25,7 @@ export const Checkbox: React.FC<Props> = (props) => {
         borderWidth={2}
         {...rest}
       >
-        {checked && <Text>X</Text>}
+        {checked && <Feather name="check" size={16} />}
       </Box>
     </Pressable>
   );
