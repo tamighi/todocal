@@ -49,7 +49,6 @@ const theme = createTheme({
     defaults: {
       color: "mainForeground",
       fontSize: 16,
-      lineHeight: 24,
     },
     smallChip: {
       fontSize: 8,
