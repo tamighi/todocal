@@ -6,7 +6,6 @@ import { useMutateTodo, useTheme } from "@/hooks";
 
 import { Checkbox } from "../Checkbox";
 import { TodoChipInfos } from "./TodoChipInfos";
-import { View } from "react-native";
 
 type Props = {
   todo: Todo;

@@ -1,5 +1,6 @@
-import { Container, Text } from "@/atoms";
+import { Container } from "@/atoms";
 import { Modal, Pressable, SafeAreaView } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 type Props = {
   open: boolean;
@@ -13,9 +14,12 @@ export const SettingsModal: React.FC<Props> = (props) => {
     <Modal animationType="slide" visible={open}>
       <Container backgroundColor="mainBackground">
         <SafeAreaView>
-          <Text>Hello world</Text>
-          <Pressable onPress={onClose}>
-            <Text>Close</Text>
+          <Pressable style={{ alignSelf: "flex-end" }} onPress={onClose}>
+            <Feather
+              name="chevrons-down"
+              size={32}
+              style={{ marginRight: 6 }}
+            />
           </Pressable>
         </SafeAreaView>
       </Container>
