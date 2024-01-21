@@ -14,3 +14,12 @@ npm start
 ```
 
 Then scan the QRcode with your phone.
+
+## Android studio
+
+[Expo android-studio setup](https://docs.expo.dev/workflow/android-studio-emulator/)
+
+```sh
+sudo apt install openjdk-11-jdk
+sudo snap install android-studio --classic
+```
