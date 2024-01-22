@@ -1,4 +1,4 @@
-import { TagEntity } from "../local/tag.entity";
+import { TagEntity } from "../entities";
 import { AbstractRepository } from "./abstract.repository";
 
 class TagRepository extends AbstractRepository<TagEntity> {

@@ -1,4 +1,4 @@
-import { MonthEntity } from "../local/month.entity";
+import { MonthEntity } from "../entities";
 import { AbstractRepository } from "./abstract.repository";
 
 class MonthRepository extends AbstractRepository<MonthEntity> {

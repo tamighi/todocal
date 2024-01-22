@@ -1,6 +1,5 @@
-import { todoRepository } from "@/data/repositories";
-import { TodoEntity } from "@/data/local";
 import { Todo } from "@/models";
+import { TodoEntity, todoRepository } from "@/database";
 
 import AbstractService from "./AbstractService";
 import DayService from "./DayService";

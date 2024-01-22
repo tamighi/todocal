@@ -1,6 +1,5 @@
-import { tagRepository } from "@/data/repositories";
-import { TagEntity } from "@/data/local";
 import { Tag } from "@/models";
+import { TagEntity, tagRepository } from "@/database";
 
 import AbstractService from "./AbstractService";
 

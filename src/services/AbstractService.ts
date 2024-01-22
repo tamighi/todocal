@@ -1,4 +1,4 @@
-import { AbstractRepository } from "@/data/repositories/abstract.repository";
+import { AbstractRepository } from "@/database";
 import { DeepPartial, FindManyOptions } from "typeorm";
 
 export default abstract class AbstractService<

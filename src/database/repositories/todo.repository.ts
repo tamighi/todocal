@@ -1,5 +1,5 @@
 import { DeepPartial } from "typeorm";
-import { TodoEntity } from "../local/todo.entity";
+import { TodoEntity } from "../entities";
 import { AbstractRepository } from "./abstract.repository";
 
 class TodoRepository extends AbstractRepository<TodoEntity> {

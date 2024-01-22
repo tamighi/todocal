@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { DatabaseLoader } from "./data/DatabaseLoader";
+import { DatabaseLoader } from "./database";
 import { theme } from "./themes";
 import { ClickOutsideProvider, TodoModalProvider } from "./contexts";
 

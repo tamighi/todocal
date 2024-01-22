@@ -1,6 +1,5 @@
 import { DataSource } from "typeorm";
-import { DayEntity, MonthEntity, TodoEntity } from "./local";
-import { TagEntity } from "./local/tag.entity";
+import { DayEntity, MonthEntity, TagEntity, TodoEntity } from "./entities";
 
 const source = new DataSource({
   database: "tasks.db",

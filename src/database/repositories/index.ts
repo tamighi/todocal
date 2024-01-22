@@ -9,3 +9,4 @@ const monthRepository = new MonthRepository();
 const tagRepository = new TagRepository();
 
 export { todoRepository, dayRepository, monthRepository, tagRepository };
+export * from "./abstract.repository";

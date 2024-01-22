@@ -1,5 +1,4 @@
-import { dayRepository } from "@/data/repositories";
-import { DayEntity } from "@/data/local";
+import { DayEntity, dayRepository } from "@/database";
 import { Day } from "@/models";
 import { getMonthIdFromDayId } from "@/utils";
 

@@ -1,6 +1,5 @@
-import { monthRepository } from "@/data/repositories";
 import { Month } from "@/models";
-import { MonthEntity } from "@/data/local";
+import { MonthEntity, monthRepository } from "@/database";
 
 import AbstractService from "./AbstractService";
 import DayService from "./DayService";
