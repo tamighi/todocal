@@ -1,5 +1,5 @@
 import React from "react";
-import { Keyboard, Pressable, TextInput } from "react-native";
+import { Keyboard, TextInput } from "react-native";
 
 import { Box, Button, Text } from "@/atoms";
 import { Tag } from "@/models";

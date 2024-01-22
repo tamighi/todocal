@@ -3,7 +3,7 @@ import React from "react";
 import { Tag } from "@/models";
 import { useGetList, useMutate, useTheme } from "@/hooks";
 import { Box, Text } from "@/atoms";
-import Autocomplete from "../core/Autocomplete";
+import { Autocomplete } from "@/components/core";
 
 type Props = {
   value?: Tag;

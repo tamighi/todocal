@@ -1,2 +1,2 @@
-export { default as Autocomplete } from "./Autocomplete";
-export * from "./settings";
+export * from "./Autocomplete";
+export * from "./Checkbox";

@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Tag } from "@/models";
-import { MutateTagBottomSheet } from "@/components/core/settings/MutateTagBottomSheet";
 import { Keyboard } from "react-native";
+
+import { Tag } from "@/models";
+import { MutateTagBottomSheet } from "@/components/tags";
 
 type TagModalProps = {
   tag?: Tag;

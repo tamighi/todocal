@@ -3,8 +3,8 @@ import React from "react";
 import { Todo } from "@/models";
 import { Box, Chip, ChipProps, Text, TextProps } from "@/atoms";
 import { useMutateTodo, useTheme } from "@/hooks";
+import { Checkbox } from "@/components/core";
 
-import { Checkbox } from "../Checkbox";
 import { TodoChipInfos } from "./TodoChipInfos";
 
 type Props = {

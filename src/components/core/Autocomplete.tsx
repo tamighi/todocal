@@ -27,7 +27,7 @@ type Props<T extends object | string> = {
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
-const Autocomplete = <T extends object | string>(props: Props<T>) => {
+export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   const {
     value,
     onChange,
@@ -139,5 +139,3 @@ const Autocomplete = <T extends object | string>(props: Props<T>) => {
     </Box>
   );
 };
-
-export default React.memo(Autocomplete) as typeof Autocomplete;

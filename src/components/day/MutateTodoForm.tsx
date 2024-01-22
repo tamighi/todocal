@@ -1,11 +1,12 @@
 import React from "react";
 
+import { Keyboard, TextInput } from "react-native";
+
 import { Box, Button, Container, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
-import { Keyboard, Pressable, TextInput } from "react-native";
-import { Checkbox } from "../Checkbox";
-import { TagSelect } from "./TagSelect";
+import { Checkbox } from "@/components/core";
+import { TagSelect } from "@/components/tags";
 
 export const MutateTodoCard = (props: {
   dayId: string;
