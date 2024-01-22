@@ -13,7 +13,7 @@ type Props = {
   minimal?: boolean;
 } & ChipProps;
 
-const TodoChip: React.FC<Props> = (props) => {
+export const TodoChip: React.FC<Props> = (props) => {
   const { todo, minimal = false, dayId, ...rest } = props;
   const theme = useTheme();
 
@@ -71,5 +71,3 @@ const TodoChip: React.FC<Props> = (props) => {
     </Chip>
   );
 };
-
-export default TodoChip;

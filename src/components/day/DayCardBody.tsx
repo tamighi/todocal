@@ -9,8 +9,8 @@ import { Pressable } from "react-native";
 
 import { Todo } from "@/models";
 import { useMutateTodo } from "@/hooks";
+import { TodoChip } from "@/components/todos";
 
-import TodoChip from "./TodoChip";
 import { useTodoModal } from "@/contexts";
 
 interface Props {

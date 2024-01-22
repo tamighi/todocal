@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MutateTodoBottomSheet } from "@/components/day/MutateTodoBottomSheet";
+import { MutateTodoBottomSheet } from "@/components/todos";
 import { Todo } from "@/models";
 
 type TodoModalProps = {

@@ -11,7 +11,7 @@ type Props = {
   small?: boolean;
 } & CardProps;
 
-const DayCard: React.FC<Props> = (props) => {
+export const DayCard: React.FC<Props> = (props) => {
   const { day, small = false, ...rest } = props;
 
   const todos = React.useMemo(() => day.todos, [day]);
@@ -32,5 +32,3 @@ const DayCard: React.FC<Props> = (props) => {
     </Card>
   );
 };
-
-export default DayCard;
