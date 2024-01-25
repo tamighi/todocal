@@ -1,11 +1,12 @@
 import React from "react";
 
-import { MutateTodoBottomSheet } from "@/components/todos";
 import { Todo } from "@/models";
+import { getDefaultDayId } from "@/utils";
+import { MutateTodoForm } from "@/components/todos";
+import { BottomSheet } from "@/components/core";
 
 type TodoModalProps = {
   todo?: Todo;
-  onClose?: () => void;
   dayId?: string;
   open: boolean;
 };
@@ -34,24 +35,18 @@ export const TodoModalProvider = (props: ProviderProps) => {
     open: false,
   });
 
-  const { dayId, todo, open } = modalProps;
+  const { dayId = getDefaultDayId(), todo, open } = modalProps;
 
   const onClose = React.useCallback(() => {
     setModalProps({ ...modalProps, open: false });
-    modalProps.onClose?.();
   }, []);
 
   return (
     <TodoModalContext.Provider value={setModalProps}>
       {children}
-      {dayId && (
-        <MutateTodoBottomSheet
-          dayId={dayId}
-          todo={todo}
-          open={open}
-          onClose={onClose}
-        />
-      )}
+      <BottomSheet open={open} onClose={onClose}>
+        <MutateTodoForm dayId={dayId} todo={todo} onMutate={onClose} />
+      </BottomSheet>
     </TodoModalContext.Provider>
   );
 };

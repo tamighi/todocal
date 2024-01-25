@@ -1,13 +1,11 @@
 import React from "react";
 
-import { Keyboard } from "react-native";
-
 import { Tag } from "@/models";
-import { MutateTagBottomSheet } from "@/components/tags";
+import { BottomSheet } from "@/components/core";
+import { MutateTagForm } from "@/components/tags";
 
 type TagModalProps = {
   tag?: Tag;
-  onClose?: () => void;
   open: boolean;
 };
 
@@ -39,14 +37,14 @@ export const TagModalProvider = (props: ProviderProps) => {
 
   const onClose = React.useCallback(() => {
     setModalProps({ ...modalProps, open: false });
-    modalProps.onClose?.();
-    Keyboard.dismiss();
   }, []);
 
   return (
     <TagModalContext.Provider value={setModalProps}>
       {children}
-      <MutateTagBottomSheet tag={tag} open={open} onClose={onClose} />
+      <BottomSheet open={open} onClose={onClose}>
+        <MutateTagForm tag={tag} onMutate={onClose} />
+      </BottomSheet>
     </TagModalContext.Provider>
   );
 };

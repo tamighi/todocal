@@ -11,7 +11,7 @@ type Props = {
   onMutate?: () => void;
 };
 
-export const MutateTagCard = (props: Props) => {
+export const MutateTagForm = (props: Props) => {
   const { tag, onMutate } = props;
 
   const [formValue, setFormValue] = React.useState<Partial<Tag>>({});
