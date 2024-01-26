@@ -3,10 +3,10 @@ import { palette } from "./palette";
 import { layout } from "./layout";
 
 const colors = {
-  mainBackground: palette.white,
+  mainBackground: palette.lightOrange,
   mainForeground: palette.black,
 
-  primary: palette.purpleLight,
+  primary: palette.orange,
 
   chipDefaultBackground: palette.greenLight,
   chipDoneBackground: palette.greyLight,
