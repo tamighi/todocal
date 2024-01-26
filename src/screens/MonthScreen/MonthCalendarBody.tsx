@@ -9,7 +9,7 @@ import {
 } from "@/utils";
 import { useNavigation } from "@/hooks";
 
-import { DayCard } from "../day";
+import { DayCard } from "@/components/day";
 
 interface Props {
   month: Month;

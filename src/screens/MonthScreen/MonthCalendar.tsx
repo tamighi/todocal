@@ -8,7 +8,7 @@ interface Props {
   month: Month;
 }
 
-const MonthCalendar: React.FC<Props> = (props) => {
+export const MonthCalendar: React.FC<Props> = (props) => {
   const { month } = props;
 
   return (
@@ -18,5 +18,3 @@ const MonthCalendar: React.FC<Props> = (props) => {
     </Container>
   );
 };
-
-export default MonthCalendar;
