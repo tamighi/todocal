@@ -3,14 +3,15 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
 import { Text } from "@/atoms";
-import { DayCard, DayHeader } from "@/components";
+import { DayCard } from "@/components";
 import { useGetOne } from "@/hooks";
 
-import { BaseScreen } from "./BaseScreen";
+import { BaseScreen } from "../BaseScreen";
+import { DayHeader } from "./DayHeader";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 
-const DayScreen: React.FC<Props> = ({ route }) => {
+export const DayScreen: React.FC<Props> = ({ route }) => {
   const { dayId } = route.params;
 
   const { data: day } = useGetOne("day", dayId);
@@ -22,5 +23,3 @@ const DayScreen: React.FC<Props> = ({ route }) => {
     </BaseScreen>
   );
 };
-
-export default DayScreen;
