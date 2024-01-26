@@ -1,53 +1,20 @@
 import { createTheme } from "@shopify/restyle";
+import { palette } from "./palette";
+import { layout } from "./layout";
 
-// Palette
-const palette = {
-  black: "#0B0B0B",
-  white: "#F0F2F3",
+const colors = {
+  mainBackground: palette.white,
+  mainForeground: palette.black,
 
-  greyLight: "#d3d3d3",
-  purpleLight: "#8C6FF7",
-  greenLight: "#56DCBA",
+  primary: palette.purpleLight,
 
-  blue: "#4361EE",
+  chipDefaultBackground: palette.greenLight,
+  chipDoneBackground: palette.greyLight,
 };
 
 const theme = createTheme({
-  // Define what component has what colors
-  colors: {
-    mainBackground: palette.white,
-    mainForeground: palette.black,
-
-    primary: palette.purpleLight,
-
-    chipDefaultBackground: palette.greenLight,
-    chipDoneBackground: palette.greyLight,
-  },
-  // Set default spacings
-  spacing: {
-    none: 0,
-    xxs: 2,
-    xs: 4,
-    s: 8,
-    m: 16,
-    lg: 24,
-    xl: 40,
-  },
-  // Set default breakpoints
-  breakpoints: {
-    phone: 0,
-    tablet: 768,
-  },
-  // Set default borderRadii
-  borderRadii: {
-    xs: 4,
-    s: 8,
-    sm: 16,
-    md: 24,
-    lg: 64,
-    hg: 128,
-  },
-  // Set textVariants
+  colors,
+  ...layout,
   textVariants: {
     defaults: {
       color: "mainForeground",
