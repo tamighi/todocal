@@ -65,8 +65,7 @@ export const TagSelect = React.memo((props: Props) => {
                 margin: 4,
                 width: 15,
                 height: 15,
-                backgroundColor:
-                  tag.color || theme.colors.chipDefaultBackground,
+                backgroundColor: tag.color || theme.colors.chipDefaultColor,
               }}
             />
           ) : (

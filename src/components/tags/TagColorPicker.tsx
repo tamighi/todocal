@@ -23,7 +23,7 @@ export const TagColorPicker = (props: Props) => {
     <ColorPicker
       onComplete={handleSelectColor}
       boundedThumb={true}
-      value={color || theme.colors.chipDefaultBackground}
+      value={color || theme.colors.chipDefaultColor}
     >
       <Box gap="s" flexDirection="row" padding="s">
         <HueSlider style={{ flex: 3 }} />

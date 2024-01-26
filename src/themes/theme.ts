@@ -8,8 +8,9 @@ const colors = {
 
   primary: palette.orange,
 
-  chipDefaultBackground: palette.greenLight,
-  chipDoneBackground: palette.greyLight,
+  chipDefaultColor: palette.greenLight,
+  chipUrgentColor: palette.red,
+  chipImportantColor: palette.blue,
 };
 
 const theme = createTheme({
@@ -30,8 +31,8 @@ const theme = createTheme({
       lineHeight: 32,
     },
     smallChip: {
-      fontSize: 8,
-      lineHeight: 20,
+      fontSize: 9,
+      lineHeight: 16,
     },
   },
   buttonVariants: {
@@ -52,8 +53,7 @@ const theme = createTheme({
   },
   chipVariants: {
     defaults: {
-      padding: "xs",
-      borderRadius: "xs",
+      borderRadius: "xxs",
     },
   },
 });
