@@ -8,7 +8,7 @@ import { Tag, Todo } from "@/models";
 import { Checkbox } from "@/components/core";
 import { TagSelect } from "@/components/tags";
 
-export const MutateTodoCard = (props: {
+export const MutateTodoForm = (props: {
   dayId: string;
   onMutate?: () => void;
   todo?: Todo;
