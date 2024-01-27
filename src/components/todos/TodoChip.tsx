@@ -1,11 +1,10 @@
 import React from "react";
 
 import { Todo } from "@/models";
-import { Box, Chip, ChipProps, Text, TextProps } from "@/atoms";
-import { useMutateTodo, useTheme } from "@/hooks";
+import { Chip, ChipProps, Text, TextProps } from "@/atoms";
+import { useMutateTodo } from "@/hooks";
 import { Checkbox } from "@/components/core";
-
-import { TodoChipInfos } from "./TodoChipInfos";
+import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
 
 type Props = {
   todo: Todo;
@@ -15,7 +14,6 @@ type Props = {
 
 export const TodoChip: React.FC<Props> = (props) => {
   const { todo, minimal = false, dayId, ...rest } = props;
-  const theme = useTheme();
 
   const [checked, setChecked] = React.useState(todo.done);
 
@@ -33,41 +31,32 @@ export const TodoChip: React.FC<Props> = (props) => {
   return (
     <Chip
       flexDirection="row"
-      justifyContent="space-between"
+      backgroundColor="mainBackground"
+      alignItems="center"
       gap="xs"
-      paddingVertical="none"
-      paddingHorizontal="none"
       style={{
-        backgroundColor: todo.done
-          ? theme.colors.chipDoneBackground
-          : todo.tag?.color
-            ? todo.tag.color
-            : theme.colors.chipDefaultBackground,
+        opacity: todo.done ? 0.4 : 1,
       }}
       {...rest}
     >
+      <TodoChipColorInfoBox
+        color={todo.tag?.color}
+        urgent={todo.urgent}
+        important={todo.important}
+        width={minimal ? 5 : 8}
+      />
+
       <Text style={{ flex: 1 }} {...conditionalTextProps}>
         {todo.content}
       </Text>
-      <Box position="relative">
-        <TodoChipInfos
-          todo={todo}
-          containerStyle={
-            minimal
-              ? { position: "absolute", top: -3, right: 0, gap: 0 }
-              : { alignSelf: "flex-end" }
-          }
-          iconSize={minimal ? 10 : 16}
+      {!minimal && (
+        <Checkbox
+          margin="xs"
+          alignSelf="flex-end"
+          onPress={handleCheck}
+          checked={checked}
         />
-        {!minimal && (
-          <Checkbox
-            margin="xs"
-            alignSelf="flex-end"
-            onPress={handleCheck}
-            checked={checked}
-          />
-        )}
-      </Box>
+      )}
     </Chip>
   );
 };

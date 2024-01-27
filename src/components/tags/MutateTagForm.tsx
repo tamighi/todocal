@@ -1,10 +1,12 @@
 import React from "react";
-import { Keyboard, TextInput } from "react-native";
 
-import { Box, Button, Text } from "@/atoms";
+import { Box, Button, Container, Text } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/tag";
+
 import { TagColorPicker } from "./TagColorPicker";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { FormActionButtons } from "../core";
 
 type Props = {
   tag?: Tag;
@@ -34,7 +36,6 @@ export const MutateTagForm = (props: Props) => {
   const handleSubmit = () => {
     mutate(formValue);
     onMutate?.();
-    Keyboard.dismiss();
   };
 
   const handleDelete = () => {
@@ -42,8 +43,8 @@ export const MutateTagForm = (props: Props) => {
   };
 
   return (
-    <Box>
-      <TextInput
+    <Container gap="lg">
+      <BottomSheetTextInput
         style={{ padding: 12, margin: 2, borderWidth: 1 }}
         value={formValue.name}
         onChangeText={(value) => handleInputChange("name", value)}
@@ -53,22 +54,14 @@ export const MutateTagForm = (props: Props) => {
         color={tag?.color}
         onChange={(value) => handleInputChange("color", value)}
       />
-      <Box alignItems="flex-end" gap="s">
-        {tag ? (
-          <>
-            <Button onPress={handleSubmit}>
-              <Text>Update</Text>
-            </Button>
-            <Button onPress={handleDelete}>
-              <Text>Delete</Text>
-            </Button>
-          </>
-        ) : (
-          <Button onPress={handleSubmit}>
-            <Text>Create</Text>
-          </Button>
-        )}
-      </Box>
-    </Box>
+
+      <FormActionButtons
+        marginTop="lg"
+        mode={tag ? "update" : "create"}
+        onDeleteClick={handleDelete}
+        onEditClick={handleSubmit}
+        onCreateClick={handleSubmit}
+      />
+    </Container>
   );
 };

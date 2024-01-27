@@ -4,9 +4,11 @@ const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const MonthCalendarHeader = () => {
   return (
-    <Box flexDirection="row" justifyContent="space-around">
+    <Box flexDirection="row">
       {daysOfWeek.map((day) => (
-        <Text key={day}>{day}</Text>
+        <Box key={day} flex={1} alignItems="center">
+          <Text>{day}</Text>
+        </Box>
       ))}
     </Box>
   );

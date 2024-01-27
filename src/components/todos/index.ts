@@ -1,3 +1,3 @@
 export * from "./TodoChip";
-export * from "./TodoChipInfos";
+export * from "./TodoChipColorInfoBox";
 export * from "./MutateTodoForm";

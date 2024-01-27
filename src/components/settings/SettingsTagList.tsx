@@ -23,8 +23,7 @@ export const SettingsTagList = () => {
               <Pressable onPress={() => handleTagPress(tag)} key={tag.id}>
                 <Chip
                   style={{
-                    backgroundColor:
-                      tag.color || theme.colors.chipDefaultBackground,
+                    backgroundColor: tag.color || theme.colors.chipDefaultColor,
                   }}
                 >
                   <Text>{tag.name}</Text>

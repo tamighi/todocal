@@ -3,13 +3,14 @@ import { palette } from "./palette";
 import { layout } from "./layout";
 
 const colors = {
-  mainBackground: palette.white,
+  mainBackground: palette.lightOrange,
   mainForeground: palette.black,
 
-  primary: palette.purpleLight,
+  primary: palette.orange,
 
-  chipDefaultBackground: palette.greenLight,
-  chipDoneBackground: palette.greyLight,
+  chipDefaultColor: palette.greenLight,
+  chipUrgentColor: palette.red,
+  chipImportantColor: palette.blue,
 };
 
 const theme = createTheme({
@@ -30,16 +31,20 @@ const theme = createTheme({
       lineHeight: 32,
     },
     smallChip: {
-      fontSize: 8,
-      lineHeight: 20,
+      fontSize: 9,
+      lineHeight: 16,
     },
   },
   buttonVariants: {
     defaults: {
-      backgroundColor: "primary",
       paddingHorizontal: "xs",
       paddingVertical: "xxs",
       borderRadius: "s",
+    },
+    icon: {
+      borderRadius: "hg",
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
   cardVariants: {
@@ -52,8 +57,7 @@ const theme = createTheme({
   },
   chipVariants: {
     defaults: {
-      padding: "xs",
-      borderRadius: "xs",
+      borderRadius: "xxs",
     },
   },
 });

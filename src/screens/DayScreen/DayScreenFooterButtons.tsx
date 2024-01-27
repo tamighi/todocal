@@ -1,5 +1,6 @@
 import { useNavigation } from "@/hooks";
-import { Box, Button, Text } from "@/atoms";
+import { Box, Button } from "@/atoms";
+import { Feather } from "@expo/vector-icons";
 import { getMonthIdFromDayId } from "@/utils";
 import { useTodoModal } from "@/contexts";
 
@@ -7,7 +8,7 @@ type Props = {
   dayId: string;
 };
 
-export const DayHeader: React.FC<Props> = (props) => {
+export const DayScreenFooterButtons: React.FC<Props> = (props) => {
   const { dayId } = props;
 
   const { setTodoModalProps } = useTodoModal();
@@ -18,16 +19,25 @@ export const DayHeader: React.FC<Props> = (props) => {
   };
 
   return (
-    <Box alignItems="flex-start" gap="xs" marginBottom="s">
+    <Box
+      position="absolute"
+      flexDirection="row"
+      justifyContent="space-between"
+      bottom={0}
+      left={0}
+      right={0}
+      margin="lg"
+    >
       <Button
         onPress={() =>
           navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) })
         }
+        variant="icon"
       >
-        <Text>Go back</Text>
+        <Feather name="calendar" size={26} />
       </Button>
-      <Button onPress={handleCreatePress}>
-        <Text>Create</Text>
+      <Button onPress={handleCreatePress} variant="icon">
+        <Feather name="plus" size={26} />
       </Button>
     </Box>
   );
