@@ -23,7 +23,6 @@ export const DayCard: React.FC<Props> = (props) => {
       borderRadius="s"
       variant="primary"
       flex={1}
-      overflow="scroll"
       padding={!small ? "xs" : "xxs"}
       {...rest}
     >

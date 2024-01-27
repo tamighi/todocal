@@ -25,7 +25,7 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
   const calendarTable = createCalendarGrid(daysWithPadding);
 
   return (
-    <Box flexDirection="column" height="100%" gap="xxs">
+    <Box height="100%" gap="xxs">
       {calendarTable.map((array, index) => (
         <Box key={index} flexDirection="row" flex={1} gap="xxs">
           {array.map((day, index) => (
@@ -34,7 +34,6 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                 <Pressable
                   onPress={() => navigation.navigate("Day", { dayId: day.id })}
                   style={{ flex: 1 }}
-                  onStartShouldSetResponderCapture={() => true}
                 >
                   <DayCard day={day} small />
                 </Pressable>

@@ -46,14 +46,18 @@ const DraggableTodoList: React.FC<Props> = React.memo((props) => {
         >
           <TodoChip
             todo={item}
-            minimal={small}
-            marginBottom={small ? "xs" : "m"}
+            minimal={false}
+            marginBottom="m"
             dayId={dayId}
           />
         </Pressable>
       </ScaleDecorator>
     );
   };
+  const simpleRenderItem = ({ item }: RenderItemParams<Todo>) => {
+    return <TodoChip minimal marginBottom="xs" dayId={dayId} todo={item} />;
+  };
+
   const { mutate } = useMutateTodo(dayId);
 
   const setNewOrder = (todos: Todo[], to: number) => {
@@ -89,11 +93,11 @@ const DraggableTodoList: React.FC<Props> = React.memo((props) => {
 
   return (
     <DraggableFlatList
-      scrollEnabled={true}
       data={todoList}
-      renderItem={renderItem}
+      renderItem={small ? simpleRenderItem : renderItem}
       keyExtractor={(item) => item.id}
       onDragEnd={onDragEnd}
+      containerStyle={{ flex: 1 }}
     />
   );
 });

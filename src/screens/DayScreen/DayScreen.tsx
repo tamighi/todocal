@@ -20,7 +20,7 @@ export const DayScreen: React.FC<Props> = ({ route }) => {
   return (
     <BaseScreen marginHorizontal="xl">
       {day ? (
-        <DayCard day={day} paddingBottom="xxl" />
+        <DayCard day={day} style={{ paddingBottom: 100 }} />
       ) : (
         <Text>Loading ...</Text>
       )}

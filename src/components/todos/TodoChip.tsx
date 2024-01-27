@@ -32,6 +32,7 @@ export const TodoChip: React.FC<Props> = (props) => {
     <Chip
       flexDirection="row"
       backgroundColor="mainBackground"
+      alignItems="center"
       gap="xs"
       style={{
         opacity: todo.done ? 0.4 : 1,
