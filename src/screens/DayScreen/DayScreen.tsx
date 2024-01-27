@@ -1,4 +1,5 @@
 import React from "react";
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
@@ -7,7 +8,7 @@ import { DayCard } from "@/components";
 import { useGetOne } from "@/hooks";
 
 import { BaseScreen } from "../BaseScreen";
-import { DayHeader } from "./DayHeader";
+import { DayScreenFooterButtons } from "./DayScreenFooterButtons";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 
@@ -18,8 +19,12 @@ export const DayScreen: React.FC<Props> = ({ route }) => {
 
   return (
     <BaseScreen marginHorizontal="xl">
-      <DayHeader dayId={dayId} />
-      {day ? <DayCard day={day} /> : <Text>Loading ...</Text>}
+      {day ? (
+        <DayCard day={day} paddingBottom="xxl" />
+      ) : (
+        <Text>Loading ...</Text>
+      )}
+      <DayScreenFooterButtons dayId={dayId} />
     </BaseScreen>
   );
 };

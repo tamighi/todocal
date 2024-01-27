@@ -19,14 +19,17 @@ export const TodoChipColorInfoBox = (props: Props) => {
       }}
       height="100%"
       borderRadius="xxs"
+      position="relative"
       {...rest}
     >
-      {urgent ? (
-        <Box height="20%" backgroundColor="chipUrgentColor"></Box>
-      ) : null}
-      {important ? (
-        <Box height="20%" backgroundColor="chipImportantColor"></Box>
-      ) : null}
+      <Box position="absolute">
+        {urgent ? (
+          <Box height="20%" backgroundColor="chipUrgentColor"></Box>
+        ) : null}
+        {important ? (
+          <Box height="20%" backgroundColor="chipImportantColor"></Box>
+        ) : null}
+      </Box>
     </Box>
   );
 };

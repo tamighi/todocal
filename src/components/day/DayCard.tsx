@@ -4,7 +4,7 @@ import { Card, CardProps } from "@/atoms";
 import { Day } from "@/models";
 
 import DayCardBody from "./DayCardBody";
-import DayCardHeader from "./DayCardHeader";
+import DayCardHeader from "./DayHeader";
 
 type Props = {
   day: Day;
@@ -24,7 +24,7 @@ export const DayCard: React.FC<Props> = (props) => {
       variant="primary"
       flex={1}
       overflow="hidden"
-      padding={!small ? "xs" : "none"}
+      padding={!small ? "xs" : "xxs"}
       {...rest}
     >
       <DayCardHeader dayOnly={small} day={date} />

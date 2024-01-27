@@ -5,7 +5,8 @@ const spacing = {
   s: 8,
   m: 16,
   lg: 24,
-  xl: 40,
+  xl: 48,
+  xxl: 124,
 };
 
 const breakpoints = {

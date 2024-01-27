@@ -37,7 +37,6 @@ const theme = createTheme({
   },
   buttonVariants: {
     defaults: {
-      backgroundColor: "primary",
       paddingHorizontal: "xs",
       paddingVertical: "xxs",
       borderRadius: "s",
