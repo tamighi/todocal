@@ -19,7 +19,7 @@ interface Props {
   dayId: string;
 }
 
-const DayCardBody: React.FC<Props> = React.memo((props) => {
+const DraggableTodoList: React.FC<Props> = React.memo((props) => {
   const { todos = [], small = false, dayId } = props;
 
   const [todoList, setTodolist] = React.useState(todos);
@@ -89,6 +89,7 @@ const DayCardBody: React.FC<Props> = React.memo((props) => {
 
   return (
     <DraggableFlatList
+      scrollEnabled={true}
       data={todoList}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
@@ -97,6 +98,6 @@ const DayCardBody: React.FC<Props> = React.memo((props) => {
   );
 });
 
-DayCardBody.displayName = "DayCardBody";
+DraggableTodoList.displayName = "DayCardBody";
 
-export default DayCardBody;
+export default DraggableTodoList;
