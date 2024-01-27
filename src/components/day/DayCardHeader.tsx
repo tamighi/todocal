@@ -11,7 +11,7 @@ const DayCardHeader: React.FC<Props> = (props) => {
   const { day, dayOnly = false } = props;
 
   return (
-    <Box margin="s" alignItems="center">
+    <Box marginVertical={dayOnly ? "none" : "s"} alignItems="center">
       <Text>{dayOnly ? day.getDate() : day.toLocaleDateString()}</Text>
     </Box>
   );

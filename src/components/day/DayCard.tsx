@@ -4,7 +4,7 @@ import { Card, CardProps } from "@/atoms";
 import { Day } from "@/models";
 
 import DraggableTodoList from "./DraggableTodoList";
-import DayCardHeader from "./DayHeader";
+import DayCardHeader from "./DayCardHeader";
 
 type Props = {
   day: Day;

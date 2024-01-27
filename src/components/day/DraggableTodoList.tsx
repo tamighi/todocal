@@ -5,7 +5,7 @@ import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
 } from "react-native-draggable-flatlist";
-import { Pressable } from "react-native";
+import { Pressable, View } from "react-native";
 
 import { Todo } from "@/models";
 import { useMutateTodo } from "@/hooks";
@@ -92,13 +92,14 @@ const DraggableTodoList: React.FC<Props> = React.memo((props) => {
   }, []);
 
   return (
-    <DraggableFlatList
-      data={todoList}
-      renderItem={small ? simpleRenderItem : renderItem}
-      keyExtractor={(item) => item.id}
-      onDragEnd={onDragEnd}
-      containerStyle={{ flex: 1 }}
-    />
+    <View style={{ flex: 1 }}>
+      <DraggableFlatList
+        data={todoList}
+        renderItem={small ? simpleRenderItem : renderItem}
+        keyExtractor={(item) => item.id}
+        onDragEnd={onDragEnd}
+      />
+    </View>
   );
 });
 
