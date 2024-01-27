@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Text, Container, ContainerProps, Button } from "@/atoms";
 import { SettingsModal } from "@/components";
-import { SafeAreaView, StatusBar } from "react-native";
+import { Platform, SafeAreaView, StatusBar } from "react-native";
 import { useTheme } from "@/hooks";
 
 type Props = ContainerProps;
@@ -12,7 +12,13 @@ export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
   const { colors } = useTheme();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.mainBackground }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        paddingBottom: Platform.OS === "ios" ? undefined : 30,
+        backgroundColor: colors.mainBackground,
+      }}
+    >
       <StatusBar
         barStyle="dark-content"
         backgroundColor={colors.mainBackground}
