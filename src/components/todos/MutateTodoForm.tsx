@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Box, Button, Container, Text } from "@/atoms";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+
+import { Box, Container, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
-import { Checkbox } from "@/components/core";
+import { Checkbox, FormActionButtons } from "@/components/core";
 import { TagSelect } from "@/components/tags";
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -51,7 +52,7 @@ export const MutateTodoForm = (props: {
   }, []);
 
   return (
-    <Container>
+    <Container gap="lg">
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
         <BottomSheetTextInput
           style={{ padding: 12, margin: 2, borderWidth: 1, flex: 1 }}
@@ -66,14 +67,14 @@ export const MutateTodoForm = (props: {
       </Box>
 
       <Box flexDirection="row" justifyContent="space-around">
-        <Box>
+        <Box flexDirection="row" gap="s" alignItems="center">
           <Text>Urgent</Text>
           <Checkbox
             onPress={(value) => handleInputChange("urgent", value)}
             checked={formValue.urgent || false}
           />
         </Box>
-        <Box>
+        <Box flexDirection="row" gap="s" alignItems="center">
           <Text>Important</Text>
           <Checkbox
             onPress={(value) => handleInputChange("important", value)}
@@ -82,22 +83,13 @@ export const MutateTodoForm = (props: {
         </Box>
       </Box>
 
-      <Box alignItems="flex-end" gap="s">
-        {todo ? (
-          <>
-            <Button onPress={handleSubmit}>
-              <Text>Update</Text>
-            </Button>
-            <Button onPress={handleDelete}>
-              <Text>Delete</Text>
-            </Button>
-          </>
-        ) : (
-          <Button onPress={handleSubmit}>
-            <Text>Create</Text>
-          </Button>
-        )}
-      </Box>
+      <FormActionButtons
+        marginTop="lg"
+        mode={todo ? "update" : "create"}
+        onCreateClick={handleSubmit}
+        onEditClick={handleSubmit}
+        onDeleteClick={handleDelete}
+      />
     </Container>
   );
 };
