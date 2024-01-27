@@ -21,7 +21,7 @@ const borderRadii = {
   sm: 16,
   md: 24,
   lg: 64,
-  hg: 128,
+  hg: 256,
 };
 
 export const layout = {

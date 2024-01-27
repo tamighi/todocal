@@ -42,6 +42,11 @@ const theme = createTheme({
       paddingVertical: "xxs",
       borderRadius: "s",
     },
+    icon: {
+      borderRadius: "hg",
+      alignItems: "center",
+      justifyContent: "center",
+    },
   },
   cardVariants: {
     defaults: {
