@@ -18,7 +18,7 @@ export const DayScreen: React.FC<Props> = ({ route }) => {
   const { data: day } = useGetOne("day", dayId);
 
   return (
-    <BaseScreen marginHorizontal="xl">
+    <BaseScreen marginHorizontal="lg">
       {day ? (
         <DayCard day={day} style={{ paddingBottom: 100 }} />
       ) : (

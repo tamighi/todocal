@@ -1,10 +1,11 @@
 import React from "react";
-import { Keyboard, TextInput } from "react-native";
 
 import { Box, Button, Text } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/tag";
+
 import { TagColorPicker } from "./TagColorPicker";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 type Props = {
   tag?: Tag;
@@ -34,7 +35,6 @@ export const MutateTagForm = (props: Props) => {
   const handleSubmit = () => {
     mutate(formValue);
     onMutate?.();
-    Keyboard.dismiss();
   };
 
   const handleDelete = () => {
@@ -43,7 +43,7 @@ export const MutateTagForm = (props: Props) => {
 
   return (
     <Box>
-      <TextInput
+      <BottomSheetTextInput
         style={{ padding: 12, margin: 2, borderWidth: 1 }}
         value={formValue.name}
         onChangeText={(value) => handleInputChange("name", value)}

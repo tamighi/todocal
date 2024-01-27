@@ -1,12 +1,11 @@
 import React from "react";
 
-import { Keyboard, TextInput } from "react-native";
-
 import { Box, Button, Container, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import { Checkbox } from "@/components/core";
 import { TagSelect } from "@/components/tags";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -41,7 +40,6 @@ export const MutateTodoForm = (props: {
       day: { id: dayId },
       ...formValue,
     });
-    Keyboard.dismiss();
   };
 
   const handleDelete = async () => {
@@ -55,7 +53,7 @@ export const MutateTodoForm = (props: {
   return (
     <Container>
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
-        <TextInput
+        <BottomSheetTextInput
           style={{ padding: 12, margin: 2, borderWidth: 1, flex: 1 }}
           value={formValue.content}
           onChangeText={(value) => handleInputChange("content", value)}

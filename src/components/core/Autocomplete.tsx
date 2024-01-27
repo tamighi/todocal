@@ -10,6 +10,7 @@ import {
 
 import { Box, Card, Text } from "@/atoms";
 import { useClickOutside } from "@/hooks";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 type FieldType<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -54,7 +55,6 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   const handleClickOutside = () => {
     setSelectOpen(false);
-    Keyboard.dismiss();
   };
 
   const handleValuePress = (newVal: T) => {
@@ -102,7 +102,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   return (
     <Box position="relative" style={containerStyle}>
-      <TextInput
+      <BottomSheetTextInput
         onPressIn={handleInputPress}
         style={{ borderWidth: 1, ...inputStyle }}
         placeholder={placeholder}
