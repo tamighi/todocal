@@ -15,7 +15,7 @@ export const TodoChipColorInfoBox = (props: Props) => {
   return (
     <Box
       style={{
-        backgroundColor: color || colors.chipDefaultColor,
+        backgroundColor: color || colors.green_task,
       }}
       height="100%"
       borderRadius="xxs"
@@ -24,11 +24,9 @@ export const TodoChipColorInfoBox = (props: Props) => {
       {...rest}
     >
       <Box height="100%" width="100%" position="absolute">
-        {urgent ? (
-          <Box height="20%" backgroundColor="chipUrgentColor"></Box>
-        ) : null}
+        {urgent ? <Box height="20%" backgroundColor="chipUrgent"></Box> : null}
         {important ? (
-          <Box height="20%" backgroundColor="chipImportantColor"></Box>
+          <Box height="20%" backgroundColor="chipImportant"></Box>
         ) : null}
       </Box>
     </Box>

@@ -8,14 +8,28 @@ const colors = {
 
   primary: palette.orange,
 
-  chipDefaultColor: palette.greenLight,
-  chipUrgentColor: palette.red,
-  chipImportantColor: palette.blue,
+  // The chip colors, synonym of tasks.
+  chipUrgent: palette.lightRed,
+  chipImportant: palette.deepBlue,
+
+  // Adding "_task" at the end for the color picker to find them easily.
+  yellow_task: palette.yellow,
+  orange_task: palette.pastelOrange,
+  red_task: palette.darkRed,
+  pink_task: palette.pink,
+  purple_task: palette.pastelPurple,
+  blue_task: palette.pastelBlue,
+  blueTurquoise_task: palette.blueTurquoise,
+  green_task: palette.lightGreen,
+  brown_task: palette.brown,
+  grey_task: palette.lightGrey,
 };
 
 const theme = createTheme({
   colors,
-  ...layout,
+  spacing: layout.spacing,
+  borderRadii: layout.borderRadii,
+  breakpoints: layout.breakpoints,
   textVariants: {
     defaults: {
       color: "mainForeground",
