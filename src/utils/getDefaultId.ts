@@ -1,5 +1,7 @@
+import { getDayIdFromDate } from "./getDayIdFromDate";
+
 export const getDefaultDayId = () => {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getDayIdFromDate(new Date());
 
   return today;
 };

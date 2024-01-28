@@ -1,3 +1,5 @@
+import { DeepPartial } from "typeorm";
+
 import { Todo } from "@/models";
 import { TodoEntity, todoRepository } from "@/database";
 
@@ -11,6 +13,14 @@ class TodoService extends AbstractService<TodoEntity, Todo> {
 
   constructor() {
     super(todoRepository);
+  }
+
+  public async update(id: string, payload: DeepPartial<TodoEntity>) {
+    // Get the day or create it if it does not exist.
+    if (payload.day?.id) {
+      await this.dayService.getOne(payload.day.id);
+    }
+    return super.update(id, payload);
   }
 
   public initialize(dayService: DayService, tagService: TagService) {

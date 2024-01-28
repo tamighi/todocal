@@ -1,12 +1,18 @@
 import React from "react";
 
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
+import { Feather } from "@expo/vector-icons";
 
-import { Box, Container, Text } from "@/atoms";
+import { Box, Button, Container, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import { Checkbox, FormActionButtons } from "@/components/core";
 import { TagSelect } from "@/components/tags";
+import { Platform } from "react-native";
+import { getDayIdFromDate } from "@/utils";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -51,6 +57,17 @@ export const MutateTodoForm = (props: {
     return handleInputChange("tag", tag);
   }, []);
 
+  // Date picker
+  const [showDatePicker, setShowDatePicker] = React.useState(false);
+
+  const handleDateChange = (event: DateTimePickerEvent, date?: Date) => {
+    setShowDatePicker(false);
+    if (!date || event.type === "dismissed") return;
+
+    const newDayId = getDayIdFromDate(date);
+    setFormValue((prev) => ({ ...prev, day: { id: newDayId } }));
+  };
+
   return (
     <Container gap="lg">
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
@@ -65,6 +82,7 @@ export const MutateTodoForm = (props: {
           onChange={handleTagChange}
         />
       </Box>
+
       <Box flexDirection="row" justifyContent="space-around">
         <Box flexDirection="row" gap="s" alignItems="center">
           <Text>Urgent</Text>
@@ -82,12 +100,43 @@ export const MutateTodoForm = (props: {
         </Box>
       </Box>
 
-      <BottomSheetTextInput
-        style={{ padding: 12, marginHorizontal: 4, borderWidth: 1, flex: 1 }}
-        value={formValue.description}
-        onChangeText={(value) => handleInputChange("description", value)}
-        placeholder="Description (optional)"
-      />
+      <Box
+        marginHorizontal="xs"
+        flexDirection="row"
+        justifyContent="space-around"
+      >
+        <BottomSheetTextInput
+          style={{ padding: 12, borderWidth: 1, flex: 2 }}
+          value={formValue.description}
+          onChangeText={(value) => handleInputChange("description", value)}
+          placeholder="Description (optional)"
+        />
+        {(showDatePicker || Platform.OS === "ios") && (
+          <DateTimePicker
+            value={new Date(dayId)}
+            mode="date"
+            display="default"
+            is24Hour={true}
+            onChange={(e, d) => handleDateChange(e, d)}
+          />
+        )}
+
+        {Platform.OS !== "ios" && (
+          <Box
+            flex={1}
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Button variant="icon" onPress={() => setShowDatePicker(true)}>
+              <Feather name="calendar" size={24} />
+            </Button>
+            <Text>
+              {new Date(formValue.day?.id || dayId).toLocaleDateString()}
+            </Text>
+          </Box>
+        )}
+      </Box>
 
       <FormActionButtons
         marginTop="s"

@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 type MutateTodoOptions = {
   onSuccess?: () => void;
-  onError?: () => void;
+  onError?: (e: unknown) => void;
 };
 
 export const useMutateTodo = (
