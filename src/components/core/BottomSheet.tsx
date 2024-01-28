@@ -6,7 +6,7 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { useTheme } from "@/hooks";
+import { useBottomSheetBackHandler, useTheme } from "@/hooks";
 import { Platform, ScrollView } from "react-native";
 
 type BottomSheetProps = {
@@ -20,6 +20,8 @@ export const BottomSheet = (props: BottomSheetProps) => {
   const { colors } = useTheme();
   // ref
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
+  const { handleSheetPositionChange } =
+    useBottomSheetBackHandler(bottomSheetRef);
 
   // variables
   const snapPoints = React.useMemo(() => ["60%"], []);
@@ -53,6 +55,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         android_keyboardInputMode="adjustResize"
         backdropComponent={renderBackdrop}
         onDismiss={onClose}
+        onChange={handleSheetPositionChange}
         handleStyle={{ backgroundColor: colors.mainBackground }}
         backgroundStyle={{ backgroundColor: colors.mainBackground }}
       >
