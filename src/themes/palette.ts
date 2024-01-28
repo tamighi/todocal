@@ -1,17 +1,37 @@
 export const palette = {
+  // Grayscale
   black: "#0B0B0B",
   white: "#F0F2F3",
+  lightGrey: "#d3d3d3",
 
-  red: "#ff3f3f",
+  // Reds
+  lightRed: "#ff3f3f",
+  darkRed: "#BE3144",
 
+  // Oranges
+  pastelOrange: "#ffb4a2",
   lightOrange: "#ffbd7f",
   orange: "#cd7b4c",
 
-  greyLight: "#d3d3d3",
+  // Yellows
+  yellow: "#f4d35e",
 
-  purpleLight: "#8C6FF7",
+  // Purples
+  lightPurple: "#8C6FF7",
+  pastelPurple: "#9f86c0",
 
-  greenLight: "#56DCBA",
+  // Greens
+  lightGreen: "#9ADE7B",
+  pastelGreen: "#99BC85",
 
-  blue: "#4361EE",
+  // Blues
+  deepBlue: "#4361EE",
+  pastelBlue: "#64CCDA",
+  blueTurquoise: "#29ADB2",
+
+  // Pinks
+  pink: "#FF9BD2",
+
+  // Browns
+  brown: "#AA5656",
 };
