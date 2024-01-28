@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Todo } from "@/models";
-import { Chip, ChipProps, Text, TextProps } from "@/atoms";
+import { Box, Chip, ChipProps, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Checkbox } from "@/components/core";
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
@@ -16,10 +16,6 @@ export const TodoChip: React.FC<Props> = (props) => {
   const { todo, minimal = false, dayId, ...rest } = props;
 
   const [checked, setChecked] = React.useState(todo.done);
-
-  const conditionalTextProps: TextProps = minimal
-    ? ({ variant: "smallChip", numberOfLines: 1 } as const)
-    : {};
 
   const { mutate } = useMutateTodo(dayId);
 
@@ -46,9 +42,17 @@ export const TodoChip: React.FC<Props> = (props) => {
         width={minimal ? 5 : 8}
       />
 
-      <Text style={{ flex: 1 }} {...conditionalTextProps}>
-        {todo.content}
-      </Text>
+      <Box flex={1}>
+        <Text
+          variant={minimal ? "smallChip" : undefined}
+          numberOfLines={minimal ? 1 : undefined}
+        >
+          {todo.content}
+        </Text>
+        {!minimal && todo.description && (
+          <Text variant="caption">{todo.description}</Text>
+        )}
+      </Box>
       {!minimal && (
         <Checkbox
           margin="xs"

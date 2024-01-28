@@ -4,6 +4,7 @@ import type Tag from "./Tag";
 export default interface Todo {
   id: string;
   content: string;
+  description?: string;
   done: boolean;
   order: number;
   urgent: boolean;

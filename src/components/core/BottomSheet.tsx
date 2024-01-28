@@ -12,11 +12,12 @@ import { Platform, ScrollView } from "react-native";
 type BottomSheetProps = {
   open: boolean;
   onClose?: () => void;
+  sheetHeight?: string;
   children: React.ReactNode;
 };
 
 export const BottomSheet = (props: BottomSheetProps) => {
-  const { open, onClose, children } = props;
+  const { open, onClose, sheetHeight = "40%", children } = props;
   const { colors } = useTheme();
   // ref
   const bottomSheetRef = React.useRef<BottomSheetModal>(null);
@@ -24,7 +25,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
     useBottomSheetBackHandler(bottomSheetRef);
 
   // variables
-  const snapPoints = React.useMemo(() => ["60%"], []);
+  const snapPoints = React.useMemo(() => [sheetHeight], []);
 
   React.useEffect(() => {
     if (open) {

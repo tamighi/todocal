@@ -17,6 +17,9 @@ export class TodoEntity {
   @Column("text")
   content: string;
 
+  @Column("text", { nullable: true })
+  description?: string;
+
   @Column("boolean", { default: false })
   done: boolean;
 

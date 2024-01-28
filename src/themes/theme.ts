@@ -5,6 +5,7 @@ import { layout } from "./layout";
 const colors = {
   mainBackground: palette.lightOrange,
   mainForeground: palette.black,
+  secondaryForeground: palette.grey,
 
   primary: palette.orange,
 
@@ -47,6 +48,11 @@ const theme = createTheme({
     smallChip: {
       fontSize: 9,
       lineHeight: 16,
+    },
+    caption: {
+      color: "secondaryForeground",
+      fontSize: 9,
+      lineHeight: 12,
     },
   },
   buttonVariants: {
