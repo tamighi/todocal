@@ -55,7 +55,7 @@ export const MutateTodoForm = (props: {
     <Container gap="lg">
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
         <BottomSheetTextInput
-          style={{ padding: 12, margin: 2, borderWidth: 1, flex: 1 }}
+          style={{ padding: 12, marginHorizontal: 4, borderWidth: 1, flex: 1 }}
           value={formValue.content}
           onChangeText={(value) => handleInputChange("content", value)}
           placeholder="Todo"
@@ -65,7 +65,6 @@ export const MutateTodoForm = (props: {
           onChange={handleTagChange}
         />
       </Box>
-
       <Box flexDirection="row" justifyContent="space-around">
         <Box flexDirection="row" gap="s" alignItems="center">
           <Text>Urgent</Text>
@@ -82,6 +81,13 @@ export const MutateTodoForm = (props: {
           />
         </Box>
       </Box>
+
+      <BottomSheetTextInput
+        style={{ padding: 12, marginHorizontal: 4, borderWidth: 1, flex: 1 }}
+        value={formValue.description}
+        onChangeText={(value) => handleInputChange("description", value)}
+        placeholder="Description (optional)"
+      />
 
       <FormActionButtons
         marginTop="s"
