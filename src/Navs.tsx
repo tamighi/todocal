@@ -1,4 +1,4 @@
-import { DayScreen, MonthScreen } from "@/screens";
+import { DayScreen, MonthScreen, SettingsScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getDefaultDayId, getDefaultMonthId } from "./utils";
@@ -10,6 +10,7 @@ export type RootStackParamList = {
   Day: {
     dayId: string;
   };
+  Settings: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +35,15 @@ const Navs = () => {
           headerShown: false,
         }}
         initialParams={{ dayId: getDefaultDayId() }}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          headerShown: false,
+          animationTypeForReplace: "push",
+          animation: "slide_from_bottom",
+        }}
       />
     </Stack.Navigator>
   );

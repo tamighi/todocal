@@ -5,7 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { DatabaseLoader } from "./database";
 import { theme } from "./themes";
-import { ClickOutsideProvider, TodoModalProvider } from "./contexts";
+import {
+  ClickOutsideProvider,
+  TagModalProvider,
+  TodoModalProvider,
+} from "./contexts";
 
 import Navs from "./Navs";
 
@@ -19,9 +23,11 @@ const Root = () => {
           <ThemeProvider theme={theme}>
             <ClickOutsideProvider>
               <TodoModalProvider>
-                <DatabaseLoader>
-                  <Navs />
-                </DatabaseLoader>
+                <TagModalProvider>
+                  <DatabaseLoader>
+                    <Navs />
+                  </DatabaseLoader>
+                </TagModalProvider>
               </TodoModalProvider>
             </ClickOutsideProvider>
           </ThemeProvider>
