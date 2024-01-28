@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Button, Container, Text } from "@/atoms";
+import { Container } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/tag";
 
@@ -43,7 +43,7 @@ export const MutateTagForm = (props: Props) => {
   };
 
   return (
-    <Container gap="lg">
+    <Container gap="s">
       <BottomSheetTextInput
         style={{ padding: 12, margin: 2, borderWidth: 1 }}
         value={formValue.name}
@@ -56,7 +56,7 @@ export const MutateTagForm = (props: Props) => {
       />
 
       <FormActionButtons
-        marginTop="lg"
+        marginTop="s"
         mode={tag ? "update" : "create"}
         onDeleteClick={handleDelete}
         onEditClick={handleSubmit}

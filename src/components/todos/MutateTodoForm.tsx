@@ -84,7 +84,7 @@ export const MutateTodoForm = (props: {
       </Box>
 
       <FormActionButtons
-        marginTop="lg"
+        marginTop="s"
         mode={todo ? "update" : "create"}
         onCreateClick={handleSubmit}
         onEditClick={handleSubmit}
