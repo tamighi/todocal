@@ -5,7 +5,7 @@ import RNBottomSheet, {
   BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
-import { Keyboard, Platform, ScrollView } from "react-native";
+import { Keyboard, ScrollView } from "react-native";
 
 type BottomSheetProps = {
   open: boolean;
@@ -47,8 +47,9 @@ export const BottomSheet = (props: BottomSheetProps) => {
       ref={bottomSheetRef}
       index={-1}
       snapPoints={snapPoints}
-      keyboardBehavior={Platform.OS === "ios" ? "extend" : "interactive"}
+      keyboardBehavior="interactive"
       android_keyboardInputMode="adjustResize"
+      keyboardBlurBehavior="restore"
       onClose={onClose}
       enablePanDownToClose={true}
       backdropComponent={renderBackdrop}

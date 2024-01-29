@@ -42,7 +42,7 @@ export const TagModalProvider = (props: ProviderProps) => {
   return (
     <TagModalContext.Provider value={setModalProps}>
       {children}
-      <BottomSheet open={open} onClose={onClose} snapPoints={["50%"]}>
+      <BottomSheet open={open} onClose={onClose} snapPoints={[320]}>
         <MutateTagForm tag={tag} onMutate={onClose} />
       </BottomSheet>
     </TagModalContext.Provider>
