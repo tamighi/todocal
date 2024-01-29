@@ -1,11 +1,13 @@
 import React from "react";
 
-import RNBottomSheet, {
+import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
+  BottomSheetModal,
+  BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
-import { Keyboard, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
 type BottomSheetProps = {
   open: boolean;
@@ -18,16 +20,15 @@ export const BottomSheet = (props: BottomSheetProps) => {
   const { open, onClose, snapPoints, children } = props;
   const { colors } = useTheme();
 
-  const bottomSheetRef = React.useRef<RNBottomSheet>(null);
+  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
   const { handleSheetPositionChange } =
     useBottomSheetBackHandler(bottomSheetRef);
 
   React.useEffect(() => {
     if (open) {
-      bottomSheetRef.current?.snapToIndex(0);
+      bottomSheetRef.current?.present();
     } else {
       bottomSheetRef.current?.close();
-      Keyboard.dismiss();
     }
   }, [open]);
 
@@ -43,21 +44,22 @@ export const BottomSheet = (props: BottomSheetProps) => {
   );
 
   return (
-    <RNBottomSheet
-      ref={bottomSheetRef}
-      index={-1}
-      snapPoints={snapPoints}
-      keyboardBehavior="interactive"
-      android_keyboardInputMode="adjustResize"
-      keyboardBlurBehavior="restore"
-      onClose={onClose}
-      enablePanDownToClose={true}
-      backdropComponent={renderBackdrop}
-      onChange={handleSheetPositionChange}
-      handleStyle={{ backgroundColor: colors.mainBackground }}
-      backgroundStyle={{ backgroundColor: colors.mainBackground }}
-    >
-      <ScrollView keyboardShouldPersistTaps="handled">{children}</ScrollView>
-    </RNBottomSheet>
+    <BottomSheetModalProvider>
+      <BottomSheetModal
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        keyboardBehavior="interactive"
+        android_keyboardInputMode="adjustResize"
+        keyboardBlurBehavior="restore"
+        onDismiss={onClose}
+        backdropComponent={renderBackdrop}
+        onChange={handleSheetPositionChange}
+        handleStyle={{ backgroundColor: colors.mainBackground }}
+        backgroundStyle={{ backgroundColor: colors.mainBackground }}
+      >
+        <ScrollView keyboardShouldPersistTaps="handled">{children}</ScrollView>
+      </BottomSheetModal>
+    </BottomSheetModalProvider>
   );
 };
