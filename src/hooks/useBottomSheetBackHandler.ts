@@ -1,15 +1,15 @@
-import { BottomSheetModal, BottomSheetModalProps } from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetProps } from "@gorhom/bottom-sheet";
 import { useCallback, useRef } from "react";
 import { BackHandler, NativeEventSubscription } from "react-native";
 
 export const useBottomSheetBackHandler = (
-  bottomSheetRef: React.RefObject<BottomSheetModal | null>,
+  bottomSheetRef: React.RefObject<BottomSheet | null>,
 ) => {
   const backHandlerSubscriptionRef = useRef<NativeEventSubscription | null>(
     null,
   );
   const handleSheetPositionChange = useCallback<
-    NonNullable<BottomSheetModalProps["onChange"]>
+    NonNullable<BottomSheetProps["onChange"]>
   >(
     (index) => {
       const isBottomSheetVisible = index >= 0;
@@ -18,7 +18,7 @@ export const useBottomSheetBackHandler = (
         backHandlerSubscriptionRef.current = BackHandler.addEventListener(
           "hardwareBackPress",
           () => {
-            bottomSheetRef.current?.dismiss();
+            bottomSheetRef.current?.close();
             return true;
           },
         );
