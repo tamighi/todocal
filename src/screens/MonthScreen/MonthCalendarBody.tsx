@@ -1,43 +1,33 @@
 import { Pressable } from "react-native";
 
 import { Box } from "@/atoms";
-import { Month } from "@/models";
-import {
-  createCalendarGrid,
-  padDaysBeforeMonth,
-  populateDaysInMonth,
-} from "@/utils";
 import { useNavigation } from "@/hooks";
 
 import { DayCard } from "@/components/day";
+import { getDayArrayFromMonthId } from "@/utils";
 
 interface Props {
-  month: Month;
+  monthId: string;
 }
 
 const MonthCalendarBody: React.FC<Props> = (props) => {
-  const { month } = props;
-
+  const { monthId } = props;
   const navigation = useNavigation();
 
-  const populatedMonth = populateDaysInMonth(month);
-  const daysWithPadding = padDaysBeforeMonth(populatedMonth);
-  const calendarTable = createCalendarGrid(daysWithPadding);
+  const dayGrid = getDayArrayFromMonthId(monthId);
 
   return (
     <Box height="100%" gap="xxs">
-      {calendarTable.map((array, index) => (
+      {dayGrid.map((array, index) => (
         <Box key={index} flexDirection="row" flex={1} gap="xxs">
           {array.map((day, index) => (
             <Box key={index} flex={1}>
-              {day && (
-                <Pressable
-                  onPress={() => navigation.navigate("Day", { dayId: day.id })}
-                  style={{ flex: 1 }}
-                >
-                  <DayCard day={day} small />
-                </Pressable>
-              )}
+              <Pressable
+                onPress={() => navigation.navigate("Day", { dayId: day.id })}
+                style={{ flex: 1, opacity: day.padDay ? 0.6 : 1 }}
+              >
+                <DayCard day={day} small />
+              </Pressable>
             </Box>
           ))}
         </Box>

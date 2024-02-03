@@ -13,7 +13,7 @@ export const MonthCalendar: React.FC<Props> = (props) => {
   return (
     <Container width="100%">
       <MonthCalendarHeader />
-      <MonthCalendarBody month={month} />
+      <MonthCalendarBody monthId={monthId} />
     </Container>
   );
 };

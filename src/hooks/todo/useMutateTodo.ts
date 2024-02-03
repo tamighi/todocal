@@ -1,6 +1,5 @@
 import { useMutate } from "@/hooks/useMutate";
 import { useDeleteOne } from "@/hooks/useDeleteOne";
-import { getMonthIdFromDayId } from "@/utils";
 import { useQueryClient } from "@tanstack/react-query";
 
 type MutateTodoOptions = {
@@ -17,10 +16,7 @@ export const useMutateTodo = (
   const queryClient = useQueryClient();
 
   const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day", dayId] });
-    queryClient.invalidateQueries({
-      queryKey: ["month", getMonthIdFromDayId(dayId)],
-    });
+    queryClient.invalidateQueries({ queryKey: ["day"] });
 
     onSuccessProp?.();
   };
