@@ -1,15 +1,14 @@
 import { Box, Text, Button } from "@/atoms";
 import { useNavigation } from "@/hooks";
-import { Month } from "@/models";
 import { Feather } from "@expo/vector-icons";
 import { getNextMonthId, getPrevMonthId } from "@/utils";
 
 type Props = {
-  month: Month;
+  monthId: string;
 };
 
 export const MonthHeader: React.FC<Props> = (props) => {
-  const { month } = props;
+  const { monthId } = props;
 
   const { navigate } = useNavigation();
 
@@ -17,14 +16,14 @@ export const MonthHeader: React.FC<Props> = (props) => {
     <Box flexDirection="row" margin="s" justifyContent="space-between">
       <Button
         variant="icon"
-        onPress={() => navigate("Month", { monthId: getPrevMonthId(month.id) })}
+        onPress={() => navigate("Month", { monthId: getPrevMonthId(monthId) })}
       >
         <Feather name="arrow-left" size={22} />
       </Button>
-      <Text>{month.id}</Text>
+      <Text>{monthId}</Text>
       <Button
         variant="icon"
-        onPress={() => navigate("Month", { monthId: getNextMonthId(month.id) })}
+        onPress={() => navigate("Month", { monthId: getNextMonthId(monthId) })}
       >
         <Feather name="arrow-right" size={22} />
       </Button>

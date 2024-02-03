@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
 import { Box, Button, Text } from "@/atoms";
-import { useGetOne, useNavigation } from "@/hooks";
+import { useNavigation } from "@/hooks";
 
 import { BaseScreen } from "../BaseScreen";
 import { MonthHeader } from "./MonthHeader";
@@ -18,8 +18,6 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
     navigation.navigate("Settings");
   };
 
-  const { data: month } = useGetOne("month", monthId);
-
   return (
     <BaseScreen>
       <Box alignSelf="flex-end">
@@ -27,14 +25,8 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
           <Text>Settings</Text>
         </Button>
       </Box>
-      {month ? (
-        <>
-          <MonthHeader month={month} />
-          <MonthCalendar month={month} />
-        </>
-      ) : (
-        <Text>Loading ...</Text>
-      )}
+      <MonthHeader monthId={monthId} />
+      <MonthCalendar month={month} />
     </BaseScreen>
   );
 };
