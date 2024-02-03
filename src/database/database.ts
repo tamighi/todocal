@@ -1,12 +1,13 @@
 import { DataSource } from "typeorm";
-import { DayEntity, MonthEntity, TagEntity, TodoEntity } from "./entities";
+import { DayEntity, TagEntity, TodoEntity } from "./entities";
 
 const source = new DataSource({
   database: "tasks.db",
   type: "expo",
   driver: require("expo-sqlite"),
-  entities: [TodoEntity, DayEntity, MonthEntity, TagEntity],
+  entities: [TodoEntity, DayEntity, TagEntity],
   synchronize: true,
+  logging: true,
 });
 
 export class Database {

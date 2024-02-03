@@ -1,6 +1,5 @@
-import { Entity, PrimaryColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, OneToMany } from "typeorm";
 import type { TodoEntity } from "./todo.entity";
-import type { MonthEntity } from "./month.entity";
 
 @Entity("day")
 export class DayEntity {
@@ -9,7 +8,4 @@ export class DayEntity {
 
   @OneToMany("todo", "day")
   todos?: TodoEntity[];
-
-  @ManyToOne("month", "days")
-  month?: MonthEntity;
 }

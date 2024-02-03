@@ -23,6 +23,7 @@ export const DatabaseLoader = ({ children }: { children: React.ReactNode }) => {
     const initDatabase = async () => {
       await Database.init();
       repositories.forEach((repository) => repository.init());
+
       setLoaded(true);
     };
 
