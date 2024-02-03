@@ -1,15 +1,14 @@
 import { Container } from "@/atoms";
-import { Month } from "@/models";
 
 import MonthCalendarHeader from "./MonthCalendarHeader";
 import MonthCalendarBody from "./MonthCalendarBody";
 
 interface Props {
-  month: Month;
+  monthId: string;
 }
 
 export const MonthCalendar: React.FC<Props> = (props) => {
-  const { month } = props;
+  const { monthId } = props;
 
   return (
     <Container width="100%">

@@ -5,7 +5,7 @@ import { Box, Button, Text } from "@/atoms";
 import { useNavigation } from "@/hooks";
 
 import { BaseScreen } from "../BaseScreen";
-import { MonthHeader } from "./MonthHeader";
+import { MonthScreenHeader } from "./MonthScreenHeader";
 import { MonthCalendar } from "./MonthCalendar";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Month">;
@@ -25,8 +25,8 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
           <Text>Settings</Text>
         </Button>
       </Box>
-      <MonthHeader monthId={monthId} />
-      <MonthCalendar month={month} />
+      <MonthScreenHeader monthId={monthId} />
+      <MonthCalendar monthId={monthId} />
     </BaseScreen>
   );
 };

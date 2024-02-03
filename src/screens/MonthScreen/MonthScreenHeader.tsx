@@ -7,7 +7,7 @@ type Props = {
   monthId: string;
 };
 
-export const MonthHeader: React.FC<Props> = (props) => {
+export const MonthScreenHeader: React.FC<Props> = (props) => {
   const { monthId } = props;
 
   const { navigate } = useNavigation();
