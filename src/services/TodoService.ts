@@ -15,14 +15,6 @@ class TodoService extends AbstractService<TodoEntity, Todo> {
     super(todoRepository);
   }
 
-  public async update(id: string, payload: DeepPartial<TodoEntity>) {
-    // Get the day or create it if it does not exist.
-    if (payload.day?.id) {
-      await this.dayService.getOne(payload.day.id);
-    }
-    return super.update(id, payload);
-  }
-
   public initialize(dayService: DayService, tagService: TagService) {
     this.dayService = dayService;
     this.tagService = tagService;

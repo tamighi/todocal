@@ -16,7 +16,7 @@ export const useMutateTodo = (
   const queryClient = useQueryClient();
 
   const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day"] });
+    queryClient.invalidateQueries({ queryKey: ["day", dayId] });
 
     onSuccessProp?.();
   };

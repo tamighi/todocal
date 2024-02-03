@@ -1,7 +1,7 @@
 import { Pressable } from "react-native";
 
 import { Box } from "@/atoms";
-import { useNavigation } from "@/hooks";
+import { useGetMany, useNavigation } from "@/hooks";
 
 import { DayCard } from "@/components/day";
 import { getDayArrayFromMonthId } from "@/utils";
@@ -15,6 +15,10 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
   const navigation = useNavigation();
 
   const dayGrid = getDayArrayFromMonthId(monthId);
+  const data = useGetMany(
+    "day",
+    dayGrid.flat().map(({ id }) => id),
+  );
 
   return (
     <Box height="100%" gap="xxs">
