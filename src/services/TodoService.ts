@@ -20,6 +20,25 @@ class TodoService extends AbstractService<TodoEntity, Todo> {
     this.tagService = tagService;
   }
 
+  public override async create(
+    payload: DeepPartial<TodoEntity>,
+  ): Promise<Todo> {
+    if (payload.day?.id) {
+      await this.dayService.getOneOrCreate(payload.day.id);
+    }
+    return super.create(payload);
+  }
+
+  public override async update(
+    id: string,
+    payload: DeepPartial<TodoEntity>,
+  ): Promise<Todo> {
+    if (payload.day?.id) {
+      await this.dayService.getOneOrCreate(payload.day.id);
+    }
+    return super.update(id, payload);
+  }
+
   public entityToType(entity: TodoEntity): Todo {
     return {
       ...entity,
