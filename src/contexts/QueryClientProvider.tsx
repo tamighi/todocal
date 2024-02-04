@@ -4,22 +4,23 @@ import {
   QueryClient,
   QueryClientProvider as RNQueryClientProvider,
 } from "@tanstack/react-query";
+import { Alert } from "react-native";
 
 export const QueryClientProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
+  const onError = (e: Error) => {
+    Alert.alert("Database error", e.message);
+  };
+
   const queryCache = new QueryCache({
-    onError: (e) => {
-      console.log(e);
-    },
+    onError,
   });
 
   const mutationCache = new MutationCache({
-    onError: (e) => {
-      console.log(e);
-    },
+    onError,
   });
 
   const queryClient = new QueryClient({
