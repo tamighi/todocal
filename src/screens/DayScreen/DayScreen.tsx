@@ -3,9 +3,8 @@ import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
-import { Text } from "@/atoms";
 import { DayCard } from "@/components";
-import { useGetOne } from "@/hooks";
+import { useGetOneOrCreateDay } from "@/hooks";
 
 import { BaseScreen } from "../BaseScreen";
 import { DayScreenFooterButtons } from "./DayScreenFooterButtons";
@@ -15,15 +14,15 @@ type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 export const DayScreen: React.FC<Props> = ({ route }) => {
   const { dayId } = route.params;
 
-  const { data: day } = useGetOne("day", dayId);
+  const { data: day } = useGetOneOrCreateDay(dayId);
 
   return (
     <BaseScreen marginHorizontal="lg">
-      {day ? (
-        <DayCard day={day} style={{ paddingBottom: 100 }} />
-      ) : (
-        <Text>Loading ...</Text>
-      )}
+      <DayCard
+        dayId={dayId}
+        todos={day?.todos}
+        style={{ paddingBottom: 100 }}
+      />
       <DayScreenFooterButtons dayId={dayId} />
     </BaseScreen>
   );

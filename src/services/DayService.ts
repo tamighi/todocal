@@ -15,6 +15,14 @@ class DayService extends AbstractService<DayEntity, Day> {
     this.todoService = todoService;
   }
 
+  public async getOneOrCreate(id: string) {
+    try {
+      return await super.getOne(id);
+    } catch {
+      return await super.create({ id });
+    }
+  }
+
   public entityToType(entity: DayEntity): Day {
     return {
       id: entity.id,

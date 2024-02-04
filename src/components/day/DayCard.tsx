@@ -1,37 +1,30 @@
 import React from "react";
 
 import { Card, CardProps } from "@/atoms";
-import { Day } from "@/models";
+import { Todo } from "@/models";
 
 import { DayCardHeader } from "./DayCardHeader";
 import { SimpleTodoList } from "./SimpleTodoList";
 import { DraggableTodoList } from "./DraggableTodoList";
 
 type Props = {
-  day: Day;
+  dayId: string;
+  todos?: Todo[];
   small?: boolean;
 } & CardProps;
 
 export const DayCard: React.FC<Props> = (props) => {
-  const { day, small = false, ...rest } = props;
+  const { dayId, todos, small = false, ...rest } = props;
 
-  const todos = React.useMemo(() => day.todos, [day.todos]);
-
-  const date = new Date(day.id);
+  const date = new Date(dayId);
 
   return (
-    <Card
-      borderRadius="s"
-      variant="primary"
-      flex={1}
-      padding={!small ? "xs" : "xxs"}
-      {...rest}
-    >
+    <Card borderRadius="s" variant="primary" flex={1} padding="xxs" {...rest}>
       <DayCardHeader dayOnly={small} day={date} />
       {small ? (
-        <SimpleTodoList dayId={day.id} todos={todos} />
+        <SimpleTodoList dayId={dayId} todos={todos} />
       ) : (
-        <DraggableTodoList dayId={day.id} todos={todos} />
+        <DraggableTodoList dayId={dayId} todos={todos} />
       )}
     </Card>
   );
