@@ -2,7 +2,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "@/Navs";
 import { Box, Button, Text } from "@/atoms";
-import { useNavigation } from "@/hooks";
 
 import { BaseScreen } from "../BaseScreen";
 import { MonthScreenHeader } from "./MonthScreenHeader";
@@ -10,12 +9,15 @@ import { MonthCalendar } from "./MonthCalendar";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Month">;
 
-export const MonthScreen: React.FC<Props> = ({ route }) => {
+export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
   const { monthId } = route.params;
-  const navigation = useNavigation();
 
   const openSettings = () => {
     navigation.navigate("Settings");
+  };
+
+  const onNavigate = (monthId: string) => {
+    navigation.push("Month", { monthId });
   };
 
   return (
@@ -25,7 +27,7 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
           <Text>Settings</Text>
         </Button>
       </Box>
-      <MonthScreenHeader monthId={monthId} />
+      <MonthScreenHeader monthId={monthId} onNavigate={onNavigate} />
       <MonthCalendar monthId={monthId} />
     </BaseScreen>
   );

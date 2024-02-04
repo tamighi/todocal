@@ -19,30 +19,27 @@ export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Navs = () => {
   return (
-    <Stack.Navigator initialRouteName="Month">
+    <Stack.Navigator
+      initialRouteName="Month"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen
         name="Month"
         component={MonthScreen}
-        options={{
-          headerShown: false,
-        }}
         initialParams={{ monthId: getDefaultMonthId() }}
       />
       <Stack.Screen
         name="Day"
         component={DayScreen}
-        options={{
-          headerShown: false,
-        }}
         initialParams={{ dayId: getDefaultDayId() }}
       />
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          headerShown: false,
           animationTypeForReplace: "push",
           animation: "slide_from_bottom",
+          animationDuration: 200,
         }}
       />
     </Stack.Navigator>
