@@ -6,7 +6,7 @@ import {
 } from "@/contexts/ClickOutsideProvider";
 import { View } from "react-native";
 
-const useClickOutside = <T = View>(callback: () => void) => {
+export const useClickOutside = <T = View>(callback: () => void) => {
   const ref = React.useRef<T>(null);
 
   React.useEffect(() => {
@@ -18,5 +18,3 @@ const useClickOutside = <T = View>(callback: () => void) => {
 
   return ref;
 };
-
-export default useClickOutside;

@@ -1,12 +1,13 @@
 import React from "react";
 
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+
 import { Container } from "@/atoms";
 import { Tag } from "@/models";
-import { useMutateTag } from "@/hooks/tag";
+import { useMutateTag } from "@/hooks/queries";
+import { FormActionButtons } from "@/components/core";
 
 import { TagColorPicker } from "./TagColorPicker";
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { FormActionButtons } from "../core";
 
 type Props = {
   tag?: Tag;

@@ -1,4 +1,4 @@
 import { Theme } from "@/themes";
-import { useTheme } from "@shopify/restyle";
+import { useTheme as RNuseTheme } from "@shopify/restyle";
 
-export default useTheme<Theme>;
+export const useTheme = RNuseTheme<Theme>;

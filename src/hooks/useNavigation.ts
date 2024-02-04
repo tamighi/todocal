@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation as RNuseNavigation } from "@react-navigation/native";
 import { StackNavigation } from "@/Navs";
 
-export default useNavigation<StackNavigation>;
+export const useNavigation = RNuseNavigation<StackNavigation>;

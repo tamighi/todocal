@@ -19,6 +19,10 @@ export const serviceMap = {
 
 export type Resource = keyof typeof serviceMap;
 
+export const resources: Resource[] = Object.keys(serviceMap) as Array<
+  keyof typeof serviceMap
+>;
+
 export type ResourceTypes = {
   [K in keyof typeof serviceMap]: Awaited<
     ReturnType<(typeof serviceMap)[K]["getOne"]>

@@ -1,6 +1,7 @@
-import { useMutate } from "@/hooks/useMutate";
-import { useDeleteOne } from "@/hooks/useDeleteOne";
 import { useQueryClient } from "@tanstack/react-query";
+
+import { useMutate } from "./useMutate";
+import { useDeleteOne } from "./useDeleteOne";
 
 type MutateTagOptions = {
   onSuccess?: () => void;
