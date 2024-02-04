@@ -1,10 +1,10 @@
-import { Pressable } from "react-native";
+import React from "react";
 
 import { Box } from "@/atoms";
 import { useGetMany, useNavigation } from "@/hooks";
-
 import { DayCard } from "@/components/day";
 import { getDayArrayFromMonthId } from "@/utils";
+import { Pressable } from "react-native";
 
 interface Props {
   monthId: string;
@@ -12,23 +12,45 @@ interface Props {
 
 const MonthCalendarBody: React.FC<Props> = (props) => {
   const { monthId } = props;
-  const navigation = useNavigation();
 
-  const dayGrid = getDayArrayFromMonthId(monthId);
-  const data = useGetMany(
-    "day",
-    dayGrid.flat().map(({ id }) => id),
+  const navigation = useNavigation();
+  const defaultGrid = React.useMemo(
+    () => getDayArrayFromMonthId(monthId),
+    [monthId],
   );
+
+  const [dayGrid, setDayGrid] = React.useState(defaultGrid);
+
+  const { data, status } = useGetMany(
+    "day",
+    defaultGrid.flat().map(({ id }) => id),
+  );
+
+  React.useEffect(() => {
+    if (status === "success") {
+      const newGrid = defaultGrid.map((arr) => {
+        return arr.map((day) => {
+          const idx = data.findIndex((d) => d.id === day.id);
+          if (idx !== -1) {
+            day.todos = data[idx].todos;
+          }
+          return day;
+        });
+      });
+
+      setDayGrid(newGrid);
+    }
+  }, [data, status]);
 
   return (
     <Box height="100%" gap="xxs">
       {dayGrid.map((array, index) => (
         <Box key={index} flexDirection="row" flex={1} gap="xxs">
-          {array.map((day, index) => (
-            <Box key={index} flex={1}>
+          {array.map((day) => (
+            <Box key={day.id} flex={1} opacity={day.padDay ? 0.6 : 1}>
               <Pressable
                 onPress={() => navigation.navigate("Day", { dayId: day.id })}
-                style={{ flex: 1, opacity: day.padDay ? 0.6 : 1 }}
+                style={{ flex: 1 }}
               >
                 <DayCard day={day} small />
               </Pressable>

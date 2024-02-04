@@ -1,4 +1,8 @@
-export const getDayArrayFromMonthId = (monthId: string) => {
+import { Day } from "@/models";
+
+export const getDayArrayFromMonthId = (
+  monthId: string,
+): (Day & { padDay?: boolean })[][] => {
   const [currentYear, currentMonth] = monthId.split("-").map(Number);
   const firstDay = new Date(currentYear, currentMonth - 1, 1);
   const lastDay = new Date(currentYear, currentMonth, 0); // Setting day to 0 gets the last day of the previous month

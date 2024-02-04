@@ -15,12 +15,11 @@ import { useTodoModal } from "@/contexts";
 
 interface Props {
   todos?: Todo[];
-  small?: boolean;
   dayId: string;
 }
 
-const DraggableTodoList: React.FC<Props> = React.memo((props) => {
-  const { todos = [], small = false, dayId } = props;
+export const DraggableTodoList: React.FC<Props> = React.memo((props) => {
+  const { todos = [], dayId } = props;
 
   const [todoList, setTodolist] = React.useState(todos);
   const { setTodoModalProps } = useTodoModal();
@@ -30,8 +29,6 @@ const DraggableTodoList: React.FC<Props> = React.memo((props) => {
   }, [todos]);
 
   const handleTodoPress = (todo: Todo) => {
-    if (small) return;
-
     setTodoModalProps({ todo, open: true, dayId });
   };
 
@@ -53,9 +50,6 @@ const DraggableTodoList: React.FC<Props> = React.memo((props) => {
         </Pressable>
       </ScaleDecorator>
     );
-  };
-  const simpleRenderItem = ({ item }: RenderItemParams<Todo>) => {
-    return <TodoChip minimal marginBottom="xs" dayId={dayId} todo={item} />;
   };
 
   const { mutate } = useMutateTodo(dayId);
@@ -95,14 +89,10 @@ const DraggableTodoList: React.FC<Props> = React.memo((props) => {
     <View style={{ flex: 1 }}>
       <DraggableFlatList
         data={todoList}
-        renderItem={small ? simpleRenderItem : renderItem}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id}
         onDragEnd={onDragEnd}
       />
     </View>
   );
 });
-
-DraggableTodoList.displayName = "DayCardBody";
-
-export default DraggableTodoList;
