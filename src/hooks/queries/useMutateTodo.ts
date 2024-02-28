@@ -1,5 +1,5 @@
-import { useMutate } from "@/hooks/useMutate";
-import { useDeleteOne } from "@/hooks/useDeleteOne";
+import { useMutate } from "@/hooks/queries/useMutate";
+import { useDeleteOne } from "@/hooks/queries/useDeleteOne";
 import { useQueryClient } from "@tanstack/react-query";
 
 type MutateTodoOptions = {
