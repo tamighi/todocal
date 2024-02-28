@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 
-import { useMutate } from "./useMutate";
-import { useDeleteOne } from "./useDeleteOne";
+import { useMutate } from "../useMutate";
+import { useDeleteOne } from "../useDeleteOne";
 
 type MutateTagOptions = {
   onSuccess?: () => void;
