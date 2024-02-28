@@ -7,7 +7,6 @@ const source = new DataSource({
   driver: require("expo-sqlite"),
   entities: [TodoEntity, DayEntity, TagEntity],
   synchronize: true,
-  logging: true,
 });
 
 export class Database {
