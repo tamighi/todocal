@@ -5,6 +5,7 @@ class DayRepository extends AbstractRepository<DayEntity> {
   constructor() {
     super(DayEntity, {
       relations: { todos: { tag: true } },
+      order: { todos: { order: "ASC" } },
     });
   }
 }

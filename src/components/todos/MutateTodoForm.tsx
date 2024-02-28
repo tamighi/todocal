@@ -73,6 +73,7 @@ export const MutateTodoForm = (props: {
       <Box zIndex={2} flexDirection="row" justifyContent="space-between">
         <BottomSheetTextInput
           style={{ padding: 12, marginHorizontal: 4, borderWidth: 1, flex: 1 }}
+          autoFocus
           value={formValue.content}
           onChangeText={(value) => handleInputChange("content", value)}
           placeholder="Todo"
