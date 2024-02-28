@@ -16,9 +16,6 @@ export const useMutateTag = (options: MutateTagOptions = {}) => {
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ["tag"] });
     queryClient.invalidateQueries({ queryKey: ["day"] });
-    queryClient.invalidateQueries({
-      queryKey: ["month"],
-    });
 
     onSuccessProp?.();
   };
