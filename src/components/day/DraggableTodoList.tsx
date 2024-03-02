@@ -44,7 +44,7 @@ export const DraggableTodoList: React.FC<Props> = React.memo((props) => {
           <TodoChip
             todo={item}
             minimal={false}
-            marginBottom="m"
+            marginBottom="s"
             dayId={dayId}
           />
         </Pressable>
