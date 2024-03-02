@@ -8,7 +8,7 @@ type Props = {
   onNavigate?: (monthId: string) => void;
 };
 
-export const MonthScreenHeader: React.FC<Props> = (props) => {
+export const MonthScreenNavigation: React.FC<Props> = (props) => {
   const { monthId, onNavigate } = props;
 
   return (
