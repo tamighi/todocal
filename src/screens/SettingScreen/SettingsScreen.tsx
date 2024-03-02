@@ -24,11 +24,11 @@ export const SettingsScreen: React.FC = () => {
         </Pressable>
       </Box>
       <Container gap="s">
-        <SettingsSection title="Tags">
-          <SettingsTagList />
-        </SettingsSection>
-        <SettingsSection title="Filters">
+        <SettingsSection defaultOpen={true} title="Filters">
           <TodoFilters />
+        </SettingsSection>
+        <SettingsSection defaultOpen={true} title="Tags">
+          <SettingsTagList />
         </SettingsSection>
       </Container>
     </BaseScreen>
