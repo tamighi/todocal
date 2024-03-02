@@ -1,5 +1,6 @@
-import { Text, Box, Button } from "@/atoms";
+import { Box, Button } from "@/atoms";
 import { useNavigation } from "@/hooks";
+import { Feather } from "@expo/vector-icons";
 
 export const MonthScreenHeader = () => {
   const navigation = useNavigation();
@@ -10,8 +11,8 @@ export const MonthScreenHeader = () => {
 
   return (
     <Box alignSelf="flex-end">
-      <Button style={{ margin: 4 }} onPress={openSettings}>
-        <Text>Settings</Text>
+      <Button style={{ margin: 4 }} variant="icon" onPress={openSettings}>
+        <Feather name="settings" size={22} />
       </Button>
     </Box>
   );
