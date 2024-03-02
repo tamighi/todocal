@@ -3,6 +3,7 @@ import React from "react";
 import { Todo } from "@/models";
 import { Box, Chip, ChipProps, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
+import { Feather } from "@expo/vector-icons";
 import { Checkbox } from "@/components/core";
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
 
@@ -48,6 +49,15 @@ export const TodoChip: React.FC<Props> = (props) => {
           numberOfLines={minimal ? 1 : undefined}
         >
           {todo.content}
+
+          {!minimal &&
+            (todo.content.includes("café") ||
+              todo.content.includes("coffee")) && (
+              <>
+                {"  "}
+                <Feather name="coffee" />
+              </>
+            )}
         </Text>
         {!minimal && todo.description && (
           <Text variant="small" color="secondaryForeground">
