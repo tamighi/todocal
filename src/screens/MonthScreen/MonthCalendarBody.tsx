@@ -3,7 +3,7 @@ import React from "react";
 import { Box } from "@/atoms";
 import { useGetMany, useNavigation } from "@/hooks";
 import { DayCard } from "@/components/day";
-import { getDayArrayFromMonthId } from "@/utils";
+import { getCurrentDayId, getDayArrayFromMonthId } from "@/utils";
 import { Pressable } from "react-native";
 
 interface Props {
@@ -52,7 +52,15 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                 onPress={() => navigation.navigate("Day", { dayId: day.id })}
                 style={{ flex: 1 }}
               >
-                <DayCard dayId={day.id} todos={day.todos} small />
+                <DayCard
+                  {...(day.id === getCurrentDayId() && {
+                    borderColor: "secondary",
+                    borderWidth: 1,
+                  })}
+                  dayId={day.id}
+                  todos={day.todos}
+                  small
+                />
               </Pressable>
             </Box>
           ))}

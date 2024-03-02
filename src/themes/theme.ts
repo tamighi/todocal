@@ -4,10 +4,12 @@ import { layout } from "./layout";
 
 const colors = {
   mainBackground: palette.lightOrange,
+
   mainForeground: palette.black,
   secondaryForeground: palette.grey,
 
   primary: palette.orange,
+  secondary: palette.pastelBlue,
 
   // The chip colors, synonym of tasks.
   chipUrgent: palette.lightRed,
