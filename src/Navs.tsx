@@ -1,7 +1,7 @@
 import { DayScreen, MonthScreen, SettingsScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { getDefaultDayId, getDefaultMonthId } from "./utils";
+import { getCurrentDayId, getCurrentMonthId } from "./utils";
 
 export type RootStackParamList = {
   Month: {
@@ -26,12 +26,12 @@ const Navs = () => {
       <Stack.Screen
         name="Month"
         component={MonthScreen}
-        initialParams={{ monthId: getDefaultMonthId() }}
+        initialParams={{ monthId: getCurrentMonthId() }}
       />
       <Stack.Screen
         name="Day"
         component={DayScreen}
-        initialParams={{ dayId: getDefaultDayId() }}
+        initialParams={{ dayId: getCurrentDayId() }}
       />
       <Stack.Screen
         name="Settings"

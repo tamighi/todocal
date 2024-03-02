@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Todo } from "@/models";
-import { getDefaultDayId } from "@/utils";
+import { getCurrentDayId } from "@/utils";
 import { MutateTodoForm } from "@/components/todos";
 import { BottomSheet } from "@/components/core";
 
@@ -35,7 +35,7 @@ export const TodoModalProvider = (props: ProviderProps) => {
     open: false,
   });
 
-  const { dayId = getDefaultDayId(), todo, open } = modalProps;
+  const { dayId = getCurrentDayId(), todo, open } = modalProps;
 
   const onClose = React.useCallback(() => {
     setModalProps({ ...modalProps, open: false });
