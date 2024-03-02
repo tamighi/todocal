@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Text } from "@/atoms";
 import { Checkbox } from "@/components";
-import { TodoFilterName, useTodoFilters } from "@/contexts";
+import { TodoFilterName, TodoFilterView, useTodoFilters } from "@/contexts";
 
 type Filter = {
   name: TodoFilterName;
@@ -18,8 +18,8 @@ const filterObjects: Filter[] = [
 export const TodoFilters = () => {
   const { filters, setFilter } = useTodoFilters();
 
-  const handleCheck = (filter: TodoFilterName) => {
-    setFilter(filter, !filters[filter]);
+  const handleCheck = (filter: TodoFilterName, view: TodoFilterView) => {
+    setFilter(filter, view, !filters[view][filter]);
   };
 
   return (
@@ -29,13 +29,26 @@ export const TodoFilters = () => {
           <Box
             key={filter.name}
             justifyContent="space-between"
+            alignItems="center"
             flexDirection="row"
           >
             <Text>{filter.label}</Text>
-            <Checkbox
-              checked={filters[filter.name]}
-              onPress={() => handleCheck(filter.name)}
-            ></Checkbox>
+            <Box gap="s">
+              <Box flexDirection="row" justifyContent="space-between" gap="s">
+                <Text>Day</Text>
+                <Checkbox
+                  checked={filters["day"][filter.name]}
+                  onPress={() => handleCheck(filter.name, "day")}
+                ></Checkbox>
+              </Box>
+              <Box flexDirection="row" justifyContent="space-between" gap="s">
+                <Text>Month</Text>
+                <Checkbox
+                  checked={filters["month"][filter.name]}
+                  onPress={() => handleCheck(filter.name, "month")}
+                ></Checkbox>
+              </Box>
+            </Box>
           </Box>
         );
       })}

@@ -1,20 +1,27 @@
 import React from "react";
 
 export type TodoFilterName = "active" | "urgent" | "important";
-export type TodoFilter = { [K in TodoFilterName]: boolean };
+export type TodoFilterView = "month" | "day";
+export type TodoFilter = {
+  [K in TodoFilterView]: { [K in TodoFilterName]: boolean };
+};
 
 export interface TodoFilterContextProps {
   filters: TodoFilter;
-  setFilter: (filter: keyof TodoFilter, value: boolean) => void;
+  setFilter: (
+    filter: TodoFilterName,
+    view: TodoFilterView,
+    value: boolean,
+  ) => void;
   clearFilters: () => void;
 }
 
-const filters: TodoFilter = { active: false, urgent: false, important: false };
+export const TodoFilterContext =
+  React.createContext<TodoFilterContextProps | null>(null);
 
-export const TodoFilterContext = React.createContext<TodoFilterContextProps>({
-  filters,
-  setFilter: (_: TodoFilterName, __: boolean) => {},
-  clearFilters: () => {},
-});
+export const useTodoFilters = () => {
+  const ctx = React.useContext(TodoFilterContext);
+  if (!ctx) throw new Error("Must provide todo context");
 
-export const useTodoFilters = () => React.useContext(TodoFilterContext);
+  return ctx;
+};

@@ -3,8 +3,9 @@ import React from "react";
 import { Box } from "@/atoms";
 import { useGetMany, useNavigation } from "@/hooks";
 import { DayCard } from "@/components/day";
-import { getCurrentDayId, getDayArrayFromMonthId } from "@/utils";
+import { filterTodos, getCurrentDayId, getDayArrayFromMonthId } from "@/utils";
 import { Pressable } from "react-native";
+import { useTodoFilters } from "@/contexts";
 
 interface Props {
   monthId: string;
@@ -12,6 +13,8 @@ interface Props {
 
 const MonthCalendarBody: React.FC<Props> = (props) => {
   const { monthId } = props;
+
+  const { filters } = useTodoFilters();
 
   const navigation = useNavigation();
   const defaultGrid = React.useMemo(
@@ -58,7 +61,7 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                     borderWidth: 2,
                   })}
                   dayId={day.id}
-                  todos={day.todos}
+                  todos={filterTodos(day.todos, "month", filters)}
                   small
                 />
               </Pressable>

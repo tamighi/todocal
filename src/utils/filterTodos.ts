@@ -1,11 +1,15 @@
-import { TodoFilter } from "@/contexts";
+import { TodoFilter, TodoFilterView } from "@/contexts";
 import { Todo } from "@/models";
 
-export const filterTodos = (todos: Todo[] = [], filters: TodoFilter) => {
+export const filterTodos = (
+  todos: Todo[] = [],
+  view: TodoFilterView,
+  filters: TodoFilter,
+) => {
   const filteredTodos = todos.filter((todo) => {
-    if (filters.active && todo.done) return false;
-    if (filters.important && !todo.important) return false;
-    if (filters.urgent && !todo.urgent) return false;
+    if (filters[view].active && todo.done) return false;
+    if (filters[view].important && !todo.important) return false;
+    if (filters[view].urgent && !todo.urgent) return false;
 
     return true;
   });
