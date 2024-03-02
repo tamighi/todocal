@@ -2,34 +2,29 @@ import React from "react";
 
 import { Box, Text } from "@/atoms";
 import { Checkbox } from "@/components";
+import { TodoFilterName, useTodoFilters } from "@/contexts";
 
-type FilterName = "done" | "urgent" | "important";
-type FilterChecked = { [K in FilterName]: boolean };
 type Filter = {
-  name: FilterName;
+  name: TodoFilterName;
   label: string;
 };
 
-const filters: Filter[] = [
-  { name: "done", label: "Active only" },
+const filterObjects: Filter[] = [
+  { name: "active", label: "Active only" },
   { name: "urgent", label: "Urgent only" },
   { name: "important", label: "Important only" },
 ];
 
 export const TodoFilters = () => {
-  const [checked, setChecked] = React.useState<FilterChecked>({
-    done: false,
-    urgent: false,
-    important: false,
-  });
+  const { filters, setFilter } = useTodoFilters();
 
-  const handleCheck = (filter: FilterName) => {
-    setChecked((prev) => ({ ...prev, [filter]: !prev[filter] }));
+  const handleCheck = (filter: TodoFilterName) => {
+    setFilter(filter, !filters[filter]);
   };
 
   return (
     <Box gap="s">
-      {filters.map((filter) => {
+      {filterObjects.map((filter) => {
         return (
           <Box
             key={filter.name}
@@ -38,7 +33,7 @@ export const TodoFilters = () => {
           >
             <Text>{filter.label}</Text>
             <Checkbox
-              checked={checked[filter.name]}
+              checked={filters[filter.name]}
               onPress={() => handleCheck(filter.name)}
             ></Checkbox>
           </Box>

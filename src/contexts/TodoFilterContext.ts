@@ -13,7 +13,7 @@ const filters: TodoFilter = { active: false, urgent: false, important: false };
 
 export const TodoFilterContext = React.createContext<TodoFilterContextProps>({
   filters,
-  setFilter: (_: keyof TodoFilter, __: boolean) => {},
+  setFilter: (_: TodoFilterName, __: boolean) => {},
   clearFilters: () => {},
 });
 
