@@ -1,8 +1,10 @@
 import React from "react";
 
-import { UndoToastProps } from "@/components";
+import { UndoToastProps as NUndoToastProps } from "@/components";
 
-type UndoToastContextProps = React.Dispatch<
+export type UndoToastProps = Omit<NUndoToastProps, "close">;
+
+export type UndoToastContextProps = React.Dispatch<
   React.SetStateAction<UndoToastProps>
 >;
 

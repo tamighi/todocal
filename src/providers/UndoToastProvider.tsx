@@ -1,13 +1,18 @@
 import React from "react";
-import { UndoToastContext } from "@/contexts";
-import { UndoToast, UndoToastProps } from "@/components";
 
-export const showUndoToast = (props: Omit<UndoToastProps, "show">) => {
+import { UndoToastContext, UndoToastProps } from "@/contexts";
+import { UndoToast } from "@/components/core/UndoToast";
+
+export const useUndoToast = () => {
   const setToastProps = React.useContext(UndoToastContext);
 
   if (!setToastProps) throw new Error("Must provide showToast context");
 
-  setToastProps({ ...props, show: true });
+  const show = (props: Omit<UndoToastProps, "show">) => {
+    setToastProps({ ...props, show: true });
+  };
+
+  return { show };
 };
 
 export const UndoToastProvider = ({
@@ -19,10 +24,12 @@ export const UndoToastProvider = ({
     show: false,
   });
 
+  const close = () => setToastProps((prev) => ({ ...prev, show: false }));
+
   return (
     <UndoToastContext.Provider value={setToastProps}>
       {children}
-      {toastProps.message && <UndoToast {...toastProps} />}
+      <UndoToast {...toastProps} close={close} />
     </UndoToastContext.Provider>
   );
 };

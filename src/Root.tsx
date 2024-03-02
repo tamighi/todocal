@@ -10,6 +10,7 @@ import {
   TagModalProvider,
   TodoFilterProvider,
   TodoModalProvider,
+  UndoToastProvider,
 } from "./providers";
 
 import Navs from "./Navs";
@@ -22,13 +23,15 @@ const Root = () => {
           <ThemeProvider theme={theme}>
             <ClickOutsideProvider>
               <TodoFilterProvider>
-                <TodoModalProvider>
-                  <TagModalProvider>
-                    <DatabaseLoader>
-                      <Navs />
-                    </DatabaseLoader>
-                  </TagModalProvider>
-                </TodoModalProvider>
+                <UndoToastProvider>
+                  <TodoModalProvider>
+                    <TagModalProvider>
+                      <DatabaseLoader>
+                        <Navs />
+                      </DatabaseLoader>
+                    </TagModalProvider>
+                  </TodoModalProvider>
+                </UndoToastProvider>
               </TodoFilterProvider>
             </ClickOutsideProvider>
           </ThemeProvider>
