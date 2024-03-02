@@ -12,6 +12,7 @@ import {
 } from "./contexts";
 
 import Navs from "./Navs";
+import { TodoFilterProvider } from "./providers";
 
 const Root = () => {
   return (
@@ -20,13 +21,15 @@ const Root = () => {
         <QueryClientProvider>
           <ThemeProvider theme={theme}>
             <ClickOutsideProvider>
-              <TodoModalProvider>
-                <TagModalProvider>
-                  <DatabaseLoader>
-                    <Navs />
-                  </DatabaseLoader>
-                </TagModalProvider>
-              </TodoModalProvider>
+              <TodoFilterProvider>
+                <TodoModalProvider>
+                  <TagModalProvider>
+                    <DatabaseLoader>
+                      <Navs />
+                    </DatabaseLoader>
+                  </TagModalProvider>
+                </TodoModalProvider>
+              </TodoFilterProvider>
             </ClickOutsideProvider>
           </ThemeProvider>
         </QueryClientProvider>
