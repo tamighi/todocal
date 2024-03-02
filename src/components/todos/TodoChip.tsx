@@ -44,13 +44,15 @@ export const TodoChip: React.FC<Props> = (props) => {
 
       <Box flex={1}>
         <Text
-          variant={minimal ? "smallChip" : undefined}
+          variant={minimal ? "small" : undefined}
           numberOfLines={minimal ? 1 : undefined}
         >
           {todo.content}
         </Text>
         {!minimal && todo.description && (
-          <Text variant="caption">{todo.description}</Text>
+          <Text variant="small" color="secondaryForeground">
+            {todo.description}
+          </Text>
         )}
       </Box>
       {!minimal && (

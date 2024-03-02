@@ -47,12 +47,7 @@ const theme = createTheme({
       fontSize: 32,
       lineHeight: 32,
     },
-    smallChip: {
-      fontSize: 9,
-      lineHeight: 16,
-    },
-    caption: {
-      color: "secondaryForeground",
+    small: {
       fontSize: 9,
       lineHeight: 12,
     },
