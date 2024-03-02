@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Button, Hr, Text } from "@/atoms";
+import { Box, Button, Text } from "@/atoms";
 import { Feather } from "@expo/vector-icons";
 import { Animated } from "react-native";
 
@@ -13,7 +13,7 @@ export interface UndoToastProps {
 }
 
 export const UndoToast = (props: UndoToastProps) => {
-  const { message = "", duration = 1000000, show, callback, close } = props;
+  const { message = "", duration = 5000, show, callback, close } = props;
   const [hideTimer, setHideTimer] = React.useState<NodeJS.Timeout>();
 
   const translateY = React.useRef(new Animated.Value(50)).current;
@@ -33,7 +33,7 @@ export const UndoToast = (props: UndoToastProps) => {
   const showToast = () => {
     showAnimation.start(() => {
       const timer = setTimeout(() => {
-        hideAnimation.start();
+        hideAnimation.start(close);
       }, duration);
 
       setHideTimer(timer);
@@ -41,11 +41,15 @@ export const UndoToast = (props: UndoToastProps) => {
   };
 
   React.useEffect(() => {
-    showToast();
+    if (show) {
+      console.log("SHOW");
+      showToast();
+    }
   }, [show, translateY]);
 
   const onUndoClick = () => {
     callback?.();
+    close();
 
     showAnimation.stop();
     clearTimeout(hideTimer);
@@ -70,9 +74,9 @@ export const UndoToast = (props: UndoToastProps) => {
           flexDirection="row"
           bg="mainBackground"
         >
-          <Text marginRight="lg">{"Hello world"}</Text>
           <Button onPress={onUndoClick}>
             <Box flexDirection="row" alignItems="center" gap="s">
+              <Text marginRight="lg">{message}</Text>
               <Feather
                 style={{ transform: [{ translateY: 1 }] }}
                 name="rotate-cw"
