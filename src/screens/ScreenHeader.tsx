@@ -1,9 +1,9 @@
 import { Box, Button } from "@/atoms";
 import { useNavigation } from "@/hooks";
-import { getCurrentDayId } from "@/utils";
+import { getCurrentMonthId } from "@/utils";
 import { Feather } from "@expo/vector-icons";
 
-export const MonthScreenHeader = () => {
+export const ScreenHeader = () => {
   const navigation = useNavigation();
 
   const openSettings = () => {
@@ -11,7 +11,7 @@ export const MonthScreenHeader = () => {
   };
 
   const navigateToday = () => {
-    navigation.navigate("Day", { dayId: getCurrentDayId() });
+    navigation.navigate("Month", { monthId: getCurrentMonthId() });
   };
 
   return (

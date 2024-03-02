@@ -5,9 +5,15 @@ import { Platform, SafeAreaView, StatusBar } from "react-native";
 import { Container, ContainerProps } from "@/atoms";
 import { useTheme } from "@/hooks";
 
-type Props = ContainerProps;
+import { ScreenHeader } from "./ScreenHeader";
 
-export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
+type Props = { displayHeader?: boolean } & ContainerProps;
+
+export const BaseScreen: React.FC<Props> = ({
+  children,
+  displayHeader = true,
+  ...rest
+}) => {
   const { colors } = useTheme();
 
   return (
@@ -22,6 +28,7 @@ export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
         barStyle="dark-content"
         backgroundColor={colors.mainBackground}
       />
+      {displayHeader && <ScreenHeader />}
       <Container {...rest}>{children}</Container>
     </SafeAreaView>
   );
