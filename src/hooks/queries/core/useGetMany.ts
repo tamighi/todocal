@@ -6,12 +6,12 @@ type ServiceGetManyFns<T extends keyof typeof serviceMap> =
 
 export const useGetMany = <R extends Resource>(
   resource: R,
-  query?: Parameters<ServiceGetManyFns<R>>[0],
+  ...query: Parameters<ServiceGetManyFns<R>>
 ) => {
   const queryResult = useQuery<ResourceTypes[R][], Error, ResourceTypes[R][]>({
     queryKey: [resource, "list", query],
-    //@ts-expect-error Idk how to match the fn to it's argument
-    queryFn: () => serviceMap[resource].getMany(query),
+    //@ts-expect-error ...
+    queryFn: () => serviceMap[resource].getMany(...query),
   });
 
   return queryResult;
