@@ -1,26 +1,7 @@
 import React from "react";
 
-import { Tag } from "@/models";
-import { BottomSheet } from "@/components/core";
-import { MutateTagForm } from "@/components/tags";
-
-type TagModalProps = {
-  tag?: Tag;
-  open: boolean;
-};
-
-const TagModalContext = React.createContext<React.Dispatch<
-  React.SetStateAction<TagModalProps>
-> | null>(null);
-
-export const useTagModal = () => {
-  const tagContext = React.useContext(TagModalContext);
-  if (!tagContext) {
-    throw new Error("Tag modal provider must be defined.");
-  }
-
-  return { setTagModalProps: tagContext };
-};
+import { TagModalContext, TagModalProps } from "@/contexts";
+import { BottomSheet, MutateTagForm } from "@/components";
 
 type ProviderProps = {
   children: React.ReactNode;

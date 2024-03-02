@@ -3,7 +3,7 @@ import React from "react";
 import {
   addClickOutsideListener,
   removeClickOutsideListener,
-} from "@/contexts/ClickOutsideProvider";
+} from "@/providers/ClickOutsideProvider";
 import { View } from "react-native";
 
 export const useClickOutside = <T = View>(callback: () => void) => {

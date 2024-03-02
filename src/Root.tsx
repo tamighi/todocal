@@ -8,11 +8,11 @@ import {
   ClickOutsideProvider,
   QueryClientProvider,
   TagModalProvider,
+  TodoFilterProvider,
   TodoModalProvider,
-} from "./contexts";
+} from "./providers";
 
 import Navs from "./Navs";
-import { TodoFilterProvider } from "./providers";
 
 const Root = () => {
   return (
