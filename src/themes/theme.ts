@@ -9,7 +9,7 @@ const colors = {
   secondaryForeground: palette.grey,
 
   primary: palette.orange,
-  secondary: palette.pastelBlue,
+  emphasize: palette.darkRed,
 
   // The chip colors, synonym of tasks.
   chipUrgent: palette.lightRed,

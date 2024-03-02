@@ -54,8 +54,8 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
               >
                 <DayCard
                   {...(day.id === getCurrentDayId() && {
-                    borderColor: "secondary",
-                    borderWidth: 1,
+                    borderColor: "emphasize",
+                    borderWidth: 2,
                   })}
                   dayId={day.id}
                   todos={day.todos}
