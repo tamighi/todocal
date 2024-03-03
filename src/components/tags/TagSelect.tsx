@@ -4,6 +4,7 @@ import { Tag } from "@/models";
 import { useGetList, useMutate, useTheme } from "@/hooks";
 import { Box, Text } from "@/atoms";
 import { Autocomplete } from "@/components/core";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   value?: Tag;
@@ -14,10 +15,12 @@ export const TagSelect = React.memo((props: Props) => {
   const { value, onChange } = props;
 
   const { data: tags } = useGetList("tag");
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutate("tag", {
     onSuccess: (tag) => {
       onChange?.(tag);
+      queryClient.invalidateQueries({ queryKey: ["tag", "list"] });
     },
   });
 

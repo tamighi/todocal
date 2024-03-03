@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  Keyboard,
-  Pressable,
-  TextInput,
-  TextStyle,
-  ViewStyle,
-} from "react-native";
+import { Pressable, TextStyle, ViewStyle } from "react-native";
 
 import { Box, Card, Text } from "@/atoms";
 import { useClickOutside } from "@/hooks";

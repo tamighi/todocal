@@ -42,7 +42,6 @@ export const UndoToast = (props: UndoToastProps) => {
 
   React.useEffect(() => {
     if (show) {
-      console.log("SHOW");
       showToast();
     }
   }, [show, translateY]);
