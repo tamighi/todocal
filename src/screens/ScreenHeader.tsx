@@ -1,10 +1,11 @@
 import React from "react";
 
+import { Feather } from "@expo/vector-icons";
+
 import { Box, Button } from "@/atoms";
 import { useTodoFilters } from "@/contexts";
 import { useNavigation } from "@/hooks";
 import { getCurrentMonthId } from "@/utils";
-import { Feather } from "@expo/vector-icons";
 
 export const ScreenHeader = () => {
   const navigation = useNavigation();
