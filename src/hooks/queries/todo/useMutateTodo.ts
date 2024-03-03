@@ -7,24 +7,28 @@ type MutateTodoOptions = {
   onError?: (e: unknown) => void;
 };
 
-export const useMutateTodo = (
-  dayId: string,
-  options: MutateTodoOptions = {},
-) => {
+export const useMutateTodo = (_: string, options: MutateTodoOptions = {}) => {
   const { onSuccess: onSuccessProp, onError } = options;
 
   const queryClient = useQueryClient();
 
-  const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day", "detail", dayId] });
-    queryClient.invalidateQueries({ queryKey: ["day", "list"] });
+  const onMutateSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["day"] });
 
     onSuccessProp?.();
   };
 
-  const { mutate } = useMutate("todo", { onSuccess, onError });
+  const onDeleteSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["day"] });
+  };
 
-  const { mutate: deleteMutate } = useDeleteOne("todo", { onSuccess, onError });
+  const { mutate } = useMutate("todo", { onSuccess: onMutateSuccess, onError });
+
+  const { mutate: deleteMutate } = useDeleteOne("todo", {
+    onSuccess: onDeleteSuccess,
+    onMutate: onSuccessProp,
+    onError,
+  });
 
   return { mutate, deleteMutate };
 };

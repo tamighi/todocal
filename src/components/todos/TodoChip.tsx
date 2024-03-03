@@ -1,9 +1,10 @@
 import React from "react";
 
+import { Feather } from "@expo/vector-icons";
+
 import { Todo } from "@/models";
 import { Box, Chip, ChipProps, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
-import { Feather } from "@expo/vector-icons";
 import { Checkbox } from "@/components/core";
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
 
