@@ -5,7 +5,7 @@ import { useOptimisticUpdate } from "./useOptimisticUpdate";
 import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
 
 interface DeleteOptions {
-  onSuccess?: ({ undo }: { undo: boolean }) => void;
+  onSuccess?: (res: UndoMutationResult) => void;
   onMutate?: () => void;
   onError?: (error: unknown) => void;
 }

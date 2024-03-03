@@ -8,8 +8,8 @@ import {
 } from "../core";
 import { Tag, Todo } from "@/models";
 
-interface DeleteOptions {
-  onSuccess?: ({ undo }: { undo: boolean }) => void;
+interface DeleteTagOptions {
+  onSuccess?: (res: UndoMutationResult) => void;
   onMutate?: () => void;
   onError?: (error: unknown) => void;
 }
@@ -19,7 +19,7 @@ interface TagContext {
   todo: [QueryKey, Todo[] | undefined][];
 }
 
-export const useDeleteOneTag = (options: DeleteOptions = {}) => {
+export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
   const {
     onMutate: onMutateProp,
     onSuccess: onSuccessProp,
