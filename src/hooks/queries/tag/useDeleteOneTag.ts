@@ -31,6 +31,7 @@ export const useDeleteOneTag = (options: DeleteOptions = {}) => {
   const { mutationFn, showUndoToast } = useUndoMutation((id: string) =>
     tagService.delete(id),
   );
+
   const {
     mutate: mutateTag,
     invalidate: invalidateTag,
@@ -52,7 +53,13 @@ export const useDeleteOneTag = (options: DeleteOptions = {}) => {
         (oldData: Tag[] = []) => oldData?.filter((data) => data.id !== id),
       ),
       todo: await mutateTodo((oldData: Todo[] = []) => {
-        return oldData;
+        const newData = oldData.map((todo) => {
+          if (todo.tag?.id === id) {
+            return { ...todo, tag: undefined };
+          }
+          return todo;
+        });
+        return newData;
       }),
     };
   };

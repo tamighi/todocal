@@ -17,7 +17,7 @@ type Props = {
 export const DayCard: React.FC<Props> = (props) => {
   const { dayId, small = false, ...rest } = props;
 
-  const { data: todos = [] } = useGetList("todo", {
+  const { data: todos } = useGetList("todo", {
     where: { day: { id: dayId } },
   });
   const { filters } = useTodoFilters();
