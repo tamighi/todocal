@@ -1,4 +1,4 @@
-import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryKey, useMutation } from "@tanstack/react-query";
 
 import { Resource, ResourceTypes, serviceMap } from "@/services";
 import { useOptimisticUpdate } from "./useOptimisticUpdate";
