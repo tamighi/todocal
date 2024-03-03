@@ -6,6 +6,7 @@ import { useUndoMutation } from "./useUndoMutation";
 
 interface DeleteOptions {
   onSuccess?: ({ undo }: { undo: boolean }) => void;
+  onMutate?: () => void;
   onError?: (error: unknown) => void;
 }
 
@@ -13,7 +14,11 @@ export const useDeleteOne = <R extends Resource>(
   resource: R,
   options: DeleteOptions = {},
 ) => {
-  const { onSuccess: onSuccessProp, onError: onErrorProp } = options;
+  const {
+    onMutate: onMutateProp,
+    onSuccess: onSuccessProp,
+    onError: onErrorProp,
+  } = options;
 
   const mutationKey = [resource, "list"];
   const queryClient = useQueryClient();
@@ -25,6 +30,7 @@ export const useDeleteOne = <R extends Resource>(
 
   const onMutate = (id: string) => {
     showUndoToast("Item deleted");
+    onMutateProp?.();
     return optimisticUpdate.onMutate(
       (oldData: ResourceTypes[R][] = []) =>
         oldData?.filter((data) => data.id !== id),
