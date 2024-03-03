@@ -71,7 +71,7 @@ export const UndoToast = (props: UndoToastProps) => {
           paddingHorizontal="s"
           borderRadius="s"
           flexDirection="row"
-          bg="mainBackground"
+          bg="emphasize"
         >
           <Button onPress={onUndoClick}>
             <Box flexDirection="row" alignItems="center" gap="s">
@@ -80,7 +80,7 @@ export const UndoToast = (props: UndoToastProps) => {
                 style={{ transform: [{ translateY: 1 }] }}
                 name="rotate-cw"
               />
-              <Text color="secondaryForeground">undo</Text>
+              <Text>undo</Text>
             </Box>
           </Button>
         </Box>
