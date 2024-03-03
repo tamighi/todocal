@@ -3,7 +3,7 @@ import { QueryKey, useQueryClient } from "@tanstack/react-query";
 export const useOptimisticUpdate = (mutationKey: QueryKey) => {
   const queryClient = useQueryClient();
 
-  const onMutate = async <TData>(
+  const mutate = async <TData>(
     optimisticMutationFn: (data: TData | undefined) => TData,
   ) => {
     await queryClient.cancelQueries({ queryKey: mutationKey });
@@ -19,7 +19,7 @@ export const useOptimisticUpdate = (mutationKey: QueryKey) => {
     return oldListContext;
   };
 
-  const onSuccess = () => {
+  const invalidate = () => {
     if (
       // Only invalidate if there are no other mutations.
       !(queryClient.isMutating({ mutationKey }) > 1)
@@ -28,14 +28,12 @@ export const useOptimisticUpdate = (mutationKey: QueryKey) => {
     }
   };
 
-  const onError = (_: Error, __: string, context?: [QueryKey, any][]) => {
-    if (context) {
-      context.forEach((query) => {
-        const [queryKey, oldData] = query;
-        queryClient.setQueriesData({ queryKey }, oldData);
-      });
-    }
+  const undoMutation = (context: [QueryKey, any][] = []) => {
+    context.forEach((query) => {
+      const [queryKey, oldData] = query;
+      queryClient.setQueriesData({ queryKey }, oldData);
+    });
   };
 
-  return { onMutate, onSuccess, onError };
+  return { mutate, invalidate, undoMutation };
 };

@@ -2,6 +2,10 @@ import React from "react";
 
 import { useUndoToast } from "@/providers/UndoToastProvider";
 
+export type UndoMutationResult = {
+  undo: boolean;
+};
+
 export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
   undoableMutationFn: Fn,
 ) => {
@@ -10,7 +14,7 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
   const onUndo = React.useCallback(() => undoRef.current?.(), [undoRef]);
 
   const mutationFn = (...params: Parameters<Fn>) => {
-    const mutationPromise = new Promise<{ undo: boolean }>(
+    const mutationPromise = new Promise<UndoMutationResult>(
       (resolve, reject) => {
         const timeout = setTimeout(() => {
           undoableMutationFn(params)

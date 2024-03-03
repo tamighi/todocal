@@ -2,7 +2,7 @@ import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Resource, ResourceTypes, serviceMap } from "@/services";
 import { useOptimisticUpdate } from "./useOptimisticUpdate";
-import { useUndoMutation } from "./useUndoMutation";
+import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
 
 interface DeleteOptions {
   onSuccess?: ({ undo }: { undo: boolean }) => void;
@@ -21,36 +21,31 @@ export const useDeleteOne = <R extends Resource>(
   } = options;
 
   const mutationKey = [resource, "list"];
-  const queryClient = useQueryClient();
 
-  const undoableMutationFn = (id: string) => serviceMap[resource].delete(id);
-  const { mutationFn, showUndoToast } = useUndoMutation(undoableMutationFn);
-
-  const optimisticUpdate = useOptimisticUpdate(mutationKey);
+  const { mutationFn, showUndoToast } = useUndoMutation((id: string) =>
+    serviceMap[resource].delete(id),
+  );
+  const { mutate, invalidate, undoMutation } = useOptimisticUpdate(mutationKey);
 
   const onMutate = (id: string) => {
     showUndoToast("Item deleted");
     onMutateProp?.();
-    return optimisticUpdate.onMutate(
+
+    return mutate(
       (oldData: ResourceTypes[R][] = []) =>
         oldData?.filter((data) => data.id !== id),
     );
   };
 
   const onSuccess = (
-    { undo }: { undo: boolean },
+    { undo }: UndoMutationResult,
     _: string,
     context?: [QueryKey, ResourceTypes[R][] | undefined][],
   ) => {
-    if (context && undo) {
-      context.forEach((query) => {
-        const [queryKey, oldData] = query;
-        if (undo) {
-          queryClient.setQueriesData({ queryKey }, oldData);
-        }
-      });
+    if (undo) {
+      undoMutation(context);
     } else {
-      optimisticUpdate.onSuccess();
+      invalidate();
     }
 
     onSuccessProp?.({ undo });
@@ -58,10 +53,10 @@ export const useDeleteOne = <R extends Resource>(
 
   const onError = (
     error: Error,
-    id: string,
-    oldData?: [QueryKey, ResourceTypes[R][] | undefined][],
+    _: string,
+    context?: [QueryKey, ResourceTypes[R][] | undefined][],
   ) => {
-    optimisticUpdate.onError(error, id, oldData);
+    undoMutation(context);
     onErrorProp?.(error);
   };
 
