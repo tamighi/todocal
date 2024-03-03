@@ -15,8 +15,6 @@ export const useMutateTag = (options: MutateTagOptions = {}) => {
 
   const onMutateSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ["day"] });
-    queryClient.invalidateQueries({ queryKey: ["tag"] });
-
     onSuccessProp?.();
   };
 

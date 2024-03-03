@@ -1,20 +1,27 @@
-import { Resource, serviceMap } from "@/services";
-import { useMutation } from "@tanstack/react-query";
+import { Resource, ResourceTypes, serviceMap } from "@/services";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type ServiceMutateFns = {
   [K in keyof typeof serviceMap]: (typeof serviceMap)[K]["mutate"];
 };
 
-interface CreateOptions<R extends Resource> {
-  onSuccess?: (data: Awaited<ReturnType<ServiceMutateFns[R]>>) => void;
+interface MutateOptions<R extends Resource> {
+  onSuccess?: (data: ResourceTypes[R]) => void;
   onError?: (error: unknown) => void;
 }
 
 export const useMutate = <R extends Resource>(
   resource: R,
-  options: CreateOptions<R> = {},
+  options: MutateOptions<R> = {},
 ) => {
-  const { onSuccess, onError } = options;
+  const { onSuccess: onSuccessProp, onError } = options;
+
+  const queryClient = useQueryClient();
+
+  const onSuccess = (data: ResourceTypes[R]) => {
+    onSuccessProp?.(data);
+    queryClient.invalidateQueries({ queryKey: [resource] });
+  };
 
   const mutation = useMutation({
     //@ts-expect-error Idk how to fix, maybe use mutationFn type from react query

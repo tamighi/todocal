@@ -6,6 +6,7 @@ import { Todo } from "@/models";
 import { DayCardHeader } from "./DayCardHeader";
 import { SimpleTodoList } from "./SimpleTodoList";
 import { DraggableTodoList } from "./DraggableTodoList";
+import { useGetList } from "@/hooks";
 
 type Props = {
   dayId: string;
@@ -14,7 +15,9 @@ type Props = {
 } & CardProps;
 
 export const DayCard: React.FC<Props> = (props) => {
-  const { dayId, todos = [], small = false, ...rest } = props;
+  const { dayId, small = false, ...rest } = props;
+
+  const { data: todos } = useGetList("todo", { where: { day: { id: dayId } } });
 
   const date = new Date(dayId);
 
