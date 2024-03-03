@@ -20,7 +20,7 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
           undoableMutationFn(params)
             .then(() => resolve({ undo: false }))
             .catch((err) => reject(err));
-        }, 5000);
+        }, 6000);
         const cancelMutation = () => {
           clearTimeout(timeout);
           resolve({ undo: true });
