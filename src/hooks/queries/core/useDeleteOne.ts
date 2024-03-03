@@ -1,12 +1,11 @@
-import React from "react";
-
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useUndoToast } from "@/providers/UndoToastProvider";
 import { Resource, ResourceTypes, serviceMap } from "@/services";
+import { useOptimisticUpdate } from "./useOptimisticUpdate";
+import { useUndoMutation } from "./useUndoMutation";
 
 interface DeleteOptions {
-  onSuccess?: () => void;
+  onSuccess?: ({ undo }: { undo: boolean }) => void;
   onError?: (error: unknown) => void;
 }
 
@@ -16,49 +15,20 @@ export const useDeleteOne = <R extends Resource>(
 ) => {
   const { onSuccess: onSuccessProp, onError: onErrorProp } = options;
 
+  const mutationKey = [resource, "list"];
   const queryClient = useQueryClient();
 
-  const { show } = useUndoToast();
-  const undoRef = React.useRef<() => void>();
-  const onUndo = React.useCallback(() => undoRef.current?.(), [undoRef]);
+  const undoableMutationFn = (id: string) => serviceMap[resource].delete(id);
+  const { mutationFn, showUndoToast } = useUndoMutation(undoableMutationFn);
 
-  const mutationKey = [resource, "list"];
+  const optimisticUpdate = useOptimisticUpdate(mutationKey);
 
-  const mutationFn = (id: string) => {
-    const mutationPromise = new Promise<{ undo: boolean }>(
-      (resolve, reject) => {
-        const timeout = setTimeout(() => {
-          serviceMap[resource]
-            .delete(id)
-            .then(() => resolve({ undo: false }))
-            .catch((err) => reject(err));
-        }, 5000);
-        const cancelMutation = () => {
-          clearTimeout(timeout);
-          resolve({ undo: true });
-        };
-        undoRef.current = cancelMutation;
-      },
+  const onMutate = (id: string) => {
+    showUndoToast("Item deleted");
+    return optimisticUpdate.onMutate(
+      (oldData: ResourceTypes[R][] = []) =>
+        oldData?.filter((data) => data.id !== id),
     );
-
-    return mutationPromise;
-  };
-
-  const optimisticUpdate = async (id: string) => {
-    await queryClient.cancelQueries({ queryKey: [resource, "list"] });
-
-    const oldListContext = queryClient.getQueriesData<ResourceTypes[R][]>({
-      queryKey: mutationKey,
-    });
-
-    queryClient.setQueriesData<ResourceTypes[R][]>(
-      { queryKey: mutationKey },
-      (oldData) => {
-        return oldData?.filter((data) => data.id !== id);
-      },
-    );
-
-    return oldListContext;
   };
 
   const onSuccess = (
@@ -66,30 +36,27 @@ export const useDeleteOne = <R extends Resource>(
     _: string,
     context?: [QueryKey, ResourceTypes[R][] | undefined][],
   ) => {
-    if (undo && context) {
-      const [queryKey, oldData] = context;
-      queryClient.setQueriesData({ queryKey }, oldData);
-    } else if (
-      // Only invalidate if there are no other mutations.
-      !(queryClient.isMutating({ mutationKey }) > 1)
-    ) {
-      queryClient.invalidateQueries({ queryKey: mutationKey });
+    if (context && undo) {
+      context.forEach((query) => {
+        const [queryKey, oldData] = query;
+        if (undo) {
+          queryClient.setQueriesData({ queryKey }, oldData);
+        }
+      });
+    } else {
+      optimisticUpdate.onSuccess();
     }
-    onSuccessProp?.();
+
+    onSuccessProp?.({ undo });
   };
 
   const onError = (
     error: Error,
-    _: string,
+    id: string,
     oldData?: [QueryKey, ResourceTypes[R][] | undefined][],
   ) => {
-    queryClient.setQueriesData({ queryKey: mutationKey }, oldData);
+    optimisticUpdate.onError(error, id, oldData);
     onErrorProp?.(error);
-  };
-
-  const onMutate = async (id: string) => {
-    show({ message: "Item deleted", callback: onUndo });
-    return optimisticUpdate(id);
   };
 
   const mutation = useMutation({

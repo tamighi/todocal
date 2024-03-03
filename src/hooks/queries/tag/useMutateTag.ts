@@ -14,7 +14,6 @@ export const useMutateTag = (options: MutateTagOptions = {}) => {
   const queryClient = useQueryClient();
 
   const onSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["tag"] });
     queryClient.invalidateQueries({ queryKey: ["day"] });
 
     onSuccessProp?.();
@@ -22,7 +21,10 @@ export const useMutateTag = (options: MutateTagOptions = {}) => {
 
   const { mutate } = useMutate("tag", { onSuccess, onError });
 
-  const { mutate: deleteMutate } = useDeleteOne("tag", { onSuccess, onError });
+  const { mutate: deleteMutate } = useDeleteOne("tag", {
+    onSuccess: ({ undo }) => !undo && onSuccess(),
+    onError,
+  });
 
   return { mutate, deleteMutate };
 };
