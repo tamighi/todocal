@@ -17,6 +17,7 @@ const defaultFilter: TodoFilter[TodoFilterView] = {
 const defaultFilters: TodoFilter = {
   day: defaultFilter,
   month: defaultFilter,
+  active: true,
 };
 
 export const TodoFilterProvider = (props: { children: React.ReactNode }) => {
@@ -39,10 +40,15 @@ export const TodoFilterProvider = (props: { children: React.ReactNode }) => {
     setFilters(defaultFilters);
   };
 
+  const toggleFilters = () => {
+    setFilters((prev) => ({ ...prev, active: !prev.active }));
+  };
+
   const contextValue: TodoFilterContextProps = {
     filters,
     setFilter: updateFilter,
     clearFilters,
+    toggleFilters,
   };
 
   return (
