@@ -14,12 +14,12 @@ export const useMutateTag = (options: MutateTagOptions = {}) => {
   const queryClient = useQueryClient();
 
   const onMutateSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day"] });
+    queryClient.invalidateQueries({ queryKey: ["todo"] });
     onSuccessProp?.();
   };
 
   const onDeleteSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["day"] });
+    queryClient.invalidateQueries({ queryKey: ["todo"] });
   };
 
   const { mutate } = useMutate("tag", { onSuccess: onMutateSuccess, onError });

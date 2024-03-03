@@ -4,7 +4,10 @@ import { AbstractRepository } from "./abstract.repository";
 
 class TodoRepository extends AbstractRepository<TodoEntity> {
   constructor() {
-    super(TodoEntity, { relations: { day: true, tag: true } });
+    super(TodoEntity, {
+      relations: { day: true, tag: true },
+      order: { order: "ASC" },
+    });
   }
 
   public override async create(payload: DeepPartial<TodoEntity>) {

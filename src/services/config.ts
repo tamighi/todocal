@@ -7,7 +7,6 @@ const dayService = new DayService();
 const tagService = new TagService();
 
 todoService.initialize(dayService, tagService);
-dayService.initialize(todoService);
 
 export { todoService, dayService, tagService };
 
