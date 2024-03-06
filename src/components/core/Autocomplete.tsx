@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Pressable, TextStyle, ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
-import { Box, Card, Text } from "@/atoms";
-import { useClickOutside } from "@/hooks";
+import { Box } from "@/atoms";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { Dropdown } from "./Dropdown";
 
-type FieldType<T> = {
+type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
 }[keyof T];
 
@@ -18,7 +18,7 @@ type Props<T extends object | string> = {
   onInputChange?: (value: string) => void;
   placeholder?: string;
   data?: T[];
-  labelField?: T extends object ? FieldType<T> : never;
+  labelKey?: T extends object ? StringKey<T> : never;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
@@ -31,13 +31,13 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     inputStyle = {},
     placeholder,
     data = [],
-    labelField,
+    labelKey,
     renderItem,
   } = props;
 
   const getLabel = (value: T): string => {
-    if (!value || (labelField && !value[labelField])) return "";
-    return labelField ? (value[labelField] as string) : (value as string);
+    if (!value || (labelKey && !value[labelKey])) return "";
+    return labelKey ? (value[labelKey] as string) : (value as string);
   };
 
   // DropDown
@@ -47,17 +47,11 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     value ? getLabel(value) : "",
   );
 
-  const handleClickOutside = () => {
-    setSelectOpen(false);
-  };
-
   const handleValuePress = (newVal: T) => {
     setSelectOpen(false);
     setCurrentInput(getLabel(newVal));
     onChange?.(newVal);
   };
-
-  const ref = useClickOutside(handleClickOutside);
 
   const handleInputPress = () => {
     setSelectOpen(true);
@@ -95,7 +89,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   return (
-    <Box position="relative" style={containerStyle}>
+    <Box style={containerStyle}>
       <BottomSheetTextInput
         onPressIn={handleInputPress}
         style={{ borderWidth: 1, ...inputStyle }}
@@ -103,33 +97,14 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         onChangeText={handleChangeText}
         value={currentInput}
       />
-      <Card
-        ref={ref}
-        top="100%"
-        left={0}
-        right={0}
-        zIndex={100}
-        position="absolute"
-        visible={selectOpen}
-        borderWidth={1}
-        margin="xxs"
-      >
-        {filteredValues?.map((v, k) => {
-          return (
-            <Pressable key={k} onPress={() => handleValuePress(v)}>
-              {renderItem ? (
-                renderItem(v, k, filteredValues)
-              ) : (
-                <Box
-                  borderBottomWidth={filteredValues.length === k + 1 ? 0 : 1}
-                >
-                  <Text>{getLabel(v)}</Text>
-                </Box>
-              )}
-            </Pressable>
-          );
-        })}
-      </Card>
+      <Dropdown
+        values={filteredValues}
+        renderItem={renderItem}
+        labelKey={labelKey}
+        open={selectOpen}
+        onValueChange={handleValuePress}
+        onClose={() => setSelectOpen(false)}
+      />
     </Box>
   );
 };

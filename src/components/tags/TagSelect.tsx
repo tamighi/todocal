@@ -90,7 +90,7 @@ export const TagSelect = React.memo((props: Props) => {
       value={value}
       onChange={handleChange}
       onInputChange={handleTextChange}
-      labelField="name"
+      labelKey="name"
       placeholder="TAGS"
       renderItem={renderItem}
     />
