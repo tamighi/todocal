@@ -7,7 +7,6 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
-import { ScrollView } from "react-native";
 
 type BottomSheetProps = {
   open: boolean;
@@ -58,7 +57,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         handleStyle={{ backgroundColor: colors.mainBackground }}
         backgroundStyle={{ backgroundColor: colors.mainBackground }}
       >
-        <ScrollView keyboardShouldPersistTaps="handled">{children}</ScrollView>
+        {children}
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );
