@@ -7,6 +7,7 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
+import { Keyboard } from "react-native";
 
 type BottomSheetProps = {
   open: boolean;
@@ -42,16 +43,24 @@ export const BottomSheet = (props: BottomSheetProps) => {
     [],
   );
 
+  const onAnimate = (_: number, to: number) => {
+    if (to === -1) {
+      Keyboard.dismiss();
+      setTimeout(() => {
+        bottomSheetRef.current?.close();
+      }, 50);
+    }
+  };
+
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
         ref={bottomSheetRef}
-        index={0}
         snapPoints={snapPoints}
         keyboardBehavior="interactive"
         android_keyboardInputMode="adjustResize"
-        keyboardBlurBehavior="restore"
         onDismiss={onClose}
+        onAnimate={onAnimate}
         backdropComponent={renderBackdrop}
         onChange={handleSheetPositionChange}
         handleStyle={{ backgroundColor: colors.mainBackground }}

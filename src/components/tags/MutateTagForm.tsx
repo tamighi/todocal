@@ -50,6 +50,7 @@ export const MutateTagForm = (props: Props) => {
         value={formValue.name}
         onChangeText={(value) => handleInputChange("name", value)}
         placeholder="name"
+        autoFocus
       />
       <TagColorPicker
         color={tag?.color}
