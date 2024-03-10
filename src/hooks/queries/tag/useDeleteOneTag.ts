@@ -1,12 +1,7 @@
-import { QueryKey, useMutation } from "@tanstack/react-query";
+import { QueryKey } from "@tanstack/react-query";
 
-import { tagService } from "@/services";
-import {
-  UndoMutationResult,
-  useOptimisticUpdate,
-  useUndoMutation,
-} from "../core";
-import { Tag, Todo } from "@/models";
+import { UndoMutationResult, useDeleteOne, useOptimisticUpdate } from "../core";
+import { Todo } from "@/models";
 
 interface DeleteTagOptions {
   onSuccess?: (res: UndoMutationResult) => void;
@@ -14,10 +9,7 @@ interface DeleteTagOptions {
   onError?: (error: unknown) => void;
 }
 
-interface TagContext {
-  tag: [QueryKey, Tag[] | undefined][];
-  todo: [QueryKey, Todo[] | undefined][];
-}
+type TagContext = [QueryKey, Todo[] | undefined][];
 
 export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
   const {
@@ -26,42 +18,23 @@ export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
     onError: onErrorProp,
   } = options;
 
-  const mutationKey = ["tag", "list"];
+  const { mutate, invalidate, undoMutation } = useOptimisticUpdate([
+    "todo",
+    "list",
+  ]);
 
-  const { mutationFn, showUndoToast } = useUndoMutation((id: string) =>
-    tagService.delete(id),
-  );
-
-  const {
-    mutate: mutateTag,
-    invalidate: invalidateTag,
-    undoMutation: undoTagMutation,
-  } = useOptimisticUpdate(mutationKey);
-
-  const {
-    mutate: mutateTodo,
-    invalidate: invalidateTodo,
-    undoMutation: undoTodoMutation,
-  } = useOptimisticUpdate(["todo", "list"]);
-
-  const onMutate = async (id: string) => {
-    showUndoToast("Item deleted");
+  const onMutate = (id: string) => {
     onMutateProp?.();
 
-    return {
-      tag: await mutateTag(
-        (oldData: Tag[] = []) => oldData?.filter((data) => data.id !== id),
-      ),
-      todo: await mutateTodo((oldData: Todo[] = []) => {
-        const newData = oldData.map((todo) => {
-          if (todo.tag?.id === id) {
-            return { ...todo, tag: undefined };
-          }
-          return todo;
-        });
-        return newData;
-      }),
-    };
+    return mutate((oldData: Todo[] = []) => {
+      const newData = oldData.map((todo) => {
+        if (todo.tag?.id === id) {
+          return { ...todo, tag: undefined };
+        }
+        return todo;
+      });
+      return newData;
+    });
   };
 
   const onSuccess = (
@@ -70,29 +43,18 @@ export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
     context?: TagContext,
   ) => {
     if (undo) {
-      undoTagMutation(context?.tag);
-      undoTodoMutation(context?.todo);
+      undoMutation(context);
     } else {
-      invalidateTag();
-      invalidateTodo();
+      invalidate();
     }
 
     onSuccessProp?.({ undo });
   };
 
   const onError = (error: Error, _: string, context?: TagContext) => {
-    undoTagMutation(context?.tag);
-    undoTodoMutation(context?.todo);
+    undoMutation(context);
     onErrorProp?.(error);
   };
 
-  const mutation = useMutation({
-    mutationKey,
-    mutationFn,
-    onMutate,
-    onSuccess,
-    onError,
-  });
-
-  return mutation;
+  return useDeleteOne("tag", { onMutate, onSuccess, onError });
 };
