@@ -1,16 +1,10 @@
 import React from "react";
 
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
-import { Feather } from "@expo/vector-icons";
-
 import { Box, Container, Text, TextInput } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
-import { Checkbox, FormActionButtons } from "@/components/core";
+import { Checkbox, DatePicker, FormActionButtons } from "@/components/core";
 import { TagSelect } from "@/components/tags";
-import { Platform, Pressable } from "react-native";
 import { getDayIdFromDate } from "@/utils";
 
 export const MutateTodoForm = (props: {
@@ -56,13 +50,7 @@ export const MutateTodoForm = (props: {
     return handleInputChange("tag", tag);
   }, []);
 
-  // Date picker
-  const [showDatePicker, setShowDatePicker] = React.useState(false);
-
-  const handleDateChange = (event: DateTimePickerEvent, date?: Date) => {
-    setShowDatePicker(false);
-    if (!date || event.type === "dismissed") return;
-
+  const handleDateChange = (date: Date) => {
     const newDayId = getDayIdFromDate(date);
     setFormValue((prev) => ({ ...prev, day: { id: newDayId } }));
   };
@@ -103,31 +91,10 @@ export const MutateTodoForm = (props: {
           onChangeText={(value) => handleInputChange("description", value)}
           placeholder="Description (optional)"
         />
-        {(showDatePicker || Platform.OS === "ios") && (
-          <DateTimePicker
-            value={new Date(dayId)}
-            mode="date"
-            display="default"
-            is24Hour={true}
-            onChange={(e, d) => handleDateChange(e, d)}
-          />
-        )}
-
-        {Platform.OS !== "ios" && (
-          <Box
-            flex={1}
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Pressable onPress={() => setShowDatePicker(true)}>
-              <Feather name="calendar" size={24} />
-            </Pressable>
-            <Text>
-              {new Date(formValue.day?.id || dayId).toLocaleDateString()}
-            </Text>
-          </Box>
-        )}
+        <DatePicker
+          value={new Date(formValue.day?.id || dayId)}
+          onValueChange={handleDateChange}
+        />
       </Box>
 
       <FormActionButtons
