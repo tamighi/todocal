@@ -33,7 +33,11 @@ export const ScreenHeader = () => {
   return (
     <Box flexDirection="row" justifyContent="flex-end">
       <Button
-        style={{ margin: 4, display: hasFilters() ? "flex" : "none" }}
+        style={{
+          margin: 4,
+          opacity: filters.active ? 1 : 0.4,
+          display: hasFilters() ? "flex" : "none",
+        }}
         variant="icon"
         onPress={toggleFilters}
       >
