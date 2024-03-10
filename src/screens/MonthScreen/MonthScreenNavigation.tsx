@@ -1,7 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 
-import { Box, Text, Button } from "@/atoms";
+import { Box, Text } from "@/atoms";
 import { getNextMonthId, getPrevMonthId } from "@/utils";
+import { Pressable } from "react-native";
 
 type Props = {
   monthId: string;
@@ -13,19 +14,13 @@ export const MonthScreenNavigation: React.FC<Props> = (props) => {
 
   return (
     <Box flexDirection="row" margin="s" justifyContent="space-between">
-      <Button
-        variant="icon"
-        onPress={() => onNavigate?.(getPrevMonthId(monthId))}
-      >
+      <Pressable onPress={() => onNavigate?.(getPrevMonthId(monthId))}>
         <Feather name="arrow-left" size={22} />
-      </Button>
+      </Pressable>
       <Text>{monthId}</Text>
-      <Button
-        variant="icon"
-        onPress={() => onNavigate?.(getNextMonthId(monthId))}
-      >
+      <Pressable onPress={() => onNavigate?.(getNextMonthId(monthId))}>
         <Feather name="arrow-right" size={22} />
-      </Button>
+      </Pressable>
     </Box>
   );
 };

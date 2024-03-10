@@ -52,18 +52,6 @@ const theme = createTheme({
       lineHeight: 12,
     },
   },
-  buttonVariants: {
-    defaults: {
-      paddingHorizontal: "xs",
-      paddingVertical: "xxs",
-      borderRadius: "s",
-    },
-    icon: {
-      borderRadius: "hg",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  },
   cardVariants: {
     defaults: {
       backgroundColor: "mainBackground",

@@ -2,10 +2,11 @@ import React from "react";
 
 import { Feather } from "@expo/vector-icons";
 
-import { Box, Button } from "@/atoms";
+import { Box } from "@/atoms";
 import { useTodoFilters } from "@/contexts";
 import { useNavigation } from "@/hooks";
 import { getCurrentMonthId } from "@/utils";
+import { Pressable } from "react-native";
 
 export const ScreenHeader = () => {
   const navigation = useNavigation();
@@ -32,23 +33,22 @@ export const ScreenHeader = () => {
 
   return (
     <Box flexDirection="row" justifyContent="flex-end">
-      <Button
+      <Pressable
         style={{
           margin: 4,
           opacity: filters.active ? 1 : 0.4,
           display: hasFilters() ? "flex" : "none",
         }}
-        variant="icon"
         onPress={toggleFilters}
       >
         <Feather name="filter" size={22} />
-      </Button>
-      <Button style={{ margin: 4 }} variant="icon" onPress={navigateToday}>
+      </Pressable>
+      <Pressable style={{ margin: 4 }} onPress={navigateToday}>
         <Feather name="home" size={22} />
-      </Button>
-      <Button style={{ margin: 4 }} variant="icon" onPress={openSettings}>
+      </Pressable>
+      <Pressable style={{ margin: 4 }} onPress={openSettings}>
         <Feather name="settings" size={22} />
-      </Button>
+      </Pressable>
     </Box>
   );
 };

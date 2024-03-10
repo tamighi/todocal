@@ -6,12 +6,12 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { Feather } from "@expo/vector-icons";
 
-import { Box, Button, Container, Text } from "@/atoms";
+import { Box, Container, Text } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import { Checkbox, FormActionButtons } from "@/components/core";
 import { TagSelect } from "@/components/tags";
-import { Platform } from "react-native";
+import { Platform, Pressable } from "react-native";
 import { getDayIdFromDate } from "@/utils";
 
 export const MutateTodoForm = (props: {
@@ -129,9 +129,9 @@ export const MutateTodoForm = (props: {
             alignItems="center"
             justifyContent="center"
           >
-            <Button variant="icon" onPress={() => setShowDatePicker(true)}>
+            <Pressable onPress={() => setShowDatePicker(true)}>
               <Feather name="calendar" size={24} />
-            </Button>
+            </Pressable>
             <Text>
               {new Date(formValue.day?.id || dayId).toLocaleDateString()}
             </Text>
