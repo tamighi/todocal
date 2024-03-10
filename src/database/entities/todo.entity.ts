@@ -23,7 +23,7 @@ export class TodoEntity {
   @Column("boolean", { default: false })
   done: boolean;
 
-  @Column("float", { unique: true })
+  @Column("float")
   order: number;
 
   @Column("boolean", { default: false })
