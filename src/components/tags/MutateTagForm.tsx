@@ -42,7 +42,7 @@ export const MutateTagForm = (props: Props) => {
   };
 
   return (
-    <Container gap="s">
+    <Container marginHorizontal="s" gap="m">
       <TextInput
         value={formValue.name}
         onChangeText={(value) => handleInputChange("name", value)}

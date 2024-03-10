@@ -13,7 +13,7 @@ export const TextInput = (props: TextInputProps) => {
     <AtomTextInput
       multiline={textArea}
       style={{ minHeight: textArea ? 48 : undefined }}
-      paddingVertical={Platform.OS === "android" ? "none" : undefined}
+      paddingVertical={Platform.OS === "android" ? "xxs" : undefined}
       {...rest}
     />
   );
