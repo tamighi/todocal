@@ -59,6 +59,12 @@ export const TodoChip: React.FC<Props> = (props) => {
                 <Feather name="coffee" />
               </>
             )}
+          {!minimal && todo.content.includes("Thomas") && (
+            <>
+              {" "}
+              <Feather name="heart" />
+            </>
+          )}
         </Text>
         {todo.description &&
           (!minimal ? (
