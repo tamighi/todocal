@@ -44,7 +44,7 @@ export const ClickOutsideProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <Pressable onPress={handleTouch} style={{ flex: 1 }}>
+    <Pressable onTouchStart={handleTouch} style={{ flex: 1 }}>
       {children}
     </Pressable>
   );
