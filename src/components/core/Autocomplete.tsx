@@ -2,9 +2,8 @@ import React from "react";
 
 import { TextStyle, ViewStyle } from "react-native";
 
-import { Box } from "@/atoms";
+import { Box, TextInput } from "@/atoms";
 import { Dropdown } from "./Dropdown";
-import { TextInput } from "react-native-gesture-handler";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;

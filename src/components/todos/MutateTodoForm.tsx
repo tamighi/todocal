@@ -5,14 +5,13 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { Feather } from "@expo/vector-icons";
 
-import { Box, Container, Text } from "@/atoms";
+import { Box, Container, Text, TextInput } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import { Checkbox, FormActionButtons } from "@/components/core";
 import { TagSelect } from "@/components/tags";
 import { Platform, Pressable } from "react-native";
 import { getDayIdFromDate } from "@/utils";
-import { TextInput } from "react-native-gesture-handler";
 
 export const MutateTodoForm = (props: {
   dayId: string;

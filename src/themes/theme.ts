@@ -65,6 +65,11 @@ const theme = createTheme({
       borderRadius: "xxs",
     },
   },
+  textInputVariants: {
+    defaults: {
+      borderWidth: 1,
+    },
+  },
 });
 
 export type Theme = typeof theme;
