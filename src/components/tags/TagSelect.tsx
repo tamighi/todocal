@@ -85,11 +85,12 @@ export const TagSelect = React.memo((props: Props) => {
   return (
     <Autocomplete
       data={tagList}
+      renderItem={renderItem}
       value={value}
       onChange={handleChange}
       onInputChange={handleTextChange}
       labelKey="name"
-      placeholder="TAGS"
+      placeholder="Tag"
     />
   );
 });

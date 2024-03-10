@@ -68,6 +68,9 @@ const theme = createTheme({
   textInputVariants: {
     defaults: {
       borderWidth: 1,
+      borderRadius: "xs",
+      padding: "xs",
+      borderColor: "secondaryForeground",
     },
   },
 });

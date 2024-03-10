@@ -6,7 +6,6 @@ const spacing = {
   m: 16,
   lg: 24,
   xl: 48,
-  xxl: 64,
 };
 
 const breakpoints = {
@@ -21,8 +20,6 @@ const borderRadii = {
   s: 8,
   sm: 16,
   md: 24,
-  lg: 64,
-  hg: 256,
 };
 
 export const layout = {

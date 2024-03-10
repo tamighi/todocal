@@ -61,10 +61,10 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
         <Card
           position="absolute"
           top="100%"
-          maxHeight={200}
-          zIndex={1000}
-          right={0}
           left={0}
+          maxHeight={200}
+          width="50%"
+          zIndex={1000}
           ref={ref}
           borderWidth={1}
         >

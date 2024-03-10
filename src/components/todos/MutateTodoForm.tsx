@@ -68,7 +68,7 @@ export const MutateTodoForm = (props: {
   };
 
   return (
-    <Container>
+    <Container marginHorizontal="s" gap="s">
       <TextInput
         autoFocus
         value={formValue.content}
@@ -97,11 +97,7 @@ export const MutateTodoForm = (props: {
         </Box>
       </Box>
 
-      <Box
-        marginHorizontal="xs"
-        flexDirection="row"
-        justifyContent="space-around"
-      >
+      <Box flexDirection="row" justifyContent="space-around">
         <TextInput
           value={formValue.description}
           onChangeText={(value) => handleInputChange("description", value)}
