@@ -84,6 +84,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   }, [data, currentInput]);
 
   const handleChangeText = (value: string) => {
+    setSelectOpen(true);
     setCurrentInput(value);
     onInputChange?.(value);
   };

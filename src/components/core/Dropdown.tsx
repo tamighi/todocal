@@ -1,7 +1,9 @@
-import { Pressable } from "react-native";
+import { ListRenderItem, ListRenderItemInfo, Pressable } from "react-native";
+import { Portal } from "@gorhom/portal";
 
 import { Card, Text, Box } from "@/atoms";
 import { useClickOutside } from "@/hooks";
+import { FlatList } from "react-native-gesture-handler";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -20,7 +22,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
   const {
     values = [],
     open = false,
-    renderItem,
+    renderItem: renderItemProp,
     onValueChange,
     labelKey,
     onClose,
@@ -37,31 +39,41 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
 
   const ref = useClickOutside(handleClickOutside);
 
+  const renderItem = ({ index, item }: ListRenderItemInfo<T>) => {
+    {
+      return (
+        <Pressable key={index} onPress={() => onValueChange?.(item)}>
+          {renderItemProp ? (
+            renderItemProp(item, index, values)
+          ) : (
+            <Box borderBottomWidth={values.length === index + 1 ? 0 : 1}>
+              <Text>{getLabel(item)}</Text>
+            </Box>
+          )}
+        </Pressable>
+      );
+    }
+  };
+
   return (
-    <Card
-      top="100%"
-      ref={ref}
-      left={0}
-      right={0}
-      zIndex={100}
-      position="absolute"
-      visible={open}
-      borderWidth={1}
-      margin="xxs"
-    >
-      {values.map((v, k) => {
-        return (
-          <Pressable key={k} onPress={() => onValueChange?.(v)}>
-            {renderItem ? (
-              renderItem(v, k, values)
-            ) : (
-              <Box borderBottomWidth={values.length === k + 1 ? 0 : 1}>
-                <Text>{getLabel(v)}</Text>
-              </Box>
-            )}
-          </Pressable>
-        );
-      })}
-    </Card>
+    <>
+      {open && (
+        <Card
+          position="absolute"
+          top="100%"
+          maxHeight={200}
+          right={0}
+          left={0}
+          ref={ref}
+          borderWidth={1}
+        >
+          <FlatList
+            keyboardShouldPersistTaps="always"
+            renderItem={renderItem}
+            data={values}
+          />
+        </Card>
+      )}
+    </>
   );
 };
