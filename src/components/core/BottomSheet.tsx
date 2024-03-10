@@ -1,10 +1,8 @@
 import React from "react";
 
-import {
+import RNBottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
-  BottomSheetModal,
-  BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
 import { Keyboard } from "react-native";
@@ -20,13 +18,13 @@ export const BottomSheet = (props: BottomSheetProps) => {
   const { open, onClose, snapPoints, children } = props;
   const { colors } = useTheme();
 
-  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
+  const bottomSheetRef = React.useRef<RNBottomSheet>(null);
   const { handleSheetPositionChange } =
     useBottomSheetBackHandler(bottomSheetRef);
 
   React.useEffect(() => {
     if (open) {
-      bottomSheetRef.current?.present();
+      bottomSheetRef.current?.snapToIndex(0);
     } else {
       bottomSheetRef.current?.close();
     }
@@ -53,21 +51,21 @@ export const BottomSheet = (props: BottomSheetProps) => {
   };
 
   return (
-    <BottomSheetModalProvider>
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        snapPoints={snapPoints}
-        keyboardBehavior="interactive"
-        android_keyboardInputMode="adjustResize"
-        onDismiss={onClose}
-        onAnimate={onAnimate}
-        backdropComponent={renderBackdrop}
-        onChange={handleSheetPositionChange}
-        handleStyle={{ backgroundColor: colors.mainBackground }}
-        backgroundStyle={{ backgroundColor: colors.mainBackground }}
-      >
-        {children}
-      </BottomSheetModal>
-    </BottomSheetModalProvider>
+    <RNBottomSheet
+      ref={bottomSheetRef}
+      snapPoints={snapPoints}
+      index={-1}
+      enablePanDownToClose={true}
+      onAnimate={onAnimate}
+      keyboardBehavior="interactive"
+      android_keyboardInputMode="adjustResize"
+      onClose={onClose}
+      backdropComponent={renderBackdrop}
+      onChange={handleSheetPositionChange}
+      handleStyle={{ backgroundColor: colors.mainBackground }}
+      backgroundStyle={{ backgroundColor: colors.mainBackground }}
+    >
+      {open && children}
+    </RNBottomSheet>
   );
 };

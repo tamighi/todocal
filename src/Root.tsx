@@ -14,27 +14,30 @@ import {
 } from "./providers";
 
 import Navs from "./Navs";
+import { PortalProvider } from "@gorhom/portal";
 
 const Root = () => {
   return (
     <NavigationContainer>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <QueryClientProvider>
-          <ThemeProvider theme={theme}>
-            <ClickOutsideProvider>
-              <TodoFilterProvider>
-                <UndoToastProvider>
-                  <TodoModalProvider>
-                    <TagModalProvider>
-                      <DatabaseLoader>
-                        <Navs />
-                      </DatabaseLoader>
-                    </TagModalProvider>
-                  </TodoModalProvider>
-                </UndoToastProvider>
-              </TodoFilterProvider>
-            </ClickOutsideProvider>
-          </ThemeProvider>
+          <PortalProvider>
+            <ThemeProvider theme={theme}>
+              <ClickOutsideProvider>
+                <TodoFilterProvider>
+                  <UndoToastProvider>
+                    <DatabaseLoader>
+                      <TodoModalProvider>
+                        <TagModalProvider>
+                          <Navs />
+                        </TagModalProvider>
+                      </TodoModalProvider>
+                    </DatabaseLoader>
+                  </UndoToastProvider>
+                </TodoFilterProvider>
+              </ClickOutsideProvider>
+            </ThemeProvider>
+          </PortalProvider>
         </QueryClientProvider>
       </GestureHandlerRootView>
     </NavigationContainer>
