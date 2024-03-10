@@ -36,8 +36,7 @@ export const ScreenHeader = () => {
       <Pressable
         style={{
           margin: 4,
-          opacity: filters.active ? 1 : 0.4,
-          display: hasFilters() ? "flex" : "none",
+          opacity: filters.active && hasFilters() ? 1 : 0.4,
         }}
         onPress={toggleFilters}
       >
