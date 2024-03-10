@@ -2,8 +2,9 @@ import React from "react";
 
 import { TextStyle, ViewStyle } from "react-native";
 
-import { Box, TextInput } from "@/atoms";
+import { Box } from "@/atoms";
 import { Dropdown } from "./Dropdown";
+import { TextInput } from "./TextInput";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Container, TextInput } from "@/atoms";
+import { Container } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/queries";
-import { FormActionButtons } from "@/components/core";
+import { FormActionButtons, TextInput } from "@/components/core";
 
 import { TagColorPicker } from "./TagColorPicker";
 

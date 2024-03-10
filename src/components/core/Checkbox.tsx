@@ -24,7 +24,7 @@ export const Checkbox: React.FC<Props> = (props) => {
         <Box
           width={20}
           height={20}
-          borderColor="mainForeground"
+          borderColor="secondaryForeground"
           borderWidth={2}
           {...rest}
         >

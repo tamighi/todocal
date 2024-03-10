@@ -69,7 +69,7 @@ const theme = createTheme({
     defaults: {
       borderWidth: 1,
       borderRadius: "xs",
-      padding: "xs",
+      padding: "s",
       borderColor: "secondaryForeground",
     },
   },

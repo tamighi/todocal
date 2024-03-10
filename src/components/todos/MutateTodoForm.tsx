@@ -1,9 +1,14 @@
 import React from "react";
 
-import { Box, Container, Text, TextInput } from "@/atoms";
+import { Box, Container } from "@/atoms";
 import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
-import { Checkbox, DatePicker, FormActionButtons } from "@/components/core";
+import {
+  Checkbox,
+  DatePicker,
+  FormActionButtons,
+  TextInput,
+} from "@/components/core";
 import { TagSelect } from "@/components/tags";
 import { getDayIdFromDate } from "@/utils";
 
@@ -56,7 +61,7 @@ export const MutateTodoForm = (props: {
   };
 
   return (
-    <Container marginHorizontal="s" gap="s">
+    <Container marginHorizontal="s" gap="m">
       <TextInput
         autoFocus
         value={formValue.content}
@@ -72,9 +77,10 @@ export const MutateTodoForm = (props: {
         value={formValue.description}
         onChangeText={(value) => handleInputChange("description", value)}
         placeholder="Description (optional)"
-        multiline
+        textAlignVertical="top"
+        textArea
       />
-      <Box flexDirection="row" justifyContent="space-around">
+      <Box flexDirection="row" justifyContent="space-around" mb="lg">
         <Box flexDirection="column" alignItems="flex-end" gap="s">
           <Checkbox
             label="Urgent"
