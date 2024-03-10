@@ -54,7 +54,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   const handleInputPress = () => {
-    setSelectOpen(true);
+    setSelectOpen(!selectOpen);
   };
 
   // Filter values
