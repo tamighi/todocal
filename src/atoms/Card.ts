@@ -1,16 +1,14 @@
 import {
+  AllProps,
   VariantProps,
   createRestyleComponent,
   createVariant,
 } from "@shopify/restyle";
 import { Theme } from "@/themes";
-import Box, { BoxProps } from "./Box";
+import { PropsWithChildren } from "react";
 
-const Card = createRestyleComponent<
-  VariantProps<Theme, "cardVariants"> & BoxProps,
-  Theme
->([createVariant({ themeKey: "cardVariants" })], Box);
+type Props = VariantProps<Theme, "cardVariants"> & AllProps<Theme>;
 
-export type CardProps = React.ComponentProps<typeof Card>;
-
-export default Card;
+export const Card = createRestyleComponent<PropsWithChildren<Props>, Theme>([
+  createVariant({ themeKey: "cardVariants" }),
+]);
