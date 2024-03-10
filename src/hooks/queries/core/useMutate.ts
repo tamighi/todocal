@@ -20,7 +20,7 @@ export const useMutate = <R extends Resource>(
 
   const onSuccess = (data: ResourceTypes[R]) => {
     onSuccessProp?.(data);
-    queryClient.invalidateQueries({ queryKey: [resource] });
+    queryClient.invalidateQueries({ queryKey: [resource, "list"] });
   };
 
   const mutation = useMutation({
