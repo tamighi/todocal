@@ -76,20 +76,16 @@ export const MutateTodoForm = (props: {
       />
       <Box flexDirection="row" justifyContent="space-around">
         <Box flexDirection="column" alignItems="flex-end" gap="s">
-          <Box flexDirection="row" gap="s" alignItems="center">
-            <Text>Urgent</Text>
-            <Checkbox
-              onPress={(value) => handleInputChange("urgent", value)}
-              checked={formValue.urgent || false}
-            />
-          </Box>
-          <Box flexDirection="row" gap="s" alignItems="center">
-            <Text>Important</Text>
-            <Checkbox
-              onPress={(value) => handleInputChange("important", value)}
-              checked={formValue.important || false}
-            />
-          </Box>
+          <Checkbox
+            label="Urgent"
+            onPress={(value) => handleInputChange("urgent", value)}
+            checked={formValue.urgent || false}
+          />
+          <Checkbox
+            label="Important"
+            onPress={(value) => handleInputChange("important", value)}
+            checked={formValue.important || false}
+          />
         </Box>
         <DatePicker
           value={new Date(formValue.day?.id || dayId)}
