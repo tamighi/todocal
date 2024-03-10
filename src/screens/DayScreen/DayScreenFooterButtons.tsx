@@ -20,15 +20,7 @@ export const DayScreenFooterButtons: React.FC<Props> = (props) => {
   };
 
   return (
-    <Box
-      position="absolute"
-      flexDirection="row"
-      justifyContent="space-between"
-      bottom={0}
-      left={0}
-      right={0}
-      margin="lg"
-    >
+    <Box flexDirection="row" justifyContent="space-between" margin="lg">
       <Pressable
         onPress={() =>
           navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) })
