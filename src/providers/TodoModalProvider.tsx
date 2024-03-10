@@ -24,7 +24,7 @@ export const TodoModalProvider = (props: ProviderProps) => {
   return (
     <TodoModalContext.Provider value={setModalProps}>
       {children}
-      <BottomSheet open={open} onClose={onClose} snapPoints={[320]}>
+      <BottomSheet open={open} onClose={onClose} snapPoints={[360]}>
         <MutateTodoForm dayId={dayId} todo={todo} onMutate={onClose} />
       </BottomSheet>
     </TodoModalContext.Provider>

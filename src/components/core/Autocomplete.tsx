@@ -89,7 +89,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   return (
-    <Box style={containerStyle}>
+    <Box style={containerStyle} zIndex={10}>
       <TextInput
         onPressIn={handleInputPress}
         placeholder={placeholder}

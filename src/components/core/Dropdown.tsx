@@ -1,5 +1,4 @@
-import { ListRenderItem, ListRenderItemInfo, Pressable } from "react-native";
-import { Portal } from "@gorhom/portal";
+import { ListRenderItemInfo, Pressable } from "react-native";
 
 import { Card, Text, Box } from "@/atoms";
 import { useClickOutside } from "@/hooks";

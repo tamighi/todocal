@@ -38,12 +38,7 @@ export const DatePicker = (props: Props) => {
       )}
 
       {Platform.OS !== "ios" && (
-        <Box
-          flex={1}
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Box flexDirection="column" alignItems="center" justifyContent="center">
           <Pressable onPress={() => setShowDatePicker(true)}>
             <Feather name="calendar" size={24} />
           </Pressable>
