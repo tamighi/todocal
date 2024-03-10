@@ -33,7 +33,7 @@ export const UndoToast = (props: UndoToastProps) => {
   const showToast = () => {
     showAnimation.start(() => {
       const timer = setTimeout(() => {
-        hideAnimation.start(close);
+        hideAnimation.start();
       }, duration);
 
       setHideTimer(timer);
@@ -42,7 +42,10 @@ export const UndoToast = (props: UndoToastProps) => {
 
   React.useEffect(() => {
     if (show) {
+      showAnimation.reset();
+      clearTimeout(hideTimer);
       showToast();
+      close();
     }
   }, [show, translateY]);
 

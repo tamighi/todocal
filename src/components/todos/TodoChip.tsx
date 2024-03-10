@@ -60,11 +60,16 @@ export const TodoChip: React.FC<Props> = (props) => {
               </>
             )}
         </Text>
-        {!minimal && todo.description && (
-          <Text variant="small" color="secondaryForeground">
-            {todo.description}
-          </Text>
-        )}
+        {todo.description &&
+          (!minimal ? (
+            <Text variant="small" color="secondaryForeground">
+              {todo.description}
+            </Text>
+          ) : (
+            <Text lineHeight={5} color="secondaryForeground">
+              ...
+            </Text>
+          ))}
       </Box>
       {!minimal && (
         <Checkbox
