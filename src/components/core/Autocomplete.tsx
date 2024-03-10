@@ -3,8 +3,8 @@ import React from "react";
 import { TextStyle, ViewStyle } from "react-native";
 
 import { Box } from "@/atoms";
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { Dropdown } from "./Dropdown";
+import { TextInput } from "react-native-gesture-handler";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -91,12 +91,12 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   return (
     <Box style={containerStyle}>
-      <BottomSheetTextInput
+      <TextInput
         onPressIn={handleInputPress}
-        style={{ borderWidth: 1, ...inputStyle }}
         placeholder={placeholder}
         onChangeText={handleChangeText}
         value={currentInput}
+        style={inputStyle}
       />
       <Dropdown
         values={filteredValues}

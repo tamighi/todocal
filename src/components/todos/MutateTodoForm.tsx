@@ -1,6 +1,5 @@
 import React from "react";
 
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -13,6 +12,7 @@ import { Checkbox, FormActionButtons } from "@/components/core";
 import { TagSelect } from "@/components/tags";
 import { Platform, Pressable } from "react-native";
 import { getDayIdFromDate } from "@/utils";
+import { TextInput } from "react-native-gesture-handler";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -69,20 +69,17 @@ export const MutateTodoForm = (props: {
   };
 
   return (
-    <Container gap="lg">
-      <Box zIndex={2} flexDirection="row" justifyContent="space-between">
-        <BottomSheetTextInput
-          style={{ padding: 12, marginHorizontal: 4, borderWidth: 1, flex: 1 }}
-          autoFocus
-          value={formValue.content}
-          onChangeText={(value) => handleInputChange("content", value)}
-          placeholder="Todo"
-        />
-        <TagSelect
-          value={formValue.tag || undefined}
-          onChange={handleTagChange}
-        />
-      </Box>
+    <Container>
+      <TextInput
+        autoFocus
+        value={formValue.content}
+        onChangeText={(value) => handleInputChange("content", value)}
+        placeholder="Todo"
+      />
+      <TagSelect
+        value={formValue.tag || undefined}
+        onChange={handleTagChange}
+      />
 
       <Box flexDirection="row" justifyContent="space-around">
         <Box flexDirection="row" gap="s" alignItems="center">
@@ -106,8 +103,7 @@ export const MutateTodoForm = (props: {
         flexDirection="row"
         justifyContent="space-around"
       >
-        <BottomSheetTextInput
-          style={{ padding: 12, borderWidth: 1, flex: 2 }}
+        <TextInput
           value={formValue.description}
           onChangeText={(value) => handleInputChange("description", value)}
           placeholder="Description (optional)"

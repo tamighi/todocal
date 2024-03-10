@@ -1,8 +1,6 @@
 import React from "react";
 
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-
-import { Container } from "@/atoms";
+import { Container, TextInput } from "@/atoms";
 import { Tag } from "@/models";
 import { useMutateTag } from "@/hooks/queries";
 import { FormActionButtons } from "@/components/core";
@@ -45,8 +43,7 @@ export const MutateTagForm = (props: Props) => {
 
   return (
     <Container gap="s">
-      <BottomSheetTextInput
-        style={{ padding: 12, margin: 2, borderWidth: 1 }}
+      <TextInput
         value={formValue.name}
         onChangeText={(value) => handleInputChange("name", value)}
         placeholder="name"

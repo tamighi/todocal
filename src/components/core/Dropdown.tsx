@@ -62,6 +62,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
           position="absolute"
           top="100%"
           maxHeight={200}
+          zIndex={1000}
           right={0}
           left={0}
           ref={ref}
