@@ -1,9 +1,9 @@
-import { DayEntity, dayRepository } from "@/database";
+import { DayEntity, DayRepository, dayRepository } from "@/database";
 import { Day } from "@/models";
 
 import AbstractService from "./AbstractService";
 
-class DayService extends AbstractService<DayEntity, Day> {
+class DayService extends AbstractService<DayEntity, Day, DayRepository> {
   constructor() {
     super(dayRepository);
   }

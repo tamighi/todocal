@@ -6,5 +6,13 @@ const todoRepository = new TodoRepository();
 const dayRepository = new DayRepository();
 const tagRepository = new TagRepository();
 
-export { todoRepository, dayRepository, tagRepository };
+export {
+  todoRepository,
+  TodoRepository,
+  dayRepository,
+  DayRepository,
+  tagRepository,
+  TagRepository,
+};
+
 export * from "./abstract.repository";

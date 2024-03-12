@@ -1,9 +1,9 @@
 import { Tag } from "@/models";
-import { TagEntity, tagRepository } from "@/database";
+import { TagEntity, TagRepository, tagRepository } from "@/database";
 
 import AbstractService from "./AbstractService";
 
-class TagService extends AbstractService<TagEntity, Tag> {
+class TagService extends AbstractService<TagEntity, Tag, TagRepository> {
   constructor() {
     super(tagRepository);
   }

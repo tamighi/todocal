@@ -4,10 +4,11 @@ import { DeepPartial, FindManyOptions } from "typeorm";
 export default abstract class AbstractService<
   Entity extends { id: string },
   T extends { id: string },
+  Repository extends AbstractRepository<Entity>,
 > {
-  protected repository: AbstractRepository<Entity>;
+  protected repository: Repository;
 
-  constructor(repository: AbstractRepository<Entity>) {
+  constructor(repository: Repository) {
     this.repository = repository;
   }
 

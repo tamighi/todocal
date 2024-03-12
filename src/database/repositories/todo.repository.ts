@@ -20,7 +20,7 @@ class TodoRepository extends AbstractRepository<TodoEntity> {
     return super.create(payloadWithOrder);
   }
 
-  private async getNextOrder() {
+  public async getNextOrder() {
     try {
       const [todo] = await this.repository.find({ order: { order: "DESC" } });
       return todo.order + 1;

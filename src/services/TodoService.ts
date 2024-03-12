@@ -1,13 +1,13 @@
 import { DeepPartial } from "typeorm";
 
 import { Todo } from "@/models";
-import { TodoEntity, todoRepository } from "@/database";
+import { TodoEntity, TodoRepository, todoRepository } from "@/database";
 
 import AbstractService from "./AbstractService";
 import DayService from "./DayService";
 import TagService from "./TagService";
 
-class TodoService extends AbstractService<TodoEntity, Todo> {
+class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   private dayService!: DayService;
   private tagService!: TagService;
 
@@ -36,6 +36,12 @@ class TodoService extends AbstractService<TodoEntity, Todo> {
     if (payload.day?.id) {
       await this.dayService.getOneOrCreate(payload.day.id);
     }
+
+    const entity = await this.repository.getOne(id);
+    if (entity.day?.id !== payload.day?.id) {
+      payload.order = await this.repository.getNextOrder();
+    }
+
     return super.update(id, payload);
   }
 
