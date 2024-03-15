@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Resource, ResourceTypes, serviceMap } from "@/services";
-import { useUndoMutation } from "./useUndoMutation";
+import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
 import { MutateOptions, useCoreMutation } from "./useCoreMutation";
 
 export const useDeleteOne = <R extends Resource, T extends any>(
   resource: R,
-  options: MutateOptions<R, T> = {},
+  options: MutateOptions<R, T, UndoMutationResult> = {},
 ) => {
   const { onMutate: onMutateProp, onSuccess, onError } = options;
 
