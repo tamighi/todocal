@@ -9,7 +9,7 @@ interface DeleteTagOptions {
   onError?: (error: unknown) => void;
 }
 
-type TagContext = [QueryKey, Todo[] | undefined][];
+type TodoContext = [QueryKey, Todo[] | undefined][];
 
 export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
   const {
@@ -40,7 +40,7 @@ export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
   const onSuccess = (
     { undo }: UndoMutationResult,
     _: string,
-    context?: TagContext,
+    context?: TodoContext,
   ) => {
     if (undo) {
       undoMutation(context);
@@ -51,7 +51,7 @@ export const useDeleteOneTag = (options: DeleteTagOptions = {}) => {
     onSuccessProp?.({ undo });
   };
 
-  const onError = (error: Error, _: string, context?: TagContext) => {
+  const onError = (error: Error, _: string, context?: TodoContext) => {
     undoMutation(context);
     onErrorProp?.(error);
   };
