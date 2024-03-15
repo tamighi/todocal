@@ -4,7 +4,7 @@ export const useOptimisticUpdate = (mutationKey: QueryKey) => {
   const queryClient = useQueryClient();
 
   const mutate = async <TData>(
-    optimisticMutationFn: (data: TData | undefined) => TData,
+    optimisticMutationFn: (data: TData | undefined) => TData | undefined,
   ) => {
     await queryClient.cancelQueries({ queryKey: mutationKey });
 
