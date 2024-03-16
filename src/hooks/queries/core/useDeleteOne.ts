@@ -23,8 +23,10 @@ export const useDeleteOne = <R extends Resource>(
   );
 
   const optimisticMutationFn = React.useCallback(
-    (oldData: ResourceType[] = [], id: string) =>
-      oldData.filter((data) => data.id !== id),
+    (oldData: ResourceType[] = [], id: string) => {
+      console.log(oldData, id);
+      return oldData.filter((data) => data.id !== id);
+    },
     [],
   );
 

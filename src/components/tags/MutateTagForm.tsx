@@ -32,7 +32,7 @@ export const MutateTagForm = (props: Props) => {
   };
 
   const { mutate: updateMutate } = useUpdate("tag", { onSuccess });
-  const { mutate: deleteMutate } = useDeleteOneTag({ onSuccess });
+  const { mutate: deleteMutate } = useDeleteOneTag();
 
   const handleSubmit = () => {
     updateMutate(formValue);
@@ -40,6 +40,7 @@ export const MutateTagForm = (props: Props) => {
 
   const handleDelete = () => {
     deleteMutate(tag!.id);
+    onSuccess?.();
   };
 
   return (

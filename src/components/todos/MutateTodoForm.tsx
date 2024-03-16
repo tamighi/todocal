@@ -40,20 +40,21 @@ export const MutateTodoForm = (props: {
     setFormValue({});
   };
 
-  const { mutate: createMutate } = useCreate("todo");
-  const { mutate: updateMutate } = useUpdate("todo");
+  const { mutate: createMutate } = useCreate("todo", { onSuccess });
+  const { mutate: updateMutate } = useUpdate("todo", { onSuccess });
   const { mutate: deleteMutate } = useDeleteOne("todo");
 
   const handleSubmit = async () => {
     if (todo?.id) {
       updateMutate(formValue);
     } else {
-      createMutate(formValue);
+      createMutate({ ...formValue, day: { id: dayId } });
     }
   };
 
   const handleDelete = async () => {
     deleteMutate(todo!.id);
+    onSuccess?.();
   };
 
   const handleTagChange = React.useCallback((tag: Tag | null) => {
