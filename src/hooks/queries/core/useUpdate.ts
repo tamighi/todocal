@@ -6,19 +6,16 @@ import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export const useUpdate = <R extends Resource>(
   resource: R,
-  options: MutateOptions<Partial<ResourceTypes[R][]>> = {},
+  options: MutateOptions = {},
   additionalMutations?: OptimisticUpdate[],
 ) => {
   const { onMutate: onMutateProp, onSuccess, onError } = options;
 
   const optimisticMutationFn = React.useCallback(
-    (
-      oldData: Partial<ResourceTypes[R]>[] = [],
-      newData: Partial<ResourceTypes[R]>,
-    ) =>
+    (oldData: ResourceTypes[R][] = [], newData: Partial<ResourceTypes[R]>) =>
       oldData.map((data) => {
         if (data.id === newData.id) {
-          return newData;
+          return newData as ResourceTypes[R];
         }
         return data;
       }),

@@ -4,47 +4,42 @@ import { QueryKey, useMutation as RNuseMutation } from "@tanstack/react-query";
 
 import { OptimisticUpdate, useOptimisticUpdate } from "./useOptimisticUpdate";
 
-type MutationContext<T = any> = {
+export type MutationContext<TData = any> = {
   mutationKey: QueryKey;
-  oldData: T | undefined;
+  oldData: TData | undefined;
 }[];
 
-interface UndoableMutationResult {
-  undo?: boolean;
+interface MutateFns<TData, TVariable> {
+  mutationFn: (payload: TVariable) => Promise<any>;
+  optimisticMutationFn: OptimisticUpdate<
+    TData,
+    TVariable
+  >["optimisticMutationFn"];
+  additionalMutations?: OptimisticUpdate<TData, TVariable>[];
 }
 
 export interface MutateOptions<
-  Data = any,
-  MutationResult = any,
-  Params extends any = any,
+  TData = any,
+  TVariable = any,
+  TMutationResult = any,
 > {
+  onMutate?: (payload: TVariable) => void;
   onSuccess?: (
-    result: MutationResult,
-    payload: Params,
-    context?: MutationContext<Data>,
+    result: TMutationResult,
+    payload: TVariable,
+    context?: MutationContext<TData>,
   ) => void;
-  onMutate?: (payload: Params) => void;
-  onError?: (error: Error, payload: Params, context?: MutationContext) => void;
+  onError?: (
+    error: Error,
+    payload: TVariable,
+    context?: MutationContext,
+  ) => void;
 }
 
-interface MutateFns<MainData, ExtraData, MutationResult, Params extends any> {
-  mutationFn: (payload: Params) => Promise<MutationResult>;
-  optimisticMutationFn: OptimisticUpdate<
-    MainData,
-    [Params]
-  >["optimisticMutationFn"];
-  additionalMutations?: OptimisticUpdate<ExtraData, [Params]>[];
-}
-
-export const useMutation = <
-  MainData,
-  ExtraData,
-  Params extends any,
-  MutationResult extends UndoableMutationResult | object = any,
->(
+export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
   queryKey: QueryKey,
-  options: MutateOptions<MainData | ExtraData, MutationResult, Params> &
-    MutateFns<MainData, ExtraData, MutationResult, Params>,
+  options: MutateOptions<TMainData | TExtraData, TVariable, TMutationResult> &
+    MutateFns<TMainData, TVariable>,
 ) => {
   const {
     onMutate: onMutateProp,
@@ -57,37 +52,32 @@ export const useMutation = <
 
   const mutationKey = React.useMemo(() => queryKey, []);
 
-  const { mutate, invalidate, undoMutation } = useOptimisticUpdate([
+  const { mutate, invalidate } = useOptimisticUpdate([
     { mutationKey, optimisticMutationFn },
     ...additionalMutations,
   ]);
 
-  const onMutate = async (payload: Params) => {
+  const onMutate = async (payload: TVariable) => {
     onMutateProp?.(payload);
     return mutate(payload);
   };
 
   const onSuccess = (
-    res: MutationResult,
-    payload: Params,
+    result: TMutationResult,
+    payload: TVariable,
     context?: MutationContext,
   ) => {
-    if (res && "undo" in res && res.undo) {
-      undoMutation(context);
-    } else {
-      invalidate();
-    }
-
-    onSuccessProp?.(res, payload, context);
+    onSuccessProp?.(result, payload, context);
+    invalidate();
   };
 
   const onError = (
     error: Error,
-    payload: Params,
+    payload: TVariable,
     context?: MutationContext,
   ) => {
-    undoMutation(context);
     onErrorProp?.(error, payload, context);
+    invalidate();
   };
 
   const mutation = RNuseMutation({

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useUndoToast } from "@/providers/UndoToastProvider";
+import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
 export type UndoMutationResult = {
   undo: boolean;
@@ -10,6 +11,8 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
   undoableMutationFn: Fn,
 ) => {
   const { show } = useUndoToast();
+  const queryClient = useQueryClient();
+
   const undoRef = React.useRef<() => void>();
   const onUndo = React.useCallback(() => undoRef.current?.(), [undoRef]);
 
@@ -36,5 +39,15 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
     show({ message, callback: onUndo });
   };
 
-  return { showUndoToast, mutationFn };
+  const undoMutation = (
+    context?: { mutationKey: QueryKey; oldData?: unknown }[],
+  ) => {
+    if (context) {
+      context.forEach((mutation) => {
+        queryClient.setQueryData(mutation.mutationKey, mutation.oldData);
+      });
+    }
+  };
+
+  return { showUndoToast, mutationFn, undoMutation };
 };

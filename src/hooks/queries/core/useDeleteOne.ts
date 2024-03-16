@@ -2,7 +2,7 @@ import React from "react";
 
 import { Resource, ResourceTypes, serviceMap } from "@/services";
 import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
-import { useMutation } from "./useMutation";
+import { MutationContext, useMutation } from "./useMutation";
 import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export interface DeleteOptions {
@@ -16,21 +16,32 @@ export const useDeleteOne = <R extends Resource>(
   options: DeleteOptions = {},
   additionalMutations?: OptimisticUpdate[],
 ) => {
-  const { onMutate: onMutateProp, onSuccess, onError } = options;
+  const { onMutate: onMutateProp, onSuccess: onSuccessProp, onError } = options;
 
-  const { mutationFn, showUndoToast } = useUndoMutation((id: string) =>
-    serviceMap[resource].delete(id),
+  const { mutationFn, showUndoToast, undoMutation } = useUndoMutation(
+    (id: string) => serviceMap[resource].delete(id),
   );
 
   const optimisticMutationFn = React.useCallback(
-    (oldData: ResourceTypes[R][] = [], id: string) =>
+    (oldData: ResourceTypes[Resource][] = [], id: string) =>
       oldData.filter((data) => data.id !== id),
     [],
   );
 
-  const onMutate = async () => {
+  const onMutate = () => {
     showUndoToast("Item deleted");
     onMutateProp?.();
+  };
+
+  const onSuccess = (
+    res: UndoMutationResult,
+    _: unknown,
+    context?: MutationContext,
+  ) => {
+    if (res.undo) {
+      undoMutation(context);
+    }
+    onSuccessProp?.(res);
   };
 
   return useMutation([resource, "list"], {

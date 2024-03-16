@@ -6,16 +6,14 @@ import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export const useCreate = <R extends Resource>(
   resource: R,
-  options: MutateOptions<Partial<ResourceTypes[R][]>> = {},
+  options: MutateOptions = {},
   additionalMutations?: OptimisticUpdate[],
 ) => {
   const { onMutate, onSuccess, onError } = options;
 
   const optimisticMutationFn = React.useCallback(
-    (
-      oldData: Partial<ResourceTypes[R]>[] = [],
-      newData: Partial<ResourceTypes[R]>,
-    ) => [...oldData, newData],
+    (oldData: ResourceTypes[R][] = [], newData: Partial<ResourceTypes[R]>) =>
+      [...oldData, newData] as ResourceTypes[R][],
     [],
   );
 

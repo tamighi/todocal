@@ -1,37 +1,33 @@
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
-export interface OptimisticUpdate<TData = any, P extends any[] = any> {
+export interface OptimisticUpdate<TData = any, TVariable = unknown> {
   mutationKey: QueryKey;
   optimisticMutationFn: (
     data: TData | undefined,
-    ...params: P
+    variable: TVariable,
   ) => TData | undefined;
 }
 
-export const useOptimisticUpdate = <P extends Array<any>>(
-  optimisticUpdates: OptimisticUpdate<any, P>[],
+export const useOptimisticUpdate = <TVariable>(
+  optimisticUpdates: OptimisticUpdate<any, TVariable>[],
 ) => {
   const queryClient = useQueryClient();
 
-  const mutate = async (...params: P) => {
+  const mutate = async (variable: TVariable) => {
     const mutations = optimisticUpdates.map(async (update) => {
       const { mutationKey, optimisticMutationFn: mutationFn } = update;
 
-      // Cancel any existing queries for this mutation key
       await queryClient.cancelQueries({ queryKey: mutationKey });
 
-      // Retrieve the current data for this specific query key
       const oldData = queryClient.getQueryData<any>(mutationKey);
 
-      const updatedData = mutationFn(oldData, ...params); // Apply update function if present
+      const updatedData = mutationFn(oldData, variable);
 
-      // Update query data with the optimistic change
       queryClient.setQueryData(mutationKey, updatedData);
 
-      return { mutationKey, oldData }; // Return mutation key and original data for undo
+      return { mutationKey, oldData };
     });
 
-    // Return the data and mutation keys for potential undo operations
     return Promise.all(mutations);
   };
 
@@ -41,16 +37,5 @@ export const useOptimisticUpdate = <P extends Array<any>>(
     );
   };
 
-  const undoMutation = (
-    mutations?: { mutationKey: QueryKey; oldData?: unknown }[],
-  ) => {
-    if (mutations) {
-      // Restore the original data for each mutation key
-      mutations.forEach((mutation) => {
-        queryClient.setQueryData(mutation.mutationKey, mutation.oldData);
-      });
-    }
-  };
-
-  return { mutate, invalidate, undoMutation };
+  return { mutate, invalidate };
 };
