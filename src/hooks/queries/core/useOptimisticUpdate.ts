@@ -9,10 +9,16 @@ export interface OptimisticUpdate<TData = any, TVariable = unknown> {
   ) => TData;
 }
 
+export interface OptimisticMutateOptions<TVariable = any> {
+  queryKeyFilter?: (queryKey: QueryKey, payload: TVariable) => boolean;
+}
+
 export const useOptimisticUpdate = <TVariable>(
   optimisticUpdates: OptimisticUpdate<any, TVariable>[],
+  options: OptimisticMutateOptions = {},
 ) => {
   const queryClient = useQueryClient();
+  const { queryKeyFilter = () => true } = options;
 
   const mutate = async (payload: TVariable) => {
     const mutations = optimisticUpdates.map(async (update) => {
@@ -24,6 +30,9 @@ export const useOptimisticUpdate = <TVariable>(
 
       queriesData.forEach((queryData) => {
         const [queryKey, oldData] = queryData;
+
+        if (queryKeyFilter(queryKey, payload) === false) return;
+
         queryClient.setQueryData(queryKey, () =>
           mutationFn(oldData, payload, queryKey),
         );
@@ -35,12 +44,19 @@ export const useOptimisticUpdate = <TVariable>(
     return Promise.all(mutations);
   };
 
-  const invalidate = () => {
+  const invalidate = (payload: TVariable) => {
     optimisticUpdates.forEach((update) => {
       const { mutationKey } = update;
-      if (!(queryClient.isMutating({ mutationKey }) > 1)) {
-        queryClient.invalidateQueries({ queryKey: mutationKey });
-      }
+      if (queryClient.isMutating({ mutationKey }) > 1) return;
+
+      const queriesData = queryClient.getQueriesData({ queryKey: mutationKey });
+
+      queriesData.forEach((queryData) => {
+        const [queryKey] = queryData;
+        if (queryKeyFilter(queryKey, payload) === false) return;
+
+        queryClient.invalidateQueries({ queryKey });
+      });
     });
   };
 

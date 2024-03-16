@@ -40,13 +40,17 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
   };
 
   const undoMutation = (
-    context?: { mutationKey: QueryKey; oldData?: unknown }[],
+    context?: { mutationKey: QueryKey; oldData?: [QueryKey, unknown][] }[],
   ) => {
-    if (context) {
-      context.forEach((mutation) => {
-        queryClient.setQueryData(mutation.mutationKey, mutation.oldData);
+    if (!context) return;
+
+    context.forEach((mutation) => {
+      const { oldData } = mutation;
+      oldData?.forEach((ctx) => {
+        const [mutationKey, oldData] = ctx;
+        queryClient.setQueryData(mutationKey, oldData);
       });
-    }
+    });
   };
 
   return { showUndoToast, mutationFn, undoMutation };

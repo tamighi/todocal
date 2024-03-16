@@ -13,6 +13,7 @@ import { getDayIdFromDate } from "@/utils";
 import { useCreate } from "@/hooks/queries/core/useCreate";
 import { useUpdate } from "@/hooks/queries/core/useUpdate";
 import { useDeleteOne } from "@/hooks";
+import { useCreateTodo } from "@/hooks/queries/todo/useCreateTodo";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -40,7 +41,7 @@ export const MutateTodoForm = (props: {
     setFormValue({});
   };
 
-  const { mutate: createMutate } = useCreate("todo", { onSuccess });
+  const { mutate: createMutate } = useCreateTodo({ onSuccess });
   const { mutate: updateMutate } = useUpdate("todo", { onSuccess });
   const { mutate: deleteMutate } = useDeleteOne("todo");
 

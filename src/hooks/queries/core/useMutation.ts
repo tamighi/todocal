@@ -2,7 +2,11 @@ import React from "react";
 
 import { QueryKey, useMutation as RNuseMutation } from "@tanstack/react-query";
 
-import { OptimisticUpdate, useOptimisticUpdate } from "./useOptimisticUpdate";
+import {
+  OptimisticMutateOptions,
+  OptimisticUpdate,
+  useOptimisticUpdate,
+} from "./useOptimisticUpdate";
 
 export type MutationContext<TData = any> = {
   mutationKey: QueryKey;
@@ -39,7 +43,8 @@ export interface MutateOptions<
 export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
   queryKey: QueryKey,
   options: MutateOptions<TMainData | TExtraData, TVariable, TMutationResult> &
-    MutateFns<TMainData, TVariable, TMutationResult>,
+    MutateFns<TMainData, TVariable, TMutationResult> &
+    OptimisticMutateOptions,
 ) => {
   const {
     onMutate: onMutateProp,
@@ -48,14 +53,15 @@ export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
     optimisticMutationFn,
     mutationFn,
     additionalMutations = [],
+    queryKeyFilter,
   } = options;
 
   const mutationKey = React.useMemo(() => queryKey, []);
 
-  const { mutate, invalidate } = useOptimisticUpdate([
-    { mutationKey, optimisticMutationFn },
-    ...additionalMutations,
-  ]);
+  const { mutate, invalidate } = useOptimisticUpdate(
+    [{ mutationKey, optimisticMutationFn }, ...additionalMutations],
+    { queryKeyFilter },
+  );
 
   const onMutate = async (payload: TVariable) => {
     onMutateProp?.(payload);
@@ -68,7 +74,7 @@ export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
     context?: MutationContext,
   ) => {
     onSuccessProp?.(result, payload, context);
-    // invalidate();
+    invalidate(payload);
   };
 
   const onError = (
@@ -77,7 +83,7 @@ export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
     context?: MutationContext,
   ) => {
     onErrorProp?.(error, payload, context);
-    invalidate();
+    invalidate(payload);
   };
 
   const mutation = RNuseMutation({
