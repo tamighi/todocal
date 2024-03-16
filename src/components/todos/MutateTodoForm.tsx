@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Box, Container } from "@/atoms";
-import { useMutateTodo } from "@/hooks";
 import { Tag, Todo } from "@/models";
 import {
   Checkbox,
@@ -11,6 +10,9 @@ import {
 } from "@/components/core";
 import { TagSelect } from "@/components/tags";
 import { getDayIdFromDate } from "@/utils";
+import { useCreate } from "@/hooks/queries/core/useCreate";
+import { useUpdate } from "@/hooks/queries/core/useUpdate";
+import { useDeleteOne } from "@/hooks";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -38,13 +40,16 @@ export const MutateTodoForm = (props: {
     setFormValue({});
   };
 
-  const { mutate, deleteMutate } = useMutateTodo(dayId, { onSuccess });
+  const { mutate: createMutate } = useCreate("todo");
+  const { mutate: updateMutate } = useUpdate("todo");
+  const { mutate: deleteMutate } = useDeleteOne("todo");
 
   const handleSubmit = async () => {
-    mutate({
-      day: { id: dayId },
-      ...formValue,
-    });
+    if (todo?.id) {
+      updateMutate(formValue);
+    } else {
+      createMutate(formValue);
+    }
   };
 
   const handleDelete = async () => {

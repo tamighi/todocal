@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Tag } from "@/models";
-import { useGetList, useMutate, useTheme } from "@/hooks";
+import { useGetList, useTheme } from "@/hooks";
 import { Box, Text } from "@/atoms";
 import { Autocomplete } from "@/components/core";
-import { useQueryClient } from "@tanstack/react-query";
+import { useCreate } from "@/hooks/queries/core/useCreate";
 
 type Props = {
   value?: Tag;
@@ -15,14 +15,8 @@ export const TagSelect = React.memo((props: Props) => {
   const { value, onChange } = props;
 
   const { data: tags } = useGetList("tag");
-  const queryClient = useQueryClient();
 
-  const { mutate } = useMutate("tag", {
-    onSuccess: (tag) => {
-      onChange?.(tag);
-      queryClient.invalidateQueries({ queryKey: ["tag", "list"] });
-    },
-  });
+  const { mutate } = useCreate("tag", { onSuccess: (tag) => onChange?.(tag) });
 
   const [tagList, setTagList] = React.useState<Partial<Tag>[]>(tags || []);
 

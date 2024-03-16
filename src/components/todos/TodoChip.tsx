@@ -4,9 +4,9 @@ import { Feather } from "@expo/vector-icons";
 
 import { Todo } from "@/models";
 import { Box, Chip, ChipProps, Text } from "@/atoms";
-import { useMutateTodo } from "@/hooks";
 import { Checkbox } from "@/components/core";
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
+import { useUpdate } from "@/hooks/queries/core/useUpdate";
 
 type Props = {
   todo: Todo;
@@ -19,7 +19,7 @@ export const TodoChip: React.FC<Props> = (props) => {
 
   const [checked, setChecked] = React.useState(todo.done);
 
-  const { mutate } = useMutateTodo(dayId);
+  const { mutate } = useUpdate("todo");
 
   const handleCheck = (checked: boolean) => {
     mutate({ id: todo.id, done: checked });

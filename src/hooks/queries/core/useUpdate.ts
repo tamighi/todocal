@@ -6,14 +6,16 @@ import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export const useUpdate = <R extends Resource>(
   resource: R,
-  newData: ResourceTypes[R],
-  options: MutateOptions<ResourceTypes[R][]> = {},
+  options: MutateOptions<Partial<ResourceTypes[R][]>> = {},
   additionalMutations?: OptimisticUpdate[],
 ) => {
   const { onMutate: onMutateProp, onSuccess, onError } = options;
 
   const optimisticMutationFn = React.useCallback(
-    (oldData: ResourceTypes[R][] = [], newData: ResourceTypes[R]) =>
+    (
+      oldData: Partial<ResourceTypes[R]>[] = [],
+      newData: Partial<ResourceTypes[R]>,
+    ) =>
       oldData.map((data) => {
         if (data.id === newData.id) {
           return newData;
@@ -23,7 +25,7 @@ export const useUpdate = <R extends Resource>(
     [],
   );
 
-  const onMutate = async (data: ResourceTypes[R]) => {
+  const onMutate = async (data: Partial<ResourceTypes[R]>) => {
     onMutateProp?.(data);
   };
 
@@ -31,7 +33,8 @@ export const useUpdate = <R extends Resource>(
     onMutate,
     onSuccess,
     onError,
-    mutationFn: () => serviceMap[resource].update(newData),
+    //@ts-expect-error TODO
+    mutationFn: (newData) => serviceMap[resource].update(newData),
     optimisticMutationFn,
     additionalMutations,
   });

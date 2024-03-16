@@ -6,26 +6,24 @@ import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export const useCreate = <R extends Resource>(
   resource: R,
-  newData: ResourceTypes[R],
-  options: MutateOptions<ResourceTypes[R][]> = {},
+  options: MutateOptions<Partial<ResourceTypes[R][]>> = {},
   additionalMutations?: OptimisticUpdate[],
 ) => {
-  const { onMutate: onMutateProp, onSuccess, onError } = options;
+  const { onMutate, onSuccess, onError } = options;
 
   const optimisticMutationFn = React.useCallback(
-    (oldData: ResourceTypes[R][] = []) => [...oldData, newData],
+    (
+      oldData: Partial<ResourceTypes[R]>[] = [],
+      newData: Partial<ResourceTypes[R]>,
+    ) => [...oldData, newData],
     [],
   );
-
-  const onMutate = async (id: string) => {
-    onMutateProp?.(id);
-  };
 
   return useMutation([resource, "list"], {
     onMutate,
     onSuccess,
     onError,
-    mutationFn: () => serviceMap[resource].create(newData),
+    mutationFn: (newData) => serviceMap[resource].create(newData),
     optimisticMutationFn,
     additionalMutations,
   });

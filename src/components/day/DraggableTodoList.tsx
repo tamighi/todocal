@@ -8,10 +8,10 @@ import DraggableFlatList, {
 import { Pressable, View } from "react-native";
 
 import { Todo } from "@/models";
-import { useMutateTodo } from "@/hooks";
 import { TodoChip } from "@/components/todos";
 
 import { useTodoModal } from "@/contexts";
+import { useUpdate } from "@/hooks/queries/core/useUpdate";
 
 interface Props {
   todos?: Todo[];
@@ -52,7 +52,7 @@ export const DraggableTodoList: React.FC<Props> = React.memo((props) => {
     );
   };
 
-  const { mutate } = useMutateTodo(dayId);
+  const { mutate } = useUpdate("todo");
 
   const setNewOrder = (todos: Todo[], to: number) => {
     if (todos.length === 1) return;
