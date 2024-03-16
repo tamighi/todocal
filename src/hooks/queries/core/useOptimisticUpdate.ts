@@ -16,11 +16,11 @@ export const useOptimisticUpdate = <TVariable>(
 
       await queryClient.cancelQueries({ queryKey: mutationKey });
 
-      const oldData = queryClient.getQueryData(mutationKey);
+      const oldData = queryClient.getQueriesData({ queryKey: mutationKey });
 
-      const updatedData = mutationFn(oldData, payload);
-
-      queryClient.setQueryData(mutationKey, updatedData);
+      queryClient.setQueriesData({ queryKey: mutationKey }, (oldData) => {
+        return mutationFn(oldData, payload);
+      });
 
       return { mutationKey, oldData };
     });
