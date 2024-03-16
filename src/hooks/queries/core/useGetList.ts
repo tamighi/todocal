@@ -1,4 +1,4 @@
-import { Resource, ResourceTypes, serviceMap } from "@/services";
+import { Resource, ResourceType, serviceMap } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 
 type ServiceGetListFns<T extends keyof typeof serviceMap> =
@@ -8,7 +8,7 @@ export const useGetList = <R extends Resource>(
   resource: R,
   query?: Parameters<ServiceGetListFns<R>>[0],
 ) => {
-  const queryResult = useQuery<ResourceTypes[R][], Error, ResourceTypes[R][]>({
+  const queryResult = useQuery<ResourceType<R>[], Error, ResourceType<R>[]>({
     queryKey: [resource, "list", query],
     //@ts-expect-error Idk how to match the fn to it's argument
     queryFn: () => serviceMap[resource].getList(query),

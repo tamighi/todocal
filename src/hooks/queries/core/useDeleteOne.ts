@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Resource, ResourceTypes, serviceMap } from "@/services";
+import { Resource, ResourceType, serviceMap } from "@/services";
 import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
 import { MutationContext, useMutation } from "./useMutation";
 import { OptimisticUpdate } from "./useOptimisticUpdate";
@@ -23,7 +23,7 @@ export const useDeleteOne = <R extends Resource>(
   );
 
   const optimisticMutationFn = React.useCallback(
-    (oldData: ResourceTypes[Resource][] = [], id: string) =>
+    (oldData: ResourceType[] = [], id: string) =>
       oldData.filter((data) => data.id !== id),
     [],
   );

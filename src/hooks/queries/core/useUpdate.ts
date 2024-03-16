@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Resource, ResourceTypes, serviceMap } from "@/services";
+import { Resource, ResourceType, serviceMap } from "@/services";
 import { MutateOptions, useMutation } from "./useMutation";
 import { OptimisticUpdate } from "./useOptimisticUpdate";
 
@@ -12,17 +12,17 @@ export const useUpdate = <R extends Resource>(
   const { onMutate: onMutateProp, onSuccess, onError } = options;
 
   const optimisticMutationFn = React.useCallback(
-    (oldData: ResourceTypes[R][] = [], newData: Partial<ResourceTypes[R]>) =>
+    (oldData: ResourceType<R>[] = [], newData: Partial<ResourceType<R>>) =>
       oldData.map((data) => {
         if (data.id === newData.id) {
-          return newData as ResourceTypes[R];
+          return newData as ResourceType<R>;
         }
         return data;
       }),
     [],
   );
 
-  const onMutate = async (data: Partial<ResourceTypes[R]>) => {
+  const onMutate = async (data: Partial<ResourceType<R>>) => {
     onMutateProp?.(data);
   };
 
