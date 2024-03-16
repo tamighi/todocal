@@ -15,7 +15,7 @@ export const useUpdate = <R extends Resource>(
     (oldData: ResourceType<R>[] = [], newData: Partial<ResourceType<R>>) =>
       oldData.map((data) => {
         if (data.id === newData.id) {
-          return newData as ResourceType<R>;
+          return { ...data, ...newData };
         }
         return data;
       }),
