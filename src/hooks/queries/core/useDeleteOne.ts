@@ -6,9 +6,9 @@ import { MutationContext, useMutation } from "./useMutation";
 import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export interface DeleteOptions {
-  onSuccess?: (res: UndoMutationResult) => void;
+  onSuccess?: (result: UndoMutationResult) => void;
   onMutate?: () => void;
-  onError?: (error: unknown) => void;
+  onError?: (error: Error) => void;
 }
 
 export const useDeleteOne = <R extends Resource>(
@@ -34,14 +34,14 @@ export const useDeleteOne = <R extends Resource>(
   };
 
   const onSuccess = (
-    res: UndoMutationResult,
+    result: UndoMutationResult,
     _: unknown,
     context?: MutationContext,
   ) => {
-    if (res.undo) {
+    if (result.undo) {
       undoMutation(context);
     }
-    onSuccessProp?.(res);
+    onSuccessProp?.(result);
   };
 
   return useMutation([resource, "list"], {

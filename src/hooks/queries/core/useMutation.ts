@@ -6,11 +6,11 @@ import { OptimisticUpdate, useOptimisticUpdate } from "./useOptimisticUpdate";
 
 export type MutationContext<TData = any> = {
   mutationKey: QueryKey;
-  oldData: TData | undefined;
+  oldData: TData;
 }[];
 
-interface MutateFns<TData, TVariable> {
-  mutationFn: (payload: TVariable) => Promise<any>;
+interface MutateFns<TData, TVariable, TMutationResult> {
+  mutationFn: (payload: TVariable) => Promise<TMutationResult>;
   optimisticMutationFn: OptimisticUpdate<
     TData,
     TVariable
@@ -39,7 +39,7 @@ export interface MutateOptions<
 export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
   queryKey: QueryKey,
   options: MutateOptions<TMainData | TExtraData, TVariable, TMutationResult> &
-    MutateFns<TMainData, TVariable>,
+    MutateFns<TMainData, TVariable, TMutationResult>,
 ) => {
   const {
     onMutate: onMutateProp,
