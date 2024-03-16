@@ -30,19 +30,18 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   }
 
   public override async update(
-    id: string,
-    payload: DeepPartial<TodoEntity>,
+    payload: DeepPartial<TodoEntity> & { id: string },
   ): Promise<Todo> {
     if (payload.day?.id) {
       await this.dayService.getOneOrCreate(payload.day.id);
     }
 
-    const entity = await this.repository.getOne(id);
+    const entity = await this.repository.getOne(payload.id);
     if (entity.day?.id !== payload.day?.id) {
       payload.order = await this.repository.getNextOrder();
     }
 
-    return super.update(id, payload);
+    return super.update(payload);
   }
 
   public entityToType(entity: TodoEntity): Todo {

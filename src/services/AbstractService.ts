@@ -27,8 +27,8 @@ export default abstract class AbstractService<
     return this.entityToType(entity);
   }
 
-  public async update(id: string, payload: DeepPartial<Entity>) {
-    const entity = await this.repository.update(id, payload);
+  public async update(payload: DeepPartial<Entity> & { id: string }) {
+    const entity = await this.repository.update(payload.id, payload);
     return this.entityToType(entity);
   }
 

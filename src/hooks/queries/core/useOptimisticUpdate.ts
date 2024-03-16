@@ -1,38 +1,55 @@
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
-export const useOptimisticUpdate = (mutationKey: QueryKey) => {
+export interface OptimisticUpdate<TData = any, P extends any[] = any> {
+  mutationKey: QueryKey;
+  optimisticMutationFn: (
+    data: TData | undefined,
+    ...params: P
+  ) => TData | undefined;
+}
+
+export const useOptimisticUpdate = <P extends Array<any>>(
+  optimisticUpdates: OptimisticUpdate<any, P>[],
+) => {
   const queryClient = useQueryClient();
 
-  const mutate = async <TData>(
-    optimisticMutationFn: (data: TData | undefined) => TData | undefined,
-  ) => {
-    await queryClient.cancelQueries({ queryKey: mutationKey });
+  const mutate = async (...params: P) => {
+    const mutations = optimisticUpdates.map(async (update) => {
+      const { mutationKey, optimisticMutationFn: mutationFn } = update;
 
-    const oldListContext = queryClient.getQueriesData<TData>({
-      queryKey: mutationKey,
+      // Cancel any existing queries for this mutation key
+      await queryClient.cancelQueries({ queryKey: mutationKey });
+
+      // Retrieve the current data for this specific query key
+      const oldData = queryClient.getQueryData<any>(mutationKey);
+
+      const updatedData = mutationFn(oldData, ...params); // Apply update function if present
+
+      // Update query data with the optimistic change
+      queryClient.setQueryData(mutationKey, updatedData);
+
+      return { mutationKey, oldData }; // Return mutation key and original data for undo
     });
 
-    queryClient.setQueriesData<TData>({ queryKey: mutationKey }, (oldData) => {
-      return optimisticMutationFn(oldData);
-    });
-
-    return oldListContext;
+    // Return the data and mutation keys for potential undo operations
+    return Promise.all(mutations);
   };
 
   const invalidate = () => {
-    if (
-      // Only invalidate if there are no other mutations.
-      !(queryClient.isMutating({ mutationKey }) > 1)
-    ) {
-      queryClient.invalidateQueries({ queryKey: mutationKey });
-    }
+    optimisticUpdates.forEach((update) =>
+      queryClient.invalidateQueries({ queryKey: update.mutationKey }),
+    );
   };
 
-  const undoMutation = (context: [QueryKey, any][] = []) => {
-    context.forEach((query) => {
-      const [queryKey, oldData] = query;
-      queryClient.setQueriesData({ queryKey }, oldData);
-    });
+  const undoMutation = (
+    mutations?: { mutationKey: QueryKey; oldData?: unknown }[],
+  ) => {
+    if (mutations) {
+      // Restore the original data for each mutation key
+      mutations.forEach((mutation) => {
+        queryClient.setQueryData(mutation.mutationKey, mutation.oldData);
+      });
+    }
   };
 
   return { mutate, invalidate, undoMutation };

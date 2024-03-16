@@ -2,11 +2,19 @@ import React from "react";
 
 import { Resource, ResourceTypes, serviceMap } from "@/services";
 import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
-import { MutateOptions, useCoreMutation } from "./useCoreMutation";
+import { useMutation } from "./useMutation";
+import { OptimisticUpdate } from "./useOptimisticUpdate";
 
-export const useDeleteOne = <R extends Resource, T extends any>(
+export interface DeleteOptions {
+  onSuccess?: (res: UndoMutationResult) => void;
+  onMutate?: () => void;
+  onError?: (error: unknown) => void;
+}
+
+export const useDeleteOne = <R extends Resource>(
   resource: R,
-  options: MutateOptions<R, T, UndoMutationResult> = {},
+  options: DeleteOptions = {},
+  additionalMutations?: OptimisticUpdate[],
 ) => {
   const { onMutate: onMutateProp, onSuccess, onError } = options;
 
@@ -15,22 +23,22 @@ export const useDeleteOne = <R extends Resource, T extends any>(
   );
 
   const optimisticMutationFn = React.useCallback(
-    (id: string, oldData?: ResourceTypes[R][]) =>
-      oldData?.filter((data) => data.id !== id),
+    (oldData: ResourceTypes[R][] = [], id: string) =>
+      oldData.filter((data) => data.id !== id),
     [],
   );
 
-  const onMutate = async (id: string) => {
+  const onMutate = async () => {
     showUndoToast("Item deleted");
-
-    return onMutateProp?.(id);
+    onMutateProp?.();
   };
 
-  return useCoreMutation(resource, {
+  return useMutation([resource, "list"], {
     onMutate,
     onSuccess,
     onError,
     mutationFn,
     optimisticMutationFn,
+    additionalMutations,
   });
 };
