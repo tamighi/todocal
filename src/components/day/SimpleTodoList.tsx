@@ -12,10 +12,10 @@ interface Props {
 export const SimpleTodoList: React.FC<Props> = React.memo((props) => {
   const { todos = [], dayId } = props;
 
-  const simpleRenderItem = (todo: Todo) => {
+  const simpleRenderItem = (todo: Todo, index: number) => {
     return (
       <TodoChip
-        key={todo.id}
+        key={index}
         minimal
         marginBottom="xs"
         dayId={dayId}
@@ -24,5 +24,9 @@ export const SimpleTodoList: React.FC<Props> = React.memo((props) => {
     );
   };
 
-  return <Box flex={1}>{todos.map((todo) => simpleRenderItem(todo))}</Box>;
+  return (
+    <Box flex={1}>
+      {todos.map((todo, index) => simpleRenderItem(todo, index))}
+    </Box>
+  );
 });

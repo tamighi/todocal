@@ -2,7 +2,11 @@ import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
 export interface OptimisticUpdate<TData = any, TVariable = unknown> {
   mutationKey: QueryKey;
-  optimisticMutationFn: (data: TData, payload: TVariable) => TData;
+  optimisticMutationFn: (
+    data: TData,
+    payload: TVariable,
+    queryKey: QueryKey,
+  ) => TData;
 }
 
 export const useOptimisticUpdate = <TVariable>(
@@ -16,13 +20,16 @@ export const useOptimisticUpdate = <TVariable>(
 
       await queryClient.cancelQueries({ queryKey: mutationKey });
 
-      const oldData = queryClient.getQueriesData({ queryKey: mutationKey });
+      const queriesData = queryClient.getQueriesData({ queryKey: mutationKey });
 
-      queryClient.setQueriesData({ queryKey: mutationKey }, (oldData) => {
-        return mutationFn(oldData, payload);
+      queriesData.forEach((queryData) => {
+        const [queryKey, oldData] = queryData;
+        queryClient.setQueryData(queryKey, () =>
+          mutationFn(oldData, payload, queryKey),
+        );
       });
 
-      return { mutationKey, oldData };
+      return { mutationKey, oldData: queriesData };
     });
 
     return Promise.all(mutations);

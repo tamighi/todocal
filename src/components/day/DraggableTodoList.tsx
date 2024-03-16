@@ -90,7 +90,7 @@ export const DraggableTodoList: React.FC<Props> = React.memo((props) => {
       <DraggableFlatList
         data={todoList}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(_, index) => index.toString()}
         onDragEnd={onDragEnd}
       />
     </View>

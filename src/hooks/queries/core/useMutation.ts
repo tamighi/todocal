@@ -68,7 +68,7 @@ export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
     context?: MutationContext,
   ) => {
     onSuccessProp?.(result, payload, context);
-    invalidate();
+    // invalidate();
   };
 
   const onError = (
