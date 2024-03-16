@@ -22,7 +22,7 @@ export const TodoChip: React.FC<Props> = (props) => {
   const { mutate } = useUpdate("todo");
 
   const handleCheck = (checked: boolean) => {
-    mutate({ id: todo.id, done: checked });
+    mutate({ ...todo, done: checked });
     setChecked(checked);
   };
 
