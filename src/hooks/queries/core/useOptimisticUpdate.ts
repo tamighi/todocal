@@ -29,9 +29,12 @@ export const useOptimisticUpdate = <TVariable>(
   };
 
   const invalidate = () => {
-    optimisticUpdates.forEach((update) =>
-      queryClient.invalidateQueries({ queryKey: update.mutationKey }),
-    );
+    optimisticUpdates.forEach((update) => {
+      const { mutationKey } = update;
+      if (!(queryClient.isMutating({ mutationKey }) > 1)) {
+        queryClient.invalidateQueries({ queryKey: mutationKey });
+      }
+    });
   };
 
   return { mutate, invalidate };
