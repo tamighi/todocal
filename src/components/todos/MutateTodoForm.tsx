@@ -10,10 +10,9 @@ import {
 } from "@/components/core";
 import { TagSelect } from "@/components/tags";
 import { getDayIdFromDate } from "@/utils";
-import { useCreate } from "@/hooks/queries/core/useCreate";
-import { useUpdate } from "@/hooks/queries/core/useUpdate";
 import { useDeleteOne } from "@/hooks";
 import { useCreateTodo } from "@/hooks/queries/todo/useCreateTodo";
+import { useUpdateTodo } from "@/hooks/queries/todo/useUpdateTodo";
 
 export const MutateTodoForm = (props: {
   dayId: string;
@@ -42,7 +41,7 @@ export const MutateTodoForm = (props: {
   };
 
   const { mutate: createMutate } = useCreateTodo({ onSuccess });
-  const { mutate: updateMutate } = useUpdate("todo", { onSuccess });
+  const { mutate: updateMutate } = useUpdateTodo({ onSuccess });
   const { mutate: deleteMutate } = useDeleteOne("todo");
 
   const handleSubmit = async () => {

@@ -1,15 +1,26 @@
 import React from "react";
 
 import { Resource, ResourceType, serviceMap } from "@/services";
-import { MutateOptions, useMutation } from "./useMutation";
+import { MutateFns, MutateOptions, useMutation } from "./useMutation";
 import { OptimisticUpdate } from "./useOptimisticUpdate";
 
 export const useUpdate = <R extends Resource>(
   resource: R,
-  options: MutateOptions = {},
+  options: MutateOptions &
+    Partial<
+      Pick<
+        MutateFns<ResourceType<R>[], Partial<ResourceType<R>>>,
+        "optimisticMutationFn"
+      >
+    > = {},
   additionalMutations?: OptimisticUpdate[],
 ) => {
-  const { onMutate: onMutateProp, onSuccess, onError } = options;
+  const {
+    onMutate: onMutateProp,
+    onSuccess,
+    onError,
+    optimisticMutationFn: optimisticMutationFnProp,
+  } = options;
 
   const optimisticMutationFn = React.useCallback(
     (oldData: ResourceType<R>[] = [], newData: Partial<ResourceType<R>>) =>
@@ -32,7 +43,7 @@ export const useUpdate = <R extends Resource>(
     onError,
     //@ts-expect-error TODO
     mutationFn: (newData) => serviceMap[resource].update(newData),
-    optimisticMutationFn,
+    optimisticMutationFn: optimisticMutationFnProp || optimisticMutationFn,
     additionalMutations,
   });
 };

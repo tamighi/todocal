@@ -9,7 +9,7 @@ import {
   useOptimisticUpdate,
 } from "./useOptimisticUpdate";
 
-interface MutateFns<TData, TVariable, TMutationResult> {
+export interface MutateFns<TData, TVariable, TMutationResult = TData> {
   mutationFn: (payload: TVariable) => Promise<TMutationResult>;
   optimisticMutationFn: OptimisticUpdate<
     TData,

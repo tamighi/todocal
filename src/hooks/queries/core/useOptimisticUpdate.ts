@@ -56,13 +56,9 @@ export const useOptimisticUpdate = <TVariable>(
       const { mutationKey } = update;
       if (queryClient.isMutating({ mutationKey }) > 1) return;
 
-      const queriesData = queryClient.getQueriesData({ queryKey: mutationKey });
-
-      queriesData.forEach((queryData) => {
-        const [queryKey] = queryData;
-        if (queryKeyFilter(queryKey, payload) === false) return;
-
-        queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({
+        queryKey: mutationKey,
+        predicate: (query) => queryKeyFilter(query.queryKey, payload),
       });
     });
   };

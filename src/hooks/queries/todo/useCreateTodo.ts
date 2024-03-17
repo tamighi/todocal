@@ -11,7 +11,7 @@ export const useCreateTodo = (options: MutateOptions = {}) => {
     const [_, __, filter] = queryKey;
     if (!filter) return true;
 
-    //@ts-ignore Too lazy to type check filter, should not be an issue.
+    //@ts-ignore ...
     if (filter.where?.day?.id === payload.day?.id) return true;
 
     return false;
