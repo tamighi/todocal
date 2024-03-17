@@ -18,7 +18,7 @@ export const useUpdate = <R extends Resource>(
         "optimisticMutationFn"
       >
     > = {},
-  additionalMutations?: OptimisticUpdate[],
+  additionalMutations?: OptimisticUpdate<any, ResourceType<R>>[],
 ) => {
   const {
     onMutate: onMutateProp,

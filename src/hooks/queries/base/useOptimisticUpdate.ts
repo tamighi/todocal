@@ -5,7 +5,7 @@ export type OptimisticMutationContext<TData = any> = {
   contexts: [QueryKey, TData][];
 }[];
 
-export interface OptimisticUpdate<TData = any, TVariable = unknown> {
+export interface OptimisticUpdate<TData = any, TVariable = any> {
   mutationKey: QueryKey;
   optimisticMutationFn: (
     data: TData,

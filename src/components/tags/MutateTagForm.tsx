@@ -2,7 +2,7 @@ import React from "react";
 
 import { Container } from "@/atoms";
 import { FormActionButtons, TextInput } from "@/components/core";
-import { useDeleteOneTag, useUpdate } from "@/hooks";
+import { useDeleteOneTag, useUpdateTag } from "@/hooks";
 import { Tag } from "@/models";
 
 import { TagColorPicker } from "./TagColorPicker";
@@ -30,11 +30,11 @@ export const MutateTagForm = (props: Props) => {
     setFormValue({});
   };
 
-  const { mutate: updateMutate } = useUpdate("tag", { onSuccess });
+  const { mutate: updateMutate } = useUpdateTag({ onSuccess });
   const { mutate: deleteMutate } = useDeleteOneTag();
 
   const handleSubmit = () => {
-    updateMutate(formValue);
+    updateMutate(formValue as Tag);
   };
 
   const handleDelete = () => {
