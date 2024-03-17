@@ -1,5 +1,6 @@
-import { Resource, ResourceType, serviceMap } from "@/services";
 import { useQuery } from "@tanstack/react-query";
+
+import { Resource, ResourceType, serviceMap } from "@/services";
 
 export const useGetOne = <R extends Resource>(resource: R, id: string) => {
   const queryResult = useQuery<ResourceType<R>>({

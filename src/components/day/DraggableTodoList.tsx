@@ -9,9 +9,8 @@ import { Pressable, View } from "react-native";
 
 import { Todo } from "@/models";
 import { TodoChip } from "@/components/todos";
-
 import { useTodoModal } from "@/contexts";
-import { useUpdate } from "@/hooks/queries/core/useUpdate";
+import { useUpdate } from "@/hooks";
 
 interface Props {
   todos?: Todo[];

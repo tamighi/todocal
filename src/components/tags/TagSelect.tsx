@@ -1,10 +1,9 @@
 import React from "react";
 
 import { Tag } from "@/models";
-import { useGetList, useTheme } from "@/hooks";
+import { useGetList, useTheme, useCreate } from "@/hooks";
 import { Box, Text } from "@/atoms";
 import { Autocomplete } from "@/components/core";
-import { useCreate } from "@/hooks/queries/core/useCreate";
 
 type Props = {
   value?: Tag;

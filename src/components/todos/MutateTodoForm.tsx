@@ -10,9 +10,7 @@ import {
 } from "@/components/core";
 import { TagSelect } from "@/components/tags";
 import { getDayIdFromDate } from "@/utils";
-import { useDeleteOne } from "@/hooks";
-import { useCreateTodo } from "@/hooks/queries/todo/useCreateTodo";
-import { useUpdateTodo } from "@/hooks/queries/todo/useUpdateTodo";
+import { useCreateTodo, useDeleteOne, useUpdateTodo } from "@/hooks";
 
 export const MutateTodoForm = (props: {
   dayId: string;

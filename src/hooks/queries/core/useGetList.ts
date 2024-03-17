@@ -1,5 +1,6 @@
-import { Resource, ResourceType, serviceMap } from "@/services";
 import { useQuery } from "@tanstack/react-query";
+
+import { Resource, ResourceType, serviceMap } from "@/services";
 
 type ServiceGetListFns<T extends keyof typeof serviceMap> =
   (typeof serviceMap)[T]["getList"];

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { UndoToastContext, UndoToastProps } from "@/contexts";
 import { UndoToast } from "@/components/core/UndoToast";
+import { UndoToastContext, UndoToastProps } from "@/contexts";
 
 export const useUndoToast = () => {
   const setToastProps = React.useContext(UndoToastContext);

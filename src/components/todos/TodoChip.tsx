@@ -2,11 +2,12 @@ import React from "react";
 
 import { Feather } from "@expo/vector-icons";
 
-import { Todo } from "@/models";
 import { Box, Chip, ChipProps, Text } from "@/atoms";
 import { Checkbox } from "@/components/core";
+import { useUpdate } from "@/hooks";
+import { Todo } from "@/models";
+
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
-import { useUpdate } from "@/hooks/queries/core/useUpdate";
 
 type Props = {
   todo: Todo;

@@ -1,7 +1,8 @@
 import React from "react";
 
-import { useUndoToast } from "@/providers/UndoToastProvider";
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
+
+import { useUndoToast } from "@/providers/UndoToastProvider";
 
 export type UndoMutationResult = {
   undo: boolean;
