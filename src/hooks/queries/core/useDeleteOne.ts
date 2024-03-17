@@ -18,9 +18,8 @@ export const useDeleteOne = <R extends Resource>(
 ) => {
   const { onMutate: onMutateProp, onSuccess: onSuccessProp, onError } = options;
 
-  const { mutationFn, showUndoToast, undoMutation } = useUndoMutation(
-    (id: string) => serviceMap[resource].delete(id),
-  );
+  const { mutationFn, showUndoToast, onUndoableMutationSuccess } =
+    useUndoMutation((id: string) => serviceMap[resource].delete(id));
 
   const optimisticMutationFn = React.useCallback(
     (oldData: ResourceType[] = [], id: string) => {
@@ -39,9 +38,7 @@ export const useDeleteOne = <R extends Resource>(
     _: unknown,
     context?: MutationContext,
   ) => {
-    if (result.undo) {
-      undoMutation(context);
-    }
+    onUndoableMutationSuccess(result, _, context);
     onSuccessProp?.(result);
   };
 

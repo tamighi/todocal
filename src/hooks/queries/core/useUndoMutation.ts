@@ -39,10 +39,12 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
     show({ message, callback: onUndo });
   };
 
-  const undoMutation = (
+  const onUndoableMutationSuccess = (
+    result: UndoMutationResult,
+    _: unknown,
     context?: { mutationKey: QueryKey; oldData?: [QueryKey, unknown][] }[],
   ) => {
-    if (!context) return;
+    if (!context || !result.undo) return;
 
     context.forEach((mutation) => {
       const { oldData } = mutation;
@@ -53,5 +55,5 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
     });
   };
 
-  return { showUndoToast, mutationFn, undoMutation };
+  return { showUndoToast, mutationFn, onUndoableMutationSuccess };
 };
