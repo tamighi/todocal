@@ -9,6 +9,8 @@ export type UndoMutationResult = {
 
 type UndoMutationContext = [QueryKey, unknown];
 
+const UNDO_DURATION = 5000;
+
 export const useUndoMutation = <Fn extends (...p: any[]) => Promise<void>>(
   undoableMutationFn: Fn,
 ) => {
@@ -25,7 +27,7 @@ export const useUndoMutation = <Fn extends (...p: any[]) => Promise<void>>(
           undoableMutationFn(params)
             .then(() => resolve({ undo: false }))
             .catch((err) => reject(err));
-        }, 6000);
+        }, UNDO_DURATION);
         const cancelMutation = () => {
           clearTimeout(timeout);
           resolve({ undo: true });
@@ -38,7 +40,7 @@ export const useUndoMutation = <Fn extends (...p: any[]) => Promise<void>>(
   };
 
   const showUndoToast = (message: string) => {
-    show({ message, callback: onUndo });
+    show({ message, undoCallback: onUndo, duration: UNDO_DURATION });
   };
 
   const onUndoableMutationSuccess = (

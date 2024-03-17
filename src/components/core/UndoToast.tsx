@@ -6,14 +6,14 @@ import { Animated, Pressable } from "react-native";
 
 export interface UndoToastProps {
   message?: string;
-  callback?: () => void;
+  undoCallback?: () => void;
   show: boolean;
   duration?: number;
   close: () => void;
 }
 
 export const UndoToast = (props: UndoToastProps) => {
-  const { message = "", duration = 5000, show, callback, close } = props;
+  const { message = "", duration = 5000, show, undoCallback, close } = props;
   const [hideTimer, setHideTimer] = React.useState<NodeJS.Timeout>();
 
   const translateY = React.useRef(new Animated.Value(50)).current;
@@ -50,7 +50,7 @@ export const UndoToast = (props: UndoToastProps) => {
   }, [show, translateY]);
 
   const onUndoClick = () => {
-    callback?.();
+    undoCallback?.();
     close();
 
     showAnimation.stop();
