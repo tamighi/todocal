@@ -44,7 +44,7 @@ export const MutateTodoForm = (props: {
 
   const handleSubmit = async () => {
     if (todo?.id) {
-      updateMutate(formValue);
+      updateMutate(formValue as Todo);
     } else {
       createMutate({ ...formValue, day: { id: dayId } });
     }

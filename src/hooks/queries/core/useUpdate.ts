@@ -38,7 +38,7 @@ export const useUpdate = <R extends Resource>(
     [],
   );
 
-  const onMutate = async (data: Partial<ResourceType<R>>) => {
+  const onMutate = async (data: Partial<ResourceType<R>> & { id: string }) => {
     onMutateProp?.(data);
   };
 
@@ -46,7 +46,6 @@ export const useUpdate = <R extends Resource>(
     onMutate,
     onSuccess,
     onError,
-    //@ts-expect-error TODO
     mutationFn: (newData) => serviceMap[resource].update(newData),
     optimisticMutationFn: optimisticMutationFnProp || optimisticMutationFn,
     additionalMutations,
