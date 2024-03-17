@@ -1,6 +1,7 @@
 import { Todo } from "@/models";
 
-import { DeleteOptions, OptimisticUpdate, useDeleteOne } from "../core";
+import { DeleteOptions, useDeleteOne } from "../core";
+import { OptimisticUpdate } from "../base";
 
 export const useDeleteOneTag = (options: DeleteOptions = {}) => {
   const { onMutate, onSuccess, onError } = options;

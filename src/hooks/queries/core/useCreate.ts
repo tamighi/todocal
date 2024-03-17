@@ -1,11 +1,12 @@
 import React from "react";
 
 import { Resource, ResourceType, serviceMap } from "@/services";
-import { MutateOptions, useMutation } from "./useMutation";
 import {
+  MutateOptions,
   OptimisticMutateOptions,
   OptimisticUpdate,
-} from "./useOptimisticUpdate";
+  useMutation,
+} from "../base";
 
 export const useCreate = <R extends Resource>(
   resource: R,

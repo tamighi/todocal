@@ -2,12 +2,13 @@ import React from "react";
 
 import { Resource, ResourceType, serviceMap } from "@/services";
 
-import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
-import { useMutation } from "./useMutation";
 import {
   OptimisticMutationContext,
   OptimisticUpdate,
-} from "./useOptimisticUpdate";
+  UndoMutationResult,
+  useMutation,
+  useUndoMutation,
+} from "../base";
 
 export interface DeleteOptions {
   onSuccess?: (result: UndoMutationResult) => void;

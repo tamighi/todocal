@@ -1,8 +1,9 @@
 import { QueryKey } from "@tanstack/react-query";
 
-import { MutateOptions } from "../core/useMutation";
-import { useCreate } from "../core/useCreate";
 import { Todo } from "@/models";
+
+import { MutateOptions } from "../base";
+import { useCreate } from "../core";
 
 export const useCreateTodo = (options: MutateOptions = {}) => {
   const { onMutate, onSuccess, onError } = options;
