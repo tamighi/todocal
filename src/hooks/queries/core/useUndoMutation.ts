@@ -42,13 +42,13 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
   const onUndoableMutationSuccess = (
     result: UndoMutationResult,
     _: unknown,
-    context?: { mutationKey: QueryKey; oldData?: [QueryKey, unknown][] }[],
+    contexts?: { mutationKey: QueryKey; oldData?: [QueryKey, unknown][] }[],
   ) => {
-    if (!context || !result.undo) return;
+    if (!contexts || !result.undo) return;
 
-    context.forEach((mutation) => {
-      const { oldData } = mutation;
-      oldData?.forEach((ctx) => {
+    contexts.forEach((mutationContext) => {
+      const { oldData: mutationQuery } = mutationContext;
+      mutationQuery?.forEach((ctx) => {
         const [mutationKey, oldData] = ctx;
         queryClient.setQueryData(mutationKey, oldData);
       });

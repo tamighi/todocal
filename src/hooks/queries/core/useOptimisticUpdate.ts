@@ -1,9 +1,9 @@
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
-export type MutationContext<TData = any> = {
+export type OptimisticMutationContext<TData = any> = {
   mutationKey: QueryKey;
   oldData: TData;
-};
+}[];
 
 export interface OptimisticUpdate<TData = any, TVariable = unknown> {
   mutationKey: QueryKey;
@@ -25,7 +25,9 @@ export const useOptimisticUpdate = <TVariable>(
   const queryClient = useQueryClient();
   const { queryKeyFilter = () => true } = options;
 
-  const mutate = async (payload: TVariable): Promise<MutationContext[]> => {
+  const mutate = async (
+    payload: TVariable,
+  ): Promise<OptimisticMutationContext> => {
     const mutations = optimisticUpdates.map(async (update) => {
       const { mutationKey, optimisticMutationFn: mutationFn } = update;
 
