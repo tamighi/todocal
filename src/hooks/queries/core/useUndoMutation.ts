@@ -1,7 +1,8 @@
 import React from "react";
 
 import { useUndoToast } from "@/providers/UndoToastProvider";
-import { QueryKey, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import { OptimisticMutationContext } from "./useOptimisticUpdate";
 
 export type UndoMutationResult = {
   undo: boolean;
@@ -42,12 +43,12 @@ export const useUndoMutation = <Fn extends (...p: any) => Promise<any>>(
   const onUndoableMutationSuccess = (
     result: UndoMutationResult,
     _: unknown,
-    contexts?: { mutationKey: QueryKey; oldData?: [QueryKey, unknown][] }[],
+    contexts?: OptimisticMutationContext,
   ) => {
     if (!contexts || !result.undo) return;
 
     contexts.forEach((mutationContext) => {
-      const { oldData: mutationQuery } = mutationContext;
+      const { context: mutationQuery } = mutationContext;
       mutationQuery?.forEach((ctx) => {
         const [mutationKey, oldData] = ctx;
         queryClient.setQueryData(mutationKey, oldData);
