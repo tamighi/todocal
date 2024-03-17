@@ -39,9 +39,12 @@ export const useDeleteOne = <R extends Resource>(
   const onSuccess = (
     result: UndoMutationResult,
     _: unknown,
-    context?: OptimisticMutationContext,
+    optimisticMutationContext?: OptimisticMutationContext,
   ) => {
-    onUndoableMutationSuccess(result, _, context);
+    const allContexts = optimisticMutationContext?.flatMap(
+      (contexts) => contexts.contexts,
+    );
+    onUndoableMutationSuccess(result, allContexts);
     onSuccessProp?.(result);
   };
 
