@@ -5,6 +5,7 @@ import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
 export type UndoMutationResult = {
   undo: boolean;
+  mutationTime: number;
 };
 
 type UndoMutationContext = [QueryKey, unknown];
@@ -21,16 +22,18 @@ export const useUndoMutation = <Fn extends (...p: any[]) => Promise<void>>(
   const onUndo = React.useCallback(() => undoRef.current?.(), [undoRef]);
 
   const mutationFn = (...params: Parameters<Fn>) => {
+    const mutationTime = new Date().getTime();
+
     const mutationPromise = new Promise<UndoMutationResult>(
       (resolve, reject) => {
         const timeout = setTimeout(() => {
           undoableMutationFn(params)
-            .then(() => resolve({ undo: false }))
+            .then(() => resolve({ undo: false, mutationTime }))
             .catch((err) => reject(err));
         }, UNDO_DURATION);
         const cancelMutation = () => {
           clearTimeout(timeout);
-          resolve({ undo: true });
+          resolve({ undo: true, mutationTime });
         };
         undoRef.current = cancelMutation;
       },
@@ -50,7 +53,11 @@ export const useUndoMutation = <Fn extends (...p: any[]) => Promise<void>>(
     if (!result.undo) return;
     contexts?.forEach((context) => {
       const [mutationKey, oldData] = context;
-      queryClient.setQueryData(mutationKey, oldData);
+
+      const updatedAt = queryClient.getQueryState(mutationKey)?.dataUpdatedAt;
+      if (updatedAt && updatedAt <= result.mutationTime) {
+        queryClient.setQueryData(mutationKey, oldData);
+      }
     });
   };
 
