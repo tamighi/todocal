@@ -3,7 +3,7 @@ import { useUpdate } from "../core/useUpdate";
 import { QueryKey } from "@tanstack/react-query";
 
 export interface UpdateOptions {
-  onSuccess?: (result: any) => void;
+  onSuccess?: (result: Todo) => void;
   onMutate?: () => void;
   onError?: (error: Error) => void;
 }
