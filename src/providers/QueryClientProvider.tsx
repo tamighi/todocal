@@ -26,10 +26,12 @@ export const QueryClientProvider = ({
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
+        networkMode: "always",
         staleTime: Infinity,
         retry: false,
       },
       mutations: {
+        networkMode: "always",
         retry: false,
       },
     },

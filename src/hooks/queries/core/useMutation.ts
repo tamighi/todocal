@@ -3,15 +3,11 @@ import React from "react";
 import { QueryKey, useMutation as RNuseMutation } from "@tanstack/react-query";
 
 import {
+  MutationContext,
   OptimisticMutateOptions,
   OptimisticUpdate,
   useOptimisticUpdate,
 } from "./useOptimisticUpdate";
-
-export type MutationContext<TData = any> = {
-  mutationKey: QueryKey;
-  oldData: TData;
-}[];
 
 interface MutateFns<TData, TVariable, TMutationResult> {
   mutationFn: (payload: TVariable) => Promise<TMutationResult>;
@@ -31,12 +27,12 @@ export interface MutateOptions<
   onSuccess?: (
     result: TMutationResult,
     payload: TVariable,
-    context?: MutationContext<TData>,
+    context?: MutationContext<TData>[],
   ) => void;
   onError?: (
     error: Error,
     payload: TVariable,
-    context?: MutationContext,
+    context?: MutationContext[],
   ) => void;
 }
 
@@ -71,7 +67,7 @@ export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
   const onSuccess = (
     result: TMutationResult,
     payload: TVariable,
-    context?: MutationContext,
+    context?: MutationContext[],
   ) => {
     onSuccessProp?.(result, payload, context);
     invalidate(payload);
@@ -80,7 +76,7 @@ export const useMutation = <TMainData, TExtraData, TVariable, TMutationResult>(
   const onError = (
     error: Error,
     payload: TVariable,
-    context?: MutationContext,
+    context?: MutationContext[],
   ) => {
     onErrorProp?.(error, payload, context);
     invalidate(payload);

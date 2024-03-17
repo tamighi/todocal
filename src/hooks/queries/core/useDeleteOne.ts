@@ -2,8 +2,8 @@ import React from "react";
 
 import { Resource, ResourceType, serviceMap } from "@/services";
 import { UndoMutationResult, useUndoMutation } from "./useUndoMutation";
-import { MutationContext, useMutation } from "./useMutation";
-import { OptimisticUpdate } from "./useOptimisticUpdate";
+import { useMutation } from "./useMutation";
+import { MutationContext, OptimisticUpdate } from "./useOptimisticUpdate";
 
 export interface DeleteOptions {
   onSuccess?: (result: UndoMutationResult) => void;
@@ -36,7 +36,7 @@ export const useDeleteOne = <R extends Resource>(
   const onSuccess = (
     result: UndoMutationResult,
     _: unknown,
-    context?: MutationContext,
+    context?: MutationContext[],
   ) => {
     onUndoableMutationSuccess(result, _, context);
     onSuccessProp?.(result);
