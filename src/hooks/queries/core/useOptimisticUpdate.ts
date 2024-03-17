@@ -2,7 +2,7 @@ import { QueryKey, useQueryClient } from "@tanstack/react-query";
 
 export type OptimisticMutationContext<TData = any> = {
   mutationKey: QueryKey;
-  oldData: TData;
+  context: [QueryKey, TData][];
 }[];
 
 export interface OptimisticUpdate<TData = any, TVariable = unknown> {
@@ -45,7 +45,7 @@ export const useOptimisticUpdate = <TVariable>(
         );
       });
 
-      return { mutationKey, oldData: queriesData };
+      return { mutationKey, context: queriesData };
     });
 
     return Promise.all(mutations);
