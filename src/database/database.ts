@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import { DayEntity, TagEntity, TodoEntity } from "./entities";
 
+// TODO: DB name in env
 const source = new DataSource({
   database: "tasks.db",
   type: "expo",

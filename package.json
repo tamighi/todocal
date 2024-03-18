@@ -30,7 +30,10 @@
     "react-native-screens": "~3.22.0",
     "reanimated-color-picker": "^2.4.2",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "expo-sharing": "~11.5.0",
+    "expo-document-picker": "~11.5.4",
+    "expo-file-system": "~15.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

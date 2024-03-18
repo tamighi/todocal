@@ -8,6 +8,7 @@ import { SettingsSection } from "./SettingsSection";
 import { SettingsTagList } from "./SettingsTagList";
 import { BaseScreen } from "../BaseScreen";
 import { TodoFilters } from "./TodoFilters";
+import { DataBackup } from "./DataBackup";
 
 export const SettingsScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -30,6 +31,9 @@ export const SettingsScreen: React.FC = () => {
         </SettingsSection>
         <SettingsSection defaultOpen={true} title="Tags">
           <SettingsTagList />
+        </SettingsSection>
+        <SettingsSection defaultOpen={true} title="Data Backup">
+          <DataBackup />
         </SettingsSection>
       </Container>
     </BaseScreen>

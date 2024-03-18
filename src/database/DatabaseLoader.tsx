@@ -1,18 +1,14 @@
 import React from "react";
 
 import { Text } from "@/atoms";
-import { Database } from "./database";
-import { dayRepository, tagRepository, todoRepository } from "./repositories";
-
-const repositories = [dayRepository, todoRepository, tagRepository];
+import { initDB } from "@/utils";
 
 export const DatabaseLoader = ({ children }: { children: React.ReactNode }) => {
   const [loaded, setLoaded] = React.useState(false);
 
   React.useEffect(() => {
     const initDatabase = async () => {
-      await Database.init();
-      repositories.forEach((repository) => repository.init());
+      await initDB();
 
       setLoaded(true);
     };
