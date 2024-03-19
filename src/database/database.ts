@@ -86,6 +86,6 @@ export class Database {
     );
 
     await Database.AppDataSource.destroy();
-    await this.init();
+    await Database.init();
   }
 }
