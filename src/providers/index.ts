@@ -4,3 +4,4 @@ export * from "./QueryClientProvider";
 export * from "./TodoModalProvider";
 export * from "./TagModalProvider";
 export * from "./UndoToastProvider";
+export * from "./DatabaseProvider";

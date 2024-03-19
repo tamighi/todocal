@@ -2,10 +2,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
 
-import { DatabaseLoader } from "./database";
 import { theme } from "./themes";
 import {
   ClickOutsideProvider,
+  DatabaseProvider,
   QueryClientProvider,
   TagModalProvider,
   TodoFilterProvider,
@@ -21,7 +21,7 @@ const Root = () => {
       <NavigationContainer>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <QueryClientProvider>
-            <DatabaseLoader>
+            <DatabaseProvider>
               <ClickOutsideProvider>
                 <TodoFilterProvider>
                   <UndoToastProvider>
@@ -33,7 +33,7 @@ const Root = () => {
                   </UndoToastProvider>
                 </TodoFilterProvider>
               </ClickOutsideProvider>
-            </DatabaseLoader>
+            </DatabaseProvider>
           </QueryClientProvider>
         </GestureHandlerRootView>
       </NavigationContainer>

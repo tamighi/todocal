@@ -1,9 +1,13 @@
 import React from "react";
 
 import { Text } from "@/atoms";
-import { Database } from "./database";
+import { Database } from "@/database";
 
-export const DatabaseLoader = ({ children }: { children: React.ReactNode }) => {
+export const DatabaseProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [loaded, setLoaded] = React.useState(false);
 
   React.useEffect(() => {
