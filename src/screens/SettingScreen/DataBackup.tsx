@@ -1,16 +1,24 @@
+import { Pressable } from "react-native";
+import { Feather } from "@expo/vector-icons";
+
 import { Box, Text } from "@/atoms";
 import { useDatabase } from "@/contexts";
-import { Pressable } from "react-native";
 
 export const DataBackup = () => {
   const { importDb, exportDb } = useDatabase();
   return (
-    <Box>
+    <Box flexDirection="row" justifyContent="space-between">
       <Pressable onPress={exportDb}>
-        <Text>Data backup</Text>
+        <Box flexDirection="row" alignItems="center" gap="s">
+          <Feather name="save" size={16} />
+          <Text>Backup data</Text>
+        </Box>
       </Pressable>
       <Pressable onPress={importDb}>
-        <Text>Data restore</Text>
+        <Box flexDirection="row" alignItems="center" gap="s">
+          <Feather name="upload" size={16} />
+          <Text>Restore data</Text>
+        </Box>
       </Pressable>
     </Box>
   );

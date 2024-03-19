@@ -3,18 +3,6 @@ import React from "react";
 import { UndoToast } from "@/components/core/UndoToast";
 import { UndoToastContext, UndoToastProps } from "@/contexts";
 
-export const useUndoToast = () => {
-  const setToastProps = React.useContext(UndoToastContext);
-
-  if (!setToastProps) throw new Error("Must provide showToast context");
-
-  const show = (props: Omit<UndoToastProps, "show">) => {
-    setToastProps({ ...props, show: true });
-  };
-
-  return { show };
-};
-
 export const UndoToastProvider = ({
   children,
 }: {
