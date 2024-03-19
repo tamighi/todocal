@@ -1,14 +1,14 @@
 import { Box, Text } from "@/atoms";
-import { exportDB, importDB } from "@/utils";
+import { Database } from "@/database";
 import { Pressable } from "react-native";
 
 export const DataBackup = () => {
   return (
     <Box>
-      <Pressable onPress={exportDB}>
+      <Pressable onPress={Database.export}>
         <Text>Data backup</Text>
       </Pressable>
-      <Pressable onPress={importDB}>
+      <Pressable onPress={Database.import}>
         <Text>Data restore</Text>
       </Pressable>
     </Box>

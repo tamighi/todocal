@@ -1,14 +1,14 @@
 import React from "react";
 
 import { Text } from "@/atoms";
-import { initDB } from "@/utils";
+import { Database } from "./database";
 
 export const DatabaseLoader = ({ children }: { children: React.ReactNode }) => {
   const [loaded, setLoaded] = React.useState(false);
 
   React.useEffect(() => {
     const initDatabase = async () => {
-      await initDB();
+      await Database.init();
 
       setLoaded(true);
     };
