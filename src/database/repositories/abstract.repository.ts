@@ -1,4 +1,5 @@
 import {
+  DataSource,
   DeepPartial,
   EntityTarget,
   FindManyOptions,
@@ -8,7 +9,6 @@ import {
   In,
   Repository,
 } from "typeorm";
-import { Database } from "../database";
 
 type Options<T> = {
   relations?: FindOptionsRelations<T>;
@@ -30,8 +30,8 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
     this.order = order;
   }
 
-  public init() {
-    this.repository = Database.AppDataSource.getRepository(this.entity);
+  public init(dataSource: DataSource) {
+    this.repository = dataSource.getRepository(this.entity);
   }
 
   public async getMany(ids: string[]) {

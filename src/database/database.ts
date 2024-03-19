@@ -26,7 +26,7 @@ export class Database {
 
     Database.AppDataSource = source;
     await Database.AppDataSource.initialize();
-    repositories.forEach((repository) => repository.init());
+    repositories.forEach((repository) => repository.init(source));
   }
 
   static async export() {
