@@ -1,9 +1,8 @@
 import React from "react";
 
 export interface IDatabaseContext {
-  export: () => void;
-  import: () => void;
-  loading: boolean;
+  exportDb: () => void;
+  importDb: () => void;
 }
 
 export const useDatabase = () => {
