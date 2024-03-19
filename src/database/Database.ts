@@ -84,7 +84,9 @@ export class Database {
       base64,
       { encoding: FileSystem.EncodingType.Base64 },
     );
+  }
 
+  static async reload() {
     await Database.AppDataSource.destroy();
     await Database.init();
   }

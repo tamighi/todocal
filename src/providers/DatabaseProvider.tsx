@@ -28,9 +28,12 @@ export const DatabaseProvider = ({
   };
 
   const importDb = async () => {
-    setLoading(true);
     await Database.import();
+
+    setLoading(true);
+    await Database.reload();
     queryClient.invalidateQueries();
+
     setLoading(false);
   };
 
