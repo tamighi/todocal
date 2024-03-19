@@ -2,23 +2,41 @@ import React from "react";
 
 import { Text } from "@/atoms";
 import { Database } from "@/database";
+import { DatabaseContext } from "@/contexts";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const DatabaseProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [loaded, setLoaded] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const queryClient = useQueryClient();
 
   React.useEffect(() => {
     const initDatabase = async () => {
       await Database.init();
 
-      setLoaded(true);
+      setLoading(false);
     };
 
     initDatabase();
   }, []);
 
-  return <>{loaded ? children : <Text>Loading</Text>}</>;
+  const exportDb = async () => {
+    return Database.export();
+  };
+
+  const importDb = async () => {
+    setLoading(true);
+    await Database.import();
+    queryClient.invalidateQueries();
+    setLoading(false);
+  };
+
+  return (
+    <DatabaseContext.Provider value={{ exportDb, importDb }}>
+      {!loading ? children : <Text>Loading</Text>}
+    </DatabaseContext.Provider>
+  );
 };
