@@ -13,5 +13,3 @@ export { default as Chip } from "./Chip";
 export * from "./Chip";
 
 export * from "./TextInput";
-
-export * from "./Hr";
