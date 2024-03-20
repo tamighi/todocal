@@ -32,7 +32,7 @@ export const SettingsScreen: React.FC = () => {
         <SettingsSection defaultOpen={true} title="Tags">
           <SettingsTagList />
         </SettingsSection>
-        <SettingsSection defaultOpen={true} title="Data Backup">
+        <SettingsSection title="Data Backup">
           <DataBackup />
         </SettingsSection>
       </Container>
