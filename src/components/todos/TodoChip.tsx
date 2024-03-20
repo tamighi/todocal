@@ -1,7 +1,5 @@
 import React from "react";
 
-import { Feather } from "@expo/vector-icons";
-
 import { Box, Chip, ChipProps, Text } from "@/atoms";
 import { Checkbox } from "@/components/core";
 import { useUpdate } from "@/hooks";
@@ -31,6 +29,7 @@ export const TodoChip: React.FC<Props> = (props) => {
       backgroundColor="mainBackground"
       alignItems="center"
       gap="xxs"
+      paddingRight="xxs"
       style={{
         opacity: todo.done ? 0.4 : 1,
       }}
@@ -47,10 +46,11 @@ export const TodoChip: React.FC<Props> = (props) => {
         <Text
           variant={minimal ? "small" : undefined}
           numberOfLines={minimal ? 1 : undefined}
+          ellipsizeMode="clip"
         >
           {todo.content}
 
-          <TodoEasterEggs text={todo.content} />
+          {!minimal && <TodoEasterEggs text={todo.content} />}
         </Text>
         {todo.description &&
           (!minimal ? (
