@@ -18,13 +18,10 @@ type Props = {
 export const TodoChip: React.FC<Props> = (props) => {
   const { todo, minimal = false, dayId, ...rest } = props;
 
-  const [checked, setChecked] = React.useState(todo.done);
-
   const { mutate } = useUpdate("todo");
 
   const handleCheck = (checked: boolean) => {
     mutate({ ...todo, done: checked });
-    setChecked(checked);
   };
 
   return (
@@ -83,7 +80,7 @@ export const TodoChip: React.FC<Props> = (props) => {
           margin="xs"
           alignSelf="flex-end"
           onPress={handleCheck}
-          checked={checked}
+          checked={todo.done}
         />
       )}
     </Chip>
