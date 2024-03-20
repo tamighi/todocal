@@ -10,7 +10,7 @@ import { Pressable, View } from "react-native";
 import { Todo } from "@/models";
 import { TodoChip } from "@/components/todos";
 import { useTodoModal } from "@/contexts";
-import { useUpdate } from "@/hooks";
+import { useUpdate, useUpdateTodo } from "@/hooks";
 
 interface Props {
   todos?: Todo[];
@@ -51,7 +51,7 @@ export const DraggableTodoList: React.FC<Props> = React.memo((props) => {
     );
   };
 
-  const { mutate } = useUpdate("todo");
+  const { mutate } = useUpdateTodo();
 
   const setNewOrder = (todos: Todo[], to: number) => {
     if (todos.length === 1) return;

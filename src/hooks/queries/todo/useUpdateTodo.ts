@@ -8,19 +8,21 @@ export interface UpdateOptions {
   onError?: (error: Error) => void;
 }
 
-export const useUpdateTodo = (options: UpdateOptions) => {
+export const useUpdateTodo = (options: UpdateOptions = {}) => {
   const { onMutate, onSuccess, onError } = options;
 
   const baseOptimisticMutationFn = (
     oldData: Todo[],
     newData: Partial<Todo>,
   ) => {
-    return oldData.map((data) => {
-      if (data.id === newData.id) {
-        return { ...data, ...newData };
-      }
-      return data;
-    });
+    return oldData
+      .map((data) => {
+        if (data.id === newData.id) {
+          return { ...data, ...newData };
+        }
+        return data;
+      })
+      .sort((l, r) => l.order - r.order);
   };
 
   const dayOptimisticMutationFn = (
