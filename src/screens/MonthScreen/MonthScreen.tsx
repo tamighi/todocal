@@ -8,16 +8,12 @@ import { MonthCalendar } from "./MonthCalendar";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Month">;
 
-export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
+export const MonthScreen: React.FC<Props> = ({ route }) => {
   const { monthId } = route.params;
-
-  const onNavigate = (monthId: string) => {
-    navigation.replace("Month", { monthId });
-  };
 
   return (
     <BaseScreen>
-      <MonthScreenNavigation monthId={monthId} onNavigate={onNavigate} />
+      <MonthScreenNavigation monthId={monthId} />
       <MonthCalendar monthId={monthId} />
     </BaseScreen>
   );
