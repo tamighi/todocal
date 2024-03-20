@@ -16,7 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "usesIcloudStorage": true
+      "usesIcloudStorage": true,
+      "bundleIdentifier": "com.iukys.todocal"
     },
     "android": {
       "adaptiveIcon": {
