@@ -12,11 +12,6 @@ export default abstract class AbstractService<
     this.repository = repository;
   }
 
-  public async getMany(ids: string[]) {
-    const entities = await this.repository.getMany(ids);
-    return entities.map((e) => this.entityToType(e));
-  }
-
   public async getList(options?: FindManyOptions<Entity>) {
     const entities = await this.repository.getList(options);
     return entities.map((entity) => this.entityToType(entity));

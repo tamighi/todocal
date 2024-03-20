@@ -6,7 +6,6 @@ import {
   FindOptionsOrder,
   FindOptionsRelations,
   FindOptionsWhere,
-  In,
   Repository,
 } from "typeorm";
 
@@ -32,16 +31,6 @@ export abstract class AbstractRepository<Entity extends { id: string }> {
 
   public init(dataSource: DataSource) {
     this.repository = dataSource.getRepository(this.entity);
-  }
-
-  public async getMany(ids: string[]) {
-    const data = await this.repository.find({
-      where: { id: In(ids) } as FindOptionsWhere<Entity>,
-      relations: this.relations,
-      order: this.order,
-    });
-
-    return data;
   }
 
   public async getList(
