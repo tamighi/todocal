@@ -25,7 +25,7 @@ export const SimpleTodoList: React.FC<Props> = React.memo((props) => {
   };
 
   return (
-    <Box flex={1}>
+    <Box overflow="scroll" flex={1}>
       {todos.map((todo, index) => simpleRenderItem(todo, index))}
     </Box>
   );
