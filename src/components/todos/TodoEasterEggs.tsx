@@ -1,4 +1,3 @@
-import { Text } from "@/atoms";
 import { Feather } from "@expo/vector-icons";
 
 type Props = {
@@ -10,16 +9,16 @@ export const TodoEasterEggs = (props: Props) => {
   return (
     <>
       {(text.includes("café") || text.includes("coffee")) && (
-        <Text>
+        <>
           {"  "}
           <Feather name="coffee" />
-        </Text>
+        </>
       )}
       {text.includes("Thomas") && (
-        <Text>
+        <>
           {" "}
           <Feather name="heart" />
-        </Text>
+        </>
       )}
     </>
   );

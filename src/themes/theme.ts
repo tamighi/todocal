@@ -49,7 +49,7 @@ const theme = createTheme({
     },
     small: {
       fontSize: 9,
-      lineHeight: 12,
+      lineHeight: 11,
     },
   },
   cardVariants: {

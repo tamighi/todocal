@@ -30,7 +30,7 @@ export const TodoChip: React.FC<Props> = (props) => {
       flexDirection="row"
       backgroundColor="mainBackground"
       alignItems="center"
-      gap="xs"
+      gap="xxs"
       style={{
         opacity: todo.done ? 0.4 : 1,
       }}
@@ -58,7 +58,7 @@ export const TodoChip: React.FC<Props> = (props) => {
               {todo.description}
             </Text>
           ) : (
-            <Text lineHeight={5} color="secondaryForeground">
+            <Text variant="small" lineHeight={4} color="secondaryForeground">
               ...
             </Text>
           ))}
