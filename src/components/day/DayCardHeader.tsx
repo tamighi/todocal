@@ -12,7 +12,12 @@ export const DayCardHeader: React.FC<Props> = (props) => {
 
   return (
     <Box marginVertical={dayOnly ? "none" : "s"} alignItems="center">
-      <Text>{dayOnly ? day.getDate() : day.toLocaleDateString()}</Text>
+      <Text
+        fontSize={dayOnly ? 12 : undefined}
+        lineHeight={dayOnly ? 18 : undefined}
+      >
+        {dayOnly ? day.getDate() : day.toLocaleDateString()}
+      </Text>
     </Box>
   );
 };
