@@ -10,7 +10,7 @@ import { Pressable, View } from "react-native";
 import { Todo } from "@/models";
 import { TodoChip } from "@/components/todos";
 import { useTodoModal } from "@/contexts";
-import { useUpdate, useUpdateTodo } from "@/hooks";
+import { useUpdateTodo } from "@/hooks";
 
 interface Props {
   todos?: Todo[];
