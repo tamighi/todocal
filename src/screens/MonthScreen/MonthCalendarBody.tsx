@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Box } from "@/atoms";
-import { useNavigation } from "@/hooks";
-import { DayCard } from "@/components/day";
-import { getCurrentDayId, getDayArrayFromMonthId } from "@/utils";
 import { Pressable } from "react-native";
+
+import { Box } from "@/atoms";
+import { DayCard } from "@/components";
+import { useNavigation } from "@/hooks";
+import { getCurrentDayId, getDayArrayFromMonthId } from "@/utils";
 
 interface Props {
   monthId: string;

@@ -12,7 +12,7 @@ export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
   const { monthId } = route.params;
 
   const onNavigate = (monthId: string) => {
-    navigation.push("Month", { monthId });
+    navigation.replace("Month", { monthId });
   };
 
   return (
