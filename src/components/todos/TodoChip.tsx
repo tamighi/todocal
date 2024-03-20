@@ -8,6 +8,7 @@ import { useUpdate } from "@/hooks";
 import { Todo } from "@/models";
 
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
+import { TodoEasterEggs } from "./TodoEasterEggs";
 
 type Props = {
   todo: Todo;
@@ -49,20 +50,7 @@ export const TodoChip: React.FC<Props> = (props) => {
         >
           {todo.content}
 
-          {!minimal &&
-            (todo.content.includes("café") ||
-              todo.content.includes("coffee")) && (
-              <>
-                {"  "}
-                <Feather name="coffee" />
-              </>
-            )}
-          {!minimal && todo.content.includes("Thomas") && (
-            <>
-              {" "}
-              <Feather name="heart" />
-            </>
-          )}
+          <TodoEasterEggs text={todo.content} />
         </Text>
         {todo.description &&
           (!minimal ? (
