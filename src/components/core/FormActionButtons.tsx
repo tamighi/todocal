@@ -1,7 +1,5 @@
-import { Feather } from "@expo/vector-icons";
-
 import { Box, BoxProps } from "@/atoms";
-import { Pressable } from "react-native";
+import { IconButton } from "./IconButton";
 
 type Props = {
   onCreateClick?: () => void;
@@ -17,17 +15,21 @@ export const FormActionButtons = (props: Props) => {
     <Box flexDirection="row" paddingHorizontal="lg" {...rest}>
       {mode === "update" ? (
         <>
-          <Pressable onPress={onDeleteClick}>
-            <Feather name="trash" size={24} color="red" />
-          </Pressable>
-          <Pressable style={{ marginLeft: "auto" }} onPress={onEditClick}>
-            <Feather name="edit" size={24} color="green" />
-          </Pressable>
+          <IconButton color="red" onPress={onDeleteClick} name="trash" />
+          <IconButton
+            color="green"
+            style={{ marginLeft: "auto" }}
+            name="edit"
+            onPress={onEditClick}
+          />
         </>
       ) : (
-        <Pressable style={{ marginLeft: "auto" }} onPress={onCreateClick}>
-          <Feather name="plus-circle" size={24} color="green" />
-        </Pressable>
+        <IconButton
+          color="green"
+          name="plus-circle"
+          style={{ marginLeft: "auto" }}
+          onPress={onCreateClick}
+        />
       )}
     </Box>
   );

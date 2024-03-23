@@ -3,10 +3,10 @@ import React from "react";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { Feather } from "@expo/vector-icons";
-import { Platform, Pressable } from "react-native";
+import { Platform } from "react-native";
 
 import { Box, Text } from "@/atoms";
+import { IconButton } from "./IconButton";
 
 type Props = {
   value: Date;
@@ -39,9 +39,7 @@ export const DatePicker = (props: Props) => {
 
       {Platform.OS !== "ios" && (
         <Box flexDirection="column" alignItems="center" justifyContent="center">
-          <Pressable onPress={() => setShowDatePicker(true)}>
-            <Feather name="calendar" size={24} />
-          </Pressable>
+          <IconButton name="calendar" onPress={() => setShowDatePicker(true)} />
           <Text>{value.toLocaleDateString()}</Text>
         </Box>
       )}

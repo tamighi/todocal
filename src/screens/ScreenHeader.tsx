@@ -1,12 +1,10 @@
 import React from "react";
 
-import { Feather } from "@expo/vector-icons";
-
 import { Box } from "@/atoms";
 import { useTodoFilters } from "@/contexts";
 import { useNavigation } from "@/hooks";
 import { getCurrentMonthId } from "@/utils";
-import { Pressable } from "react-native";
+import { IconButton } from "@/components";
 
 export const ScreenHeader = () => {
   const navigation = useNavigation();
@@ -33,21 +31,13 @@ export const ScreenHeader = () => {
 
   return (
     <Box flexDirection="row" justifyContent="flex-end">
-      <Pressable
-        style={{
-          margin: 4,
-          opacity: filters.active && hasFilters() ? 1 : 0.4,
-        }}
+      <IconButton
+        name="filter"
         onPress={toggleFilters}
-      >
-        <Feather name="filter" size={22} />
-      </Pressable>
-      <Pressable style={{ margin: 4 }} onPress={navigateToday}>
-        <Feather name="home" size={22} />
-      </Pressable>
-      <Pressable style={{ margin: 4 }} onPress={openSettings}>
-        <Feather name="settings" size={22} />
-      </Pressable>
+        opacity={filters.active && hasFilters() ? 1 : 0.4}
+      />
+      <IconButton name="home" onPress={navigateToday} />
+      <IconButton name="settings" onPress={openSettings} />
     </Box>
   );
 };

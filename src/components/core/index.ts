@@ -6,3 +6,5 @@ export * from "./UndoToast";
 export * from "./Dropdown";
 export * from "./DatePicker";
 export * from "./TextInput";
+export * from "./IconButton";
+export * from "./Button";

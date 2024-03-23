@@ -1,8 +1,10 @@
 import React from "react";
 
 import { Box, Text } from "@/atoms";
+import { Button } from "./Button";
+
 import { Feather } from "@expo/vector-icons";
-import { Animated, Pressable } from "react-native";
+import { Animated } from "react-native";
 
 export interface UndoToastProps {
   message?: string;
@@ -76,16 +78,19 @@ export const UndoToast = (props: UndoToastProps) => {
           flexDirection="row"
           bg="emphasize"
         >
-          <Pressable onPress={onUndoClick}>
-            <Box flexDirection="row" alignItems="center" gap="s">
-              <Text marginRight="lg">{message}</Text>
-              <Feather
-                style={{ transform: [{ translateY: 1 }] }}
-                name="rotate-cw"
-              />
-              <Text>undo</Text>
-            </Box>
-          </Pressable>
+          <Button
+            flexDirection="row"
+            alignItems="center"
+            gap="s"
+            onPress={onUndoClick}
+          >
+            <Text marginRight="lg">{message}</Text>
+            <Feather
+              style={{ transform: [{ translateY: 1 }] }}
+              name="rotate-cw"
+            />
+            <Text>undo</Text>
+          </Button>
         </Box>
       </Animated.View>
     </Box>

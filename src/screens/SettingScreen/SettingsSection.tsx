@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Text } from "@/atoms";
 import { Feather } from "@expo/vector-icons";
-import { Pressable } from "react-native";
+import { Button } from "@/components";
 
 type Props = {
   title: string;
@@ -17,17 +17,16 @@ export const SettingsSection = (props: Props) => {
 
   return (
     <Box>
-      <Pressable onPress={() => setOpen(!open)}>
-        <Box
-          padding="s"
-          justifyContent="space-between"
-          borderWidth={1}
-          flexDirection="row"
-        >
-          <Text variant="subTitle">{title}</Text>
-          <Feather name={open ? "chevron-up" : "chevron-down"} size={24} />
-        </Box>
-      </Pressable>
+      <Button
+        padding="s"
+        justifyContent="space-between"
+        borderWidth={1}
+        flexDirection="row"
+        onPress={() => setOpen(!open)}
+      >
+        <Text variant="subTitle">{title}</Text>
+        <Feather name={open ? "chevron-up" : "chevron-down"} size={24} />
+      </Button>
       <Box visible={open} padding="m">
         {children}
       </Box>

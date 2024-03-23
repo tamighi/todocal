@@ -1,7 +1,7 @@
-import { Pressable } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { Box, Container, Text } from "@/atoms";
+import { IconButton } from "@/components";
 import { useNavigation } from "@/hooks";
 
 import { SettingsSection } from "./SettingsSection";
@@ -9,7 +9,6 @@ import { SettingsTagList } from "./SettingsTagList";
 import { BaseScreen } from "../BaseScreen";
 import { TodoFilters } from "./TodoFilters";
 import { DataBackup } from "./DataBackup";
-import { ScrollView } from "react-native-gesture-handler";
 
 export const SettingsScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -27,9 +26,7 @@ export const SettingsScreen: React.FC = () => {
           marginBottom="s"
         >
           <Text variant="title">Settings</Text>
-          <Pressable style={{ marginBottom: 12 }} onPress={onClose}>
-            <Feather name="chevrons-down" size={32} />
-          </Pressable>
+          <IconButton name="chevrons-down" onPress={onClose} />
         </Box>
         <Container gap="s">
           <SettingsSection defaultOpen={true} title="Filters">

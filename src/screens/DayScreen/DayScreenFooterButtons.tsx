@@ -1,9 +1,8 @@
 import { useNavigation } from "@/hooks";
 import { Box } from "@/atoms";
-import { Feather } from "@expo/vector-icons";
 import { getMonthIdFromDayId } from "@/utils";
 import { useTodoModal } from "@/contexts";
-import { Pressable } from "react-native";
+import { IconButton } from "@/components";
 
 type Props = {
   dayId: string;
@@ -21,16 +20,13 @@ export const DayScreenFooterButtons: React.FC<Props> = (props) => {
 
   return (
     <Box flexDirection="row" justifyContent="space-between" margin="lg">
-      <Pressable
+      <IconButton
+        name="calendar"
         onPress={() =>
           navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) })
         }
-      >
-        <Feather name="calendar" size={26} />
-      </Pressable>
-      <Pressable onPress={handleCreatePress}>
-        <Feather name="plus" size={26} />
-      </Pressable>
+      />
+      <IconButton name="plus" onPress={handleCreatePress} />
     </Box>
   );
 };
