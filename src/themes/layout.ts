@@ -6,6 +6,7 @@ const spacing = {
   m: 16,
   lg: 24,
   xl: 48,
+  auto: "auto",
 };
 
 const breakpoints = {

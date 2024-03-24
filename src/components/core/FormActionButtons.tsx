@@ -18,7 +18,7 @@ export const FormActionButtons = (props: Props) => {
           <IconButton color="red" onPress={onDeleteClick} name="trash" />
           <IconButton
             color="green"
-            style={{ marginLeft: "auto" }}
+            marginLeft="auto"
             name="edit"
             onPress={onEditClick}
           />
@@ -27,7 +27,7 @@ export const FormActionButtons = (props: Props) => {
         <IconButton
           color="green"
           name="plus-circle"
-          style={{ marginLeft: "auto" }}
+          marginLeft="auto"
           onPress={onCreateClick}
         />
       )}

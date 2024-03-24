@@ -34,7 +34,7 @@ export const ScreenHeader = () => {
       <IconButton
         name="filter"
         onPress={toggleFilters}
-        opacity={filters.active && hasFilters() ? 1 : 0.4}
+        color={filters.active && hasFilters() ? "black" : "grey"}
       />
       <IconButton name="home" onPress={navigateToday} />
       <IconButton name="settings" onPress={openSettings} />

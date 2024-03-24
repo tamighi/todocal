@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Box, Text } from "@/atoms";
-import { Feather } from "@expo/vector-icons";
+import { Box } from "@/atoms";
 import { Button } from "@/components";
 
 type Props = {
@@ -18,15 +17,15 @@ export const SettingsSection = (props: Props) => {
   return (
     <Box>
       <Button
+        label={title}
+        textVariant="subTitle"
+        iconName={open ? "chevron-up" : "chevron-down"}
         padding="s"
         justifyContent="space-between"
-        borderWidth={1}
         flexDirection="row"
         onPress={() => setOpen(!open)}
-      >
-        <Text variant="subTitle">{title}</Text>
-        <Feather name={open ? "chevron-up" : "chevron-down"} size={24} />
-      </Button>
+      />
+
       <Box visible={open} padding="m">
         {children}
       </Box>

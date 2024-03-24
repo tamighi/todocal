@@ -8,7 +8,7 @@ import { Button, ButtonProps } from "./Button";
 type Props = {
   name: typeof Feather extends Icon<infer U, any> ? U : never;
   color?: string;
-} & ButtonProps;
+} & Omit<ButtonProps, "iconName" | "iconColor">;
 
 export const IconButton = (props: Props) => {
   const { name, onPress, color, ...rest } = props;
@@ -18,11 +18,11 @@ export const IconButton = (props: Props) => {
       onPress={onPress}
       alignItems="center"
       justifyContent="center"
+      iconColor={color}
+      iconName={name}
       height={48}
       width={48}
       {...rest}
-    >
-      <Feather color={color} name={name} size={24} />
-    </Button>
+    />
   );
 };
