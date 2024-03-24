@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Box } from "@/atoms";
-import { Button } from "@/components";
+import { Box, Text } from "@/atoms";
+import { IconButton } from "@/components";
 
 type Props = {
   title: string;
@@ -16,16 +16,18 @@ export const SettingsSection = (props: Props) => {
 
   return (
     <Box>
-      <Button
-        label={title}
-        textVariant="subTitle"
-        iconName={open ? "chevron-up" : "chevron-down"}
-        padding="s"
+      <Box
+        borderWidth={0.7}
+        alignItems="center"
         justifyContent="space-between"
         flexDirection="row"
-        onPress={() => setOpen(!open)}
-      />
-
+      >
+        <Text variant="subTitle">{title}</Text>
+        <IconButton
+          name={open ? "chevron-up" : "chevron-down"}
+          onPress={() => setOpen(!open)}
+        />
+      </Box>
       <Box visible={open} padding="m">
         {children}
       </Box>
