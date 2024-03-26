@@ -6,6 +6,7 @@ import {
   Checkbox,
   DatePicker,
   FormActionButtons,
+  IconButton,
   TextInput,
 } from "@/components/core";
 import { TagSelect } from "@/components/tags";
@@ -64,6 +65,18 @@ export const MutateTodoForm = (props: {
     setFormValue((prev) => ({ ...prev, day: { id: newDayId } }));
   };
 
+  const handleMinusPress = () => {
+    const date = new Date(formValue.day?.id || dayId);
+    date.setDate(date.getDate() - 1);
+    handleDateChange(date);
+  };
+
+  const handlePlusPress = () => {
+    const date = new Date(formValue.day?.id || dayId);
+    date.setDate(date.getDate() + 1);
+    handleDateChange(date);
+  };
+
   return (
     <Container marginHorizontal="s" gap="m">
       <TextInput
@@ -97,10 +110,14 @@ export const MutateTodoForm = (props: {
             checked={formValue.important || false}
           />
         </Box>
-        <DatePicker
-          value={new Date(formValue.day?.id || dayId)}
-          onValueChange={handleDateChange}
-        />
+        <Box alignItems="center" flexDirection="row">
+          <IconButton name="minus" onPress={handleMinusPress} />
+          <DatePicker
+            value={new Date(formValue.day?.id || dayId)}
+            onValueChange={handleDateChange}
+          />
+          <IconButton name="plus" onPress={handlePlusPress} />
+        </Box>
       </Box>
 
       <FormActionButtons

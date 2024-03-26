@@ -39,8 +39,11 @@ export const DatePicker = (props: Props) => {
       {Platform.OS !== "ios" && (
         <Button
           variant="outlined"
-          alignSelf="center"
-          label={value.toLocaleDateString()}
+          label={value.toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })}
           onPress={() => setShowDatePicker(true)}
         />
       )}
