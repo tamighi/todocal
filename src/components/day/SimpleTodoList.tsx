@@ -17,7 +17,7 @@ export const SimpleTodoList: React.FC<Props> = React.memo((props) => {
       <TodoChip
         key={index}
         minimal
-        marginBottom="xs"
+        marginBottom="xxs"
         dayId={dayId}
         todo={todo}
       />
