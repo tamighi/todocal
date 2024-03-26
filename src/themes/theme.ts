@@ -73,6 +73,16 @@ const theme = createTheme({
       borderColor: "secondaryForeground",
     },
   },
+  buttonVariants: {
+    defaults: {
+      paddingVertical: "xs",
+      paddingHorizontal: "s",
+    },
+    outlined: {
+      borderWidth: 1,
+      borderRadius: "s",
+    },
+  },
 });
 
 export type Theme = typeof theme;

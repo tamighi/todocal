@@ -15,16 +15,20 @@ import {
   backgroundColor,
   useRestyle,
   LayoutProps,
+  createVariant,
+  VariantProps,
 } from "@shopify/restyle";
 
 type RestyleProps = SpacingProps<Theme> &
   LayoutProps<Theme> &
-  BackgroundColorProps<Theme>;
+  BackgroundColorProps<Theme> &
+  VariantProps<Theme, "buttonVariants">;
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   spacing,
   layout,
   backgroundColor,
+  createVariant({ themeKey: "buttonVariants" }),
 ]);
 
 export type ButtonProps = {

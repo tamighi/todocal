@@ -5,8 +5,7 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { Platform } from "react-native";
 
-import { Box, Text } from "@/atoms";
-import { IconButton } from "./IconButton";
+import { Button } from "./Button";
 
 type Props = {
   value: Date;
@@ -38,10 +37,12 @@ export const DatePicker = (props: Props) => {
       )}
 
       {Platform.OS !== "ios" && (
-        <Box flexDirection="column" alignItems="center" justifyContent="center">
-          <IconButton name="calendar" onPress={() => setShowDatePicker(true)} />
-          <Text>{value.toLocaleDateString()}</Text>
-        </Box>
+        <Button
+          variant="outlined"
+          alignSelf="center"
+          label={value.toLocaleDateString()}
+          onPress={() => setShowDatePicker(true)}
+        />
       )}
     </>
   );
