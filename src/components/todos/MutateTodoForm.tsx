@@ -67,13 +67,13 @@ export const MutateTodoForm = (props: {
 
   const handleMinusPress = () => {
     const date = new Date(formValue.day?.id || dayId);
-    date.setDate(date.getDate() - 1);
+    date.setDate(date.getUTCDate() - 1);
     handleDateChange(date);
   };
 
   const handlePlusPress = () => {
     const date = new Date(formValue.day?.id || dayId);
-    date.setDate(date.getDate() + 1);
+    date.setUTCDate(date.getUTCDate() + 1);
     handleDateChange(date);
   };
 
