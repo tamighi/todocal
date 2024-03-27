@@ -47,7 +47,7 @@ export const MutateTodoForm = (props: {
     if (todo?.id) {
       updateMutate(formValue as Todo);
     } else {
-      createMutate({ ...formValue, day: { id: dayId } });
+      createMutate({ ...formValue, day: { id: formValue.day?.id || dayId } });
     }
   };
 
