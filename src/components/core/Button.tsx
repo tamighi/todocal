@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Pressable, StyleProp, TextStyle } from "react-native";
+import { StyleProp, TextStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import type { Icon } from "@expo/vector-icons/build/createIconSet";
 
-import { Text, TextProps } from "@/atoms";
+import { Text, TextProps, Pressable, PressableProps } from "@/atoms";
 import { Theme } from "@/themes";
 import {
   BackgroundColorProps,
@@ -31,14 +31,13 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   createVariant({ themeKey: "buttonVariants" }),
 ]);
 
-export type ButtonProps = {
-  onPress?: () => void;
+export interface ButtonProps extends RestyleProps, PressableProps {
   label?: string;
   iconName?: typeof Feather extends Icon<infer U, any> ? U : never;
   iconColor?: string;
   iconStyle?: StyleProp<TextStyle>;
   textVariant?: TextProps["variant"];
-} & RestyleProps;
+}
 
 export const Button = (props: ButtonProps) => {
   const {
@@ -50,27 +49,20 @@ export const Button = (props: ButtonProps) => {
     textVariant,
     ...rest
   } = props;
-  const [pressed, setPressed] = React.useState(false);
+  const pressableProps = useRestyle(restyleFunctions, rest);
 
-  const viewProps = useRestyle(restyleFunctions, rest);
+  const pressableStyles = ({ pressed }: { pressed: boolean }) => {
+    const restyleStyles = pressableProps.style as Array<any>;
 
-  const iconStyles = {
-    opacity: pressed ? 0.5 : 1,
-    //@ts-ignore
-    ...iconStyle,
+    return pressed ? [...restyleStyles, { opacity: 0.5 }] : restyleStyles;
   };
 
   return (
-    <Pressable
-      {...viewProps}
-      onPress={onPress}
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
-    >
+    <Pressable onPress={onPress} style={pressableStyles}>
       {label && <Text variant={textVariant}>{label}</Text>}
       {iconName && (
         <Feather
-          style={iconStyles}
+          style={iconStyle}
           color={iconColor}
           name={iconName}
           size={24}
