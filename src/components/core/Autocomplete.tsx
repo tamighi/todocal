@@ -1,6 +1,7 @@
 import React from "react";
 
 import { TextStyle, ViewStyle } from "react-native";
+import Fuse from "fuse.js";
 
 import { Box } from "@/atoms";
 import { Dropdown } from "./Dropdown";
@@ -63,18 +64,11 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   }, [value]);
 
   const contains = (searchTerm: string, values: T[]) => {
-    return values.filter((value) => {
-      const searchTermArr = searchTerm.toLowerCase().trim().split("");
-      let valueIndex = 0;
-      const valueLabel = getLabel(value).toLowerCase();
+    if (searchTerm === "") return values;
 
-      for (const letter of searchTermArr) {
-        valueIndex = valueLabel.indexOf(letter.toLowerCase(), valueIndex);
-        if (valueIndex === -1) return false;
-        valueIndex += 1;
-      }
-      return true;
-    });
+    const keys = labelKey ? ([labelKey] as string[]) : undefined;
+    const fuse = new Fuse(values, { keys });
+    return fuse.search(searchTerm).map((i) => i.item);
   };
 
   const [filteredValues, setFilteredValues] = React.useState(data);

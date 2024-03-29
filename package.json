@@ -18,9 +18,13 @@
     "@shopify/restyle": "^2.4.2",
     "@tanstack/react-query": "^5.12.2",
     "expo": "~49.0.15",
+    "expo-document-picker": "~11.5.4",
+    "expo-file-system": "~15.4.5",
+    "expo-sharing": "~11.5.0",
     "expo-splash-screen": "~0.20.5",
     "expo-sqlite": "~11.3.3",
     "expo-status-bar": "~1.6.0",
+    "fuse.js": "^7.0.0",
     "react": "18.2.0",
     "react-native": "0.72.10",
     "react-native-draggable-flatlist": "^4.0.1",
@@ -30,10 +34,7 @@
     "react-native-screens": "~3.22.0",
     "reanimated-color-picker": "^2.4.2",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.17",
-    "expo-sharing": "~11.5.0",
-    "expo-document-picker": "~11.5.4",
-    "expo-file-system": "~15.4.5"
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
