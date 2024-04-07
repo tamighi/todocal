@@ -91,7 +91,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         onChangeText={handleChangeText}
         value={currentInput}
         style={inputStyle}
-        clearButton={true}
+        showClearButton={true}
       />
       <Dropdown
         values={filteredValues}

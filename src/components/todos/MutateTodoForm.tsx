@@ -84,7 +84,7 @@ export const MutateTodoForm = (props: {
         value={formValue.content}
         onChangeText={(value) => handleInputChange("content", value)}
         placeholder="Todo"
-        clearButton={true}
+        showClearButton={true}
       />
       <TagSelect
         value={formValue.tag || undefined}

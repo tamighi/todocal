@@ -11,13 +11,13 @@ import { IconButton } from "./IconButton";
 
 export type TextInputProps = AtomTextInputProps & {
   textArea?: boolean;
-  clearButton?: boolean;
+  showClearButton?: boolean;
 };
 
 export const TextInput = (props: TextInputProps) => {
   const {
     textArea = false,
-    clearButton = false,
+    showClearButton = false,
     value: valueProp = "",
     onChangeText: onChangeTextProp,
     style = {},
@@ -57,7 +57,7 @@ export const TextInput = (props: TextInputProps) => {
         onChangeText={onChangeText}
         {...rest}
       />
-      {clearButton && currentValue !== "" && (
+      {showClearButton && currentValue !== "" && (
         <IconButton
           onPress={onClear}
           name="x"
