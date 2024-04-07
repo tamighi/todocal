@@ -17,17 +17,22 @@ import {
   LayoutProps,
   createVariant,
   VariantProps,
+  color,
+  ColorProps,
 } from "@shopify/restyle";
+import { useTheme } from "@/hooks";
 
 type RestyleProps = SpacingProps<Theme> &
   LayoutProps<Theme> &
   BackgroundColorProps<Theme> &
+  ColorProps<Theme> &
   VariantProps<Theme, "buttonVariants">;
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   spacing,
   layout,
   backgroundColor,
+  color,
   createVariant({ themeKey: "buttonVariants" }),
 ]);
 
@@ -51,6 +56,8 @@ export const Button = (props: ButtonProps) => {
   } = props;
   const pressableProps = useRestyle(restyleFunctions, rest);
 
+  const colors = useTheme().colors;
+
   const pressableStyles = ({ pressed }: { pressed: boolean }) => {
     const restyleStyles = pressableProps.style as Array<any>;
 
@@ -63,7 +70,7 @@ export const Button = (props: ButtonProps) => {
       {iconName && (
         <Feather
           style={iconStyle}
-          color={iconColor}
+          color={iconColor || colors.mainForeground}
           name={iconName}
           size={24}
         />

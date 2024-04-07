@@ -45,7 +45,10 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
           {renderItemProp ? (
             renderItemProp(item, index, values)
           ) : (
-            <Box borderBottomWidth={values.length === index + 1 ? 0 : 1}>
+            <Box
+              borderColor="mainForeground"
+              borderBottomWidth={values.length === index + 1 ? 0 : 1}
+            >
               <Text>{getLabel(item)}</Text>
             </Box>
           )}
@@ -66,6 +69,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
           zIndex={1000}
           ref={ref}
           borderWidth={1}
+          borderColor="mainForeground"
         >
           <FlatList
             keyboardShouldPersistTaps="always"

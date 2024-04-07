@@ -23,7 +23,7 @@ const colors = {
 
   // FG
   mainForeground: palette.white,
-  secondaryForeground: palette.grey,
+  secondaryForeground: palette.lightGrey,
   emphasizeForeground: palette.darkRed,
 };
 
@@ -66,18 +66,21 @@ const theme = createTheme({
       borderWidth: 1,
       borderRadius: "xs",
       padding: "s",
-      borderColor: "secondaryForeground",
+      borderColor: "mainForeground",
+      color: "mainForeground",
     },
   },
   buttonVariants: {
     defaults: {
       backgroundColor: "mainBackground",
+      color: "mainForeground",
       paddingVertical: "xs",
       paddingHorizontal: "s",
     },
     outlined: {
       borderWidth: 1,
       borderRadius: "s",
+      borderColor: "mainForeground",
     },
   },
 });

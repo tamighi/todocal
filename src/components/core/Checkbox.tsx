@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Text, BoxProps } from "@/atoms";
 import { Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useTheme } from "@/hooks";
 
 type Props = BoxProps & {
   checked: boolean;
@@ -12,6 +13,7 @@ type Props = BoxProps & {
 
 export const Checkbox: React.FC<Props> = (props) => {
   const { checked, onPress, label, ...rest } = props;
+  const color = useTheme().colors;
 
   const handlePress = () => {
     onPress?.(!checked);
@@ -28,7 +30,9 @@ export const Checkbox: React.FC<Props> = (props) => {
           borderWidth={2}
           {...rest}
         >
-          {checked && <Feather name="check" size={16} />}
+          {checked && (
+            <Feather color={color.mainForeground} name="check" size={16} />
+          )}
         </Box>
       </Pressable>
     </Box>

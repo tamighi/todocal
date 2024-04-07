@@ -64,6 +64,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
       onChange={handleSheetPositionChange}
       handleStyle={{ backgroundColor: colors.mainBackground }}
       backgroundStyle={{ backgroundColor: colors.mainBackground }}
+      handleIndicatorStyle={{ backgroundColor: colors.mainForeground }}
     >
       {open && children}
     </RNBottomSheet>

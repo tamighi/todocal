@@ -3,21 +3,37 @@ import React from "react";
 import {
   SpacingProps,
   VariantProps,
-  createRestyleComponent,
+  composeRestyleFunctions,
   createVariant,
   spacing,
+  useRestyle,
 } from "@shopify/restyle";
 import { Theme } from "@/themes";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { TextInputProps as RNTextInputProps } from "react-native";
+import { useTheme } from "@/hooks";
 
 type RestyleProps = SpacingProps<Theme> &
   VariantProps<Theme, "textInputVariants"> &
-  RNTextInputProps;
+  RNTextInputProps & {
+    placeholderTextColor?: keyof Theme["colors"];
+  };
 
-export const TextInput = createRestyleComponent<RestyleProps, Theme>(
-  [spacing, createVariant({ themeKey: "textInputVariants" })],
-  BottomSheetTextInput,
-);
+const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
+  spacing,
+  createVariant({ themeKey: "textInputVariants" }),
+]);
+
+export const TextInput = ({ ...rest }: RestyleProps) => {
+  const props = useRestyle(restyleFunctions, rest);
+  const theme = useTheme();
+
+  return (
+    <BottomSheetTextInput
+      {...props}
+      placeholderTextColor={theme.colors.secondaryForeground}
+    />
+  );
+};
 
 export type TextInputProps = React.ComponentProps<typeof TextInput>;

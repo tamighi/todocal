@@ -18,6 +18,7 @@ export const SettingsSection = (props: Props) => {
     <Box>
       <Box
         borderWidth={0.7}
+        borderColor="mainForeground"
         alignItems="center"
         justifyContent="space-between"
         flexDirection="row"

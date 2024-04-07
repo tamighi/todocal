@@ -50,9 +50,8 @@ export const TagSelect = React.memo((props: Props) => {
           justifyContent="space-between"
           flexDirection="row"
           padding="s"
-          style={{
-            borderBottomWidth: index === data.length - 1 ? 0 : 1,
-          }}
+          borderColor="mainForeground"
+          borderBottomWidth={index === data.length - 1 ? 0 : 1}
         >
           <Text style={{ flex: 1 }}>{tag.name}</Text>
           {tag.id ? (

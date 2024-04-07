@@ -2,7 +2,7 @@ export const palette = {
   // Grayscale
   white: "#ECECEC",
   grey: "#6E6D6D",
-  lightGrey: "#d3d3d3",
+  lightGrey: "#adadad",
 
   // Reds
   lightRed: "#ff3f3f",

@@ -8,7 +8,7 @@ import { Button, ButtonProps } from "./Button";
 type Props = {
   name: typeof Feather extends Icon<infer U, any> ? U : never;
   color?: string;
-} & Omit<ButtonProps, "iconName" | "iconColor">;
+} & Omit<ButtonProps, "iconName" | "iconColor" | "color">;
 
 export const IconButton = (props: Props) => {
   const { name, onPress, color, ...rest } = props;

@@ -25,7 +25,7 @@ export const BaseScreen: React.FC<Props> = ({
       }}
     >
       <StatusBar
-        barStyle="dark-content"
+        barStyle="light-content"
         backgroundColor={colors.mainBackground}
       />
       {displayHeader && <ScreenHeader />}
