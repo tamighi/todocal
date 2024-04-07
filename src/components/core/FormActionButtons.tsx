@@ -12,7 +12,7 @@ export const FormActionButtons = (props: Props) => {
   const { onEditClick, onCreateClick, onDeleteClick, mode, ...rest } = props;
 
   return (
-    <Box flexDirection="row" paddingHorizontal="lg" {...rest}>
+    <Box flexDirection="row" paddingHorizontal="l" {...rest}>
       {mode === "update" ? (
         <>
           <IconButton color="red" onPress={onDeleteClick} name="trash" />

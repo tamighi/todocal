@@ -14,7 +14,7 @@ export const DayScreen: React.FC<Props> = ({ route }) => {
   const { dayId } = route.params;
 
   return (
-    <BaseScreen marginHorizontal="lg">
+    <BaseScreen marginHorizontal="l">
       <DayCard dayId={dayId} />
       <DayScreenFooterButtons dayId={dayId} />
     </BaseScreen>

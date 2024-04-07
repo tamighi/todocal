@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Box, Text } from "@/atoms";
-import { Button } from "./Button";
 
 import { Feather } from "@expo/vector-icons";
 import { Animated, Pressable } from "react-native";
@@ -76,11 +75,11 @@ export const UndoToast = (props: UndoToastProps) => {
           paddingHorizontal="s"
           borderRadius="s"
           flexDirection="row"
-          bg="emphasize"
+          bg="secondaryBackground"
         >
           <Pressable onPress={onUndoClick}>
             <Box flexDirection="row" alignItems="center" gap="s">
-              <Text marginRight="lg">{message}</Text>
+              <Text marginRight="l">{message}</Text>
               <Feather
                 style={{ transform: [{ translateY: 1 }] }}
                 name="rotate-cw"

@@ -1,14 +1,13 @@
 import { Box, Chip, Text } from "@/atoms";
-import { useGetList, useTheme } from "@/hooks";
+import { useGetList } from "@/hooks";
 import { Tag } from "@/models";
 import { Pressable } from "react-native";
 import { useTagModal } from "@/contexts";
+import { tagColorPalette } from "@/themes";
 
 export const SettingsTagList = () => {
   const { data: tags } = useGetList("tag");
   const { setTagModalProps } = useTagModal();
-
-  const theme = useTheme();
 
   const handleTagPress = (tag: Tag) => {
     setTagModalProps({ open: true, tag: tag });
@@ -23,7 +22,7 @@ export const SettingsTagList = () => {
               <Pressable onPress={() => handleTagPress(tag)} key={tag.id}>
                 <Chip
                   style={{
-                    backgroundColor: tag.color || theme.colors.green_task,
+                    backgroundColor: tag.color || tagColorPalette.green,
                   }}
                 >
                   <Text>{tag.name}</Text>

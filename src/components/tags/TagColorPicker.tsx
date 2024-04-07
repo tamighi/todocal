@@ -1,5 +1,5 @@
 import { Box } from "@/atoms";
-import { useTheme } from "@/hooks";
+import { tagColorPalette } from "@/themes";
 import ColorPicker, {
   Preview,
   Swatches,
@@ -13,27 +13,25 @@ type Props = {
 
 export const TagColorPicker = (props: Props) => {
   const { onChange, color } = props;
-  const { colors } = useTheme();
 
   const handleSelectColor = (color: returnedResults) => {
     onChange?.(color.hex);
   };
 
-  // Get all colors that have "_task" in it.
-  const taskColors: string[] = Object.entries(colors)
-    .filter(([key]) => key.includes("_task"))
-    .map(([_, value]) => value);
+  const tagColors: string[] = Object.entries(tagColorPalette).map(
+    ([_, value]) => value,
+  );
 
   return (
     <ColorPicker
       onComplete={handleSelectColor}
       boundedThumb={true}
-      value={color || colors.green_task}
+      value={color || tagColorPalette.green}
     >
       <Box gap="s" flexDirection="row" padding="s">
         <Swatches
           style={{ flex: 3 }}
-          colors={taskColors}
+          colors={tagColors}
           swatchStyle={{ width: "15%" }}
         />
         <Preview hideText={true} style={{ flex: 1 }} />

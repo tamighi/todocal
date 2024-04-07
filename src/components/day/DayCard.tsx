@@ -25,7 +25,7 @@ export const DayCard: React.FC<Props> = (props) => {
   const date = new Date(dayId);
 
   return (
-    <Card borderRadius="s" variant="primary" flex={1} padding="xxs" {...rest}>
+    <Card borderRadius="s" flex={1} padding="xxs" {...rest}>
       <DayCardHeader dayOnly={small} day={date} />
       {small ? (
         <SimpleTodoList

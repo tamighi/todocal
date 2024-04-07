@@ -32,7 +32,7 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
               >
                 <DayCard
                   {...(day.id === getCurrentDayId() && {
-                    borderColor: "emphasize",
+                    borderColor: "emphasizeForeground",
                     borderWidth: 2,
                   })}
                   dayId={day.id}

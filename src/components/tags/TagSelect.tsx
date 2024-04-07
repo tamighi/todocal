@@ -1,9 +1,10 @@
 import React from "react";
 
 import { Tag } from "@/models";
-import { useGetList, useTheme, useCreate } from "@/hooks";
+import { useGetList, useCreate } from "@/hooks";
 import { Box, Text } from "@/atoms";
 import { Autocomplete } from "@/components/core";
+import { tagColorPalette } from "@/themes";
 
 type Props = {
   value?: Tag;
@@ -42,7 +43,6 @@ export const TagSelect = React.memo((props: Props) => {
     }
   };
 
-  const theme = useTheme();
   const renderItem = React.useCallback(
     (tag: Partial<Tag>, index: number, data: Partial<Tag>[]) => {
       return (
@@ -61,7 +61,7 @@ export const TagSelect = React.memo((props: Props) => {
                 margin: 4,
                 width: 15,
                 height: 15,
-                backgroundColor: tag.color || theme.colors.green_task,
+                backgroundColor: tag.color || tagColorPalette.green,
               }}
             />
           ) : (

@@ -19,7 +19,7 @@ export const DayScreenFooterButtons: React.FC<Props> = (props) => {
   };
 
   return (
-    <Box flexDirection="row" justifyContent="space-between" margin="lg">
+    <Box flexDirection="row" justifyContent="space-between" margin="l">
       <IconButton
         name="calendar"
         onPress={() =>

@@ -2,7 +2,8 @@ import { createTheme } from "@shopify/restyle";
 import { palette } from "./palette";
 import { layout } from "./layout";
 
-export const taskColors = {
+// TODO: Color for no tag in tagColorPicker & tagSelect & todoChipColorInfoBox & settingsTagList
+export const tagColorPalette = {
   yellow: palette.yellow,
   orange: palette.pastelOrange,
   red: palette.darkRed,

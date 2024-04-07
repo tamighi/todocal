@@ -97,7 +97,7 @@ export const MutateTodoForm = (props: {
         textAlignVertical="top"
         textArea
       />
-      <Box flexDirection="row" justifyContent="space-around" mb="lg">
+      <Box flexDirection="row" justifyContent="space-around" mb="l">
         <Box flexDirection="column" alignItems="flex-end" gap="s">
           <Checkbox
             label="Urgent"
