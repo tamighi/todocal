@@ -54,21 +54,27 @@ export const Button = (props: ButtonProps) => {
     textVariant,
     ...rest
   } = props;
+  const [pressed, setPressed] = React.useState(false);
+
   const pressableProps = useRestyle(restyleFunctions, rest);
 
   const colors = useTheme().colors;
 
-  const pressableStyles = ({ pressed }: { pressed: boolean }) => {
-    const restyleStyles = pressableProps.style as Array<any>;
-
-    return pressed ? [...restyleStyles, { opacity: 0.5 }] : restyleStyles;
-  };
-
   return (
-    <Pressable onPress={onPress} style={pressableStyles}>
-      {label && <Text variant={textVariant}>{label}</Text>}
+    <Pressable
+      onPress={onPress}
+      onPressIn={() => setPressed(true)}
+      onPressOut={() => setPressed(false)}
+      {...pressableProps}
+    >
+      {label && (
+        <Text opacity={pressed ? 0.5 : 1} variant={textVariant}>
+          {label}
+        </Text>
+      )}
       {iconName && (
         <Feather
+          opacity={pressed ? 0.5 : 1}
           style={iconStyle}
           color={iconColor || colors.mainForeground}
           name={iconName}
