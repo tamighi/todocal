@@ -4,14 +4,8 @@ const spacing = {
   xs: 4,
   s: 8,
   m: 16,
-  lg: 24,
-  xl: 48,
+  l: 24,
   auto: "auto",
-};
-
-const breakpoints = {
-  phone: 0,
-  tablet: 768,
 };
 
 const borderRadii = {
@@ -19,12 +13,11 @@ const borderRadii = {
   xxs: 2,
   xs: 4,
   s: 8,
-  sm: 16,
-  md: 24,
+  m: 16,
+  l: 24,
 };
 
 export const layout = {
   spacing,
-  breakpoints,
   borderRadii,
 };

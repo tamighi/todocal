@@ -1,7 +1,6 @@
 export const palette = {
   // Grayscale
-  black: "#0B0B0B",
-  white: "#F0F2F3",
+  white: "#ECECEC",
   grey: "#6E6D6D",
   lightGrey: "#d3d3d3",
 
@@ -18,8 +17,8 @@ export const palette = {
   yellow: "#f4d35e",
 
   // Purples
-  lightPurple: "#8C6FF7",
-  pastelPurple: "#9f86c0",
+  darkPurple: "#756AB6",
+  lightPurple: "#AC87C5",
 
   // Greens
   lightGreen: "#9ADE7B",

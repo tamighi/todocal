@@ -2,37 +2,34 @@ import { createTheme } from "@shopify/restyle";
 import { palette } from "./palette";
 import { layout } from "./layout";
 
+export const taskColors = {
+  yellow: palette.yellow,
+  orange: palette.pastelOrange,
+  red: palette.darkRed,
+  lightTed: palette.lightRed,
+  pink: palette.pink,
+  blue: palette.pastelBlue,
+  blueTurquoise: palette.blueTurquoise,
+  green: palette.lightGreen,
+  brown: palette.brown,
+  grey: palette.lightGrey,
+};
+
 const colors = {
-  mainBackground: palette.lightOrange,
+  // BG
+  mainBackground: palette.darkPurple,
+  secondaryBackground: palette.lightPurple,
 
-  mainForeground: palette.black,
+  // FG
+  mainForeground: palette.white,
   secondaryForeground: palette.grey,
-
-  primary: palette.orange,
-  emphasize: palette.darkRed,
-
-  // The chip colors, synonym of tasks.
-  chipUrgent: palette.lightRed,
-  chipImportant: palette.deepBlue,
-
-  // Adding "_task" at the end for the color picker to find them easily.
-  yellow_task: palette.yellow,
-  orange_task: palette.pastelOrange,
-  red_task: palette.darkRed,
-  pink_task: palette.pink,
-  purple_task: palette.pastelPurple,
-  blue_task: palette.pastelBlue,
-  blueTurquoise_task: palette.blueTurquoise,
-  green_task: palette.lightGreen,
-  brown_task: palette.brown,
-  grey_task: palette.lightGrey,
+  emphasizeForeground: palette.darkRed,
 };
 
 const theme = createTheme({
   colors,
   spacing: layout.spacing,
   borderRadii: layout.borderRadii,
-  breakpoints: layout.breakpoints,
   textVariants: {
     defaults: {
       color: "mainForeground",
@@ -54,15 +51,13 @@ const theme = createTheme({
   },
   cardVariants: {
     defaults: {
-      backgroundColor: "mainBackground",
-    },
-    primary: {
-      backgroundColor: "primary",
+      backgroundColor: "secondaryBackground",
     },
   },
   chipVariants: {
     defaults: {
       borderRadius: "xxs",
+      backgroundColor: "mainBackground",
     },
   },
   textInputVariants: {
@@ -75,6 +70,7 @@ const theme = createTheme({
   },
   buttonVariants: {
     defaults: {
+      backgroundColor: "mainBackground",
       paddingVertical: "xs",
       paddingHorizontal: "s",
     },
