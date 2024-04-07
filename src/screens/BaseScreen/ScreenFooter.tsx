@@ -16,7 +16,14 @@ export const ScreenFooter = () => {
   };
 
   const openNewTodoBottomSheet = () => {
-    setTodoModalProps({ open: true, dayId: getCurrentDayId() });
+    const currentRoute = navigation.getState().routes.at(-1);
+    const dayId =
+      currentRoute?.name === "Day"
+        ? // @ts-ignore
+          currentRoute.params?.dayId
+        : getCurrentDayId();
+
+    setTodoModalProps({ open: true, dayId });
   };
 
   return (
