@@ -4,22 +4,14 @@ import {
   TodoFilterContext,
   TodoFilter,
   TodoFilterContextProps,
-  TodoFilterView,
   TodoFilterName,
 } from "@/contexts";
 import { getAsyncStorageData, setAsyncStorageData } from "@/utils";
 
-// TODO: adapt with select
-const defaultFilter: TodoFilter[TodoFilterView] = {
+const defaultFilters: TodoFilter = {
   urgent: false,
   important: false,
   active: false,
-};
-
-const defaultFilters: TodoFilter = {
-  day: defaultFilter,
-  month: defaultFilter,
-  active: true,
 };
 
 export const TodoFilterProvider = (props: { children: React.ReactNode }) => {
@@ -27,14 +19,10 @@ export const TodoFilterProvider = (props: { children: React.ReactNode }) => {
 
   const [filters, setFilters] = React.useState<TodoFilter>(defaultFilters);
 
-  const updateFilter = (
-    filter: TodoFilterName,
-    view: TodoFilterView,
-    value: boolean,
-  ) => {
+  const updateFilter = (filter: TodoFilterName, value: boolean) => {
     const newValues = {
       ...filters,
-      [view]: { ...filters[view], [filter]: value },
+      [filter]: value,
     };
 
     setAsyncStorageData("settings", newValues);
@@ -45,21 +33,10 @@ export const TodoFilterProvider = (props: { children: React.ReactNode }) => {
     setFilters(defaultFilters);
   };
 
-  const toggleFilters = () => {
-    const newValues = {
-      ...filters,
-      active: !filters.active,
-    };
-
-    setAsyncStorageData("settings", newValues);
-    setFilters(newValues);
-  };
-
   const contextValue: TodoFilterContextProps = {
     filters,
     setFilter: updateFilter,
     clearFilters,
-    toggleFilters,
   };
 
   React.useEffect(() => {

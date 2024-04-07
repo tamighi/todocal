@@ -8,8 +8,12 @@ import {
 } from "@shopify/restyle";
 import { Theme } from "@/themes";
 import { PropsWithChildren } from "react";
+import { ViewStyle } from "react-native";
 
-type Props = VariantProps<Theme, "cardVariants"> & AllProps<Theme>;
+type Props = VariantProps<Theme, "cardVariants"> &
+  AllProps<Theme> & {
+    style?: ViewStyle;
+  };
 
 export const Card = createRestyleComponent<PropsWithChildren<Props>, Theme>([
   border,

@@ -1,8 +1,8 @@
-import { ListRenderItemInfo, Pressable } from "react-native";
+import { ListRenderItemInfo, Pressable, ViewStyle } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
 
 import { Card, Text, Box } from "@/atoms";
 import { useClickOutside } from "@/hooks";
-import { FlatList } from "react-native-gesture-handler";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -15,6 +15,7 @@ type Props<T> = {
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   labelKey?: T extends object ? StringKey<T> : never;
+  containerStyle?: ViewStyle;
 };
 
 export const Dropdown = <T extends object | string>(props: Props<T>) => {
@@ -25,6 +26,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
     onItemClick,
     labelKey,
     onClose,
+    containerStyle,
   } = props;
 
   const getLabel = (value: T): string => {
@@ -48,6 +50,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
             <Box
               borderColor="mainForeground"
               borderBottomWidth={values.length === index + 1 ? 0 : 1}
+              p="s"
             >
               <Text>{getLabel(item)}</Text>
             </Box>
@@ -68,6 +71,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
           ref={ref}
           borderWidth={1}
           borderColor="mainForeground"
+          style={containerStyle}
         >
           <FlatList
             keyboardShouldPersistTaps="always"

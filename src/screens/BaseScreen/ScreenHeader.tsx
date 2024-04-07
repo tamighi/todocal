@@ -2,7 +2,8 @@ import React from "react";
 
 import { Box } from "@/atoms";
 import { useNavigation } from "@/hooks";
-import { Dropdown, IconButton } from "@/components";
+import { IconButton } from "@/components";
+import { FilterSelect } from "./FilterSelect";
 
 export const ScreenHeader = () => {
   const [filterOpen, setFilterOpen] = React.useState(false);
@@ -10,10 +11,6 @@ export const ScreenHeader = () => {
 
   const openSettings = () => {
     navigation.navigate("Settings");
-  };
-
-  const onFilterClick = (item: string) => {
-    setFilterOpen(false);
   };
 
   return (
@@ -24,20 +21,16 @@ export const ScreenHeader = () => {
       bg="mainBackground"
     >
       <IconButton name="settings" onPress={openSettings} />
-      <Box flexDirection="row">
+      <Box position="relative" flexDirection="row">
         <IconButton name="search" />
-        <Box position="relative">
-          <IconButton
-            onPressIn={() => setFilterOpen(!filterOpen)}
-            name="filter"
-          />
-          <Dropdown
-            open={filterOpen}
-            onClose={() => setFilterOpen(false)}
-            onItemClick={onFilterClick}
-            values={["test"]}
-          />
-        </Box>
+        <IconButton
+          onPressIn={() => setFilterOpen(!filterOpen)}
+          name="filter"
+        />
+        <FilterSelect
+          filterOpen={filterOpen}
+          onClose={() => setFilterOpen(false)}
+        />
         <IconButton name="tag" />
       </Box>
     </Box>

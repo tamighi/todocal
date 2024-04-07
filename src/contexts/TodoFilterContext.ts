@@ -1,21 +1,13 @@
 import React from "react";
 
 export type TodoFilterName = "active" | "urgent" | "important";
-export type TodoFilterView = "month" | "day";
 export type TodoFilter = {
-  [K in TodoFilterView]: { [K in TodoFilterName]: boolean };
-} & {
-  active: boolean;
+  [K in TodoFilterName]: boolean;
 };
 
 export interface TodoFilterContextProps {
   filters: TodoFilter;
-  setFilter: (
-    filter: TodoFilterName,
-    view: TodoFilterView,
-    value: boolean,
-  ) => void;
-  toggleFilters: () => void;
+  setFilter: (filter: TodoFilterName, value: boolean) => void;
   clearFilters: () => void;
 }
 

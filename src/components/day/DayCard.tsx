@@ -3,11 +3,11 @@ import React from "react";
 import { Card, CardProps } from "@/atoms";
 import { useGetList } from "@/hooks";
 import { useTodoFilters } from "@/contexts";
+import { filterTodos } from "@/utils";
 
 import { DayCardHeader } from "./DayCardHeader";
 import { SimpleTodoList } from "./SimpleTodoList";
 import { DraggableTodoList } from "./DraggableTodoList";
-import { filterTodos } from "@/utils";
 
 type Props = {
   dayId: string;
@@ -28,15 +28,9 @@ export const DayCard: React.FC<Props> = (props) => {
     <Card borderRadius="s" flex={1} padding="xxs" {...rest}>
       <DayCardHeader dayOnly={small} day={date} />
       {small ? (
-        <SimpleTodoList
-          dayId={dayId}
-          todos={filterTodos(todos, "month", filters)}
-        />
+        <SimpleTodoList dayId={dayId} todos={filterTodos(todos, filters)} />
       ) : (
-        <DraggableTodoList
-          dayId={dayId}
-          todos={filterTodos(todos, "day", filters)}
-        />
+        <DraggableTodoList dayId={dayId} todos={filterTodos(todos, filters)} />
       )}
     </Card>
   );
