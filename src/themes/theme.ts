@@ -74,12 +74,12 @@ const theme = createTheme({
     defaults: {
       backgroundColor: "mainBackground",
       color: "mainForeground",
-      paddingVertical: "xs",
-      paddingHorizontal: "s",
+      padding: "s",
     },
     outlined: {
       borderWidth: 1,
       borderRadius: "s",
+      paddingVertical: "xs",
       borderColor: "mainForeground",
     },
   },

@@ -17,7 +17,7 @@ export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
     <SafeAreaView
       style={{
         flex: 1,
-        paddingBottom: Platform.OS === "ios" ? undefined : 30,
+        paddingBottom: Platform.OS === "ios" ? undefined : 16,
         backgroundColor: colors.mainBackground,
       }}
     >

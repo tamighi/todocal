@@ -1,43 +1,33 @@
 import React from "react";
 
 import { Box } from "@/atoms";
-import { useTodoFilters } from "@/contexts";
 import { useNavigation } from "@/hooks";
-import { getCurrentMonthId } from "@/utils";
-import { IconButton } from "@/components";
+import { getCurrentDayId, getCurrentMonthId } from "@/utils";
+import { Button } from "@/components";
+import { useTodoModal } from "@/contexts";
 
 export const ScreenFooter = () => {
   const navigation = useNavigation();
-  const { toggleFilters, filters } = useTodoFilters();
 
-  const openSettings = () => {
-    navigation.navigate("Settings");
-  };
+  const { setTodoModalProps } = useTodoModal();
 
   const navigateToday = () => {
     navigation.navigate("Month", { monthId: getCurrentMonthId() });
   };
 
-  const hasFilters = React.useCallback(() => {
-    for (const filter of Object.values(filters)) {
-      if (typeof filter === "object") {
-        if (Object.values(filter).findIndex((v) => v === true) !== -1) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }, [filters]);
+  const openNewTodoBottomSheet = () => {
+    setTodoModalProps({ open: true, dayId: getCurrentDayId() });
+  };
 
   return (
-    <Box flexDirection="row" justifyContent="space-between" bg="mainBackground">
-      <IconButton
-        name="filter"
-        onPress={toggleFilters}
-        color={filters.active && hasFilters() ? "black" : "grey"}
-      />
-      <IconButton name="home" onPress={navigateToday} />
-      <IconButton name="settings" onPress={openSettings} />
+    <Box
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="space-between"
+      bg="mainBackground"
+    >
+      <Button label="Today" onPress={navigateToday} />
+      <Button label="New todo" onPress={openNewTodoBottomSheet} />
     </Box>
   );
 };
