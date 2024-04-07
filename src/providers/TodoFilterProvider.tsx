@@ -9,6 +9,7 @@ import {
 } from "@/contexts";
 import { getAsyncStorageData, setAsyncStorageData } from "@/utils";
 
+// TODO: adapt with select
 const defaultFilter: TodoFilter[TodoFilterView] = {
   urgent: false,
   important: false,
