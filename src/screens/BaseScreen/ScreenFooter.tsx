@@ -8,15 +8,35 @@ import { useTodoModal } from "@/contexts";
 
 export const ScreenFooter = () => {
   const navigation = useNavigation();
+  const currentRoute = navigation.getState().routes.at(-1);
 
   const { setTodoModalProps } = useTodoModal();
 
+  const isCurrentMonth = React.useMemo(
+    () =>
+      currentRoute?.name === "Month" &&
+      //@ts-ignore
+      currentRoute.params?.monthId === getCurrentMonthId(),
+    [currentRoute],
+  );
+
+  const isCurrentDay = React.useMemo(
+    () =>
+      currentRoute?.name === "Day" &&
+      //@ts-ignore
+      currentRoute.params?.dayId === getCurrentDayId(),
+    [currentRoute],
+  );
+
   const navigateToday = () => {
+    navigation.navigate("Day", { dayId: getCurrentDayId() });
+  };
+
+  const navigateThisMonth = () => {
     navigation.navigate("Month", { monthId: getCurrentMonthId() });
   };
 
   const openNewTodoBottomSheet = () => {
-    const currentRoute = navigation.getState().routes.at(-1);
     const dayId =
       currentRoute?.name === "Day"
         ? // @ts-ignore
@@ -34,7 +54,11 @@ export const ScreenFooter = () => {
       bg="mainBackground"
       marginHorizontal="xs"
     >
-      <Button label="Today" onPress={navigateToday} />
+      {(!isCurrentDay && currentRoute?.name === "Day") || isCurrentMonth ? (
+        <Button label="Today" onPress={navigateToday} />
+      ) : (
+        <Button label="This month" onPress={navigateThisMonth} />
+      )}
       <Button label="New todo" onPress={openNewTodoBottomSheet} />
     </Box>
   );
