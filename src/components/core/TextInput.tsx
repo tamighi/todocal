@@ -1,20 +1,73 @@
+import { Platform } from "react-native";
+
 import {
   TextInput as AtomTextInput,
   TextInputProps as AtomTextInputProps,
+  Box,
+  InputHandle,
 } from "@/atoms";
-import { Platform } from "react-native";
+import React from "react";
+import { IconButton } from "./IconButton";
 
-export type TextInputProps = AtomTextInputProps & { textArea?: boolean };
+export type TextInputProps = AtomTextInputProps & {
+  textArea?: boolean;
+  clearButton?: boolean;
+};
 
 export const TextInput = (props: TextInputProps) => {
-  const { textArea = false, ...rest } = props;
+  const {
+    textArea = false,
+    clearButton = false,
+    value: valueProp = "",
+    onChangeText: onChangeTextProp,
+    style = {},
+    ...rest
+  } = props;
+
+  const ref = React.useRef<InputHandle>(null);
+  const [currentValue, setCurrentValue] = React.useState(valueProp);
+
+  React.useEffect(() => {
+    setCurrentValue(valueProp);
+  }, [valueProp]);
+
+  const onChangeText = (v: string) => {
+    setCurrentValue(v);
+    onChangeTextProp?.(v);
+  };
+
+  const onClear = () => {
+    ref.current?.setValue("");
+    onChangeText("");
+  };
 
   return (
-    <AtomTextInput
-      multiline={textArea}
-      style={{ minHeight: textArea ? 48 : undefined }}
-      paddingVertical={Platform.OS === "android" ? "xxs" : undefined}
-      {...rest}
-    />
+    <Box flexDirection="row" position="relative">
+      <AtomTextInput
+        ref={ref}
+        multiline={textArea}
+        style={{
+          flex: 1,
+          paddingRight: 30,
+          minHeight: textArea ? 48 : undefined,
+          ...style,
+        }}
+        paddingVertical={Platform.OS === "android" ? "xxs" : undefined}
+        value={valueProp}
+        onChangeText={onChangeText}
+        {...rest}
+      />
+      {clearButton && currentValue !== "" && (
+        <IconButton
+          onPress={onClear}
+          name="x"
+          position="absolute"
+          right={0}
+          top={-4}
+          iconSize={18}
+          style={{ backgroundColor: undefined }}
+        />
+      )}
+    </Box>
   );
 };

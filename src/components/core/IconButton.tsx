@@ -11,7 +11,7 @@ type Props = {
 } & Omit<ButtonProps, "iconName" | "iconColor" | "color">;
 
 export const IconButton = (props: Props) => {
-  const { name, onPress, color, ...rest } = props;
+  const { name, onPress, color, iconSize = 24, ...rest } = props;
 
   return (
     <Button
@@ -20,8 +20,8 @@ export const IconButton = (props: Props) => {
       justifyContent="center"
       iconColor={color}
       iconName={name}
-      height={48}
-      width={48}
+      padding="sm"
+      iconSize={iconSize}
       {...rest}
     />
   );

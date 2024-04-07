@@ -40,6 +40,7 @@ export interface ButtonProps extends RestyleProps, PressableProps {
   label?: string;
   iconName?: typeof Feather extends Icon<infer U, any> ? U : never;
   iconColor?: string;
+  iconSize?: number;
   iconStyle?: StyleProp<TextStyle>;
   textVariant?: TextProps["variant"];
 }
@@ -52,6 +53,7 @@ export const Button = (props: ButtonProps) => {
     label,
     iconName,
     iconColor,
+    iconSize,
     iconStyle = {},
     textVariant,
     ...rest
@@ -90,7 +92,7 @@ export const Button = (props: ButtonProps) => {
           style={iconStyle}
           color={iconColor || colors.mainForeground}
           name={iconName}
-          size={24}
+          size={iconSize}
         />
       )}
     </Pressable>

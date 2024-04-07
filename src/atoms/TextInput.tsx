@@ -8,15 +8,22 @@ import {
   spacing,
   useRestyle,
 } from "@shopify/restyle";
-import { Theme } from "@/themes";
+import { TextStyle } from "react-native";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { TextInputProps as RNTextInputProps } from "react-native";
+import { BottomSheetTextInputProps } from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheetTextInput";
+
+import { Theme } from "@/themes";
 import { useTheme } from "@/hooks";
+
+export type InputHandle = {
+  setValue: (v: string) => void;
+};
 
 type RestyleProps = SpacingProps<Theme> &
   VariantProps<Theme, "textInputVariants"> &
-  RNTextInputProps & {
+  Omit<BottomSheetTextInputProps, "style"> & {
     placeholderTextColor?: keyof Theme["colors"];
+    style?: TextStyle;
   };
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
@@ -24,16 +31,43 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   createVariant({ themeKey: "textInputVariants" }),
 ]);
 
-export const TextInput = ({ ...rest }: RestyleProps) => {
-  const props = useRestyle(restyleFunctions, rest);
-  const theme = useTheme();
+export const TextInput = React.forwardRef<InputHandle, RestyleProps>(
+  (
+    {
+      value: valueProp = "",
+      onChangeText: onChangeTextProp,
+      ...rest
+    }: RestyleProps,
+    ref,
+  ) => {
+    const [value, setValue] = React.useState("");
 
-  return (
-    <BottomSheetTextInput
-      {...props}
-      placeholderTextColor={theme.colors.secondaryForeground}
-    />
-  );
-};
+    React.useEffect(() => {
+      setValue(valueProp);
+    }, [valueProp]);
+
+    React.useImperativeHandle(ref, () => ({
+      setValue: (v) => setValue(v),
+    }));
+
+    const onChangeText = (text: string) => {
+      setValue(text);
+      onChangeTextProp?.(text);
+    };
+
+    // @ts-ignore He wants the value prop apparently
+    const props = useRestyle(restyleFunctions, rest);
+    const theme = useTheme();
+
+    return (
+      <BottomSheetTextInput
+        {...props}
+        value={value}
+        onChangeText={onChangeText}
+        placeholderTextColor={theme.colors.secondaryForeground}
+      />
+    );
+  },
+);
 
 export type TextInputProps = React.ComponentProps<typeof TextInput>;

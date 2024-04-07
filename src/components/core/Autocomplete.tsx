@@ -28,8 +28,8 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     value,
     onChange,
     onInputChange,
-    containerStyle = {},
-    inputStyle = {},
+    containerStyle,
+    inputStyle,
     placeholder,
     data = [],
     labelKey,
@@ -91,6 +91,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         onChangeText={handleChangeText}
         value={currentInput}
         style={inputStyle}
+        clearButton={true}
       />
       <Dropdown
         values={filteredValues}
