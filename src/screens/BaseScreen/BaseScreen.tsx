@@ -7,13 +7,9 @@ import { useTheme } from "@/hooks";
 
 import { ScreenHeader } from "./ScreenHeader";
 
-type Props = { displayHeader?: boolean } & ContainerProps;
+type Props = ContainerProps;
 
-export const BaseScreen: React.FC<Props> = ({
-  children,
-  displayHeader = true,
-  ...rest
-}) => {
+export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
   const { colors } = useTheme();
 
   return (
@@ -28,7 +24,7 @@ export const BaseScreen: React.FC<Props> = ({
         barStyle="light-content"
         backgroundColor={colors.mainBackground}
       />
-      {displayHeader && <ScreenHeader />}
+      <ScreenHeader />
       <Container {...rest}>{children}</Container>
     </SafeAreaView>
   );

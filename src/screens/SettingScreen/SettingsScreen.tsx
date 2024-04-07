@@ -18,7 +18,7 @@ export const SettingsScreen: React.FC = () => {
   };
 
   return (
-    <BaseScreen displayHeader={false}>
+    <BaseScreen>
       <ScrollView>
         <Box
           flexDirection="row"
