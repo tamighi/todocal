@@ -2,7 +2,6 @@ import React from "react";
 
 import { Box } from "@/atoms";
 import { useNavigation } from "@/hooks";
-import { getCurrentMonthId } from "@/utils";
 import { IconButton } from "@/components";
 
 export const ScreenHeader = () => {
@@ -12,15 +11,14 @@ export const ScreenHeader = () => {
     navigation.navigate("Settings");
   };
 
-  const navigateToday = () => {
-    navigation.navigate("Month", { monthId: getCurrentMonthId() });
-  };
-
   return (
-    <Box flexDirection="row" justifyContent="flex-end" bg="mainBackground">
-      <IconButton name="filter" />
-      <IconButton name="home" onPress={navigateToday} />
+    <Box flexDirection="row" justifyContent="space-between" bg="mainBackground">
       <IconButton name="settings" onPress={openSettings} />
+      <Box flexDirection="row">
+        <IconButton name="search" />
+        <IconButton name="filter" />
+        <IconButton name="tag" />
+      </Box>
     </Box>
   );
 };

@@ -25,6 +25,7 @@ export const ScreenFooter = () => {
       alignItems="center"
       justifyContent="space-between"
       bg="mainBackground"
+      marginHorizontal="xs"
     >
       <Button label="Today" onPress={navigateToday} />
       <Button label="New todo" onPress={openNewTodoBottomSheet} />
