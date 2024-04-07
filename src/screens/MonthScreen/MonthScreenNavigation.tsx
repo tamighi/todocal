@@ -12,7 +12,7 @@ export const MonthScreenNavigation: React.FC<Props> = (props) => {
   const navigation = useNavigation();
 
   return (
-    <Box flexDirection="row" justifyContent="space-between">
+    <Box flexDirection="row" alignItems="center" justifyContent="space-between">
       <IconButton
         onPress={() =>
           navigation.navigate("Month", { monthId: getPrevMonthId(monthId) })
