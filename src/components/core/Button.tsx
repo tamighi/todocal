@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleProp, TextStyle } from "react-native";
+import { GestureResponderEvent, StyleProp, TextStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import type { Icon } from "@expo/vector-icons/build/createIconSet";
 
@@ -47,6 +47,8 @@ export interface ButtonProps extends RestyleProps, PressableProps {
 export const Button = (props: ButtonProps) => {
   const {
     onPress,
+    onPressIn: onPressInProp,
+    onPressOut: onPressOutProp,
     label,
     iconName,
     iconColor,
@@ -60,11 +62,21 @@ export const Button = (props: ButtonProps) => {
 
   const colors = useTheme().colors;
 
+  const onPressIn = (e: GestureResponderEvent) => {
+    onPressInProp?.(e);
+    setPressed(true);
+  };
+
+  const onPressOut = (e: GestureResponderEvent) => {
+    onPressOutProp?.(e);
+    setPressed(false);
+  };
+
   return (
     <Pressable
       onPress={onPress}
-      onPressIn={() => setPressed(true)}
-      onPressOut={() => setPressed(false)}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
       {...pressableProps}
     >
       {label && (

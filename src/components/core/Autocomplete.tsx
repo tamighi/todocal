@@ -84,7 +84,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   return (
-    <Box style={containerStyle} zIndex={10}>
+    <Box style={containerStyle} zIndex={2}>
       <TextInput
         onPressIn={handleInputPress}
         placeholder={placeholder}
@@ -97,7 +97,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         renderItem={renderItem}
         labelKey={labelKey}
         open={selectOpen}
-        onValueChange={handleValuePress}
+        onItemClick={handleValuePress}
         onClose={() => setSelectOpen(false)}
       />
     </Box>

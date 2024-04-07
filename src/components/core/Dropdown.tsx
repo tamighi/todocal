@@ -10,7 +10,7 @@ type StringKey<T> = {
 
 type Props<T> = {
   values?: T[];
-  onValueChange?: (value: T) => void;
+  onItemClick?: (value: T) => void;
   open?: boolean;
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
@@ -22,7 +22,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
     values = [],
     open = false,
     renderItem: renderItemProp,
-    onValueChange,
+    onItemClick,
     labelKey,
     onClose,
   } = props;
@@ -41,7 +41,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
   const renderItem = ({ index, item }: ListRenderItemInfo<T>) => {
     {
       return (
-        <Pressable key={index} onPress={() => onValueChange?.(item)}>
+        <Pressable key={index} onPress={() => onItemClick?.(item)}>
           {renderItemProp ? (
             renderItemProp(item, index, values)
           ) : (
@@ -65,8 +65,6 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
           top="100%"
           left={0}
           maxHeight={200}
-          width="50%"
-          zIndex={1000}
           ref={ref}
           borderWidth={1}
           borderColor="mainForeground"
