@@ -2,7 +2,7 @@ import React from "react";
 
 import { Pressable } from "react-native";
 
-import { Box } from "@/atoms";
+import { Container } from "@/atoms";
 import { DayCard } from "@/components";
 import { useNavigation } from "@/hooks";
 import { getCurrentDayId, getDayArrayFromMonthId } from "@/utils";
@@ -21,11 +21,11 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
   );
 
   return (
-    <Box height="100%" gap="xxs">
+    <Container gap="xxs">
       {defaultGrid.map((array, index) => (
-        <Box key={index} flexDirection="row" flex={1} gap="xxs">
+        <Container key={index} flexDirection="row" gap="xxs">
           {array.map((day) => (
-            <Box key={day.id} flex={1} opacity={day.padDay ? 0.6 : 1}>
+            <Container key={day.id} opacity={day.padDay ? 0.6 : 1}>
               <Pressable
                 onPress={() => navigation.navigate("Day", { dayId: day.id })}
                 style={{ flex: 1 }}
@@ -39,11 +39,11 @@ const MonthCalendarBody: React.FC<Props> = (props) => {
                   small
                 />
               </Pressable>
-            </Box>
+            </Container>
           ))}
-        </Box>
+        </Container>
       ))}
-    </Box>
+    </Container>
   );
 };
 

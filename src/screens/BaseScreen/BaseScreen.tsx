@@ -6,6 +6,7 @@ import { Container, ContainerProps } from "@/atoms";
 import { useTheme } from "@/hooks";
 
 import { ScreenHeader } from "./ScreenHeader";
+import { ScreenFooter } from "./ScreenFooter";
 
 type Props = ContainerProps;
 
@@ -26,6 +27,7 @@ export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
       />
       <ScreenHeader />
       <Container {...rest}>{children}</Container>
+      <ScreenFooter />
     </SafeAreaView>
   );
 };

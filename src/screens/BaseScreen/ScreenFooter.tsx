@@ -6,7 +6,7 @@ import { useNavigation } from "@/hooks";
 import { getCurrentMonthId } from "@/utils";
 import { IconButton } from "@/components";
 
-export const ScreenHeader = () => {
+export const ScreenFooter = () => {
   const navigation = useNavigation();
   const { toggleFilters, filters } = useTodoFilters();
 
@@ -30,7 +30,7 @@ export const ScreenHeader = () => {
   }, [filters]);
 
   return (
-    <Box flexDirection="row" justifyContent="flex-end" bg="mainBackground">
+    <Box flexDirection="row" justifyContent="space-between" bg="mainBackground">
       <IconButton
         name="filter"
         onPress={toggleFilters}
