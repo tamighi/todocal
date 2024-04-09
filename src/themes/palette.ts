@@ -1,6 +1,7 @@
 export const palette = {
   // Grayscale
   white: "#ECECEC",
+  black: "#000000",
   grey: "#6E6D6D",
   lightGrey: "#adadad",
 

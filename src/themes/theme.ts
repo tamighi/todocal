@@ -29,6 +29,9 @@ const colors = {
   // Success
   success: palette.pastelGreen,
   danger: palette.pastelRed,
+
+  // Utils
+  black: palette.black,
 };
 
 const theme = createTheme({

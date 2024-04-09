@@ -4,6 +4,7 @@ import { Box, Text } from "@/atoms";
 
 import { Feather } from "@expo/vector-icons";
 import { Animated, Pressable } from "react-native";
+import { useTheme } from "@/hooks";
 
 export interface UndoToastProps {
   message?: string;
@@ -17,10 +18,12 @@ export const UndoToast = (props: UndoToastProps) => {
   const { message = "", duration = 5000, show, undoCallback, close } = props;
   const [hideTimer, setHideTimer] = React.useState<NodeJS.Timeout>();
 
+  const theme = useTheme();
+
   const translateY = React.useRef(new Animated.Value(50)).current;
 
   const showAnimation = Animated.timing(translateY, {
-    toValue: -50,
+    toValue: -65,
     duration: 500,
     useNativeDriver: true,
   });
@@ -76,12 +79,20 @@ export const UndoToast = (props: UndoToastProps) => {
           borderRadius="s"
           flexDirection="row"
           bg="secondaryBackground"
+          borderColor="mainForeground"
+          borderWidth={1}
+          elevation={8}
+          shadowColor="black"
+          shadowOffset={{ width: 0, height: 4 }}
+          shadowOpacity={0.3}
+          shadowRadius={4.65}
         >
           <Pressable onPress={onUndoClick}>
             <Box flexDirection="row" alignItems="center" gap="s">
               <Text marginRight="l">{message}</Text>
               <Feather
                 style={{ transform: [{ translateY: 1 }] }}
+                color={theme.colors.mainForeground}
                 name="rotate-cw"
               />
               <Text>undo</Text>
