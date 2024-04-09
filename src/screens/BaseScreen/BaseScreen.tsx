@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Platform, SafeAreaView, StatusBar } from "react-native";
+import { Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Container, ContainerProps } from "@/atoms";
+import { Box, Container, ContainerProps } from "@/atoms";
 import { useTheme } from "@/hooks";
 
 import { ScreenHeader } from "./ScreenHeader";
@@ -12,22 +13,21 @@ type Props = ContainerProps;
 
 export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
   const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView
+    <Box
       style={{
         flex: 1,
-        paddingBottom: Platform.OS === "ios" ? undefined : 24,
+        paddingBottom:
+          Platform.OS === "android" ? insets.bottom + 24 : insets.bottom,
+        paddingTop: insets.top,
         backgroundColor: colors.mainBackground,
       }}
     >
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={colors.mainBackground}
-      />
       <ScreenHeader />
       <Container {...rest}>{children}</Container>
       <ScreenFooter />
-    </SafeAreaView>
+    </Box>
   );
 };

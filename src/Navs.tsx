@@ -2,6 +2,8 @@ import { DayScreen, MonthScreen, SettingsScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getCurrentDayId, getCurrentMonthId } from "./utils";
+import { useTheme } from "./hooks";
+import { Platform } from "react-native";
 
 export type RootStackParamList = {
   Month: {
@@ -18,10 +20,24 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Navs = () => {
+  const { colors } = useTheme();
+
+  const conditionalStyles =
+    Platform.OS === "android"
+      ? ({
+          statusBarStyle: "light",
+          statusBarColor: colors.mainBackground,
+        } as const)
+      : {};
+
   return (
     <Stack.Navigator
       initialRouteName="Month"
-      screenOptions={{ headerShown: false, animation: "none" }}
+      screenOptions={{
+        headerShown: false,
+        animation: "none",
+        ...conditionalStyles,
+      }}
     >
       <Stack.Screen
         name="Month"
