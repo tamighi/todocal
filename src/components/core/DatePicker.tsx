@@ -6,6 +6,7 @@ import DateTimePicker, {
 import { Platform } from "react-native";
 
 import { Button } from "./Button";
+import { useTheme } from "@/hooks";
 
 type Props = {
   value: Date;
@@ -16,6 +17,7 @@ export const DatePicker = (props: Props) => {
   const { value, onValueChange } = props;
 
   const [showDatePicker, setShowDatePicker] = React.useState(false);
+  const theme = useTheme();
 
   const handleDateChange = (event: DateTimePickerEvent, date?: Date) => {
     setShowDatePicker(false);
@@ -29,8 +31,14 @@ export const DatePicker = (props: Props) => {
       {(showDatePicker || Platform.OS === "ios") && (
         <DateTimePicker
           value={value}
+          themeVariant="dark"
           mode="date"
           display="default"
+          style={{
+            borderColor: theme.colors.mainForeground,
+            borderWidth: 1,
+            borderRadius: theme.borderRadii.s,
+          }}
           is24Hour={true}
           onChange={(e, d) => handleDateChange(e, d)}
         />
