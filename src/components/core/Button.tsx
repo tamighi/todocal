@@ -58,11 +58,14 @@ export const Button = (props: ButtonProps) => {
     textVariant,
     ...rest
   } = props;
+
   const [pressed, setPressed] = React.useState(false);
 
   const pressableProps = useRestyle(restyleFunctions, rest);
 
-  const colors = useTheme().colors;
+  const theme = useTheme();
+  const textColor = theme.buttonVariants[rest.variant || "defaults"]
+    .color as keyof Theme["colors"];
 
   const onPressIn = (e: GestureResponderEvent) => {
     onPressInProp?.(e);
@@ -82,7 +85,11 @@ export const Button = (props: ButtonProps) => {
       {...pressableProps}
     >
       {label && (
-        <Text opacity={pressed ? 0.5 : 1} variant={textVariant}>
+        <Text
+          color={textColor}
+          opacity={pressed ? 0.5 : 1}
+          variant={textVariant}
+        >
           {label}
         </Text>
       )}
@@ -90,7 +97,7 @@ export const Button = (props: ButtonProps) => {
         <Feather
           opacity={pressed ? 0.5 : 1}
           style={iconStyle}
-          color={iconColor || colors.mainForeground}
+          color={iconColor || theme.colors.mainForeground}
           name={iconName}
           size={iconSize}
         />

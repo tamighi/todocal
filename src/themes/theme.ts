@@ -24,7 +24,7 @@ const colors = {
   // FG
   mainForeground: palette.white,
   secondaryForeground: palette.lightGrey,
-  emphasizeForeground: palette.darkRed,
+  emphasizeForeground: palette.pastelRed,
 
   // Success
   success: palette.pastelGreen,
@@ -80,14 +80,15 @@ const theme = createTheme({
   buttonVariants: {
     defaults: {
       backgroundColor: "mainBackground",
-      color: "mainForeground",
       padding: "s",
+      color: "emphasizeForeground",
     },
     outlined: {
       borderWidth: 1,
       borderRadius: "s",
       paddingVertical: "xs",
       borderColor: "mainForeground",
+      color: "mainForeground",
     },
   },
 });

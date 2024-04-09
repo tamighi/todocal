@@ -44,14 +44,23 @@ export const ScreenFooter = () => {
       alignItems="center"
       justifyContent="space-between"
       bg="mainBackground"
-      marginHorizontal="xs"
+      marginHorizontal="s"
+      marginVertical="xs"
     >
       {isCurrentMonth ? (
-        <Button label="Today" onPress={navigateToday} />
+        <Button label="Today" paddingHorizontal="m" onPress={navigateToday} />
       ) : (
-        <Button label="Current month" onPress={navigateThisMonth} />
+        <Button
+          label="Current month"
+          paddingHorizontal="m"
+          onPress={navigateThisMonth}
+        />
       )}
-      <Button label="New todo" onPress={openNewTodoBottomSheet} />
+      <Button
+        label="New todo"
+        paddingHorizontal="m"
+        onPress={openNewTodoBottomSheet}
+      />
     </Box>
   );
 };
