@@ -20,14 +20,6 @@ export const ScreenFooter = () => {
     [currentRoute],
   );
 
-  const isCurrentDay = React.useMemo(
-    () =>
-      currentRoute?.name === "Day" &&
-      //@ts-ignore
-      currentRoute.params?.dayId === getCurrentDayId(),
-    [currentRoute],
-  );
-
   const navigateToday = () => {
     navigation.navigate("Day", { dayId: getCurrentDayId() });
   };
@@ -54,7 +46,7 @@ export const ScreenFooter = () => {
       bg="mainBackground"
       marginHorizontal="xs"
     >
-      {(!isCurrentDay && currentRoute?.name === "Day") || isCurrentMonth ? (
+      {isCurrentMonth ? (
         <Button label="Today" onPress={navigateToday} />
       ) : (
         <Button label="This month" onPress={navigateThisMonth} />
