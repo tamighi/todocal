@@ -49,7 +49,7 @@ export const ScreenFooter = () => {
       {isCurrentMonth ? (
         <Button label="Today" onPress={navigateToday} />
       ) : (
-        <Button label="This month" onPress={navigateThisMonth} />
+        <Button label="To calendar" onPress={navigateThisMonth} />
       )}
       <Button label="New todo" onPress={openNewTodoBottomSheet} />
     </Box>
