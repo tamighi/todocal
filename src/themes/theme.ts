@@ -25,6 +25,10 @@ const colors = {
   mainForeground: palette.white,
   secondaryForeground: palette.lightGrey,
   emphasizeForeground: palette.darkRed,
+
+  // Success
+  success: palette.pastelGreen,
+  danger: palette.pastelRed,
 };
 
 const theme = createTheme({
