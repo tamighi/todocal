@@ -15,8 +15,11 @@ import {
 } from "./providers";
 
 import Navs from "./Navs";
+import { StatusBar } from "react-native";
 
 const Root = () => {
+  StatusBar.setBarStyle("light-content");
+
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme}>

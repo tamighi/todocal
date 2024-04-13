@@ -25,7 +25,6 @@ const Navs = () => {
   const conditionalStyles =
     Platform.OS === "android"
       ? ({
-          statusBarStyle: "light",
           statusBarColor: colors.mainBackground,
         } as const)
       : {};
