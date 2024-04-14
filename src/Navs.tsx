@@ -31,7 +31,7 @@ const Navs = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Day"
+      initialRouteName="Month"
       screenOptions={{
         headerShown: false,
         animation: "none",
