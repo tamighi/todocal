@@ -14,14 +14,19 @@ import { MonthScreenNavigation } from "./MonthScreenNavigation";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Month">;
 
+const getMonthArray = (month: string) => {
+  const prevMonth = getPrevMonthId(month);
+  const twoMonthAgo = getPrevMonthId(prevMonth);
+  const nextMonth = getNextMonthId(month);
+  const twoMonthAhead = getNextMonthId(nextMonth);
+
+  return [twoMonthAgo, prevMonth, month, nextMonth, twoMonthAhead];
+};
+
 export const MonthScreen: React.FC<Props> = ({ route }) => {
   const { monthId } = route.params;
 
-  const [monthArray, setMonthArray] = React.useState([
-    getPrevMonthId(monthId),
-    monthId,
-    getNextMonthId(monthId),
-  ]);
+  const [monthArray, setMonthArray] = React.useState(getMonthArray(monthId));
 
   const onPageSelected = (
     e: NativeSyntheticEvent<Readonly<{ position: number }>>,
@@ -42,7 +47,7 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
       <PagerView
         style={{ flex: 1 }}
         onPageSelected={onPageSelected}
-        initialPage={1}
+        initialPage={2}
       >
         {monthArray.map((monthId) => (
           <Box key={monthId}>
