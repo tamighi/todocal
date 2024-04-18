@@ -23,7 +23,7 @@ const getMonthArray = (month: string) => {
   return [twoMonthAgo, prevMonth, month, nextMonth, twoMonthAhead];
 };
 
-export const MonthScreen: React.FC<Props> = ({ route }) => {
+export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
   const { monthId } = route.params;
 
   const [monthArray, setMonthArray] = React.useState(getMonthArray(monthId));
@@ -31,21 +31,15 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
 
   React.useEffect(() => {
     setMonthArray(getMonthArray(monthId));
-    pagerRef.current?.setPage(2);
   }, [monthId]);
 
   const onPageSelected = (
     e: NativeSyntheticEvent<Readonly<{ position: number }>>,
   ) => {
-    if (e.nativeEvent.position <= 1) {
-      setMonthArray((prev) => [getPrevMonthId(prev[0]), ...prev].slice(0, 5));
-    }
-
-    if (e.nativeEvent.position >= monthArray.length - 2) {
-      setMonthArray((prev) =>
-        [...prev, getNextMonthId(prev.at(-1) as string)].slice(-5),
-      );
-    }
+    const index = e.nativeEvent.position;
+    const monthId = monthArray[index];
+    setMonthArray(getMonthArray(monthId));
+    navigation.setParams({ monthId });
   };
 
   return (
