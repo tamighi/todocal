@@ -27,6 +27,12 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
   const { monthId } = route.params;
 
   const [monthArray, setMonthArray] = React.useState(getMonthArray(monthId));
+  const pagerRef = React.useRef<PagerView>(null);
+
+  React.useEffect(() => {
+    setMonthArray(getMonthArray(monthId));
+    pagerRef.current?.setPage(2);
+  }, [monthId]);
 
   const onPageSelected = (
     e: NativeSyntheticEvent<Readonly<{ position: number }>>,
@@ -47,6 +53,7 @@ export const MonthScreen: React.FC<Props> = ({ route }) => {
       <PagerView
         style={{ flex: 1 }}
         onPageSelected={onPageSelected}
+        ref={pagerRef}
         initialPage={2}
       >
         {monthArray.map((monthId) => (
