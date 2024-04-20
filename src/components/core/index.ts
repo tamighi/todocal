@@ -8,3 +8,4 @@ export * from "./DatePicker";
 export * from "./TextInput";
 export * from "./IconButton";
 export * from "./Button";
+export * from "./Swipeable";
