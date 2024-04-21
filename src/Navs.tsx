@@ -8,6 +8,7 @@ import { Platform } from "react-native";
 export type RootStackParamList = {
   Month: {
     monthId: string;
+    reset?: boolean;
   };
   Day: {
     dayId: string;

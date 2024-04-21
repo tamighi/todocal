@@ -16,26 +16,19 @@ export const ScreenFooter = () => {
 
   const { setTodoModalProps } = useTodoModal();
 
-  const isCurrentMonth = React.useMemo(
-    () =>
-      currentRoute?.name === "Month" &&
-      //@ts-ignore
-      currentRoute.params?.monthId === getCurrentMonthId(),
-    [currentRoute],
+  const isDay = React.useMemo(
+    () => navigation.getState().routes.at(-1)?.name === "Day",
+    [navigation],
   );
 
-  const isDay = React.useMemo(() => currentRoute?.name === "Day", []);
-
-  const navigateToday = () => {
-    navigation.navigate("Day", { dayId: getCurrentDayId() });
-  };
-
-  const navigateToMonth = (dayId: string) => {
-    navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) });
-  };
-
   const navigateThisMonth = () => {
-    navigation.navigate("Month", { monthId: getCurrentMonthId() });
+    navigation.navigate("Month", { monthId: getCurrentMonthId(), reset: true });
+  };
+
+  const navigateToMonth = () => {
+    //@ts-ignore
+    const dayId = navigation.getState().routes.at(-1).params.dayId;
+    navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) });
   };
 
   const openNewTodoBottomSheet = () => {
@@ -59,13 +52,10 @@ export const ScreenFooter = () => {
     >
       {isDay ? (
         <Button
-          label="Month view"
+          label="To month"
           paddingHorizontal="m"
-          //@ts-ignore
-          onPress={() => navigateToMonth(currentRoute?.params?.dayId)}
+          onPress={navigateToMonth}
         />
-      ) : isCurrentMonth ? (
-        <Button label="Today" paddingHorizontal="m" onPress={navigateToday} />
       ) : (
         <Button
           label="Current month"
