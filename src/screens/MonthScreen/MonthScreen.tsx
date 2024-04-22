@@ -17,6 +17,7 @@ import {
 import { BaseScreen } from "../BaseScreen";
 import { MonthScreenNavigation } from "./MonthScreenNavigation";
 import { MonthCalendar } from "./MonthCalendar";
+import { useSharedValue } from "react-native-reanimated";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Month">;
 
@@ -42,27 +43,29 @@ const getIndexFromMonthId = (monthId: string) => {
 export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
   const { monthId, reset } = route.params;
   const pagerRef = React.useRef<InfinitePagerImperativeApi>(null);
+  const index = useSharedValue(0);
 
   React.useEffect(() => {
     if (reset) {
       const idx = getIndexFromMonthId(monthId);
-      navigation.setParams({ monthId, reset: false });
-      pagerRef.current?.setPage(idx, { animated: false });
+      if (Math.abs(index.value) > 5) {
+        pagerRef.current?.setPage(idx, { animated: false });
+      } else {
+        pagerRef.current?.setPage(idx, { animated: true });
+      }
+      navigation.setParams({ reset: false });
     }
   }, [monthId, reset]);
-
-  const handlePageChange = (idx: number) => {
-    navigation.setParams({ monthId: getMonthIdFromIndex(idx) });
-  };
 
   return (
     <BaseScreen>
       <InfinitePager
         style={{ flex: 1 }}
+        pageCallbackNode={index}
+        pageBuffer={5}
         ref={pagerRef}
-        onPageChange={handlePageChange}
         pageWrapperStyle={{ flex: 1 }}
-        PageComponent={({ index }) => {
+        renderPage={({ index }) => {
           const monthId = getMonthIdFromIndex(index);
 
           return (

@@ -26,6 +26,7 @@ export const DayScreen: React.FC<Props> = ({ route }) => {
     <BaseScreen>
       <InfinitePager
         style={{ flex: 1 }}
+        pageBuffer={2}
         pageWrapperStyle={{ flex: 1 }}
         PageComponent={({ index }) => {
           return (
