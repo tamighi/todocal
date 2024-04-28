@@ -28,7 +28,7 @@ export const useUndoMutation = <Fn extends (...p: any[]) => Promise<void>>(
     const mutationPromise = new Promise<UndoMutationResult>(
       (resolve, reject) => {
         const timeout = setTimeout(() => {
-          undoableMutationFn(params)
+          undoableMutationFn(...params)
             .then(() => resolve({ undo: false, mutationTime }))
             .catch((err) => reject(err));
         }, UNDO_DURATION);

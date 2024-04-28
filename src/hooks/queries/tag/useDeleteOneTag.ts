@@ -8,9 +8,9 @@ export const useDeleteOneTag = (options: DeleteOptions = {}) => {
 
   const todoMutation: OptimisticUpdate<Todo[]> = {
     mutationKey: ["todo", "list"],
-    optimisticMutationFn: (oldData, id) => {
+    optimisticMutationFn: (oldData, payload) => {
       const newData = oldData?.map((todo) => {
-        if (todo.tag?.id === id) {
+        if (todo.tag?.id === payload.id) {
           return { ...todo, tag: undefined };
         }
         return todo;
