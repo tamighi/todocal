@@ -5,7 +5,7 @@ import RNBottomSheet, {
   BottomSheetBackdropProps,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
-import { Keyboard } from "react-native";
+import { Keyboard, Platform } from "react-native";
 
 type BottomSheetProps = {
   open: boolean;
@@ -27,6 +27,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
       bottomSheetRef.current?.snapToIndex(0);
     } else {
       bottomSheetRef.current?.close();
+      if (Platform.OS === "ios") Keyboard.dismiss();
     }
   }, [open]);
 
@@ -34,6 +35,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
         {...props}
+        onPress={() => Platform.OS === "ios" && Keyboard.dismiss()}
         appearsOnIndex={0}
         disappearsOnIndex={-1}
       />
@@ -41,22 +43,12 @@ export const BottomSheet = (props: BottomSheetProps) => {
     [],
   );
 
-  const onAnimate = (_: number, to: number) => {
-    if (to === -1) {
-      Keyboard.dismiss();
-      setTimeout(() => {
-        bottomSheetRef.current?.close();
-      }, 50);
-    }
-  };
-
   return (
     <RNBottomSheet
       ref={bottomSheetRef}
       snapPoints={snapPoints}
       index={-1}
       enablePanDownToClose={true}
-      onAnimate={onAnimate}
       keyboardBehavior="interactive"
       android_keyboardInputMode="adjustResize"
       onClose={onClose}

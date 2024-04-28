@@ -48,11 +48,7 @@ export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
   React.useEffect(() => {
     if (reset) {
       const idx = getIndexFromMonthId(monthId);
-      if (Math.abs(index.value) > 5) {
-        pagerRef.current?.setPage(idx, { animated: false });
-      } else {
-        pagerRef.current?.setPage(idx, { animated: true });
-      }
+      pagerRef.current?.setPage(idx, { animated: false });
       navigation.setParams({ reset: false });
     }
   }, [monthId, reset]);
@@ -62,7 +58,6 @@ export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
       <InfinitePager
         style={{ flex: 1 }}
         pageCallbackNode={index}
-        pageBuffer={5}
         ref={pagerRef}
         pageWrapperStyle={{ flex: 1 }}
         renderPage={({ index }) => {
