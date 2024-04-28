@@ -1,3 +1,4 @@
+import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
@@ -8,6 +9,7 @@ import {
   ClickOutsideProvider,
   DatabaseProvider,
   QueryClientProvider,
+  TagListModalProvider,
   TagModalProvider,
   TodoFilterProvider,
   TodoModalProvider,
@@ -15,7 +17,6 @@ import {
 } from "./providers";
 
 import Navs from "./Navs";
-import { StatusBar } from "react-native";
 
 const Root = () => {
   StatusBar.setBarStyle("light-content");
@@ -32,7 +33,9 @@ const Root = () => {
                     <UndoToastProvider>
                       <TodoModalProvider>
                         <TagModalProvider>
-                          <Navs />
+                          <TagListModalProvider>
+                            <Navs />
+                          </TagListModalProvider>
                         </TagModalProvider>
                       </TodoModalProvider>
                     </UndoToastProvider>

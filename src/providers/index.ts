@@ -1,4 +1,5 @@
 export * from "./TodoFilterProvider";
+export * from "./TagListModalProvider";
 export * from "./ClickOutsideProvider";
 export * from "./QueryClientProvider";
 export * from "./TodoModalProvider";

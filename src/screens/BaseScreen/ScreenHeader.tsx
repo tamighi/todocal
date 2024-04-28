@@ -4,9 +4,11 @@ import { Box } from "@/atoms";
 import { useNavigation } from "@/hooks";
 import { IconButton } from "@/components";
 import { FilterSelect } from "./FilterSelect";
+import { useTagListModal } from "@/contexts";
 
 export const ScreenHeader = () => {
   const [filterOpen, setFilterOpen] = React.useState(false);
+  const { open: openTagList } = useTagListModal();
   const navigation = useNavigation();
 
   const openSettings = () => {
@@ -31,7 +33,7 @@ export const ScreenHeader = () => {
           filterOpen={filterOpen}
           onClose={() => setFilterOpen(false)}
         />
-        <IconButton name="tag" />
+        <IconButton onPress={openTagList} name="tag" />
       </Box>
     </Box>
   );
