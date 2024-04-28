@@ -11,6 +11,7 @@ export default interface Todo {
   important: boolean;
   day?: Day;
   tag?: Tag | null;
+  oldDayId?: string;
   createdAt: Date;
   updatedAt: Date;
 }

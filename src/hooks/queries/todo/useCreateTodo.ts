@@ -1,4 +1,4 @@
-import { QueryKey } from "@tanstack/react-query";
+import { Query } from "@tanstack/react-query";
 
 import { Todo } from "@/models";
 
@@ -8,8 +8,8 @@ import { useCreate } from "../core";
 export const useCreateTodo = (options: MutateOptions = {}) => {
   const { onMutate, onSuccess, onError } = options;
 
-  const queryKeyFilter = (queryKey: QueryKey, payload: Partial<Todo>) => {
-    const [_, __, filter] = queryKey;
+  const queryKeyFilter = (query: Query, payload: Partial<Todo>) => {
+    const [_, __, filter] = query.queryKey;
     if (!filter) return true;
 
     //@ts-ignore ...

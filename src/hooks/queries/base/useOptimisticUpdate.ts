@@ -1,4 +1,4 @@
-import { QueryKey, useQueryClient } from "@tanstack/react-query";
+import { Query, QueryKey, useQueryClient } from "@tanstack/react-query";
 
 export type OptimisticMutationContext<TData = any> = {
   mutationKey: QueryKey;
@@ -15,7 +15,7 @@ export interface OptimisticUpdate<TData = any, TVariable = any> {
 }
 
 export interface OptimisticMutateOptions<TVariable = any> {
-  queryKeyFilter?: (queryKey: QueryKey, payload: TVariable) => boolean;
+  queryKeyFilter?: (query: Query, payload: TVariable) => boolean;
 }
 
 export const useOptimisticUpdate = <TVariable>(
@@ -33,12 +33,13 @@ export const useOptimisticUpdate = <TVariable>(
 
       await queryClient.cancelQueries({ queryKey: mutationKey });
 
-      const queriesData = queryClient.getQueriesData({ queryKey: mutationKey });
+      const queriesData = queryClient.getQueriesData({
+        queryKey: mutationKey,
+        predicate: (query) => queryKeyFilter(query, payload),
+      });
 
       queriesData.forEach((queryData) => {
         const [queryKey, oldData] = queryData;
-
-        if (queryKeyFilter(queryKey, payload) === false) return;
 
         queryClient.setQueryData(queryKey, () =>
           mutationFn(oldData, payload, queryKey),
@@ -58,7 +59,7 @@ export const useOptimisticUpdate = <TVariable>(
 
       queryClient.invalidateQueries({
         queryKey: mutationKey,
-        predicate: (query) => queryKeyFilter(query.queryKey, payload),
+        predicate: (query) => queryKeyFilter(query, payload),
       });
     });
   };

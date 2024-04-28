@@ -1,6 +1,6 @@
 import { Todo } from "@/models";
 import { useUpdate } from "../core/useUpdate";
-import { QueryKey } from "@tanstack/react-query";
+import { Query, QueryKey } from "@tanstack/react-query";
 
 export interface UpdateOptions {
   onSuccess?: (result: Todo) => void;
@@ -58,10 +58,24 @@ export const useUpdateTodo = (options: UpdateOptions = {}) => {
     return dayMutation;
   };
 
+  const queryKeyFilter = (query: Query, payload: Partial<Todo>) => {
+    const [_, __, filter] = query.queryKey as any;
+    if (!filter) return true;
+
+    if (
+      filter.where?.day?.id === payload.day?.id ||
+      filter.where?.day?.id === payload.oldDayId
+    )
+      return true;
+
+    return false;
+  };
+
   return useUpdate("todo", {
     onMutate,
     onSuccess,
     onError,
     optimisticMutationFn,
+    queryKeyFilter,
   });
 };

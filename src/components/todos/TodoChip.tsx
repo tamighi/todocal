@@ -2,7 +2,7 @@ import React from "react";
 
 import { Box, Chip, ChipProps, Text } from "@/atoms";
 import { Checkbox } from "@/components/core";
-import { useUpdate } from "@/hooks";
+import { useUpdateTodo } from "@/hooks";
 import { Todo } from "@/models";
 
 import { TodoChipColorInfoBox } from "./TodoChipColorInfoBox";
@@ -17,7 +17,7 @@ type Props = {
 export const TodoChip: React.FC<Props> = (props) => {
   const { todo, minimal = false, dayId, ...rest } = props;
 
-  const { mutate } = useUpdate("todo");
+  const { mutate } = useUpdateTodo();
 
   const handleCheck = (checked: boolean) => {
     mutate({ ...todo, done: checked });
