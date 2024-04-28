@@ -9,8 +9,15 @@ type Props = {
 export const TagListModal = (props: Props) => {
   const { visible, onRequestClose } = props;
   return (
-    <Modal onBackdropPress={onRequestClose} isVisible={visible}>
-      <Box height="100%" bg="mainBackground">
+    <Modal
+      animationIn="slideInLeft"
+      animationOut="slideOutLeft"
+      onBackButtonPress={onRequestClose}
+      onBackdropPress={onRequestClose}
+      isVisible={visible}
+      style={{ margin: 0 }}
+    >
+      <Box width="70%" height="100%" bg="mainBackground">
         <Text>Todocal</Text>
       </Box>
     </Modal>
