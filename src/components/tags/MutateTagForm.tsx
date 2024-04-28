@@ -38,7 +38,7 @@ export const MutateTagForm = (props: Props) => {
   };
 
   const handleDelete = () => {
-    deleteMutate(tag!.id);
+    deleteMutate(formValue as Tag);
     onSuccess?.();
   };
 

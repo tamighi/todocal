@@ -32,8 +32,8 @@ export default abstract class AbstractService<
     return this.entityToType(entity);
   }
 
-  public async delete(id: string) {
-    return this.repository.deleteOne(id);
+  public async delete(payload: DeepPartial<Entity> & { id: string }) {
+    return this.repository.deleteOne(payload.id);
   }
 
   public abstract entityToType(entity: Entity): T;
