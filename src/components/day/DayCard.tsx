@@ -20,9 +20,10 @@ export const DayCard: React.FC<Props> = (props) => {
   const { data: todos } = useGetList("todo", {
     where: { day: { id: dayId } },
   });
+
   const { filters } = useTodoFilters();
 
-  const date = new Date(dayId);
+  const date = React.useMemo(() => new Date(dayId), [dayId]);
 
   return (
     <Card borderRadius="s" flex={1} padding="xxs" {...rest}>

@@ -7,7 +7,7 @@ interface Props {
   dayOnly?: boolean;
 }
 
-export const DayCardHeader: React.FC<Props> = (props) => {
+export const DayCardHeader = React.memo((props: Props) => {
   const { day, dayOnly = false } = props;
 
   return (
@@ -20,4 +20,4 @@ export const DayCardHeader: React.FC<Props> = (props) => {
       </Text>
     </Box>
   );
-};
+});
