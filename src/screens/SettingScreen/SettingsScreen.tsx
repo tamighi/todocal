@@ -5,7 +5,6 @@ import { IconButton } from "@/components";
 import { useNavigation } from "@/hooks";
 
 import { SettingsSection } from "./SettingsSection";
-import { SettingsTagList } from "./SettingsTagList";
 import { BaseScreen } from "../BaseScreen";
 import { DataBackup } from "./DataBackup";
 
@@ -28,9 +27,6 @@ export const SettingsScreen: React.FC = () => {
           <IconButton name="chevrons-down" onPress={onClose} />
         </Box>
         <Container gap="s">
-          <SettingsSection defaultOpen={true} title="Tags">
-            <SettingsTagList />
-          </SettingsSection>
           <SettingsSection title="Data Backup">
             <DataBackup />
           </SettingsSection>

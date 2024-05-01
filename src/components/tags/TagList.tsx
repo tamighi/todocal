@@ -2,15 +2,19 @@ import { Box, Chip, Text } from "@/atoms";
 import { useGetList } from "@/hooks";
 import { Tag } from "@/models";
 import { Pressable } from "react-native";
-import { useTagModal } from "@/contexts";
 import { tagColorPalette } from "@/themes";
 
-export const SettingsTagList = () => {
+type Props = {
+  onTagPress?: (tag: Tag) => void;
+};
+
+export const TagList = (props: Props) => {
+  const { onTagPress } = props;
+
   const { data: tags } = useGetList("tag");
-  const { setTagModalProps } = useTagModal();
 
   const handleTagPress = (tag: Tag) => {
-    setTagModalProps({ open: true, tag: tag });
+    onTagPress?.(tag);
   };
 
   return (

@@ -18,8 +18,8 @@ export const TodoModalProvider = (props: ProviderProps) => {
   const { dayId = getCurrentDayId(), todo, open } = modalProps;
 
   const onClose = React.useCallback(() => {
-    setModalProps({ ...modalProps, open: false });
-  }, []);
+    setModalProps((prev) => ({ ...prev, open: false }));
+  }, [setModalProps]);
 
   return (
     <TodoModalContext.Provider value={setModalProps}>

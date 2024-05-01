@@ -5,6 +5,7 @@ import { Tag } from "@/models";
 export type TagModalProps = {
   tag?: Tag;
   open: boolean;
+  onModalClose?: () => void;
 };
 
 type TagModalContextProps = React.Dispatch<React.SetStateAction<TagModalProps>>;

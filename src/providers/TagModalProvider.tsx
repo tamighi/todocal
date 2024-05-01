@@ -1,7 +1,7 @@
 import React from "react";
 
-import { TagModalListContext } from "@/contexts";
-import { TagListModal } from "@/components";
+import { TagModalContext, TagModalProps } from "@/contexts";
+import { BottomSheet, MutateTagForm } from "@/components";
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -10,20 +10,23 @@ type ProviderProps = {
 export const TagModalProvider = (props: ProviderProps) => {
   const { children } = props;
 
-  const [visible, setVisible] = React.useState(false);
+  const [modalProps, setModalProps] = React.useState<TagModalProps>({
+    open: false,
+  });
+
+  const { tag, open, onModalClose } = modalProps;
 
   const onClose = React.useCallback(() => {
-    setVisible(false);
-  }, []);
-
-  const open = () => {
-    setVisible(true);
-  };
+    onModalClose?.();
+    setModalProps((prev) => ({ ...prev, open: false }));
+  }, [setModalProps]);
 
   return (
-    <TagModalListContext.Provider value={open}>
+    <TagModalContext.Provider value={setModalProps}>
       {children}
-      <TagListModal visible={visible} onRequestClose={onClose} />
-    </TagModalListContext.Provider>
+      <BottomSheet open={open} onClose={onClose} snapPoints={[320]}>
+        <MutateTagForm tag={tag} onMutate={onClose} />
+      </BottomSheet>
+    </TagModalContext.Provider>
   );
 };
