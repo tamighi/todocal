@@ -47,7 +47,7 @@ export const TagListModal = ({ navigation }: Props) => {
           borderBottomColor="mainForeground"
           borderBottomWidth={1}
         >
-          <Box flexDirection="row" g="s">
+          <Box flexDirection="row" g="s" alignItems="center">
             <Feather color="white" size={20} name="tag" />
             <Text fontWeight="bold">Tags</Text>
           </Box>

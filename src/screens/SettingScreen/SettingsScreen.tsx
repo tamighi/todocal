@@ -22,7 +22,7 @@ export const SettingsScreen: React.FC = () => {
       style={{
         paddingBottom:
           Platform.OS === "android" ? insets.bottom + 24 : insets.bottom,
-        paddingTop: insets.top,
+        paddingTop: Platform.OS === "android" ? insets.top : 0,
       }}
       flex={1}
       backgroundColor="mainBackground"

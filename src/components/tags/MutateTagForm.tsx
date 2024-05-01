@@ -35,6 +35,8 @@ export const MutateTagForm = (props: Props) => {
   const { mutate: deleteMutate } = useDeleteOneTag();
 
   const handleSubmit = () => {
+    if (!formValue.name) return;
+
     if (formValue.id) {
       updateMutate(formValue as Tag);
     } else {

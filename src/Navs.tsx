@@ -54,7 +54,7 @@ const NavigationWrapper = () => {
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{ presentation: "transparentModal" }}
+        options={{ presentation: "modal" }}
       />
     </Stack.Navigator>
   );

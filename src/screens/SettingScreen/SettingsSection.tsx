@@ -11,7 +11,7 @@ export const SettingsSection = (props: Props) => {
   const { title, children } = props;
 
   return (
-    <Box borderColor="mainForeground" borderWidth={1} borderRadius="s" p="s">
+    <Box borderColor="mainForeground" p="s">
       <Box
         alignItems="center"
         justifyContent="space-between"
