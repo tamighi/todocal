@@ -1,11 +1,9 @@
 import React from "react";
 
 import { Container } from "@/atoms";
-import { FormActionButtons, TextInput } from "@/components/core";
 import { useCreate, useDeleteOneTag, useUpdateTag } from "@/hooks";
 import { Tag } from "@/models";
-
-import { TagColorPicker } from "./TagColorPicker";
+import { FormActionButtons, TagColorPicker, TextInput } from "@/components";
 
 type Props = {
   tag?: Tag;

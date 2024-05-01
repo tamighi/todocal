@@ -9,7 +9,7 @@ import { useNavigation } from "@/hooks";
 import { SettingsSection } from "./SettingsSection";
 import { DataBackup } from "./DataBackup";
 
-export const SettingsScreen: React.FC = () => {
+export const SettingsModal: React.FC = () => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 

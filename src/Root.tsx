@@ -9,7 +9,6 @@ import {
   ClickOutsideProvider,
   DatabaseProvider,
   QueryClientProvider,
-  TagModalProvider,
   TodoFilterProvider,
   TodoModalProvider,
   UndoToastProvider,
@@ -31,9 +30,7 @@ const Root = () => {
                   <TodoFilterProvider>
                     <UndoToastProvider>
                       <TodoModalProvider>
-                        <TagModalProvider>
-                          <Navs />
-                        </TagModalProvider>
+                        <Navs />
                       </TodoModalProvider>
                     </UndoToastProvider>
                   </TodoFilterProvider>

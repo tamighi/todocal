@@ -1,9 +1,9 @@
-import { DayScreen, MonthScreen, SettingsScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
-import { getCurrentDayId, getCurrentMonthId } from "./utils";
-import { TagListModal } from "./components";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { DayScreen, MonthScreen, SettingsModal, TagListModal } from "@/screens";
+import { getCurrentDayId, getCurrentMonthId } from "@/utils";
 
 export type RootStackParamList = {
   Month: {
@@ -53,7 +53,7 @@ const NavigationWrapper = () => {
       <Stack.Screen name="Main" component={Navs} />
       <Stack.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={SettingsModal}
         options={{ presentation: "modal" }}
       />
     </Stack.Navigator>
