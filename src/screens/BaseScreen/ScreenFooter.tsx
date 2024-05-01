@@ -17,7 +17,7 @@ export const ScreenFooter = () => {
   const { setTodoModalProps } = useTodoModal();
 
   const isDay = React.useMemo(
-    () => navigation.getState().routes.at(-1)?.name === "Day",
+    () => navigation.getParent()?.getState().routes.at(-1)?.name === "Day",
     [navigation],
   );
 

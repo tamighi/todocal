@@ -52,7 +52,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         snapPoints={snapPoints}
         onDismiss={onClose}
         keyboardBehavior="interactive"
-        android_keyboardInputMode="adjustResize"
+        android_keyboardInputMode="adjustPan"
         backdropComponent={renderBackdrop}
         onChange={handleSheetPositionChange}
         handleStyle={{ backgroundColor: colors.mainBackground }}
