@@ -8,10 +8,9 @@ import { Feather } from "@expo/vector-icons";
 
 import { Box, Container, Text } from "@/atoms";
 import { Tag } from "@/models";
-import { BottomSheet, IconButton } from "@/components";
+import { BottomSheet, IconButton, MutateTagForm } from "@/components";
 
 import { TagList } from "./TagList";
-import { MutateTagForm } from "./MutateTagForm";
 
 type Props = DrawerContentComponentProps;
 
