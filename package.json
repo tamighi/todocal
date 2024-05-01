@@ -7,6 +7,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "build:all": "eas build -p all --profile preview",
+    "build:android": "eas build -p android --profile preview",
     "build:ios": "eas build -p ios --profile preview"
   },
   "dependencies": {
@@ -32,7 +34,6 @@
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-infinite-pager": "^0.3.16",
-    "react-native-modal": "^13.0.1",
     "react-native-reanimated": "~3.3.0",
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
