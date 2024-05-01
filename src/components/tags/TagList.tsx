@@ -21,9 +21,9 @@ export const TagList = (props: Props) => {
     <Box>
       {tags && tags.length > 0 ? (
         <Box gap="xs">
-          {tags.map((tag) => {
+          {tags.map((tag, index) => {
             return (
-              <Pressable onPress={() => handleTagPress(tag)} key={tag.id}>
+              <Pressable onPress={() => handleTagPress(tag)} key={index}>
                 <Chip
                   style={{
                     backgroundColor: tag.color || tagColorPalette.green,
