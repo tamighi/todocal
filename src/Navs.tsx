@@ -1,9 +1,9 @@
-import { DayScreen, MonthScreen, SettingsScreen } from "@/screens";
+import { DayScreen, MonthScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getCurrentDayId, getCurrentMonthId } from "./utils";
-import { useTheme } from "./hooks";
-import { Platform } from "react-native";
+import { TagListModal } from "./components";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
   Month: {
@@ -16,50 +16,40 @@ export type RootStackParamList = {
   Settings: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Navs = () => {
-  const { colors } = useTheme();
-
-  const conditionalStyles =
-    Platform.OS === "android"
-      ? ({
-          statusBarColor: colors.mainBackground,
-        } as const)
-      : {};
-
   return (
-    <Stack.Navigator
+    <Drawer.Navigator
       initialRouteName="Month"
-      screenOptions={{
-        headerShown: false,
-        animation: "none",
-        ...conditionalStyles,
-      }}
+      screenOptions={{ headerShown: false }}
+      drawerContent={TagListModal}
     >
-      <Stack.Screen
+      <Drawer.Screen
         name="Month"
         component={MonthScreen}
         initialParams={{ monthId: getCurrentMonthId() }}
       />
-      <Stack.Screen
+      <Drawer.Screen
         name="Day"
         component={DayScreen}
         initialParams={{ dayId: getCurrentDayId() }}
       />
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          animationTypeForReplace: "push",
-          animation: "slide_from_bottom",
-          animationDuration: 200,
-        }}
-      />
+    </Drawer.Navigator>
+  );
+};
+
+const NavigationWrapper = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, statusBarTranslucent: true }}
+    >
+      <Stack.Screen name="Main" component={Navs} />
     </Stack.Navigator>
   );
 };
 
-export default Navs;
+export default NavigationWrapper;

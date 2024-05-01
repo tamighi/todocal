@@ -10,7 +10,6 @@ import {
   DatabaseProvider,
   QueryClientProvider,
   TagModalProvider,
-  TagListModalProvider,
   TodoFilterProvider,
   TodoModalProvider,
   UndoToastProvider,
@@ -33,9 +32,7 @@ const Root = () => {
                     <UndoToastProvider>
                       <TodoModalProvider>
                         <TagModalProvider>
-                          <TagListModalProvider>
-                            <Navs />
-                          </TagListModalProvider>
+                          <Navs />
                         </TagModalProvider>
                       </TodoModalProvider>
                     </UndoToastProvider>
