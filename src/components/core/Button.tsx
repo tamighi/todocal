@@ -63,6 +63,10 @@ export const Button = (props: ButtonProps) => {
 
   const pressableProps = useRestyle(restyleFunctions, rest);
 
+  pressableProps.alignItems = "center";
+  pressableProps.flexDirection = "row";
+  pressableProps.gap = "s";
+
   const theme = useTheme();
   const textColor = theme.buttonVariants[rest.variant || "defaults"]
     .color as keyof Theme["colors"];

@@ -1,8 +1,10 @@
 import React from "react";
 
-import RNBottomSheet, {
+import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
+  BottomSheetModal,
+  BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
 import { Keyboard, Platform } from "react-native";
@@ -18,13 +20,13 @@ export const BottomSheet = (props: BottomSheetProps) => {
   const { open, onClose, snapPoints, children } = props;
   const { colors } = useTheme();
 
-  const bottomSheetRef = React.useRef<RNBottomSheet>(null);
+  const bottomSheetRef = React.useRef<BottomSheetModal>(null);
   const { handleSheetPositionChange } =
     useBottomSheetBackHandler(bottomSheetRef);
 
   React.useEffect(() => {
     if (open) {
-      bottomSheetRef.current?.snapToIndex(0);
+      bottomSheetRef.current?.present();
     } else {
       bottomSheetRef.current?.close();
       if (Platform.OS === "ios") Keyboard.dismiss();
@@ -44,21 +46,21 @@ export const BottomSheet = (props: BottomSheetProps) => {
   );
 
   return (
-    <RNBottomSheet
-      ref={bottomSheetRef}
-      snapPoints={snapPoints}
-      index={-1}
-      enablePanDownToClose={true}
-      keyboardBehavior="interactive"
-      android_keyboardInputMode="adjustResize"
-      onClose={onClose}
-      backdropComponent={renderBackdrop}
-      onChange={handleSheetPositionChange}
-      handleStyle={{ backgroundColor: colors.mainBackground }}
-      backgroundStyle={{ backgroundColor: colors.mainBackground }}
-      handleIndicatorStyle={{ backgroundColor: colors.mainForeground }}
-    >
-      {open && children}
-    </RNBottomSheet>
+    <BottomSheetModalProvider>
+      <BottomSheetModal
+        ref={bottomSheetRef}
+        snapPoints={snapPoints}
+        onDismiss={onClose}
+        keyboardBehavior="interactive"
+        android_keyboardInputMode="adjustResize"
+        backdropComponent={renderBackdrop}
+        onChange={handleSheetPositionChange}
+        handleStyle={{ backgroundColor: colors.mainBackground }}
+        backgroundStyle={{ backgroundColor: colors.mainBackground }}
+        handleIndicatorStyle={{ backgroundColor: colors.mainForeground }}
+      >
+        {children}
+      </BottomSheetModal>
+    </BottomSheetModalProvider>
   );
 };

@@ -1,4 +1,4 @@
-import { DayScreen, MonthScreen } from "@/screens";
+import { DayScreen, MonthScreen, SettingsScreen } from "@/screens";
 import { NavigationProp } from "@react-navigation/native";
 import { getCurrentDayId, getCurrentMonthId } from "./utils";
 import { TagListModal } from "./components";
@@ -25,7 +25,10 @@ const Navs = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Month"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: { width: "100%" },
+      }}
       drawerContent={TagListModal}
     >
       <Drawer.Screen
@@ -48,6 +51,11 @@ const NavigationWrapper = () => {
       screenOptions={{ headerShown: false, statusBarTranslucent: true }}
     >
       <Stack.Screen name="Main" component={Navs} />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ presentation: "transparentModal" }}
+      />
     </Stack.Navigator>
   );
 };

@@ -44,10 +44,6 @@ const theme = createTheme({
       fontSize: 16,
       lineHeight: 24,
     },
-    title: {
-      fontSize: 40,
-      lineHeight: 40,
-    },
     subTitle: {
       fontSize: 32,
       lineHeight: 32,

@@ -7,17 +7,13 @@ export const DataBackup = () => {
   return (
     <Box flexDirection="row" justifyContent="space-between">
       <Button
-        flexDirection="row"
+        variant="outlined"
         iconName="save"
         label="Backup data"
-        alignItems="center"
-        gap="s"
         onPress={exportDb}
       />
       <Button
-        flexDirection="row"
-        alignItems="center"
-        gap="s"
+        variant="outlined"
         iconName="upload"
         label="Restore data"
         onPress={importDb}
