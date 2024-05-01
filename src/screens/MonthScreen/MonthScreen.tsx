@@ -59,6 +59,7 @@ export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
         style={{ flex: 1 }}
         pageCallbackNode={index}
         ref={pagerRef}
+        pageBuffer={2}
         pageWrapperStyle={{ flex: 1 }}
         renderPage={({ index }) => {
           const monthId = getMonthIdFromIndex(index);
