@@ -4,7 +4,6 @@ import { Box } from "@/atoms";
 import { useNavigation } from "@/hooks";
 import { IconButton } from "@/components";
 import { FilterSelect } from "./FilterSelect";
-import { DrawerActions } from "@react-navigation/native";
 
 export const ScreenHeader = () => {
   const [filterOpen, setFilterOpen] = React.useState(false);
@@ -15,7 +14,7 @@ export const ScreenHeader = () => {
   };
 
   const openTagList = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
+    navigation.navigate("TagList");
   };
 
   return (

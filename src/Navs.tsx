@@ -1,5 +1,4 @@
 import { NavigationProp } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { DayScreen, MonthScreen, SettingsModal, TagListModal } from "@/screens";
@@ -14,50 +13,44 @@ export type RootStackParamList = {
     dayId: string;
   };
   Settings: undefined;
+  TagList: undefined;
 };
 
-const Drawer = createDrawerNavigator<RootStackParamList>();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export type StackNavigation = NavigationProp<RootStackParamList>;
 
 const Navs = () => {
   return (
-    <Drawer.Navigator
+    <Stack.Navigator
       initialRouteName="Month"
       screenOptions={{
         headerShown: false,
-        drawerStyle: { width: "100%" },
+        statusBarTranslucent: true,
       }}
-      drawerContent={TagListModal}
     >
-      <Drawer.Screen
+      <Stack.Screen
         name="Month"
         component={MonthScreen}
         initialParams={{ monthId: getCurrentMonthId() }}
       />
-      <Drawer.Screen
+      <Stack.Screen
         name="Day"
         component={DayScreen}
         initialParams={{ dayId: getCurrentDayId() }}
       />
-    </Drawer.Navigator>
-  );
-};
-
-const NavigationWrapper = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false, statusBarTranslucent: true }}
-    >
-      <Stack.Screen name="Main" component={Navs} />
       <Stack.Screen
         name="Settings"
         component={SettingsModal}
         options={{ presentation: "modal" }}
       />
+      <Stack.Screen
+        name="TagList"
+        component={TagListModal}
+        options={{ animation: "fade_from_bottom" }}
+      />
     </Stack.Navigator>
   );
 };
 
-export default NavigationWrapper;
+export default Navs;

@@ -1,14 +1,13 @@
 import React from "react";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
 import InfinitePager from "react-native-infinite-pager";
 
 import { RootStackParamList } from "@/Navs";
 import { DayCard } from "@/components";
+import { getDayIdFromDate } from "@/utils";
 
 import { BaseScreen } from "../BaseScreen";
-import { getDayIdFromDate } from "@/utils";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Day">;
 

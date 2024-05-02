@@ -1,18 +1,18 @@
 import React from "react";
 
-import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { DrawerActions } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Feather } from "@expo/vector-icons";
 
 import { Box, Container, Text } from "@/atoms";
 import { Tag } from "@/models";
 import { BottomSheet, IconButton, MutateTagForm } from "@/components";
+import { RootStackParamList } from "@/Navs";
 
 import { TagList } from "./TagList";
 
-type Props = DrawerContentComponentProps;
+type Props = NativeStackScreenProps<RootStackParamList, "TagList">;
 
 export const TagListModal = ({ navigation }: Props) => {
   const [open, setOpen] = React.useState(false);
@@ -50,10 +50,7 @@ export const TagListModal = ({ navigation }: Props) => {
             <Feather color="white" size={20} name="tag" />
             <Text fontWeight="bold">Tags</Text>
           </Box>
-          <IconButton
-            onPress={() => navigation.dispatch(DrawerActions.closeDrawer)}
-            name="x"
-          />
+          <IconButton onPress={() => navigation.goBack()} name="x" />
         </Box>
         <TagList onTagPress={onTagPress} />
       </Box>
