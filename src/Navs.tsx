@@ -38,6 +38,7 @@ const Navs = () => {
         name="Day"
         component={DayScreen}
         initialParams={{ dayId: getCurrentDayId() }}
+        options={{ presentation: "transparentModal" }}
       />
       <Stack.Screen
         name="Settings"

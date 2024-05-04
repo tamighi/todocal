@@ -54,7 +54,7 @@ export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
   }, [monthId, reset]);
 
   return (
-    <BaseScreen>
+    <BaseScreen bg="mainBackground">
       <InfinitePager
         style={{ flex: 1 }}
         pageCallbackNode={index}
