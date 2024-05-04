@@ -26,15 +26,13 @@ const Root = () => {
           <GestureHandlerRootView style={{ flex: 1 }}>
             <QueryClientProvider>
               <DatabaseProvider>
-                <ClickOutsideProvider>
-                  <TodoFilterProvider>
-                    <UndoToastProvider>
-                      <TodoModalProvider>
-                        <Navs />
-                      </TodoModalProvider>
-                    </UndoToastProvider>
-                  </TodoFilterProvider>
-                </ClickOutsideProvider>
+                <TodoFilterProvider>
+                  <UndoToastProvider>
+                    <TodoModalProvider>
+                      <Navs />
+                    </TodoModalProvider>
+                  </UndoToastProvider>
+                </TodoFilterProvider>
               </DatabaseProvider>
             </QueryClientProvider>
           </GestureHandlerRootView>
