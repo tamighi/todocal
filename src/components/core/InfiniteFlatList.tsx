@@ -1,7 +1,7 @@
 import React from "react";
-import { Dimensions, FlatList } from "react-native";
+import { Dimensions, FlatList, FlatListProps } from "react-native";
 
-interface Props {
+interface Props extends Partial<Omit<FlatListProps<number>, "renderItem">> {
   renderItem: (index: number) => React.ReactElement | null;
   itemWidth?: number;
   itemOffset?: number;
@@ -48,7 +48,9 @@ export const InfiniteFlatList = ({
 
   return (
     <FlatList
-      maintainVisibleContentPosition={{ minIndexForVisible: 0 }}
+      maintainVisibleContentPosition={{
+        minIndexForVisible: 0,
+      }}
       data={indexes}
       horizontal
       initialScrollIndex={4}
