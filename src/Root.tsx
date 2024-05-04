@@ -28,9 +28,7 @@ const Root = () => {
               <DatabaseProvider>
                 <TodoFilterProvider>
                   <UndoToastProvider>
-                    <TodoModalProvider>
-                      <Navs />
-                    </TodoModalProvider>
+                    <Navs />
                   </UndoToastProvider>
                 </TodoFilterProvider>
               </DatabaseProvider>

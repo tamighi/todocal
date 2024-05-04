@@ -45,7 +45,6 @@ export const InfiniteFlatList = ({ renderItem, ...rest }: Props) => {
   return (
     <FlatList
       ref={flatListRef}
-      viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
       maintainVisibleContentPosition={{ minIndexForVisible: 0 }}
       data={indexes}
       horizontal

@@ -48,7 +48,7 @@ const Navs = () => {
       <Stack.Screen
         name="TagList"
         component={TagListModal}
-        options={{ animation: "fade_from_bottom" }}
+        options={{ animation: "fade_from_bottom", presentation: "modal" }}
       />
     </Stack.Navigator>
   );
