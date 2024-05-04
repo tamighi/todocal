@@ -5,9 +5,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Container, ContainerProps } from "@/atoms";
 
-type Props = ContainerProps;
+type Props = ContainerProps & {
+  noMarginTop?: boolean;
+};
 
-export const SafeAreaView: React.FC<Props> = ({ children, ...rest }) => {
+export const SafeAreaView: React.FC<Props> = ({
+  children,
+  noMarginTop = false,
+  ...rest
+}) => {
   const insets = useSafeAreaInsets();
 
   return (
@@ -15,7 +21,7 @@ export const SafeAreaView: React.FC<Props> = ({ children, ...rest }) => {
       style={{
         paddingBottom:
           Platform.OS === "android" ? insets.bottom + 24 : insets.bottom,
-        paddingTop: insets.top,
+        paddingTop: noMarginTop ? 0 : insets.top,
       }}
       {...rest}
     >

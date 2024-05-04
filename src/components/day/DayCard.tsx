@@ -4,11 +4,11 @@ import { Card, CardProps } from "@/atoms";
 import { useGetList } from "@/hooks";
 import { useTodoFilters } from "@/contexts";
 import { filterTodos } from "@/utils";
+import { Todo } from "@/models";
 
 import { DayCardHeader } from "./DayCardHeader";
 import { SimpleTodoList } from "./SimpleTodoList";
 import { DraggableTodoList } from "./DraggableTodoList";
-import { Todo } from "@/models";
 
 type Props = {
   dayId: string;

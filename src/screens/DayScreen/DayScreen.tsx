@@ -3,10 +3,10 @@ import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Dimensions, Pressable } from "react-native";
 
-import { useTheme } from "@/hooks";
 import { RootStackParamList } from "@/Navs";
 import { DayCard, InfiniteFlatList } from "@/components";
 import { getDayIdFromDate } from "@/utils";
+import { Container } from "@/atoms";
 
 import { BaseScreen } from "../BaseScreen";
 
@@ -21,23 +21,21 @@ const getDayIdFromIndex = (idx: number, baseDayId: string) => {
   return getDayIdFromDate(currentDay);
 };
 
-export const DayScreen: React.FC<Props> = ({ route, navigation }) => {
+export const DayScreen: React.FC<Props> = ({ route }) => {
   const { dayId } = route.params;
-  const theme = useTheme();
 
   return (
     <BaseScreen>
       <InfiniteFlatList
+        itemWidth={WIDTH - 70}
+        itemOffset={36}
         renderItem={(index) => {
           return (
-            <Pressable
-              style={{ backgroundColor: "#0005", width: WIDTH }}
-              onPress={navigation.goBack}
-            >
-              <Pressable style={{ flex: 1, margin: theme.spacing.l }}>
+            <Container width={WIDTH - 70} style={{ backgroundColor: "#0005" }}>
+              <Pressable style={{ flex: 1, padding: 24 }}>
                 <DayCard dayId={getDayIdFromIndex(index, dayId)} />
               </Pressable>
-            </Pressable>
+            </Container>
           );
         }}
       />

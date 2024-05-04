@@ -7,10 +7,10 @@ import { Box, Text } from "@/atoms";
 import { Tag } from "@/models";
 import { BottomSheet, IconButton, MutateTagForm } from "@/components";
 import { RootStackParamList } from "@/Navs";
+import { UndoToastProvider } from "@/providers";
 
 import { TagList } from "./TagList";
 import { SafeAreaView } from "../BaseScreen";
-import { UndoToastProvider } from "@/providers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TagList">;
 
@@ -25,7 +25,12 @@ export const TagListModal = ({ navigation }: Props) => {
 
   return (
     <UndoToastProvider>
-      <SafeAreaView px="s" bg="mainBackground" justifyContent="space-between">
+      <SafeAreaView
+        noMarginTop
+        px="s"
+        bg="mainBackground"
+        justifyContent="space-between"
+      >
         <Box>
           <Box
             pl="s"

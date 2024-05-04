@@ -38,7 +38,9 @@ const Navs = () => {
         name="Day"
         component={DayScreen}
         initialParams={{ dayId: getCurrentDayId() }}
-        options={{ presentation: "transparentModal" }}
+        options={{
+          presentation: "transparentModal",
+        }}
       />
       <Stack.Screen
         name="Settings"
@@ -48,7 +50,11 @@ const Navs = () => {
       <Stack.Screen
         name="TagList"
         component={TagListModal}
-        options={{ animation: "fade_from_bottom", presentation: "modal" }}
+        options={{
+          animation: "fade_from_bottom",
+          animationTypeForReplace: "push",
+          presentation: "modal",
+        }}
       />
     </Stack.Navigator>
   );
