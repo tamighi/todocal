@@ -2,7 +2,6 @@ import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "@shopify/restyle";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { theme } from "./themes";
 import {
@@ -10,8 +9,6 @@ import {
   DatabaseProvider,
   QueryClientProvider,
   TodoFilterProvider,
-  TodoModalProvider,
-  UndoToastProvider,
 } from "./providers";
 
 import Navs from "./Navs";
@@ -20,23 +17,21 @@ const Root = () => {
   StatusBar.setBarStyle("light-content");
 
   return (
-    <SafeAreaProvider>
+    <ClickOutsideProvider>
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <QueryClientProvider>
               <DatabaseProvider>
                 <TodoFilterProvider>
-                  <UndoToastProvider>
-                    <Navs />
-                  </UndoToastProvider>
+                  <Navs />
                 </TodoFilterProvider>
               </DatabaseProvider>
             </QueryClientProvider>
           </GestureHandlerRootView>
         </NavigationContainer>
       </ThemeProvider>
-    </SafeAreaProvider>
+    </ClickOutsideProvider>
   );
 };
 
