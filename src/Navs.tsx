@@ -39,6 +39,8 @@ const Navs = () => {
         component={DayScreen}
         initialParams={{ dayId: getCurrentDayId() }}
         options={{
+          animation: "fade",
+          animationDuration: 200,
           presentation: "transparentModal",
         }}
       />
