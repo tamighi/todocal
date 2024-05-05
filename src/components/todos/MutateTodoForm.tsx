@@ -44,7 +44,7 @@ export const MutateTodoForm = (props: {
   const { mutate: deleteMutate } = useDeleteOneTodo();
 
   const handleSubmit = async () => {
-    if (!todo?.content) return;
+    if (!formValue?.content) return;
 
     if (todo?.id) {
       updateMutate({ ...(formValue as Todo), oldDayId: dayId });
