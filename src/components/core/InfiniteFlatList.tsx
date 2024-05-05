@@ -1,6 +1,6 @@
-import { Box } from "@/atoms";
 import React from "react";
-import { Dimensions, FlatList, FlatListProps } from "react-native";
+
+import { Dimensions, FlatList, FlatListProps, View } from "react-native";
 
 interface Props extends Partial<Omit<FlatListProps<number>, "renderItem">> {
   renderItem: (index: number) => React.ReactElement | null;
@@ -13,7 +13,6 @@ const WIDTH = Dimensions.get("window").width;
 export const InfiniteFlatList = ({
   renderItem,
   itemWidth = WIDTH,
-  itemOffset = 0,
   ...rest
 }: Props) => {
   const [indexes, setIndexes] = React.useState<number[]>(
@@ -41,7 +40,7 @@ export const InfiniteFlatList = ({
   const getItemLayout = React.useCallback(
     (_: any, index: number) => ({
       length: itemWidth,
-      offset: itemWidth * index - itemOffset,
+      offset: itemWidth * index,
       index,
     }),
     [],
@@ -49,9 +48,11 @@ export const InfiniteFlatList = ({
 
   return (
     <FlatList
-      maintainVisibleContentPosition={{
-        minIndexForVisible: 0,
-      }}
+      renderItem={({ item }) => (
+        <View style={{ width: itemWidth }}>{renderItem(item)}</View>
+      )}
+      maintainVisibleContentPosition={{ minIndexForVisible: 0 }}
+      viewabilityConfig={{ viewAreaCoveragePercentThreshold: 95 }}
       data={indexes}
       horizontal
       initialScrollIndex={50}
@@ -59,7 +60,6 @@ export const InfiniteFlatList = ({
       decelerationRate="fast"
       style={{ flex: 1 }}
       showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => <Box width={itemWidth}>{renderItem(item)}</Box>}
       keyExtractor={(renderItemIndex) => renderItemIndex.toString()}
       onEndReached={handleEndReached}
       onStartReached={handleStartReached}
