@@ -1,3 +1,4 @@
+import { Box } from "@/atoms";
 import React from "react";
 import { Dimensions, FlatList, FlatListProps } from "react-native";
 
@@ -54,9 +55,11 @@ export const InfiniteFlatList = ({
       data={indexes}
       horizontal
       initialScrollIndex={50}
+      snapToInterval={itemWidth}
+      decelerationRate="fast"
       style={{ flex: 1 }}
       showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => renderItem(item)}
+      renderItem={({ item }) => <Box width={itemWidth}>{renderItem(item)}</Box>}
       keyExtractor={(renderItemIndex) => renderItemIndex.toString()}
       onEndReached={handleEndReached}
       onStartReached={handleStartReached}
