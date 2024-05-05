@@ -17,8 +17,16 @@ export const ScreenFooter = () => {
   const { setTodoModalProps } = useTodoModal();
 
   const isDay = React.useMemo(
-    () => navigation.getState().routes.at(-1)?.name === "Day",
-    [navigation],
+    () => currentRoute?.name === "Day",
+    [currentRoute],
+  );
+
+  const isCurrentMonth = React.useMemo(
+    () =>
+      currentRoute?.name === "Month" &&
+      // @ts-ignore
+      currentRoute?.params.monthId === getCurrentMonthId(),
+    [currentRoute],
   );
 
   const navigateThisMonth = () => {
@@ -27,8 +35,12 @@ export const ScreenFooter = () => {
 
   const navigateToMonth = () => {
     //@ts-ignore
-    const dayId = navigation.getState().routes.at(-1).params.dayId;
+    const dayId = currentRoute?.params.dayId;
     navigation.navigate("Month", { monthId: getMonthIdFromDayId(dayId) });
+  };
+
+  const navigateToToday = () => {
+    navigation.navigate("Day", { dayId: getCurrentDayId() });
   };
 
   const openNewTodoBottomSheet = () => {
@@ -56,6 +68,8 @@ export const ScreenFooter = () => {
           paddingHorizontal="m"
           onPress={navigateToMonth}
         />
+      ) : isCurrentMonth ? (
+        <Button label="Today" paddingHorizontal="m" onPress={navigateToToday} />
       ) : (
         <Button
           label="Current month"

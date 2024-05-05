@@ -58,6 +58,9 @@ export const MonthScreen: React.FC<Props> = ({ route, navigation }) => {
       <InfinitePager
         style={{ flex: 1 }}
         pageCallbackNode={index}
+        onPageChange={(idx) => {
+          navigation.setParams({ monthId: getMonthIdFromIndex(idx) });
+        }}
         ref={pagerRef}
         pageBuffer={2}
         pageWrapperStyle={{ flex: 1 }}
