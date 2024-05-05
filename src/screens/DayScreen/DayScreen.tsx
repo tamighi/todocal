@@ -26,7 +26,6 @@ export const DayScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const onViewableItemsChanged = React.useCallback(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-      console.log(viewableItems);
       if (viewableItems.length === 1) {
         navigation.setParams({
           dayId: getDayIdFromIndex(viewableItems[0].item, staticDayId),
@@ -45,7 +44,7 @@ export const DayScreen: React.FC<Props> = ({ route, navigation }) => {
             <Container style={{ backgroundColor: "#0005" }}>
               <Pressable
                 onPress={navigation.goBack}
-                style={{ flex: 1, padding: 24 }}
+                style={{ flex: 1, paddingHorizontal: 48, paddingVertical: 24 }}
               >
                 <Pressable style={{ flex: 1 }}>
                   <DayCard dayId={getDayIdFromIndex(index, staticDayId)} />
