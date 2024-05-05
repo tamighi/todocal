@@ -16,7 +16,7 @@ export const InfiniteFlatList = ({
   ...rest
 }: Props) => {
   const [indexes, setIndexes] = React.useState<number[]>(
-    Array.from({ length: 9 }, (_, i) => i - 4),
+    Array.from({ length: 55 }, (_, i) => i - 50),
   );
 
   const handleEndReached = () => {
@@ -53,7 +53,7 @@ export const InfiniteFlatList = ({
       }}
       data={indexes}
       horizontal
-      initialScrollIndex={4}
+      initialScrollIndex={50}
       style={{ flex: 1 }}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => renderItem(item)}
