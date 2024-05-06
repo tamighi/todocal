@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToOne,
 } from "typeorm";
 import type { DayEntity } from "./day.entity";
 import type { TagEntity } from "./tag.entity";
+import type { RepetitionEntity } from "./repetition.entity";
 
 @Entity("todo")
 export class TodoEntity {
@@ -32,8 +34,11 @@ export class TodoEntity {
   @Column("boolean", { default: false })
   important: boolean;
 
-  @ManyToOne("day", "todos")
+  @ManyToOne("day", "todos", { nullable: true })
   day?: DayEntity;
+
+  @OneToOne("repetition", "todo", { nullable: true })
+  repetition?: RepetitionEntity;
 
   @ManyToOne("tag", "todos", { nullable: true, onDelete: "SET NULL" })
   tag?: TagEntity | null;

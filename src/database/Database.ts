@@ -4,17 +4,26 @@ import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 import * as DocumentPicker from "expo-document-picker";
 
-import { dayRepository, tagRepository, todoRepository } from "./repositories";
-import { DayEntity, TagEntity, TodoEntity } from "./entities";
+import {
+  dayRepository,
+  repetitionRepository,
+  tagRepository,
+  todoRepository,
+} from "./repositories";
+import { DayEntity, RepetitionEntity, TagEntity, TodoEntity } from "./entities";
 
-const repositories = [dayRepository, todoRepository, tagRepository];
+const repositories = [
+  dayRepository,
+  todoRepository,
+  tagRepository,
+  repetitionRepository,
+];
 
-// TODO: DB name in env
 const source = new DataSource({
   database: "tasks.db",
   type: "expo",
   driver: require("expo-sqlite"),
-  entities: [TodoEntity, DayEntity, TagEntity],
+  entities: [TodoEntity, DayEntity, TagEntity, RepetitionEntity],
   synchronize: true,
 });
 
