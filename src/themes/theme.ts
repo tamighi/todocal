@@ -2,7 +2,7 @@ import { createTheme } from "@shopify/restyle";
 import { palette } from "./palette";
 import { layout } from "./layout";
 
-// TODO: Color for no tag in tagColorPicker & tagSelect & todoChipColorInfoBox & settingsTagList
+// TODO: Specific color for no tag in tagColorPicker & tagSelect & todoChipColorInfoBox & settingsTagList
 export const tagColorPalette = {
   yellow: palette.yellow,
   orange: palette.pastelOrange,
@@ -56,6 +56,12 @@ const theme = createTheme({
   cardVariants: {
     defaults: {
       backgroundColor: "secondaryBackground",
+    },
+    elevated: {
+      shadowColor: "black",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.3,
+      shadowRadius: 4.65,
     },
   },
   chipVariants: {
