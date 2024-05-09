@@ -10,6 +10,10 @@ class TodoRepository extends AbstractRepository<TodoEntity> {
     });
   }
 
+  public async getByDay(dayId: string) {
+    return this.getList({ where: { day: { id: dayId } } });
+  }
+
   public override async create(payload: DeepPartial<TodoEntity>) {
     const order = await this.getNextOrder();
     const payloadWithOrder = {

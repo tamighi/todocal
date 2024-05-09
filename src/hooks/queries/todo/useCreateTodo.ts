@@ -9,11 +9,10 @@ export const useCreateTodo = (options: MutateOptions = {}) => {
   const { onMutate, onSuccess, onError } = options;
 
   const queryKeyFilter = (query: Query, payload: Partial<Todo>) => {
-    const [_, __, filter] = query.queryKey;
-    if (!filter) return true;
+    const [_, __, dayId] = query.queryKey;
+    if (!dayId) return true;
 
-    //@ts-ignore ...
-    if (filter.where?.day?.id === payload.day?.id) return true;
+    if (dayId === payload.day?.id) return true;
 
     return false;
   };

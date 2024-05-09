@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Card, CardProps } from "@/atoms";
-import { useGetList } from "@/hooks";
 import { useTodoFilters } from "@/contexts";
 import { filterTodos } from "@/utils";
 import { Todo } from "@/models";
+import { useGetTodoByDay } from "@/hooks";
 
 import { DayCardHeader } from "./DayCardHeader";
 import { SimpleTodoList } from "./SimpleTodoList";
@@ -19,9 +19,7 @@ export const DayCard: React.FC<Props> = (props) => {
   const { dayId, small = false, ...rest } = props;
   const [filteredTodos, setFilteredTodos] = React.useState<Todo[]>();
 
-  const { data: todos } = useGetList("todo", {
-    where: { day: { id: dayId } },
-  });
+  const { data: todos } = useGetTodoByDay(dayId);
 
   const { filters } = useTodoFilters();
 

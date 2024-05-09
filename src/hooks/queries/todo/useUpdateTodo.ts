@@ -30,8 +30,7 @@ export const useUpdateTodo = (options: UpdateOptions = {}) => {
     newData: Partial<Todo>,
     queryKey: QueryKey,
   ) => {
-    //@ts-ignore ...
-    const currentDayId = queryKey[2]?.where?.day?.id;
+    const [_, __, currentDayId] = queryKey;
     if (!currentDayId) return oldData;
 
     const todoIndex = oldData.findIndex((todo) => todo.id === newData.id);
@@ -59,14 +58,10 @@ export const useUpdateTodo = (options: UpdateOptions = {}) => {
   };
 
   const queryKeyFilter = (query: Query, payload: Partial<Todo>) => {
-    const [_, __, filter] = query.queryKey as any;
-    if (!filter) return true;
+    const [_, __, dayId] = query.queryKey;
+    if (!dayId) return true;
 
-    if (
-      filter.where?.day?.id === payload.day?.id ||
-      filter.where?.day?.id === payload.oldDayId
-    )
-      return true;
+    if (dayId === payload.day?.id || dayId === payload.oldDayId) return true;
 
     return false;
   };

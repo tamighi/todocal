@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { TodoEntity } from "./todo.entity";
 
 @Entity("repetition")
@@ -18,9 +24,6 @@ export class RepetitionEntity {
   @Column({ nullable: true })
   startDay?: Date;
 
-  @Column({ nullable: true })
-  dayOfWeeks?: number[];
-
-  @Column({ default: [] })
+  @ManyToMany("day")
   ignoreDays: string[];
 }
