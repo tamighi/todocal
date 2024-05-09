@@ -1,6 +1,7 @@
 import React from "react";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
 import { Box, Text } from "@/atoms";
@@ -10,13 +11,14 @@ import { RootStackParamList } from "@/Navs";
 import { UndoToastProvider } from "@/providers";
 
 import { TagList } from "./TagList";
-import { SafeAreaView } from "../BaseScreen";
+import { Platform } from "react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "TagList">;
 
 export const TagListModal = ({ navigation }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [tag, setTag] = React.useState<Tag>();
+  const insets = useSafeAreaInsets();
 
   const onTagPress = (tag?: Tag) => {
     setOpen(true);
@@ -25,11 +27,14 @@ export const TagListModal = ({ navigation }: Props) => {
 
   return (
     <UndoToastProvider>
-      <SafeAreaView
-        noMarginTop
-        px="s"
-        bg="mainBackground"
-        justifyContent="space-between"
+      <Box
+        style={{
+          paddingBottom:
+            Platform.OS === "android" ? insets.bottom + 24 : insets.bottom,
+          paddingTop: Platform.OS === "android" ? insets.top : 0,
+        }}
+        flex={1}
+        backgroundColor="mainBackground"
       >
         <Box>
           <Box
@@ -60,7 +65,7 @@ export const TagListModal = ({ navigation }: Props) => {
         >
           <MutateTagForm tag={tag} onMutate={() => setOpen(false)} />
         </BottomSheet>
-      </SafeAreaView>
+      </Box>
     </UndoToastProvider>
   );
 };

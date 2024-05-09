@@ -2,11 +2,9 @@ import DayService from "./DayService";
 import TagService from "./TagService";
 import TodoService from "./TodoService";
 
-const todoService = new TodoService();
 const dayService = new DayService();
 const tagService = new TagService();
-
-todoService.initialize(dayService, tagService);
+const todoService = new TodoService(dayService);
 
 export { todoService, dayService, tagService };
 

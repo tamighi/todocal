@@ -1,22 +1,15 @@
+import { RRule } from "rrule";
+
 import { Todo } from "@/models";
 import { TodoEntity, TodoRepository, todoRepository } from "@/database";
 
 import AbstractService from "./AbstractService";
 import DayService from "./DayService";
 import TagService from "./TagService";
-import { RRule } from "rrule";
 
 class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
-  private dayService!: DayService;
-  private tagService!: TagService;
-
-  constructor() {
+  constructor(private dayService: DayService) {
     super(todoRepository);
-  }
-
-  public initialize(dayService: DayService, tagService: TagService) {
-    this.dayService = dayService;
-    this.tagService = tagService;
   }
 
   public async getByDay(dayId: string) {
@@ -47,18 +40,22 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   }
 
   public entityToType(entity: TodoEntity): Todo {
-    return {
-      ...entity,
-      rRule: entity.rRule ? RRule.fromString(entity.rRule) : undefined,
-      day: entity.day ? this.dayService.entityToType(entity.day) : undefined,
-      tag: entity.tag ? this.tagService.entityToType(entity.tag) : undefined,
-    };
+    return TodoService.entityToType(entity);
   }
 
   public typeToEntity(obj: Todo): TodoEntity {
     return {
       ...obj,
       rRule: obj.rRule ? obj.rRule.toText() : undefined,
+    };
+  }
+
+  public static entityToType(entity: TodoEntity): Todo {
+    return {
+      ...entity,
+      rRule: entity.rRule ? RRule.fromString(entity.rRule) : undefined,
+      day: entity.day ? DayService.entityToType(entity.day) : undefined,
+      tag: entity.tag ? TagService.entityToType(entity.tag) : undefined,
     };
   }
 }
