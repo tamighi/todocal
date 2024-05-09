@@ -9,7 +9,7 @@ type Props<T extends object | string> = {
   inputStyle?: TextStyle;
   containerStyle?: ViewStyle;
   values?: T[];
-  onChange?: (newValue: T | null) => void;
+  onChange?: (newValue: T[]) => void;
   placeholder?: string;
   data?: T[];
   labelKey?: PropertyKey<T>;
@@ -41,14 +41,14 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
 
     let newValues: T[];
 
-    if (valIndex) {
+    if (valIndex === -1) {
       newValues = [...currentInput, selectedVal];
     } else {
       newValues = currentInput.slice(valIndex, 1);
     }
 
     setCurrentInput(newValues);
-    onChange?.(selectedVal);
+    onChange?.(newValues);
   };
 
   const handleSelectPress = () => {

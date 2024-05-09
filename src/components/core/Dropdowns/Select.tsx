@@ -4,7 +4,7 @@ import { Box } from "@/atoms";
 import { TextStyle, ViewStyle } from "react-native";
 import { Dropdown } from "./Dropdown";
 import { Button } from "../Button";
-import { LabelKey, getLabel } from "./utils";
+import { PropertyKey, getProperty } from "./utils";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
@@ -13,7 +13,7 @@ type Props<T extends object | string> = {
   onChange?: (newValue: T | null) => void;
   placeholder?: string;
   data?: T[];
-  labelKey?: LabelKey<T>;
+  labelKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
@@ -31,12 +31,12 @@ export const Select = <T extends object | string>(props: Props<T>) => {
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
   const [currentInput, setCurrentInput] = React.useState(
-    value ? getLabel(value, labelKey) : null,
+    value ? getProperty(value, labelKey) : null,
   );
 
   const handleValuePress = (newVal: T) => {
     setSelectOpen(false);
-    setCurrentInput(getLabel(newVal, labelKey));
+    setCurrentInput(getProperty(newVal, labelKey));
     onChange?.(newVal);
   };
 
@@ -45,7 +45,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
   };
 
   React.useEffect(() => {
-    if (value) setCurrentInput(getLabel(value, labelKey));
+    if (value) setCurrentInput(getProperty(value, labelKey));
   }, [value]);
 
   return (

@@ -7,7 +7,7 @@ import { Box } from "@/atoms";
 
 import { Dropdown } from "./Dropdown";
 import { TextInput } from "../TextInput";
-import { LabelKey, getLabel } from "./utils";
+import { PropertyKey, getProperty } from "./utils";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
@@ -17,7 +17,7 @@ type Props<T extends object | string> = {
   onInputChange?: (value: string) => void;
   placeholder?: string;
   data?: T[];
-  labelKey?: LabelKey<T>;
+  labelKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
@@ -37,12 +37,12 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
   const [currentInput, setCurrentInput] = React.useState(
-    value ? getLabel(value, labelKey) : "",
+    value ? getProperty(value, labelKey) : "",
   );
 
   const handleValuePress = (newVal: T) => {
     setSelectOpen(false);
-    setCurrentInput(getLabel(newVal, labelKey));
+    setCurrentInput(getProperty(newVal, labelKey));
     onChange?.(newVal);
   };
 
@@ -52,7 +52,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   // Filter values
   React.useEffect(() => {
-    if (value) setCurrentInput(getLabel(value, labelKey));
+    if (value) setCurrentInput(getProperty(value, labelKey));
   }, [value]);
 
   const contains = (searchTerm: string, values: T[]) => {
