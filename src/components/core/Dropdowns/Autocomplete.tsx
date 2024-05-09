@@ -1,9 +1,11 @@
 import React from "react";
 
-import { Box } from "@/atoms";
 import { TextStyle, ViewStyle } from "react-native";
+import Fuse from "fuse.js";
+
+import { Box } from "@/atoms";
 import { Dropdown } from "./Dropdown";
-import { Button } from "./Button";
+import { TextInput } from "../TextInput";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -14,17 +16,20 @@ type Props<T extends object | string> = {
   containerStyle?: ViewStyle;
   value?: T;
   onChange?: (newValue: T | null) => void;
+  onInputChange?: (value: string) => void;
   placeholder?: string;
   data?: T[];
   labelKey?: T extends object ? StringKey<T> : never;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
-export const Select = <T extends object | string>(props: Props<T>) => {
+export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   const {
     value,
     onChange,
+    onInputChange,
     containerStyle,
+    inputStyle,
     placeholder,
     data = [],
     labelKey,
@@ -38,8 +43,9 @@ export const Select = <T extends object | string>(props: Props<T>) => {
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
+
   const [currentInput, setCurrentInput] = React.useState(
-    value ? getLabel(value) : null,
+    value ? getLabel(value) : "",
   );
 
   const handleValuePress = (newVal: T) => {
@@ -48,7 +54,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
     onChange?.(newVal);
   };
 
-  const handleButtonPress = () => {
+  const handleInputPress = () => {
     setSelectOpen(true);
   };
 
@@ -57,15 +63,38 @@ export const Select = <T extends object | string>(props: Props<T>) => {
     if (value) setCurrentInput(getLabel(value));
   }, [value]);
 
+  const contains = (searchTerm: string, values: T[]) => {
+    if (searchTerm === "") return values;
+
+    const keys = labelKey ? ([labelKey] as string[]) : undefined;
+    const fuse = new Fuse(values, { keys });
+    return fuse.search(searchTerm).map((i) => i.item);
+  };
+
+  const [filteredValues, setFilteredValues] = React.useState(data);
+
+  React.useEffect(() => {
+    setFilteredValues(contains(currentInput, data));
+  }, [data, currentInput]);
+
+  const handleChangeText = (value: string) => {
+    setSelectOpen(true);
+    setCurrentInput(value);
+    onInputChange?.(value);
+  };
+
   return (
     <Box style={containerStyle} zIndex={2}>
-      <Button
-        variant="outlined"
-        onPress={handleButtonPress}
-        label={currentInput ?? placeholder}
+      <TextInput
+        onPressIn={handleInputPress}
+        placeholder={placeholder}
+        onChangeText={handleChangeText}
+        value={currentInput}
+        style={inputStyle}
+        showClearButton={true}
       />
       <Dropdown
-        values={data}
+        values={filteredValues}
         renderItem={renderItem}
         labelKey={labelKey}
         open={selectOpen}

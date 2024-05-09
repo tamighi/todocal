@@ -1,5 +1,5 @@
 import { Box } from "@/atoms";
-import { Select } from "./Select";
+import { Select } from "./Dropdowns";
 
 export const RRulePicker = () => {
   return (
