@@ -20,6 +20,27 @@ class TodoRepository extends AbstractRepository<TodoEntity> {
     return super.create(payloadWithOrder);
   }
 
+  public async getTodosWithRepetitionOnDate(date: Date): Promise<TodoEntity[]> {
+    const todos = await this.repository
+      .createQueryBuilder("todo")
+      .innerJoin("todo.repetition", "repetition")
+      .where(
+        `(repetition.type = :daily 
+          AND repetition.startDay <= :date 
+          AND DATE_DIFF(:date, repetition.startDay) % repetition.interval = 0
+          ) OR (repetition.type = :weekly AND repetition.dayOfWeek = :dayOfWeek)`,
+        {
+          date: date.toISOString().split("T")[0],
+          dayOfWeek: date.getDay(),
+          daily: "daily",
+          weekly: "weekly",
+        },
+      )
+      .getMany();
+
+    return todos;
+  }
+
   public async getNextOrder() {
     try {
       const [todo] = await this.repository.find({ order: { order: "DESC" } });
