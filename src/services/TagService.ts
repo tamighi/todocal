@@ -9,11 +9,11 @@ class TagService extends AbstractService<TagEntity, Tag, TagRepository> {
   }
 
   public entityToType(entity: TagEntity): Tag {
-    return {
-      id: entity.id,
-      name: entity.name,
-      color: entity.color,
-    };
+    return entity;
+  }
+
+  public typeToEntity(obj: Tag): TagEntity {
+    return obj;
   }
 }
 

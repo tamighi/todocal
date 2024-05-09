@@ -1,5 +1,3 @@
-import { DeepPartial } from "typeorm";
-
 import { Todo } from "@/models";
 import { TodoEntity, TodoRepository, todoRepository } from "@/database";
 
@@ -26,9 +24,7 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
     return todos.map(this.entityToType);
   }
 
-  public override async create(
-    payload: DeepPartial<TodoEntity>,
-  ): Promise<Todo> {
+  public override async create(payload: Partial<Todo>): Promise<Todo> {
     if (payload.day?.id) {
       await this.dayService.getOneOrCreate(payload.day.id);
     }
@@ -36,7 +32,7 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   }
 
   public override async update(
-    payload: DeepPartial<TodoEntity> & { id: string },
+    payload: Partial<Todo> & { id: string },
   ): Promise<Todo> {
     if (payload.day?.id) {
       await this.dayService.getOneOrCreate(payload.day.id);
@@ -56,6 +52,13 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
       rRule: entity.rRule ? RRule.fromString(entity.rRule) : undefined,
       day: entity.day ? this.dayService.entityToType(entity.day) : undefined,
       tag: entity.tag ? this.tagService.entityToType(entity.tag) : undefined,
+    };
+  }
+
+  public typeToEntity(obj: Todo): TodoEntity {
+    return {
+      ...obj,
+      rRule: obj.rRule ? obj.rRule.toText() : undefined,
     };
   }
 }

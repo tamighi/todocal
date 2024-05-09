@@ -17,9 +17,11 @@ class DayService extends AbstractService<DayEntity, Day, DayRepository> {
   }
 
   public entityToType(entity: DayEntity): Day {
-    return {
-      id: entity.id,
-    };
+    return entity;
+  }
+
+  public typeToEntity(obj: Day): DayEntity {
+    return obj;
   }
 }
 

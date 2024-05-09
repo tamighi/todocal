@@ -1,5 +1,5 @@
 import { AbstractRepository } from "@/database";
-import { DeepPartial, FindManyOptions } from "typeorm";
+import { FindManyOptions } from "typeorm";
 
 export default abstract class AbstractService<
   Entity extends { id: string },
@@ -22,19 +22,23 @@ export default abstract class AbstractService<
     return this.entityToType(entity);
   }
 
-  public async update(payload: DeepPartial<Entity> & { id: string }) {
-    const entity = await this.repository.update(payload.id, payload);
+  public async update(obj: Partial<T> & { id: string }) {
+    const entity = await this.repository.update(
+      obj.id,
+      this.typeToEntity(obj as T),
+    );
     return this.entityToType(entity);
   }
 
-  public async create(payload: DeepPartial<Entity>) {
-    const entity = await this.repository.create(payload);
+  public async create(obj: Partial<T>) {
+    const entity = await this.repository.create(this.typeToEntity(obj));
     return this.entityToType(entity);
   }
 
-  public async delete(payload: DeepPartial<Entity> & { id: string }) {
+  public async delete(payload: Partial<T> & { id: string }) {
     return this.repository.deleteOne(payload.id);
   }
 
   public abstract entityToType(entity: Entity): T;
+  public abstract typeToEntity(obj: Partial<T>): Entity;
 }
