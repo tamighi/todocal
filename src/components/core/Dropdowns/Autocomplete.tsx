@@ -36,7 +36,6 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
-
   const [currentInput, setCurrentInput] = React.useState(
     value ? getLabel(value, labelKey) : "",
   );
