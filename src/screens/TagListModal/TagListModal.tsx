@@ -36,7 +36,7 @@ export const TagListModal = ({ navigation }: Props) => {
         flex={1}
         backgroundColor="mainBackground"
       >
-        <Box>
+        <Box flex={1} m="s">
           <Box
             pl="s"
             mb="s"
@@ -54,18 +54,19 @@ export const TagListModal = ({ navigation }: Props) => {
           </Box>
           <TagList onTagPress={onTagPress} />
         </Box>
+
         <Box alignItems="flex-end">
           <IconButton onPress={() => onTagPress()} name="plus" />
         </Box>
-
-        <BottomSheet
-          open={open}
-          onClose={() => setOpen(false)}
-          snapPoints={[320]}
-        >
-          <MutateTagForm tag={tag} onMutate={() => setOpen(false)} />
-        </BottomSheet>
       </Box>
+
+      <BottomSheet
+        open={open}
+        onClose={() => setOpen(false)}
+        snapPoints={[320]}
+      >
+        <MutateTagForm tag={tag} onMutate={() => setOpen(false)} />
+      </BottomSheet>
     </UndoToastProvider>
   );
 };

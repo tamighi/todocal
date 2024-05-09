@@ -4,6 +4,7 @@ import { Box, Text } from "@/atoms";
 import { Pressable, TextStyle, ViewStyle } from "react-native";
 import { Dropdown } from "./Dropdown";
 import { PropertyKey, getProperty } from "./utils";
+import { Button } from "../Button";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
@@ -61,16 +62,11 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
 
   return (
     <Box style={containerStyle} zIndex={2}>
-      <Pressable onPress={handleSelectPress}>
-        <Box>
-          {!!placeholder && currentInput.length === 0 ? (
-            <Text>{placeholder}</Text>
-          ) : null}
-          {currentInput.map((value) => {
-            return <Text>{getProperty(value, labelKey)}</Text>;
-          })}
-        </Box>
-      </Pressable>
+      <Button
+        variant="outlined"
+        label={placeholder}
+        onPress={handleSelectPress}
+      />
       <Dropdown
         values={data}
         renderItem={renderItem}

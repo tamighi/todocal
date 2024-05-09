@@ -17,7 +17,7 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
 
   public async getByDay(dayId: string) {
     const todos = await this.repository.getByDay(dayId);
-    return todos.map(this.entityToType);
+    return todos.map((todo) => this.entityToType(todo));
   }
 
   public override async create(payload: Partial<Todo>): Promise<Todo> {

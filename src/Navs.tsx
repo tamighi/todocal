@@ -53,8 +53,6 @@ const Navs = () => {
         name="TagList"
         component={TagListModal}
         options={{
-          animation: "fade_from_bottom",
-          animationTypeForReplace: "push",
           presentation: "modal",
         }}
       />

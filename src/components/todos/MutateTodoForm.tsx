@@ -101,28 +101,30 @@ export const MutateTodoForm = (props: {
         textAlignVertical="top"
         textArea
       />
-      <Box flexDirection="row" justifyContent="space-around" mb="l">
-        <Box flexDirection="column" alignItems="flex-end" gap="s">
-          <Checkbox
-            label="Urgent"
-            onPress={(value) => handleInputChange("urgent", value)}
-            checked={formValue.urgent || false}
+      <Box zIndex={2} flexDirection="row">
+        <Box flexDirection="row" alignItems="center">
+          <IconButton name="minus" onPress={handleMinusPress} />
+          <DatePicker
+            value={new Date(formValue.day?.id || dayId)}
+            onValueChange={handleDateChange}
           />
-          <Checkbox
-            label="Important"
-            onPress={(value) => handleInputChange("important", value)}
-            checked={formValue.important || false}
-          />
+          <IconButton name="plus" onPress={handlePlusPress} />
         </Box>
-        <Box zIndex={2} alignItems="center" flexDirection="row">
+        <Box flex={1} m="s">
           <RRulePicker />
-          {/* <IconButton name="minus" onPress={handleMinusPress} /> */}
-          {/* <DatePicker */}
-          {/*   value={new Date(formValue.day?.id || dayId)} */}
-          {/*   onValueChange={handleDateChange} */}
-          {/* /> */}
-          {/* <IconButton name="plus" onPress={handlePlusPress} /> */}
         </Box>
+      </Box>
+      <Box flexDirection="row" justifyContent="space-around" gap="s">
+        <Checkbox
+          label="Urgent"
+          onPress={(value) => handleInputChange("urgent", value)}
+          checked={formValue.urgent || false}
+        />
+        <Checkbox
+          label="Important"
+          onPress={(value) => handleInputChange("important", value)}
+          checked={formValue.important || false}
+        />
       </Box>
 
       <FormActionButtons
