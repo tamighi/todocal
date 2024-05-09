@@ -8,7 +8,10 @@ import DayService from "./DayService";
 import TagService from "./TagService";
 
 class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
-  constructor(private dayService: DayService) {
+  constructor(
+    private dayService: DayService,
+    private tagService: TagService,
+  ) {
     super(todoRepository);
   }
 
@@ -40,22 +43,18 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   }
 
   public entityToType(entity: TodoEntity): Todo {
-    return TodoService.entityToType(entity);
+    return {
+      ...entity,
+      rRule: entity.rRule ? RRule.fromString(entity.rRule) : undefined,
+      day: entity.day ? this.dayService.entityToType(entity.day) : undefined,
+      tag: entity.tag ? this.tagService.entityToType(entity.tag) : undefined,
+    };
   }
 
   public typeToEntity(obj: Todo): TodoEntity {
     return {
       ...obj,
       rRule: obj.rRule ? obj.rRule.toText() : undefined,
-    };
-  }
-
-  public static entityToType(entity: TodoEntity): Todo {
-    return {
-      ...entity,
-      rRule: entity.rRule ? RRule.fromString(entity.rRule) : undefined,
-      day: entity.day ? DayService.entityToType(entity.day) : undefined,
-      tag: entity.tag ? TagService.entityToType(entity.tag) : undefined,
     };
   }
 }

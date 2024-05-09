@@ -17,15 +17,11 @@ class DayService extends AbstractService<DayEntity, Day, DayRepository> {
   }
 
   public entityToType(entity: DayEntity): Day {
-    return DayService.entityToType(entity);
+    return entity;
   }
 
   public typeToEntity(obj: Day): DayEntity {
     return obj;
-  }
-
-  public static entityToType(entity: DayEntity): Day {
-    return entity;
   }
 }
 

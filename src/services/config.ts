@@ -4,7 +4,7 @@ import TodoService from "./TodoService";
 
 const dayService = new DayService();
 const tagService = new TagService();
-const todoService = new TodoService(dayService);
+const todoService = new TodoService(dayService, tagService);
 
 export { todoService, dayService, tagService };
 
