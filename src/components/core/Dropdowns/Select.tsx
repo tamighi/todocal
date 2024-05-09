@@ -4,10 +4,7 @@ import { Box } from "@/atoms";
 import { TextStyle, ViewStyle } from "react-native";
 import { Dropdown } from "./Dropdown";
 import { Button } from "../Button";
-
-type StringKey<T> = {
-  [K in keyof T]: T[K] extends string | undefined ? K : never;
-}[keyof T];
+import { LabelKey, getLabel } from "./utils";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
@@ -16,7 +13,7 @@ type Props<T extends object | string> = {
   onChange?: (newValue: T | null) => void;
   placeholder?: string;
   data?: T[];
-  labelKey?: T extends object ? StringKey<T> : never;
+  labelKey?: LabelKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
@@ -31,20 +28,15 @@ export const Select = <T extends object | string>(props: Props<T>) => {
     renderItem,
   } = props;
 
-  const getLabel = (value: T): string => {
-    if (!value || (labelKey && !value[labelKey])) return "";
-    return labelKey ? (value[labelKey] as string) : (value as string);
-  };
-
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
   const [currentInput, setCurrentInput] = React.useState(
-    value ? getLabel(value) : null,
+    value ? getLabel(value, labelKey) : null,
   );
 
   const handleValuePress = (newVal: T) => {
     setSelectOpen(false);
-    setCurrentInput(getLabel(newVal));
+    setCurrentInput(getLabel(newVal, labelKey));
     onChange?.(newVal);
   };
 
@@ -54,7 +46,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
 
   // Filter values
   React.useEffect(() => {
-    if (value) setCurrentInput(getLabel(value));
+    if (value) setCurrentInput(getLabel(value, labelKey));
   }, [value]);
 
   return (

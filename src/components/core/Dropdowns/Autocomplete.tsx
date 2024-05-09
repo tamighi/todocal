@@ -4,12 +4,10 @@ import { TextStyle, ViewStyle } from "react-native";
 import Fuse from "fuse.js";
 
 import { Box } from "@/atoms";
+
 import { Dropdown } from "./Dropdown";
 import { TextInput } from "../TextInput";
-
-type StringKey<T> = {
-  [K in keyof T]: T[K] extends string | undefined ? K : never;
-}[keyof T];
+import { LabelKey, getLabel } from "./utils";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
@@ -19,7 +17,7 @@ type Props<T extends object | string> = {
   onInputChange?: (value: string) => void;
   placeholder?: string;
   data?: T[];
-  labelKey?: T extends object ? StringKey<T> : never;
+  labelKey?: LabelKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
@@ -36,21 +34,16 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     renderItem,
   } = props;
 
-  const getLabel = (value: T): string => {
-    if (!value || (labelKey && !value[labelKey])) return "";
-    return labelKey ? (value[labelKey] as string) : (value as string);
-  };
-
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
 
   const [currentInput, setCurrentInput] = React.useState(
-    value ? getLabel(value) : "",
+    value ? getLabel(value, labelKey) : "",
   );
 
   const handleValuePress = (newVal: T) => {
     setSelectOpen(false);
-    setCurrentInput(getLabel(newVal));
+    setCurrentInput(getLabel(newVal, labelKey));
     onChange?.(newVal);
   };
 
@@ -60,7 +53,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   // Filter values
   React.useEffect(() => {
-    if (value) setCurrentInput(getLabel(value));
+    if (value) setCurrentInput(getLabel(value, labelKey));
   }, [value]);
 
   const contains = (searchTerm: string, values: T[]) => {
