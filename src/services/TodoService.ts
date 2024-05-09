@@ -6,6 +6,7 @@ import { TodoEntity, TodoRepository, todoRepository } from "@/database";
 import AbstractService from "./AbstractService";
 import DayService from "./DayService";
 import TagService from "./TagService";
+import { RRule } from "rrule";
 
 class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   private dayService!: DayService;
@@ -51,6 +52,7 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   public entityToType(entity: TodoEntity): Todo {
     return {
       ...entity,
+      rRule: entity.rRule ? RRule.fromString(entity.rRule) : undefined,
       day: entity.day ? this.dayService.entityToType(entity.day) : undefined,
       tag: entity.tag ? this.tagService.entityToType(entity.tag) : undefined,
     };

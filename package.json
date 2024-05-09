@@ -38,6 +38,7 @@
     "react-native-screens": "~3.22.0",
     "reanimated-color-picker": "^2.4.2",
     "reflect-metadata": "^0.1.13",
+    "rrule": "^2.8.1",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {

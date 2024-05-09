@@ -7,6 +7,7 @@ import {
   DatePicker,
   FormActionButtons,
   IconButton,
+  RRulePicker,
   TextInput,
 } from "@/components/core";
 import { TagSelect } from "@/components/tags";
@@ -113,13 +114,14 @@ export const MutateTodoForm = (props: {
             checked={formValue.important || false}
           />
         </Box>
-        <Box alignItems="center" flexDirection="row">
-          <IconButton name="minus" onPress={handleMinusPress} />
-          <DatePicker
-            value={new Date(formValue.day?.id || dayId)}
-            onValueChange={handleDateChange}
-          />
-          <IconButton name="plus" onPress={handlePlusPress} />
+        <Box zIndex={2} alignItems="center" flexDirection="row">
+          <RRulePicker />
+          {/* <IconButton name="minus" onPress={handleMinusPress} /> */}
+          {/* <DatePicker */}
+          {/*   value={new Date(formValue.day?.id || dayId)} */}
+          {/*   onValueChange={handleDateChange} */}
+          {/* /> */}
+          {/* <IconButton name="plus" onPress={handlePlusPress} /> */}
         </Box>
       </Box>
 
