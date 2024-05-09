@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Text } from "@/atoms";
 import { Pressable, TextStyle, ViewStyle } from "react-native";
 import { Dropdown } from "./Dropdown";
-import { LabelKey, getLabel } from "./utils";
+import { PropertyKey, getProperty } from "./utils";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
@@ -12,7 +12,8 @@ type Props<T extends object | string> = {
   onChange?: (newValue: T | null) => void;
   placeholder?: string;
   data?: T[];
-  labelKey?: LabelKey<T>;
+  labelKey?: PropertyKey<T>;
+  valueKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
 };
 
@@ -24,29 +25,38 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
     placeholder,
     data = [],
     labelKey,
+    valueKey,
     renderItem,
   } = props;
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
-  const [currentInput, setCurrentInput] = React.useState(
-    values ? values.map((value) => getLabel(value, labelKey)) : [],
-  );
+  const [currentInput, setCurrentInput] = React.useState(values ?? []);
 
-  const handleValuePress = (newVal: T) => {
-    setSelectOpen(false);
-    setCurrentInput((prev) => [...prev, getLabel(newVal, labelKey)]);
-    onChange?.(newVal);
+  const handleValuePress = (selectedVal: T) => {
+    const valIndex = currentInput.findIndex(
+      (val) =>
+        getProperty(val, valueKey) === getProperty(selectedVal, valueKey),
+    );
+
+    let newValues: T[];
+
+    if (valIndex) {
+      newValues = [...currentInput, selectedVal];
+    } else {
+      newValues = currentInput.slice(valIndex, 1);
+    }
+
+    setCurrentInput(newValues);
+    onChange?.(selectedVal);
   };
 
   const handleSelectPress = () => {
     setSelectOpen(true);
   };
 
-  // Filter values
   React.useEffect(() => {
-    if (values)
-      setCurrentInput(values.map((value) => getLabel(value, labelKey)));
+    if (values) setCurrentInput(values);
   }, [values]);
 
   return (
@@ -57,7 +67,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
             <Text>{placeholder}</Text>
           ) : null}
           {currentInput.map((value) => {
-            return <Text>{value}</Text>;
+            return <Text>{getProperty(value, labelKey)}</Text>;
           })}
         </Box>
       </Pressable>
