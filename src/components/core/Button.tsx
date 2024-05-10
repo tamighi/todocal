@@ -44,7 +44,7 @@ export const Button = (props: ButtonProps) => {
 
   const [pressed, setPressed] = React.useState(false);
 
-  const pressableProps = useRestyle(restyleFunctions, rest);
+  const boxProps = useRestyle(restyleFunctions, rest);
 
   const theme = useTheme();
   const textColor = theme.buttonVariants[rest.variant || "defaults"]
@@ -60,7 +60,7 @@ export const Button = (props: ButtonProps) => {
 
   return (
     <Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
-      <Box alignItems="center" flexDirection="row" gap="s" {...pressableProps}>
+      <Box alignItems="center" flexDirection="row" gap="s" {...boxProps}>
         {label && (
           <Text
             color={textColor}

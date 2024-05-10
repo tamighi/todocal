@@ -101,7 +101,11 @@ export const MutateTodoForm = (props: {
         textAlignVertical="top"
         textArea
       />
-      <Box zIndex={2} flexDirection="row">
+      <Box
+        flexDirection="row"
+        alignItems="flex-start"
+        justifyContent="space-between"
+      >
         <Box flexDirection="row" alignItems="center">
           <IconButton name="minus" onPress={handleMinusPress} />
           <DatePicker
@@ -110,9 +114,7 @@ export const MutateTodoForm = (props: {
           />
           <IconButton name="plus" onPress={handlePlusPress} />
         </Box>
-        <Box flex={1} m="s">
-          <RRulePicker />
-        </Box>
+        <RRulePicker mt="xs" />
       </Box>
       <Box flexDirection="row" justifyContent="space-around" gap="s">
         <Checkbox
