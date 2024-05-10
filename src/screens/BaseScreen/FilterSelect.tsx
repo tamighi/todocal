@@ -49,7 +49,7 @@ export const FilterSelect = () => {
   };
 
   return (
-    <Box position="relative" zIndex={100}>
+    <>
       <IconButton
         ref={ref}
         onPress={() => setFilterOpen(!filterOpen)}
@@ -62,6 +62,6 @@ export const FilterSelect = () => {
         onItemClick={onFilterClick}
         values={filterLabels}
       />
-    </Box>
+    </>
   );
 };

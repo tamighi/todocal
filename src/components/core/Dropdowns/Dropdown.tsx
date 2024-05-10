@@ -1,13 +1,11 @@
 import React from "react";
 
-import { ListRenderItemInfo, Pressable, View } from "react-native";
+import { ListRenderItemInfo, Pressable } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { FullWindowOverlay } from "react-native-screens";
 
-import { Text, Box } from "@/atoms";
+import { Text, Box, BoxProps } from "@/atoms";
 import { getProperty } from "./utils";
 import { useClickOutside } from "@/hooks";
-import { Portal } from "@gorhom/portal";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -20,7 +18,7 @@ type Props<T> = {
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   labelKey?: T extends object ? StringKey<T> : never;
-};
+} & BoxProps;
 
 export const Dropdown = <T extends object | string>(props: Props<T>) => {
   const {
@@ -30,6 +28,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
     onItemClick,
     labelKey,
     onClose,
+    ...rest
   } = props;
   const ref = useClickOutside(() => onClose?.());
 
@@ -61,6 +60,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
           top="100%"
           position="absolute"
           backgroundColor="secondaryBackground"
+          {...rest}
         >
           <FlatList
             keyboardShouldPersistTaps="always"

@@ -61,7 +61,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
   }, [values]);
 
   return (
-    <Box position="relative" zIndex={2}>
+    <Box position="relative" zIndex={100}>
       <Button
         variant="outlined"
         label={placeholder}

@@ -65,7 +65,6 @@ export const TextInput = (props: TextInputProps) => {
           name="x"
           position="absolute"
           right={0}
-          top={-4}
           iconSize={18}
           style={{ backgroundColor: undefined }}
         />

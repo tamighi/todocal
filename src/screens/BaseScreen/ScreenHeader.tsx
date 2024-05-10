@@ -24,7 +24,7 @@ export const ScreenHeader = () => {
       bg="mainBackground"
     >
       <IconButton name="settings" onPress={openSettings} />
-      <Box flexDirection="row">
+      <Box flexDirection="row" position="relative">
         <IconButton name="search" />
         <FilterSelect />
         <IconButton onPress={openTagList} name="tag" />

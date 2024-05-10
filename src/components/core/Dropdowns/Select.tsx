@@ -3,8 +3,9 @@ import React from "react";
 import { Dropdown } from "./Dropdown";
 import { Button } from "../Button";
 import { PropertyKey, getProperty } from "./utils";
-import { Box } from "@/atoms";
+import { Box, BoxProps } from "@/atoms";
 import { IconButton } from "../IconButton";
+import { ViewStyle } from "react-native";
 
 type Props<T extends object | string> = {
   value?: T;
@@ -13,7 +14,9 @@ type Props<T extends object | string> = {
   data?: T[];
   labelKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
-};
+  showClearButton?: boolean;
+  dropdownStyle?: ViewStyle;
+} & BoxProps;
 
 export const Select = <T extends object | string>(props: Props<T>) => {
   const {
@@ -23,6 +26,9 @@ export const Select = <T extends object | string>(props: Props<T>) => {
     data = [],
     labelKey,
     renderItem,
+    showClearButton = false,
+    dropdownStyle,
+    ...rest
   } = props;
 
   // DropDown
@@ -51,6 +57,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
       zIndex={100}
       flexDirection="row"
       alignItems="center"
+      {...rest}
     >
       <Box flexGrow={1}>
         <Button
@@ -59,11 +66,13 @@ export const Select = <T extends object | string>(props: Props<T>) => {
           label={currentInput ?? placeholder}
         />
       </Box>
-      <IconButton
-        name="x"
-        iconSize={18}
-        onPress={() => handleValuePress(null)}
-      />
+      {showClearButton && (
+        <IconButton
+          name="x"
+          iconSize={18}
+          onPress={() => handleValuePress(null)}
+        />
+      )}
       <Dropdown
         values={data}
         renderItem={renderItem}
@@ -71,6 +80,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
         open={selectOpen}
         onItemClick={handleValuePress}
         onClose={() => setSelectOpen(false)}
+        style={dropdownStyle}
       />
     </Box>
   );
