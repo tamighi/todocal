@@ -59,9 +59,12 @@ const theme = createTheme({
     },
     elevated: {
       shadowColor: "black",
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.3,
-      shadowRadius: 4.65,
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.53,
+      shadowRadius: 13.97,
     },
   },
   chipVariants: {

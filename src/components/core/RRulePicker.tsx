@@ -60,12 +60,12 @@ export const RRulePicker = (props: Props) => {
         showClearButton
         labelKey="label"
         onChange={(v) => setFreqType(v?.value)}
-        placeholder="Frequency (never)"
+        placeholder="Repeat (never)"
         zIndex={110}
       />
       {freqType === "DAILY" && (
         <Select
-          placeholder="Every (select days)"
+          placeholder="Every (select recurrence)"
           labelKey="label"
           data={dailyFreqsData}
           onChange={onDayChange}

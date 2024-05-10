@@ -3,7 +3,7 @@ import React from "react";
 import { ListRenderItemInfo, Pressable } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
-import { Text, Box, BoxProps } from "@/atoms";
+import { Text, Box, Card, CardProps } from "@/atoms";
 import { PropertyKey, getProperty } from "./utils";
 import { useClickOutside } from "@/hooks";
 
@@ -14,7 +14,7 @@ type Props<T> = {
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   labelKey?: PropertyKey<T>;
-} & BoxProps;
+} & CardProps;
 
 export const Dropdown = <T extends object | string>(props: Props<T>) => {
   const {
@@ -51,11 +51,14 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
   return (
     <>
       {open && (
-        <Box
+        <Card
           ref={ref}
-          top="100%"
+          variant="elevated"
+          borderColor="mainForeground"
+          borderWidth={1}
+          borderRadius="xs"
+          top="102%"
           position="absolute"
-          backgroundColor="secondaryBackground"
           {...rest}
         >
           <FlatList
@@ -63,7 +66,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
             renderItem={renderItem}
             data={values}
           />
-        </Box>
+        </Card>
       )}
     </>
   );
