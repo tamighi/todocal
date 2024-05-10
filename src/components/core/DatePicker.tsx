@@ -5,8 +5,9 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { Platform } from "react-native";
 
-import { Button } from "./Button";
 import { useTheme } from "@/hooks";
+
+import { Button } from "./Button";
 
 type Props = {
   value: Date;

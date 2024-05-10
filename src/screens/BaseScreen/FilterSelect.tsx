@@ -2,19 +2,17 @@ import React from "react";
 
 import { Feather } from "@expo/vector-icons";
 
-import { Dropdown } from "@/components";
+import { Dropdown, IconButton } from "@/components";
 import { TodoFilterName, useTodoFilters } from "@/contexts";
 import { Box, Text } from "@/atoms";
 import { useTheme } from "@/hooks";
+import { View } from "react-native";
 
-type FilterSelectProps = {
-  filterOpen?: boolean;
-  onClose?: () => void;
-};
-
-export const FilterSelect = (props: FilterSelectProps) => {
-  const { filterOpen, onClose } = props;
+export const FilterSelect = () => {
+  const [filterOpen, setFilterOpen] = React.useState(false);
   const { filters, setFilter } = useTodoFilters();
+  const ref = React.useRef<View>(null);
+
   const theme = useTheme();
 
   const filterLabels = React.useMemo<TodoFilterName[]>(
@@ -51,13 +49,20 @@ export const FilterSelect = (props: FilterSelectProps) => {
   };
 
   return (
-    <Dropdown
-      open={filterOpen}
-      renderItem={renderItem}
-      onClose={onClose}
-      onItemClick={onFilterClick}
-      values={filterLabels}
-      containerStyle={{ left: 12 }}
-    />
+    <>
+      <IconButton
+        ref={ref}
+        onPress={() => setFilterOpen(!filterOpen)}
+        name="filter"
+      />
+      <Dropdown
+        parentRef={ref}
+        open={filterOpen}
+        renderItem={renderItem}
+        onClose={() => setFilterOpen(false)}
+        onItemClick={onFilterClick}
+        values={filterLabels}
+      />
+    </>
   );
 };

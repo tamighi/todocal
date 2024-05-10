@@ -6,7 +6,6 @@ import { IconButton } from "@/components";
 import { FilterSelect } from "./FilterSelect";
 
 export const ScreenHeader = () => {
-  const [filterOpen, setFilterOpen] = React.useState(false);
   const navigation = useNavigation();
 
   const openSettings = () => {
@@ -25,13 +24,9 @@ export const ScreenHeader = () => {
       bg="mainBackground"
     >
       <IconButton name="settings" onPress={openSettings} />
-      <Box position="relative" flexDirection="row">
+      <Box flexDirection="row">
         <IconButton name="search" />
-        <IconButton onPress={() => setFilterOpen(!filterOpen)} name="filter" />
-        <FilterSelect
-          filterOpen={filterOpen}
-          onClose={() => setFilterOpen(false)}
-        />
+        <FilterSelect />
         <IconButton onPress={openTagList} name="tag" />
       </Box>
     </Box>

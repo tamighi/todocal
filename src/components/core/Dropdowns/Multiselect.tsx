@@ -1,7 +1,9 @@
 import React from "react";
 
-import { Box, Text } from "@/atoms";
-import { Pressable, TextStyle, ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
+
+import { Box } from "@/atoms";
+
 import { Dropdown } from "./Dropdown";
 import { PropertyKey, getProperty } from "./utils";
 import { Button } from "../Button";

@@ -10,11 +10,12 @@ type Props = {
   color?: string;
 } & Omit<ButtonProps, "iconName" | "iconColor" | "color">;
 
-export const IconButton = (props: Props) => {
+export const IconButton = React.forwardRef((props: Props, ref) => {
   const { name, onPress, color, iconSize = 24, ...rest } = props;
 
   return (
     <Button
+      ref={ref}
       onPress={onPress}
       alignItems="center"
       justifyContent="center"
@@ -25,4 +26,4 @@ export const IconButton = (props: Props) => {
       {...rest}
     />
   );
-};
+});

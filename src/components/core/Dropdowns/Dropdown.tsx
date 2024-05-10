@@ -1,7 +1,10 @@
-import { ListRenderItemInfo, Pressable, ViewStyle } from "react-native";
+import React from "react";
+
+import { ListRenderItemInfo, Pressable, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
-import { Card, Text, Box } from "@/atoms";
+import { Text, Box } from "@/atoms";
+import { getProperty } from "./utils";
 import { useClickOutside } from "@/hooks";
 
 type StringKey<T> = {
@@ -15,7 +18,7 @@ type Props<T> = {
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   labelKey?: T extends object ? StringKey<T> : never;
-  containerStyle?: ViewStyle;
+  parentRef?: React.MutableRefObject<View | null>;
 };
 
 export const Dropdown = <T extends object | string>(props: Props<T>) => {
@@ -26,19 +29,15 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
     onItemClick,
     labelKey,
     onClose,
-    containerStyle,
+    parentRef,
   } = props;
+  const [dropdownTop, setDropdownTop] = React.useState(0);
 
-  const getLabel = (value: T): string => {
-    if (!value || (labelKey && !value[labelKey])) return "";
-    return labelKey ? (value[labelKey] as string) : (value as string);
-  };
+  const ref = useClickOutside(() => onClose?.());
 
-  const handleClickOutside = () => {
-    onClose?.();
-  };
-
-  const ref = useClickOutside(handleClickOutside);
+  parentRef?.current?.measure((_fx, _fy, _w, h, _px, py) => {
+    setDropdownTop(py + h);
+  });
 
   const renderItem = ({ index, item }: ListRenderItemInfo<T>) => {
     {
@@ -52,7 +51,7 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
               borderBottomWidth={values.length === index + 1 ? 0 : 1}
               p="s"
             >
-              <Text>{getLabel(item)}</Text>
+              <Text>{getProperty(item, labelKey)}</Text>
             </Box>
           )}
         </Pressable>
@@ -63,23 +62,18 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
   return (
     <>
       {open && (
-        <Card
+        <Box
+          ref={ref}
           position="absolute"
           top="100%"
-          variant="elevated"
-          left={0}
-          maxHeight={200}
-          ref={ref}
-          borderWidth={1}
-          borderColor="mainForeground"
-          style={containerStyle}
+          backgroundColor="secondaryBackground"
         >
           <FlatList
             keyboardShouldPersistTaps="always"
             renderItem={renderItem}
             data={values}
           />
-        </Card>
+        </Box>
       )}
     </>
   );

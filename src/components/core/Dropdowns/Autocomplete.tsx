@@ -36,6 +36,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
+  const ref = React.useRef(null);
   const [currentInput, setCurrentInput] = React.useState(
     value ? getProperty(value, labelKey) : "",
   );
@@ -76,7 +77,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   return (
-    <Box style={containerStyle} zIndex={2}>
+    <Box ref={ref} style={containerStyle} zIndex={2}>
       <TextInput
         onPressIn={handleInputPress}
         placeholder={placeholder}
@@ -86,6 +87,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         showClearButton={true}
       />
       <Dropdown
+        parentRef={ref}
         values={filteredValues}
         renderItem={renderItem}
         labelKey={labelKey}

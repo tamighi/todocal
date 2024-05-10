@@ -30,7 +30,7 @@ export interface ButtonProps extends RestyleProps {
   onPress?: () => void;
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button = React.forwardRef((props: ButtonProps, ref) => {
   const {
     onPress,
     label,
@@ -59,7 +59,12 @@ export const Button = (props: ButtonProps) => {
   };
 
   return (
-    <Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
+    <Pressable
+      ref={ref}
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+    >
       <Box alignItems="center" flexDirection="row" gap="s" {...boxProps}>
         {label && (
           <Text
@@ -82,4 +87,4 @@ export const Button = (props: ButtonProps) => {
       </Box>
     </Pressable>
   );
-};
+});

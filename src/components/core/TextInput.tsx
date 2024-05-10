@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Platform } from "react-native";
 
 import {
@@ -6,7 +8,7 @@ import {
   Box,
   InputHandle,
 } from "@/atoms";
-import React from "react";
+
 import { IconButton } from "./IconButton";
 
 export type TextInputProps = AtomTextInputProps & {
