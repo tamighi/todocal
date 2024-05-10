@@ -11,7 +11,7 @@ type Props = ContainerProps;
 
 export const BaseScreen: React.FC<Props> = ({ children, ...rest }) => {
   return (
-    <SafeAreaView {...rest}>
+    <SafeAreaView {...rest} position="relative">
       <UndoToastProvider>
         <TodoModalProvider>
           <ScreenHeader />

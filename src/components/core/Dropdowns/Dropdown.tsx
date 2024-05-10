@@ -2,10 +2,12 @@ import React from "react";
 
 import { ListRenderItemInfo, Pressable, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import { FullWindowOverlay } from "react-native-screens";
 
 import { Text, Box } from "@/atoms";
 import { getProperty } from "./utils";
 import { useClickOutside } from "@/hooks";
+import { Portal } from "@gorhom/portal";
 
 type StringKey<T> = {
   [K in keyof T]: T[K] extends string | undefined ? K : never;
@@ -18,7 +20,6 @@ type Props<T> = {
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   labelKey?: T extends object ? StringKey<T> : never;
-  parentRef?: React.MutableRefObject<View | null>;
 };
 
 export const Dropdown = <T extends object | string>(props: Props<T>) => {
@@ -29,15 +30,8 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
     onItemClick,
     labelKey,
     onClose,
-    parentRef,
   } = props;
-  const [dropdownTop, setDropdownTop] = React.useState(0);
-
   const ref = useClickOutside(() => onClose?.());
-
-  parentRef?.current?.measure((_fx, _fy, _w, h, _px, py) => {
-    setDropdownTop(py + h);
-  });
 
   const renderItem = ({ index, item }: ListRenderItemInfo<T>) => {
     {
@@ -64,8 +58,8 @@ export const Dropdown = <T extends object | string>(props: Props<T>) => {
       {open && (
         <Box
           ref={ref}
-          position="absolute"
           top="100%"
+          position="absolute"
           backgroundColor="secondaryBackground"
         >
           <FlatList

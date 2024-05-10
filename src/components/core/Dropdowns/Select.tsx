@@ -3,6 +3,7 @@ import React from "react";
 import { Dropdown } from "./Dropdown";
 import { Button } from "../Button";
 import { PropertyKey, getProperty } from "./utils";
+import { Box } from "@/atoms";
 
 type Props<T extends object | string> = {
   value?: T;
@@ -45,7 +46,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
   }, [value]);
 
   return (
-    <>
+    <Box position="relative" zIndex={100}>
       <Button
         ref={ref}
         variant="outlined"
@@ -53,7 +54,6 @@ export const Select = <T extends object | string>(props: Props<T>) => {
         label={currentInput ?? placeholder}
       />
       <Dropdown
-        parentRef={ref}
         values={data}
         renderItem={renderItem}
         labelKey={labelKey}
@@ -61,6 +61,6 @@ export const Select = <T extends object | string>(props: Props<T>) => {
         onItemClick={handleValuePress}
         onClose={() => setSelectOpen(false)}
       />
-    </>
+    </Box>
   );
 };

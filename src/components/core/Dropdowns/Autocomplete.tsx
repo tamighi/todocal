@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TextStyle, ViewStyle } from "react-native";
+import { TextStyle } from "react-native";
 import Fuse from "fuse.js";
 
 import { Box } from "@/atoms";
@@ -11,7 +11,6 @@ import { PropertyKey, getProperty } from "./utils";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
-  containerStyle?: ViewStyle;
   value?: T;
   onChange?: (newValue: T | null) => void;
   onInputChange?: (value: string) => void;
@@ -26,7 +25,6 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
     value,
     onChange,
     onInputChange,
-    containerStyle,
     inputStyle,
     placeholder,
     data = [],
@@ -36,7 +34,6 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
-  const ref = React.useRef(null);
   const [currentInput, setCurrentInput] = React.useState(
     value ? getProperty(value, labelKey) : "",
   );
@@ -77,7 +74,7 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
   };
 
   return (
-    <Box ref={ref} style={containerStyle} zIndex={2}>
+    <Box position="relative" zIndex={100}>
       <TextInput
         onPressIn={handleInputPress}
         placeholder={placeholder}
@@ -87,7 +84,6 @@ export const Autocomplete = <T extends object | string>(props: Props<T>) => {
         showClearButton={true}
       />
       <Dropdown
-        parentRef={ref}
         values={filteredValues}
         renderItem={renderItem}
         labelKey={labelKey}

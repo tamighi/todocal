@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TextStyle, ViewStyle } from "react-native";
+import { TextStyle } from "react-native";
 
 import { Box } from "@/atoms";
 
@@ -10,7 +10,6 @@ import { Button } from "../Button";
 
 type Props<T extends object | string> = {
   inputStyle?: TextStyle;
-  containerStyle?: ViewStyle;
   values?: T[];
   onChange?: (newValue: T[]) => void;
   placeholder?: string;
@@ -24,7 +23,6 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
   const {
     values,
     onChange,
-    containerStyle,
     placeholder,
     data = [],
     labelKey,
@@ -63,7 +61,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
   }, [values]);
 
   return (
-    <Box style={containerStyle} zIndex={2}>
+    <Box position="relative" zIndex={2}>
       <Button
         variant="outlined"
         label={placeholder}

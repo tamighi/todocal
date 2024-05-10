@@ -49,20 +49,19 @@ export const FilterSelect = () => {
   };
 
   return (
-    <>
+    <Box position="relative" zIndex={100}>
       <IconButton
         ref={ref}
         onPress={() => setFilterOpen(!filterOpen)}
         name="filter"
       />
       <Dropdown
-        parentRef={ref}
         open={filterOpen}
         renderItem={renderItem}
         onClose={() => setFilterOpen(false)}
         onItemClick={onFilterClick}
         values={filterLabels}
       />
-    </>
+    </Box>
   );
 };

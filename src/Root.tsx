@@ -12,6 +12,7 @@ import {
 } from "./providers";
 
 import Navs from "./Navs";
+import { PortalProvider } from "@gorhom/portal";
 
 const Root = () => {
   StatusBar.setBarStyle("light-content");
@@ -21,13 +22,15 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <NavigationContainer>
           <GestureHandlerRootView style={{ flex: 1 }}>
-            <QueryClientProvider>
-              <DatabaseProvider>
-                <TodoFilterProvider>
-                  <Navs />
-                </TodoFilterProvider>
-              </DatabaseProvider>
-            </QueryClientProvider>
+            <PortalProvider>
+              <QueryClientProvider>
+                <DatabaseProvider>
+                  <TodoFilterProvider>
+                    <Navs />
+                  </TodoFilterProvider>
+                </DatabaseProvider>
+              </QueryClientProvider>
+            </PortalProvider>
           </GestureHandlerRootView>
         </NavigationContainer>
       </ThemeProvider>

@@ -8,6 +8,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import { useBottomSheetBackHandler, useTheme } from "@/hooks";
 import { Keyboard, Platform } from "react-native";
+import { PortalHost } from "@gorhom/portal";
 
 type BottomSheetProps = {
   open: boolean;
@@ -60,6 +61,7 @@ export const BottomSheet = (props: BottomSheetProps) => {
         handleIndicatorStyle={{ backgroundColor: colors.mainForeground }}
       >
         {children}
+        <PortalHost name="dropdown" />
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );
