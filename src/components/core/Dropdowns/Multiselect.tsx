@@ -1,8 +1,10 @@
 import React from "react";
 
-import { TextStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
-import { Box } from "@/atoms";
+import { Box, Text } from "@/atoms";
+import { useTheme } from "@/hooks";
 
 import { Dropdown } from "./Dropdown";
 import { PropertyKey, getProperty } from "./utils";
@@ -17,6 +19,7 @@ type Props<T extends object | string> = {
   labelKey?: PropertyKey<T>;
   valueKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
+  dropdownStyle?: ViewStyle;
 };
 
 export const Multiselect = <T extends object | string>(props: Props<T>) => {
@@ -27,28 +30,31 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
     data = [],
     labelKey,
     valueKey,
-    renderItem,
+    renderItem: renderItemProp,
+    dropdownStyle,
   } = props;
+
+  const theme = useTheme();
 
   // DropDown
   const [selectOpen, setSelectOpen] = React.useState(false);
-  const [currentInput, setCurrentInput] = React.useState(values ?? []);
+  const [currentValues, setCurrentValues] = React.useState(values ?? []);
 
   const handleValuePress = (selectedVal: T) => {
-    const valIndex = currentInput.findIndex(
+    const valIndex = currentValues.findIndex(
       (val) =>
         getProperty(val, valueKey) === getProperty(selectedVal, valueKey),
     );
 
-    let newValues: T[];
+    let newValues: T[] = currentValues;
 
     if (valIndex === -1) {
-      newValues = [...currentInput, selectedVal];
+      newValues = [...currentValues, selectedVal];
     } else {
-      newValues = currentInput.slice(valIndex, 1);
+      newValues = newValues.filter((_, i) => i !== valIndex);
     }
 
-    setCurrentInput(newValues);
+    setCurrentValues(newValues);
     onChange?.(newValues);
   };
 
@@ -57,8 +63,28 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
   };
 
   React.useEffect(() => {
-    if (values) setCurrentInput(values);
+    if (values) setCurrentValues(values);
   }, [values]);
+
+  const renderItem = (item: T, index: number, data: T[]) => {
+    return (
+      <Box
+        borderColor="mainForeground"
+        borderBottomWidth={data.length === index + 1 ? 0 : 1}
+        flexDirection="row"
+        alignItems="center"
+        p="s"
+        g="s"
+      >
+        <Text>{getProperty(item, labelKey)}</Text>
+        <Box alignItems="center" justifyContent="center" height={22} width={18}>
+          {currentValues.find(
+            (v) => getProperty(v, valueKey) === getProperty(item, valueKey),
+          ) && <Feather color={theme.colors.mainForeground} name="check" />}
+        </Box>
+      </Box>
+    );
+  };
 
   return (
     <Box position="relative" zIndex={100}>
@@ -69,11 +95,12 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
       />
       <Dropdown
         values={data}
-        renderItem={renderItem}
+        renderItem={renderItemProp ?? renderItem}
         labelKey={labelKey}
         open={selectOpen}
         onItemClick={handleValuePress}
         onClose={() => setSelectOpen(false)}
+        style={dropdownStyle}
       />
     </Box>
   );

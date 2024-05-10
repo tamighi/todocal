@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Feather } from "@expo/vector-icons";
+import { View } from "react-native";
 
 import { Dropdown, IconButton } from "@/components";
 import { TodoFilterName, useTodoFilters } from "@/contexts";
 import { Box, Text } from "@/atoms";
 import { useTheme } from "@/hooks";
-import { View } from "react-native";
 
 export const FilterSelect = () => {
   const [filterOpen, setFilterOpen] = React.useState(false);
