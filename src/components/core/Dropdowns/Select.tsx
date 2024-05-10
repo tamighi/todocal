@@ -4,6 +4,7 @@ import { Dropdown } from "./Dropdown";
 import { Button } from "../Button";
 import { PropertyKey, getProperty } from "./utils";
 import { Box } from "@/atoms";
+import { IconButton } from "../IconButton";
 
 type Props<T extends object | string> = {
   value?: T;
@@ -29,11 +30,10 @@ export const Select = <T extends object | string>(props: Props<T>) => {
   const [currentInput, setCurrentInput] = React.useState(
     value ? getProperty(value, labelKey) : null,
   );
-  const ref = React.useRef(null);
 
-  const handleValuePress = (newVal: T) => {
+  const handleValuePress = (newVal: T | null) => {
     setSelectOpen(false);
-    setCurrentInput(getProperty(newVal, labelKey));
+    setCurrentInput(newVal ? getProperty(newVal, labelKey) : null);
     onChange?.(newVal);
   };
 
@@ -46,12 +46,23 @@ export const Select = <T extends object | string>(props: Props<T>) => {
   }, [value]);
 
   return (
-    <Box position="relative" zIndex={100}>
-      <Button
-        ref={ref}
-        variant="outlined"
-        onPress={handleButtonPress}
-        label={currentInput ?? placeholder}
+    <Box
+      position="relative"
+      zIndex={100}
+      flexDirection="row"
+      alignItems="center"
+    >
+      <Box flexGrow={1}>
+        <Button
+          variant="outlined"
+          onPress={handleButtonPress}
+          label={currentInput ?? placeholder}
+        />
+      </Box>
+      <IconButton
+        name="x"
+        iconSize={18}
+        onPress={() => handleValuePress(null)}
       />
       <Dropdown
         values={data}
