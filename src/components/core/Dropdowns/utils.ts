@@ -1,5 +1,5 @@
 type StringKey<T> = {
-  [K in keyof T]: T[K] extends string | undefined ? K : never;
+  [K in keyof T]: T[K] extends string | number | undefined ? K : never;
 }[keyof T];
 
 export type PropertyKey<T> = T extends object ? StringKey<T> : never;

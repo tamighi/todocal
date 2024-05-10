@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleProp, TextStyle } from "react-native";
+import { TextStyle } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import type { Icon } from "@expo/vector-icons/build/createIconSet";
 
@@ -25,9 +25,10 @@ export interface ButtonProps extends RestyleProps {
   iconName?: typeof Feather extends Icon<infer U, any> ? U : never;
   iconColor?: string;
   iconSize?: number;
-  iconStyle?: StyleProp<TextStyle>;
+  iconStyle?: TextStyle;
   textVariant?: TextProps["variant"];
   onPress?: () => void;
+  textStyle?: TextStyle;
 }
 
 export const Button = React.forwardRef((props: ButtonProps, ref) => {
@@ -39,6 +40,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref) => {
     iconSize,
     iconStyle = {},
     textVariant,
+    textStyle,
     ...rest
   } = props;
 
@@ -71,6 +73,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref) => {
             color={textColor}
             opacity={pressed ? 0.5 : 1}
             variant={textVariant}
+            style={textStyle}
           >
             {label}
           </Text>

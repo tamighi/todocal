@@ -25,6 +25,16 @@ const dailyFreqsData = [
   })),
 ];
 
+const weeklyFreqsData = [
+  { value: 1, label: "Monday", inputLabel: "Mon" },
+  { value: 2, label: "Tuesday", inputLabel: "Tue" },
+  { value: 3, label: "Wednesday", inputLabel: "Wed" },
+  { value: 4, label: "Thursday", inputLabel: "Thu" },
+  { value: 5, label: "Friday", inputLabel: "Fri" },
+  { value: 6, label: "Saturday", inputLabel: "Sat" },
+  { value: 7, label: "Sunday", inputLabel: "Sun" },
+];
+
 type Props = BoxProps;
 
 export const RRulePicker = (props: Props) => {
@@ -63,7 +73,14 @@ export const RRulePicker = (props: Props) => {
         />
       )}
       {freqType === "WEEKLY" && (
-        <Multiselect placeholder="Every (select days)" data={["1", "2", "3"]} />
+        <Multiselect
+          placeholder="Every (select days)"
+          labelKey="label"
+          inputLabelKey="inputLabel"
+          valueKey="value"
+          data={weeklyFreqsData}
+          dropdownStyle={{ maxHeight: 180, width: 120 }}
+        />
       )}
     </Box>
   );

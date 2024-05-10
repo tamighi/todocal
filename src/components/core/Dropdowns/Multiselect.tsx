@@ -17,6 +17,7 @@ type Props<T extends object | string> = {
   placeholder?: string;
   data?: T[];
   labelKey?: PropertyKey<T>;
+  inputLabelKey?: PropertyKey<T>;
   valueKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   dropdownStyle?: ViewStyle;
@@ -29,6 +30,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
     placeholder,
     data = [],
     labelKey,
+    inputLabelKey = labelKey,
     valueKey,
     renderItem: renderItemProp,
     dropdownStyle,
@@ -73,6 +75,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
         borderBottomWidth={data.length === index + 1 ? 0 : 1}
         flexDirection="row"
         alignItems="center"
+        justifyContent="space-between"
         p="s"
         g="s"
       >
@@ -90,8 +93,13 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
     <Box position="relative" zIndex={100}>
       <Button
         variant="outlined"
-        label={placeholder}
+        label={
+          currentValues.length === 0
+            ? placeholder
+            : currentValues.map((v) => getProperty(v, inputLabelKey)).join(", ")
+        }
         onPress={handleSelectPress}
+        textStyle={{ flex: 1, flexWrap: "wrap" }}
       />
       <Dropdown
         values={data}

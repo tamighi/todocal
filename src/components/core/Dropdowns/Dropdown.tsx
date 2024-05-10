@@ -4,12 +4,8 @@ import { ListRenderItemInfo, Pressable } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 import { Text, Box, BoxProps } from "@/atoms";
-import { getProperty } from "./utils";
+import { PropertyKey, getProperty } from "./utils";
 import { useClickOutside } from "@/hooks";
-
-type StringKey<T> = {
-  [K in keyof T]: T[K] extends string | undefined ? K : never;
-}[keyof T];
 
 type Props<T> = {
   values?: T[];
@@ -17,7 +13,7 @@ type Props<T> = {
   open?: boolean;
   onClose?: () => void;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
-  labelKey?: T extends object ? StringKey<T> : never;
+  labelKey?: PropertyKey<T>;
 } & BoxProps;
 
 export const Dropdown = <T extends object | string>(props: Props<T>) => {
