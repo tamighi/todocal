@@ -27,10 +27,7 @@ export const ScreenHeader = () => {
       <IconButton name="settings" onPress={openSettings} />
       <Box position="relative" flexDirection="row">
         <IconButton name="search" />
-        <IconButton
-          onPressIn={() => setFilterOpen(!filterOpen)}
-          name="filter"
-        />
+        <IconButton onPress={() => setFilterOpen(!filterOpen)} name="filter" />
         <FilterSelect
           filterOpen={filterOpen}
           onClose={() => setFilterOpen(false)}
