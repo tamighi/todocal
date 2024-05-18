@@ -12,7 +12,7 @@ const repositories = [dayRepository, todoRepository, tagRepository];
 const source = new DataSource({
   database: "tasks.db",
   type: "expo",
-  driver: require("expo-sqlite"),
+  driver: require("expo-sqlite/legacy"),
   entities: [TodoEntity, DayEntity, TagEntity],
   synchronize: true,
 });
