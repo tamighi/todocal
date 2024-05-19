@@ -125,9 +125,9 @@ export const MutateTodoForm = (props: {
           mt="xs"
           value={formValue.rRule}
           onValueChange={onRruleChange}
-          disabled={!!formValue.day?.id}
+          disabled={!!formValue.id}
           startDate={
-            formValue.day?.id ? new Date(formValue.day?.id) : undefined
+            formValue.day?.id ? new Date(formValue.day?.id) : new Date(dayId)
           }
         />
       </Box>
