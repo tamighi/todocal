@@ -120,16 +120,16 @@ export const MutateTodoForm = (props: {
           />
           <IconButton name="plus" onPress={handlePlusPress} />
         </Box>
-        {
-          <RRulePicker
-            mt="xs"
-            value={formValue.rRule}
-            onValueChange={onRruleChange}
-            startDate={
-              formValue.day?.id ? new Date(formValue.day?.id) : undefined
-            }
-          />
-        }
+
+        <RRulePicker
+          mt="xs"
+          value={formValue.rRule}
+          onValueChange={onRruleChange}
+          disabled={!!formValue.day?.id}
+          startDate={
+            formValue.day?.id ? new Date(formValue.day?.id) : undefined
+          }
+        />
       </Box>
       <Box flexDirection="row" justifyContent="space-around" gap="s">
         <Checkbox

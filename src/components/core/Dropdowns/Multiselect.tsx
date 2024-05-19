@@ -21,6 +21,7 @@ type Props<T extends object | string> = {
   valueKey?: PropertyKey<T>;
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   dropdownStyle?: ViewStyle;
+  disabled?: boolean;
 };
 
 export const Multiselect = <T extends object | string>(props: Props<T>) => {
@@ -34,6 +35,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
     valueKey,
     renderItem: renderItemProp,
     dropdownStyle,
+    disabled = false,
   } = props;
 
   const theme = useTheme();
@@ -98,6 +100,7 @@ export const Multiselect = <T extends object | string>(props: Props<T>) => {
             ? placeholder
             : currentValues.map((v) => getProperty(v, inputLabelKey)).join(", ")
         }
+        disabled={disabled}
         onPress={handleSelectPress}
         textStyle={{ flex: 1, flexWrap: "wrap" }}
       />

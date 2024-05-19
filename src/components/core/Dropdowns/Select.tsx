@@ -16,6 +16,7 @@ type Props<T extends object | string> = {
   renderItem?: (value: T, index: number, data: T[]) => React.ReactNode;
   showClearButton?: boolean;
   dropdownStyle?: ViewStyle;
+  disabled?: boolean;
 } & BoxProps;
 
 export const Select = <T extends object | string>(props: Props<T>) => {
@@ -28,6 +29,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
     renderItem,
     showClearButton = false,
     dropdownStyle,
+    disabled = false,
     ...rest
   } = props;
 
@@ -62,6 +64,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
       <Box flexGrow={1}>
         <Button
           variant="outlined"
+          disabled={disabled}
           onPress={handleButtonPress}
           label={currentInput ?? placeholder}
         />
@@ -70,6 +73,7 @@ export const Select = <T extends object | string>(props: Props<T>) => {
         <IconButton
           name="x"
           iconSize={18}
+          disabled={disabled}
           onPress={() => handleValuePress(null)}
         />
       )}

@@ -29,6 +29,7 @@ export interface ButtonProps extends RestyleProps {
   textVariant?: TextProps["variant"];
   onPress?: () => void;
   textStyle?: TextStyle;
+  disabled?: boolean;
 }
 
 export const Button = React.forwardRef((props: ButtonProps, ref) => {
@@ -41,6 +42,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref) => {
     iconStyle = {},
     textVariant,
     textStyle,
+    disabled = false,
     ...rest
   } = props;
 
@@ -63,7 +65,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref) => {
   return (
     <Pressable
       ref={ref}
-      onPress={onPress}
+      onPress={!disabled ? onPress : null}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
     >
@@ -71,7 +73,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref) => {
         {label && (
           <Text
             color={textColor}
-            opacity={pressed ? 0.5 : 1}
+            opacity={pressed || disabled ? 0.5 : 1}
             variant={textVariant}
             style={textStyle}
           >
@@ -80,7 +82,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref) => {
         )}
         {iconName && (
           <Feather
-            opacity={pressed ? 0.5 : 1}
+            opacity={pressed || disabled ? 0.5 : 1}
             style={iconStyle}
             color={iconColor || theme.colors.mainForeground}
             name={iconName}

@@ -45,10 +45,11 @@ type Props = {
   onValueChange?: (value: RRule | null) => void;
   value?: RRule;
   startDate?: Date;
+  disabled?: boolean;
 } & BoxProps;
 
 export const RRulePicker = (props: Props) => {
-  const { onValueChange, value, startDate, ...rest } = props;
+  const { onValueChange, value, startDate, disabled, ...rest } = props;
 
   const [_, setCurrentValue] = React.useState<RRule | null>(null);
 
@@ -113,6 +114,7 @@ export const RRulePicker = (props: Props) => {
         data={freqsData}
         onChange={onTypeChange}
         labelKey="label"
+        disabled={disabled}
         value={freqType}
         showClearButton
         placeholder="Repeat (never)"
@@ -124,6 +126,7 @@ export const RRulePicker = (props: Props) => {
           labelKey="label"
           data={dailyFreqsData}
           onChange={onDayChange}
+          disabled={disabled}
           value={dayFreq}
           dropdownStyle={{ maxHeight: 180, width: 120 }}
         />
@@ -136,6 +139,7 @@ export const RRulePicker = (props: Props) => {
           valueKey="value"
           data={weeklyFreqsData}
           onChange={onWeekChange}
+          disabled={disabled}
           values={weekFreq}
           dropdownStyle={{ maxHeight: 180, width: 120 }}
         />
