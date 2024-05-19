@@ -63,6 +63,11 @@ export const useUpdateTodo = (options: UpdateOptions = {}) => {
 
     if (dayId === payload.day?.id || dayId === payload.oldDayId) return true;
 
+    if (payload.rRule) {
+      const date = new Date(dayId as string);
+      return payload.rRule.between(date, date, true).length > 0;
+    }
+
     return false;
   };
 

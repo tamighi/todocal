@@ -62,7 +62,7 @@ export const RRulePicker = (props: Props) => {
 
     setFreqType(freqsData.find((d) => d.value === value?.options.freq) ?? null);
     setWeekFreq(
-      value?.options.byweekday.map(
+      value?.options.byweekday?.map(
         (v) => weeklyFreqsData.find((d) => d.value === v) as Freq,
       ) ?? [],
     );
@@ -83,8 +83,8 @@ export const RRulePicker = (props: Props) => {
   const onDayChange = (day: Freq | null) => {
     setDayFreq(day);
     const rrule = new RRule({
-      freq: Frequency.DAILY,
       dtstart: startDate,
+      freq: Frequency.DAILY,
       interval: day?.value,
     });
 
@@ -98,8 +98,8 @@ export const RRulePicker = (props: Props) => {
     const rrule =
       weeks.length > 0
         ? new RRule({
-            freq: Frequency.WEEKLY,
             dtstart: startDate,
+            freq: Frequency.WEEKLY,
             byweekday: weeks.map((w) => w.value),
           })
         : null;

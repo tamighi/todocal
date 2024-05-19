@@ -13,6 +13,10 @@ export const useCreateTodo = (options: MutateOptions = {}) => {
     if (!dayId) return true;
 
     if (dayId === payload.day?.id) return true;
+    if (payload.rRule) {
+      const date = new Date(dayId as string);
+      return payload.rRule.between(date, date, true).length > 0;
+    }
 
     return false;
   };
