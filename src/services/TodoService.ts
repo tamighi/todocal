@@ -54,7 +54,7 @@ class TodoService extends AbstractService<TodoEntity, Todo, TodoRepository> {
   public typeToEntity(obj: Todo): TodoEntity {
     return {
       ...obj,
-      rRule: obj.rRule ? obj.rRule.toText() : undefined,
+      rRule: obj.rRule ? obj.rRule.toString() : undefined,
     };
   }
 }

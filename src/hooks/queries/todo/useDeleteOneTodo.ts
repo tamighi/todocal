@@ -7,9 +7,7 @@ export const useDeleteOneTodo = (options: DeleteOptions = {}) => {
     const [_, __, filter] = query.queryKey;
     if (!filter) return true;
 
-    //@ts-ignore ...
-    if (filter.where?.day?.id === payload.day?.id) return true;
-
+    if (filter === payload.day?.id) return true;
     return false;
   };
 

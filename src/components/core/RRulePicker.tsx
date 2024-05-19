@@ -72,9 +72,11 @@ export const RRulePicker = (props: Props) => {
 
   const onTypeChange = (type: Freq | null) => {
     setFreqType(type);
+
     setDayFreq(null);
     setWeekFreq([]);
     setCurrentValue(null);
+    onValueChange?.(null);
   };
 
   const onDayChange = (day: Freq | null) => {
@@ -110,6 +112,7 @@ export const RRulePicker = (props: Props) => {
       <Select
         data={freqsData}
         onChange={onTypeChange}
+        labelKey="label"
         value={freqType}
         showClearButton
         placeholder="Repeat (never)"

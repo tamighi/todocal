@@ -1,5 +1,7 @@
 import React from "react";
 
+import { RRule } from "rrule";
+
 import { Box, Container } from "@/atoms";
 import { Tag, Todo } from "@/models";
 import {
@@ -80,6 +82,10 @@ export const MutateTodoForm = (props: {
     handleDateChange(date);
   };
 
+  const onRruleChange = (rrule: RRule | null) => {
+    setFormValue((prev) => ({ ...prev, rRule: rrule ?? undefined }));
+  };
+
   return (
     <Container marginHorizontal="s" gap="m">
       <TextInput
@@ -114,7 +120,16 @@ export const MutateTodoForm = (props: {
           />
           <IconButton name="plus" onPress={handlePlusPress} />
         </Box>
-        <RRulePicker mt="xs" />
+        {
+          <RRulePicker
+            mt="xs"
+            value={formValue.rRule}
+            onValueChange={onRruleChange}
+            startDate={
+              formValue.day?.id ? new Date(formValue.day?.id) : undefined
+            }
+          />
+        }
       </Box>
       <Box flexDirection="row" justifyContent="space-around" gap="s">
         <Checkbox
