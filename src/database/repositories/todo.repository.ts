@@ -1,6 +1,7 @@
-import { DeepPartial } from "typeorm";
+import { DeepPartial, IsNull, Not } from "typeorm";
 import { TodoEntity } from "../entities";
 import { AbstractRepository } from "./abstract.repository";
+import { RRule } from "rrule";
 
 class TodoRepository extends AbstractRepository<TodoEntity> {
   constructor() {
@@ -11,7 +12,26 @@ class TodoRepository extends AbstractRepository<TodoEntity> {
   }
 
   public async getByDay(dayId: string) {
-    return this.getList({ where: { day: { id: dayId } } });
+    const repeatTodo = await this.getByRrule(dayId);
+    const uniqueTodos = await this.getList({
+      where: { day: { id: dayId }, rRule: IsNull() },
+    });
+
+    return [...uniqueTodos, ...repeatTodo];
+  }
+
+  private async getByRrule(dayId: string) {
+    const reapeatedTodos = await this.getList({
+      where: { rRule: Not(IsNull()) },
+    });
+    const date = new Date(dayId);
+
+    const todos = reapeatedTodos.filter((todo) => {
+      const rrule = RRule.fromString(todo.rRule!);
+      return rrule.between(date, date, true).length > 0;
+    });
+
+    return todos;
   }
 
   public override async create(payload: DeepPartial<TodoEntity>) {
@@ -22,27 +42,6 @@ class TodoRepository extends AbstractRepository<TodoEntity> {
     };
 
     return super.create(payloadWithOrder);
-  }
-
-  public async getTodosWithRepetitionOnDate(date: Date): Promise<TodoEntity[]> {
-    const todos = await this.repository
-      .createQueryBuilder("todo")
-      .innerJoin("todo.repetition", "repetition")
-      .where(
-        `(repetition.type = :daily 
-          AND repetition.startDay <= :date 
-          AND DATE_DIFF(:date, repetition.startDay) % repetition.interval = 0
-          ) OR (repetition.type = :weekly AND repetition.dayOfWeek = :dayOfWeek)`,
-        {
-          date: date.toISOString().split("T")[0],
-          dayOfWeek: date.getDay(),
-          daily: "daily",
-          weekly: "weekly",
-        },
-      )
-      .getMany();
-
-    return todos;
   }
 
   public async getNextOrder() {
