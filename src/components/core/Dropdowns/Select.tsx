@@ -8,7 +8,7 @@ import { IconButton } from "../IconButton";
 import { ViewStyle } from "react-native";
 
 type Props<T extends object | string> = {
-  value?: T;
+  value?: T | null;
   onChange?: (newValue: T | null) => void;
   placeholder?: string;
   data?: T[];

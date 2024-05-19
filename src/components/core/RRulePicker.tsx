@@ -1,23 +1,29 @@
 import React from "react";
 
-import { RRule } from "rrule";
+import { Frequency, RRule } from "rrule";
 
 import { Box, BoxProps } from "@/atoms";
 import { Multiselect, Select } from "./Dropdowns";
 
-const frequencies = ["DAILY", "WEEKLY"] satisfies typeof RRule.FREQUENCIES;
-
-const freqLabelToValue: { [K in (typeof frequencies)[number]]: string } = {
-  DAILY: "Daily",
-  WEEKLY: "Weekly",
+type Freq = {
+  value: number;
+  label: string;
+  inputLabel?: string;
 };
 
-const freqsData = Object.entries(freqLabelToValue).map(([v, k]) => ({
-  value: v,
+const frequencies = [Frequency.DAILY, Frequency.WEEKLY] satisfies Frequency[];
+
+const freqLabelToValue: { [K in (typeof frequencies)[number]]: string } = {
+  [Frequency.DAILY]: "Daily",
+  [Frequency.WEEKLY]: "Weekly",
+};
+
+const freqsData: Freq[] = Object.entries(freqLabelToValue).map(([v, k]) => ({
+  value: Number(v),
   label: k,
 }));
 
-const dailyFreqsData = [
+const dailyFreqsData: Freq[] = [
   { value: 1, label: "1 day" },
   ...Array.from({ length: 5 }).map((_, i) => ({
     value: i + 2,
@@ -25,60 +31,109 @@ const dailyFreqsData = [
   })),
 ];
 
-const weeklyFreqsData = [
-  { value: 1, label: "Monday", inputLabel: "Mon" },
-  { value: 2, label: "Tuesday", inputLabel: "Tue" },
-  { value: 3, label: "Wednesday", inputLabel: "Wed" },
-  { value: 4, label: "Thursday", inputLabel: "Thu" },
-  { value: 5, label: "Friday", inputLabel: "Fri" },
-  { value: 6, label: "Saturday", inputLabel: "Sat" },
-  { value: 7, label: "Sunday", inputLabel: "Sun" },
+const weeklyFreqsData: Freq[] = [
+  { value: 0, label: "Monday", inputLabel: "Mon" },
+  { value: 1, label: "Tuesday", inputLabel: "Tue" },
+  { value: 2, label: "Wednesday", inputLabel: "Wed" },
+  { value: 3, label: "Thursday", inputLabel: "Thu" },
+  { value: 4, label: "Friday", inputLabel: "Fri" },
+  { value: 5, label: "Saturday", inputLabel: "Sat" },
+  { value: 6, label: "Sunday", inputLabel: "Sun" },
 ];
 
-type Props = BoxProps;
+type Props = {
+  onValueChange?: (value: RRule | null) => void;
+  value?: RRule;
+  startDate?: Date;
+} & BoxProps;
 
 export const RRulePicker = (props: Props) => {
-  const { ...rest } = props;
+  const { onValueChange, value, startDate, ...rest } = props;
 
-  const [freqType, setFreqType] = React.useState<string>();
-  const [dayFreq, setDayFreq] = React.useState(0);
-  const [weekFreq, setWeekFreq] = React.useState<number[]>();
+  const [_, setCurrentValue] = React.useState<RRule | null>(null);
 
-  const onTypeChange = (type: (typeof freqsData)[number] | null) => {
-    setFreqType(type?.value);
-    setDayFreq(0);
+  const [freqType, setFreqType] = React.useState<Freq | null>(null);
+  const [dayFreq, setDayFreq] = React.useState<Freq | null>(null);
+  const [weekFreq, setWeekFreq] = React.useState<Freq[]>([]);
+
+  React.useEffect(() => {
+    setCurrentValue(value ?? null);
+
+    setFreqType(freqsData.find((d) => d.value === value?.options.freq) ?? null);
+    setWeekFreq(
+      value?.options.byweekday.map(
+        (v) => weeklyFreqsData.find((d) => d.value === v) as Freq,
+      ) ?? [],
+    );
+    setDayFreq(
+      dailyFreqsData.find((d) => d.value === value?.options.interval) ?? null,
+    );
+  }, [value]);
+
+  const onTypeChange = (type: Freq | null) => {
+    setFreqType(type);
+    setDayFreq(null);
+    setWeekFreq([]);
+    setCurrentValue(null);
   };
 
-  const onDayChange = (day: (typeof dailyFreqsData)[number] | null) => {
-    setDayFreq(day?.value ?? 0);
+  const onDayChange = (day: Freq | null) => {
+    setDayFreq(day);
+    const rrule = new RRule({
+      freq: Frequency.DAILY,
+      dtstart: startDate,
+      interval: day?.value,
+    });
+
+    setCurrentValue(rrule);
+    onValueChange?.(rrule);
+  };
+
+  const onWeekChange = (weeks: Freq[]) => {
+    setWeekFreq(weeks);
+
+    const rrule =
+      weeks.length > 0
+        ? new RRule({
+            freq: Frequency.WEEKLY,
+            dtstart: startDate,
+            byweekday: weeks.map((w) => w.value),
+          })
+        : null;
+
+    setCurrentValue(rrule);
+    onValueChange?.(rrule);
   };
 
   return (
     <Box gap="xs" flexGrow={1} {...rest}>
       <Select
         data={freqsData}
+        onChange={onTypeChange}
+        value={freqType}
         showClearButton
-        labelKey="label"
-        onChange={(v) => setFreqType(v?.value)}
         placeholder="Repeat (never)"
         zIndex={110}
       />
-      {freqType === "DAILY" && (
+      {freqType?.value === Frequency.DAILY && (
         <Select
           placeholder="Every (select recurrence)"
           labelKey="label"
           data={dailyFreqsData}
           onChange={onDayChange}
+          value={dayFreq}
           dropdownStyle={{ maxHeight: 180, width: 120 }}
         />
       )}
-      {freqType === "WEEKLY" && (
+      {freqType?.value === Frequency.WEEKLY && (
         <Multiselect
           placeholder="Every (select days)"
           labelKey="label"
           inputLabelKey="inputLabel"
           valueKey="value"
           data={weeklyFreqsData}
+          onChange={onWeekChange}
+          values={weekFreq}
           dropdownStyle={{ maxHeight: 180, width: 120 }}
         />
       )}
